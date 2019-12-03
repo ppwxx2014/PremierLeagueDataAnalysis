@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TemplateController {
 
-	
 	// 메인 홈
 	@GetMapping("/index")
 	public String index() {

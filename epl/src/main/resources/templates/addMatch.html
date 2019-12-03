@@ -1,0 +1,180 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+			<h2>경기 입력 페이지</h2>
+
+	<table border = "1">
+		<thead>
+			<tr>
+				<td>Home Team</td>
+				<td>경기 시간</td>
+				<td>Away Team</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<select id ="hometeamList">
+					</select>
+				</td>
+				<td>
+					<input type ="text" id = "time" placeholder = "xx">:
+					<input type ="text" id = "minute" placeholder = "xx">
+				</td>
+				<td>
+					<select id ="awayteamList">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>심판</td>
+				<td>날짜</td>
+				<td> 경기장</td>
+			</tr>
+			<tr>
+				<td><select id =refreeList>
+					</select>
+				</td>
+				<td>
+					<input type ="text" id = "year" placeholder = "xxxx">-
+					<input type ="text" id = "mounth" placeholder = "xx">-
+					<input type ="text" id = "day" placeholder = "xx">
+				</td>
+				<td id ="stadium"></td>
+			<tr>
+		</tbody>
+	</table>
+	<button id="insert">경기 입력</button>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+ // 홈팀 선택
+	$.ajax({
+		url:"teamList",
+		method:"POST",
+		success:function(json){
+			console.log(json);
+			$("#hometeamList").empty();
+			$("#hometeamList").append("<option value='none'>--선택--</option>")
+			$(json).each(function(index,item){
+				temp="<option value='";
+				temp+=item.teamName;
+				temp+="'>";
+				temp+=item.teamName;
+				temp+="</option>";
+				$("#hometeamList").append(temp);
+			});
+		}
+	});
+	//홈팀 선택시 자동의로 경기장 선택
+	$("#hometeamList").change(function(){
+	$.ajax({
+		url:"stadium",
+		method:"POST",
+		data:{"teamName":$("#hometeamList").val()},
+		success:function(json){
+			console.log(json);
+			$("#stadium").empty();
+			$("#stadium").append(json);	
+			}	
+		});
+	})
+	
+	
+	//어웨이팀 선택
+	$.ajax({
+		url:"teamList",
+		method:"POST",
+		success:function(json){
+			console.log(json);
+			$("#awayteamList").empty();
+			$("#awayteamList").append("<option value='none'>--선택--</option>")
+			$(json).each(function(index,item){
+				temp="<option value='";
+				temp+=item.teamName;
+				temp+="'>";
+				temp+=item.teamName;
+				temp+="</option>";
+				$("#awayteamList").append(temp);
+			});
+		}
+	});
+	//심판 선택
+	$.ajax({
+		url:"refreeList",
+		method:"POST",
+		success:function(json){
+			console.log(json);
+			$("#refreeList").empty();
+			$(json).each(function(index,item){
+				temp="<option value='";
+				temp+=item.refreeNo;
+				temp+="'>";
+				temp+=item.refreeName;
+				temp+="</option>";
+				$("#refreeList").append(temp);
+			});
+		}
+	});
+	
+	// 경기입력
+	$("#insert").click(function(){
+		console.log("확인!");
+		console.log("hometeamName : ", $("#hometeamList").val());
+		console.log("awayteamName : ", $("#awayteamList").val());
+		console.log("matchDate : ", $("#year").val()+"-"+$("#mounth").val()+"-"+$("#day").val());
+		console.log("matchTime : ", $("#time").val()+":"+$("#minute").val()+":00");
+		console.log("stadiumName : ",$("#stadium").text());
+		console.log("refreeNo : ", $("#refreeList").val());
+		
+		$.ajax({
+			url:"insertMatch",
+			method:"POST",
+			data:{
+				  "hometeamName":$("#hometeamList").val(),
+				  "awayteamName":$("#awayteamList").val(),
+				  "matchDate":$("#year").val()+"-"+$("#mounth").val()+"-"+$("#day").val(),
+				  "matchTime":$("#time").val()+":"+$("#minute").val()+":00",
+				  "stadiumName":$("#stadium").text(),
+				  "refreeNo":$("#refreeList").val()
+				  },
+			success:function(json){
+				console.log(json);
+				}	
+			});
+		});
+    </script>
+</body>
+</html>

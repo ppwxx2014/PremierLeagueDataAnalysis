@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace = "com.epl.match.mapper.MatchMapper">
+
+	<select id="selectTeamList"
+			resultType="com.epl.vo.Team">
+		SELECT 	
+			team_name 		AS teamName,
+			nick_name 		AS nickName,
+			foundation		AS foundation,
+			stadium_name	AS stadiumName,
+			home_place 		AS homePlace,
+			rival 			AS rival,
+			owner			AS owner	
+		FROM
+			team
+	</select>
+	
+	<select id = "selectRefreeList" 
+			resultType="com.epl.vo.Refree">
+		SELECT
+			refree_no 	AS 	refreeNo,
+			refree_name AS	refreeName,
+			birth_date	AS	birthDate,
+			country		AS	country
+		FROM
+			refree
+	</select>
+	
+	<select id = "selectStadiumByTeamName"
+			parameterType="String"
+			resultType="String">
+		SELECT
+			stadium_name AS stadiumName
+		FROM
+			team
+		WHERE
+			team_name = #{teamName}
+	</select>
+	
+	<insert id = "insertMatch"
+			parameterType="com.epl.vo.MatchSchedule">
+			<selectKey resultType="int" keyProperty="matchNo" order="AFTER">
+       				 SELECT LAST_INSERT_ID() 
+   			</selectKey>    
+		INSERT INTO match_schedule(
+			hometeam_name,
+			awayteam_name,
+			match_date,
+			match_time,
+			stadium_name
+			)
+			VALUES(
+				#{hometeamName},
+				#{awayteamName},
+				#{matchDate},
+				#{matchTime},
+				#{stadiumName}
+			)
+	</insert>
+	
+	<insert id = "insertMatchRefree"
+			parameterType="com.epl.vo.MatchRefree">
+		INSERT
+		INTO 
+			match_refree( match_no,
+				  		  refree_no	)
+				   
+		VALUES
+						(#{matchNo},
+						#{refreeNo}  )
+	</insert>
+</mapper>

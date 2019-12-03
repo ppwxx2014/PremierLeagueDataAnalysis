@@ -131,12 +131,12 @@ public class TemplateController {
 	
 	// :::::::::::::::::::::::::::: topBar 관리자 설정 :::::::::::::::::::::::::::: //
 	
-	@GetMapping("/modifyAdmin")	
+	@GetMapping("/modifyManager")	
 	public String modifyAdmin() {
 		return "modifyAdmin";
 	}
 	
-	@GetMapping("/logout")	
+	@GetMapping("/managerLogout")	
 	public String logout() {
 		return "logout";
 	}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+			<h1>회원정보수정</h1>
+			<form method="post" action="/modifyAdmin">
+				<div>
+					<input type="password" name="beforePw" placeholder="기존 비밀번호를 입력하세요.">
+				</div>
+				
+				<div>
+					<input type="text" name="adminId" readonly="readonly"
+						th:value="${admin.adminId}" placeholder="ID">
+				</div>
+				
+				<div>
+					<input type="text" name="adminName" placeholder="수정할 이름을 입력하세요.">
+				</div>
+				
+				<div>
+					<input type="password" name="adminPw" placeholder="변경할 비밀번호를 입력하세요.">
+				</div>
+				<button type="submit">수정</button>
+			</form>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+
+    </script>
+</body>
+</html>

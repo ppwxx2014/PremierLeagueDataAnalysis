@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+			<form method = "post" action = "modifyAdminPw">
+				<div>입력하신 이메일로 임시비밀번호가 발송됩니다.</div>
+				<div>
+					<input type="email" name="adminEmail" placeholder="admin email을 입력하세요.">
+				</div>
+				
+				<button type = "submit">임시비밀번호 받기</button>
+				
+			</form>
+			</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+
+    </script>
+</body>
+</html>

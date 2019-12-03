@@ -36,21 +36,13 @@ public class TemplateController {
 	public String getTeam() {
 		return "getTeam";
 	}
-	
-	@GetMapping("/addTeam")	
-	public String addTeam() {
-		return "addTeam";
-	}
+
 	
 	@GetMapping("/addTeamLeader")	
 	public String addTeamLeader() {
 		return "addTeamLeader";
 	}
 	
-	@GetMapping("/modifyTeam")	
-	public String modifyTeam() {
-		return "modifyTeam";
-	}
 	
 	@GetMapping("/changeTeam")	
 	public String changeTeam() {

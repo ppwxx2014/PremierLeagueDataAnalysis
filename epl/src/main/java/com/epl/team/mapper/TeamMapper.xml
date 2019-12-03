@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace = "com.epl.team.mapper.TeamMapper">
+  	<insert id = "insertTeam" parameterType="com.epl.vo.Team">
+  		INSERT INTO team(
+  			team_name,
+  			nick_name,
+  			foundation,
+  			stadium_name,
+  			home_place,
+  			rival,
+  			owner
+  		)VALUES(
+  			#{teamName},
+  			#{nickName},
+  			#{foundation},
+  			#{stadiumName},
+  			#{homePlace},
+  			#{rival},
+  			#{owner}
+  		)
+  	</insert>
+  	<select id ="selectStadiumList" resultType="com.epl.vo.Stadium">
+  		SELECT
+  			stadium_name as stadiumName,
+  			stadium_location as stadiumLocation
+  		FROM stadium
+  	</select>
+  	<select id = "selectTeamList" resultType="com.epl.vo.Team">
+  		SELECT
+  			team_name as teamName,
+  			nick_name as nickName,
+  			foundation as foundation,
+  			stadium_name as stadiumName,
+  			home_place as homePlace,
+  			rival as rival,
+  			owner as owner
+  		FROM team
+  	</select>
+  	
+	<delete id ="deleteTeam" parameterType="com.epl.vo.Team">
+  		DELETE FROM team
+  		WHERE team_name = #{teamName}
+  	</delete>
+  	<update id = "updateTeam" parameterType="com.epl.vo.Team">
+  		UPDATE team
+  		SET active = #{active}
+  		WHERE team_name = #{teamName}
+  	</update>
+</mapper>
+  
+  
+  

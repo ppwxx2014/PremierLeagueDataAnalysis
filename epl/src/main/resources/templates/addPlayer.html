@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+</head>
+
+<body>
+	<!-- Left Panel -->
+	<th:block th:include="template/part/aside"></th:block>
+	<!-- /#left-panel -->
+
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+		<!-- Header-->
+		<div th:include="template/part/topBar::topBar"></div>
+		<!-- /#header -->
+
+		<!-- Content -->
+		<div class="content">
+			<div>
+				<div>
+					Name : <input type="text" id="playerName">
+				</div>
+				<div>
+					Birth-Date : <input type="date" id="birthDate">
+				</div>
+				<div>
+					position : <select size="4" id="position">
+						<option value="1">GK</option>
+						<option value="2">DF</option>
+						<option value="3">MF</option>
+						<option value="4">FW</option>
+					</select>
+				</div>
+				<div>
+					country : <select id="countryList">
+					</select>
+				</div>
+			</div>
+			<button type="button" id="add">player Add</button>
+		</div>
+		<!-- /.content -->
+
+
+		<div class="clearfix"></div>
+
+		<!-- Footer -->
+		<div th:include="template/part/footer::footer"></div>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /#right-panel -->
+
+
+
+	<!--Local Stuff-->
+	<script>
+	// 리스트 출력
+	$.ajax({
+		url : "getCountryList",
+		method : "post",
+		success : function(json){
+			console.log("country 성공 !");
+			console.log(json);
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.countryName;
+				temp += "'>";
+				temp += item.countryName;
+				temp += "</option>";
+				$("#countryList").append(temp);
+			});
+		}
+	});
+	
+	 // 플레이어 입력버튼
+	 $("#add").click(function() {
+		console.log("name"+$("#playerName").val());
+		console.log("birthDate"+$("#birthDate").val());
+		console.log("countryList"+$("#countryList").val());
+		$.ajax({
+			url : "/addPlayer",
+			method : "post",
+			data : {"playerName" : $("#playerName").val() , "birthDate" : $("#birthDate").val() , "country" : $("#countryList").val()} ,
+			success : function(json) {
+				console.log(json + "입력성공 !");
+				
+				/* $.ajax({
+					url:"/addPlayerPosition" ,
+					method : "post" ,
+					data : {"playerName" : $("#playerName").val() , "positionNo" : $("#position").val()},
+					success : function(json) {
+						console.log(json+"포지션 입력 성공!")
+					}
+				}) */
+			}
+		});
+	}); 
+    </script>
+</body>
+</html>

@@ -19,24 +19,10 @@ public class TemplateController {
 	}
 	
 	// :::::::::::::::::::::::::::: 여기부터 선수 카테고리 :::::::::::::::::::::::::::: //
-	@GetMapping("/getPlayer")	
-	public String getPlayer() {
-		return "getPlayer";
-	}
-	
-	@GetMapping("/addPlayer")	
-	public String addPlayer() {
-		return "addPlayer";
-	}
 	
 	@GetMapping("/modifyPlayer")	
 	public String modifyPlayer() {
 		return "modifyPlayer";
-	}
-	
-	@GetMapping("/addPlayerPosition")	
-	public String playerPosition() {
-		return "addplayerPosition";
 	}
 	
 	@GetMapping("/playerContract")	
@@ -76,11 +62,6 @@ public class TemplateController {
 	@GetMapping("/getRefree")	
 	public String getRefree() {
 		return "getRefree";
-	}
-	
-	@GetMapping("/addRefree")	
-	public String addRefree() {
-		return "addRefree";
 	}
 	
 	// :::::::::::::::::::::::::::: 여기부터 경기 카테고리 :::::::::::::::::::::::::::: //

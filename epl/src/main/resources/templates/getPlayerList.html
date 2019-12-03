@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+</head>
+
+<body>
+	<!-- Left Panel -->
+	<th:block th:include="template/part/aside"></th:block>
+	<!-- /#left-panel -->
+
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+		<!-- Header-->
+		<div th:include="template/part/topBar::topBar"></div>
+		<!-- /#header -->
+
+		<!-- Content -->
+		<div class="content">
+			<div>
+				<span>전체 선수 수 : [[${map.totalRowCount}]]</span>
+			</div>
+			<a th:href="@{/addPlayer}">선수 추가</a>
+			<form action="/getPlayerList" method="get">
+				<div>
+					<label>검색어(선수이름) :</label> <input class="form-control"
+						name="searchWord" type="text">
+					<button type="submit">검색</button>
+				</div>
+			</form>
+			<table border="1">
+				<tr>
+					<td>선수 번호</td>
+					<td>선수 이름</td>
+					<td>선수 생일</td>
+					<td>출신 국가</td>
+					<!-- <td>선수 포지션</td> -->
+				</tr>
+				<tr th:each="str : ${map.list}">
+					<td th:text="${str.playerNo}"></td>
+					<td th:text="${str.playerName}"></td>
+					<td th:text="${str.birthDate}"></td>
+					<td th:text="${str.country}"></td>
+				</tr>
+			</table>
+
+			<a th:if="${map.currentPage} > 1" th:href="@{/getPlayerList?(currentPage=${map.currentPage-1},searchWord=${map.searchWord})}">이전</a>
+			<!-- <c:if test="${map.currentPage < map.lastPage}"> -->
+			<a th:if="${map.currentPage} < ${map.lastPage}-1" th:href="@{/getPlayerList?(currentPage=${map.currentPage+1},searchWord=${map.searchWord})}">다음</a>
+			
+		</div>
+		<!-- /.content -->
+
+
+		<div class="clearfix"></div>
+
+		<!-- Footer -->
+		<div th:include="template/part/footer::footer"></div>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /#right-panel -->
+
+
+
+	<!--Local Stuff-->
+	<script>
+	
+    </script>
+</body>
+</html>

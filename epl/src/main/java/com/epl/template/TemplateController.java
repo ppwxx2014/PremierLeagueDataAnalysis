@@ -1,0 +1,144 @@
+package com.epl.template;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class TemplateController {
+
+	
+	// 메인 홈
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
+	
+	// 게시판 이동
+	@GetMapping("/userBoard")	
+	public String userBoard() {
+		return "userBoard";
+	}
+	
+	// :::::::::::::::::::::::::::: 여기부터 선수 카테고리 :::::::::::::::::::::::::::: //
+	@GetMapping("/getPlayer")	
+	public String getPlayer() {
+		return "getPlayer";
+	}
+	
+	@GetMapping("/addPlayer")	
+	public String addPlayer() {
+		return "addPlayer";
+	}
+	
+	@GetMapping("/modifyPlayer")	
+	public String modifyPlayer() {
+		return "modifyPlayer";
+	}
+	
+	@GetMapping("/addPlayerPosition")	
+	public String playerPosition() {
+		return "addplayerPosition";
+	}
+	
+	@GetMapping("/playerContract")	
+	public String playerContract() {
+		return "playerContract	";
+	}
+	
+	// :::::::::::::::::::::::::::: 여기부터 팀 카테고리 :::::::::::::::::::::::::::: //
+	
+	@GetMapping("/getTeam")	
+	public String getTeam() {
+		return "getTeam";
+	}
+	
+	@GetMapping("/addTeam")	
+	public String addTeam() {
+		return "addTeam";
+	}
+	
+	@GetMapping("/addTeamLeader")	
+	public String addTeamLeader() {
+		return "addTeamLeader";
+	}
+	
+	@GetMapping("/modifyTeam")	
+	public String modifyTeam() {
+		return "modifyTeam";
+	}
+	
+	@GetMapping("/changeTeam")	
+	public String changeTeam() {
+		return "changeTeam";
+	}
+	
+	// :::::::::::::::::::::::::::: 여기부터 심판	 카테고리 :::::::::::::::::::::::::::: //
+	
+	@GetMapping("/getRefree")	
+	public String getRefree() {
+		return "getRefree";
+	}
+	
+	@GetMapping("/addRefree")	
+	public String addRefree() {
+		return "addRefree";
+	}
+	
+	// :::::::::::::::::::::::::::: 여기부터 경기 카테고리 :::::::::::::::::::::::::::: //
+	
+	@GetMapping("/addMatchSchedule")	
+	public String addMatchSchedule() {
+		return "addMatchSchedule";
+	}
+	
+	@GetMapping("/getMatchSchedule")	
+	public String getMatchSchedule() {
+		return "getMatchSchedule";
+	}	
+	
+	@GetMapping("/matchResult")	
+	public String matchResult() {
+		return "matchResult";
+	}
+	
+	// :::::::::::::::::::::::::::: 여기부터 실시간 경기 카테고리 :::::::::::::::::::::::::::: //
+	
+	@GetMapping("/addLineUp")	
+	public String addLineUp() {
+		return "addLineUp";
+	}
+	
+	@GetMapping("/addPlayerRecord")	
+	public String addPlayerRecord() {
+		return "addPlayerRecord";
+	}
+	
+	@GetMapping("/addKepperRecord")	
+	public String addKepperRecord() {
+		return "addKepperRecord";
+	}
+	
+	// :::::::::::::::::::::::::::: 여기부터 회원관리 카테고리 :::::::::::::::::::::::::::: //
+	
+	@GetMapping("/addNotice")	
+	public String addNotice() {
+		return "addNotice";
+	}
+	
+	@GetMapping("/MembershipManagement")	
+	public String MembershipManagement() {
+		return "MembershipManagement";
+	}
+	
+	// :::::::::::::::::::::::::::: topBar 관리자 설정 :::::::::::::::::::::::::::: //
+	
+	@GetMapping("/modifyAdmin")	
+	public String modifyAdmin() {
+		return "modifyAdmin";
+	}
+	
+	@GetMapping("/logout")	
+	public String logout() {
+		return "logout";
+	}
+}

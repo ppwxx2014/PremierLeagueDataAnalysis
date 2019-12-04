@@ -36,6 +36,7 @@
 					<td>선수 이름</td>
 					<td>선수 생일</td>
 					<td>출신 국가</td>
+					<td>선수 포지션</td>
 					<!-- <td>선수 포지션</td> -->
 				</tr>
 				<tr th:each="str : ${map.list}">
@@ -43,6 +44,7 @@
 					<td th:text="${str.playerName}"></td>
 					<td th:text="${str.birthDate}"></td>
 					<td th:text="${str.country}"></td>
+					<td th:text="${str.playerPosition}"></td>
 				</tr>
 			</table>
 

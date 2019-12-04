@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="com.epl.playercontract.mapper.PlayerContractMapper">
+	<insert id="insertPlayerContract" parameterType="com.epl.vo.PlayerContract">
+		INSERT INTO player_contract(
+			team_name,
+			player_no ,
+			contract_start ,
+			contract_end ,
+			salary , 
+			transfer_fee ,
+			uniform_back_number
+		) VALUES (
+			#{teamName} ,
+			#{playerNo} ,
+			#{contractStart} ,
+			#{contractEnd},
+			#{salary},
+			#{trasferFee},
+			#{uniformBackNo}
+		)
+	</insert>
+	<select id ="selectPlayerContractList" resultType="com.epl.vo.PlayerContract">
+		SELECT  team_name as teamName,
+				player_no  as playerNo,
+				contract_start as contractStart ,
+				contract_end as contractEnd ,
+				salary as salary , 
+				transfer_fee as trasferFee ,
+				uniform_back_number as uniformBackNo
+		FROM player_contract
+	</select>
+	<select id = "selectPlayerContractListByPage" resultType="com.epl.vo.PlayerContract" parameterType="com.epl.vo.Page">
+		SELECT  team_name as teamName,
+				player_no  as playerNo,
+				contract_start as contractStart ,
+				contract_end as contractEnd ,
+				salary as salary ,
+				transfer_fee as trasferFee ,
+				uniform_back_number as uniformBackNo
+		FROM player_contract
+		<where> <!-- where절 -->
+			<if test = "searchWord != null">
+				team_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY team_name ASC
+		LIMIT #{beginRow} , #{rowPerPage}
+	</select>
+	<select id = "selectPlayerContractCount" resultType = "int"  parameterType="com.epl.vo.Page">
+		SELECT COUNT(*) FROM player_contract
+		<where>
+			<if test = "searchWord != null">
+				team_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -8,8 +8,6 @@ import com.epl.vo.Player;
 public interface PlayerService {
 	public int addPlayer(Player player);
 	
-	//public int addPlayerPosition(PlayerPosition playerPosition);
-	
 	public int getPlayerNo(Player player);
 	
 	public List<Player> getPlayerList();

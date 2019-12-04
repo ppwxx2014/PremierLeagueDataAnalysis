@@ -27,11 +27,7 @@
 					Birth-Date : <input type="date" id="birthDate">
 				</div>
 				<div>
-					position : <select size="4" id="position">
-						<option value="1">GK</option>
-						<option value="2">DF</option>
-						<option value="3">MF</option>
-						<option value="4">FW</option>
+					position : <select id="position">
 					</select>
 				</div>
 				<div>
@@ -57,12 +53,12 @@
 
 	<!--Local Stuff-->
 	<script>
-	// ¸®½ºÆ® Ãâ·Â
+	// êµ­ê°€ë¦¬ìŠ¤íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸°
 	$.ajax({
 		url : "getCountryList",
 		method : "post",
 		success : function(json){
-			console.log("country ¼º°ø !");
+			console.log("country ë°›ì•„ì˜¤ê¸° ì„±ê³µ !");
 			console.log(json);
 			$(json).each(function(index, item){
 				temp = "<option value = '";
@@ -74,25 +70,45 @@
 			});
 		}
 	});
-	
-	 // ÇÃ·¹ÀÌ¾î ÀÔ·Â¹öÆ°
+	// í¬ì§€ì…˜  ë¶ˆëŸ¬ì˜¤ê¸°
+	$.ajax({
+		url : "getPositionList",
+		method : "post",
+		success : function(json){
+			console.log("position ë°›ì•„ì˜¤ê¸° ì„±ê³µ !");
+			console.log(json);
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.position;
+				temp += "'>";
+				temp += item.position;
+				temp += "</option>";
+				$("#position").append(temp);
+			});
+		}
+	});
+	 // í”Œë ˆì´ì–´ ì…ë ¥
 	 $("#add").click(function() {
 		console.log("name"+$("#playerName").val());
 		console.log("birthDate"+$("#birthDate").val());
 		console.log("countryList"+$("#countryList").val());
+		console.log("playerPosition"+$("#position").val());
 		$.ajax({
 			url : "/addPlayer",
 			method : "post",
-			data : {"playerName" : $("#playerName").val() , "birthDate" : $("#birthDate").val() , "country" : $("#countryList").val()} ,
+			data : {"playerName" : $("#playerName").val() ,
+					"birthDate" : $("#birthDate").val() ,
+					"country" : $("#countryList").val() ,
+					"playerPosition" : $("#position").val()} ,
 			success : function(json) {
-				console.log(json + "ÀÔ·Â¼º°ø !");
+				console.log(json + "í–‰ ì…ë ¥ ì„±ê³µ!");
 				
 				/* $.ajax({
 					url:"/addPlayerPosition" ,
 					method : "post" ,
 					data : {"playerName" : $("#playerName").val() , "positionNo" : $("#position").val()},
 					success : function(json) {
-						console.log(json+"Æ÷Áö¼Ç ÀÔ·Â ¼º°ø!")
+						console.log(json+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½!")
 					}
 				}) */
 			}

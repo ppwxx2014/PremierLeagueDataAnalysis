@@ -7,11 +7,13 @@
 		INSERT INTO player(
 			player_name,
 			birth_date ,
-			country
+			country ,
+			player_position
 		) VALUES (
 			#{playerName} ,
 			#{birthDate} ,
-			#{country}
+			#{country} ,
+			#{playerPosition}
 		)
 	</insert>
 	
@@ -19,7 +21,8 @@
 		SELECT  player_no as playerNo,
 				player_name as playerName,
 				birth_date as birthDate,
-				country as country
+				country as country ,
+				player_position as playerPosition
 		FROM player
 	</select>
 	
@@ -27,7 +30,8 @@
 		SELECT  player_no as playerNo,
 				player_name as playerName,
 				birth_date as birthDate,
-				country as country
+				country as country ,
+				player_position as playerPosition
 		FROM player
 		<where> <!-- where절 -->
 			<if test = "searchWord != null">

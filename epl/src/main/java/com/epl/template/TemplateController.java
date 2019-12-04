@@ -38,10 +38,10 @@ public class TemplateController {
 	}
 
 	
-	@GetMapping("/addTeamLeader")	
+	/*@GetMapping("/addTeamLeader")	
 	public String addTeamLeader() {
 		return "addTeamLeader";
-	}
+	}*/
 	
 	
 	@GetMapping("/changeTeam")	

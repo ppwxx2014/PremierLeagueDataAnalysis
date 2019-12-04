@@ -16,7 +16,7 @@ import com.epl.vo.Team;
 public class TeamRestController {
 	@Autowired private TeamServiceImpl teamService;
 	
-	@PostMapping("getStadiumList")
+	@PostMapping("/getStadiumList")
 	public List<Stadium> getStadiumList(){
 		List<Stadium> list = teamService.getStadiumList();
 		return list;

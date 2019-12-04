@@ -11,4 +11,5 @@ public class PlayerContract {
 	private int salary;
 	private int trasferFee;
 	private int uniformBackNo;
+	private String playerName;
 }

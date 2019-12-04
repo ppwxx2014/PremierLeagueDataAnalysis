@@ -48,7 +48,7 @@
 		</div>
 		<div>
 			salary
-			<input type = "text" name = "salary" id ="salary"><!-- 숫자만 입력가능하게 수정 -->
+			<input type = "number" name = "salary" id ="salary" min="0"><!-- 숫자만 입력가능하게 수정 -->
 		</div>
 		<div>
 			contractStart
@@ -84,16 +84,27 @@
 		changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
 		minDate: '-100y', //현재 년부터 100년 전까지
 		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
-	
+		 onClose: function( selectedDate ) {    
+             // 시작일(contractStart) datepicker가 닫힐때
+             // 종료일(contractEnd)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+             $("#contractEnd").datepicker( "option", "minDate", selectedDate );
+         }       
+
 	});
 	$("#contractEnd").datepicker({
 		dateFormat: 'yy-mm-dd',
 		changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
 	
 		changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
-		minDate: '-100y', //현재 년부터 100년 전까지
+		minDate: '-100y',
 		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
-	
+		
+		onClose: function( selectedDate ) {
+            // 종료일(contractEnd) datepicker가 닫힐때
+            // 시작일(contractStart)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+            $("#contractStart").datepicker( "option", "maxDate", selectedDate );
+        }                
+		
 	});
 	$("#name").click(function(){
 		$.ajax({
@@ -146,7 +157,7 @@
 			},
 			success:function(json){
 				alert("add contract");
-				location.href="/getCoachList";
+				location.href="/index"
 			}
 		});
 	});

@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+</head>
+
+<body>
+	<!-- Left Panel -->
+	<th:block th:include="template/part/aside"></th:block>
+	<!-- /#left-panel -->
+
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+		<!-- Header-->
+		<div th:include="template/part/topBar::topBar"></div>
+		<!-- /#header -->
+
+		<!-- Content -->
+		<div class="content">
+			<div>
+				<div>
+					teamName : <select id="teamName">
+					</select>
+				</div>
+				<div>
+					player : <select id="player">
+					</select>
+				</div>
+				<div>
+					contract_start : <input type="date" id="contractStart">
+				</div>
+				<div>
+					contract_end : <input type="date" id="contractEnd">
+				</div>
+				<div>
+					salary : <input type="number" id="salary">
+				</div>
+				<div>
+					transfer_fee : <input type="number" id="transferFee">
+				</div>
+				<div>
+					uniform_back_number : <input type="number" id="uniformBackNumber">
+				</div>
+			</div>
+			<button type="button" id="add">PlayerContract Add</button>
+		</div>
+		<!-- /.content -->
+
+
+		<div class="clearfix"></div>
+
+		<!-- Footer -->
+		<div th:include="template/part/footer::footer"></div>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /#right-panel -->
+
+
+
+	<!--Local Stuff-->
+	<script>
+	// 국가리스트 불러오기
+	$.ajax({
+		url : "/getTeamList",
+		method : "post",
+		success : function(json){
+			console.log("team 받아오기 성공 !");
+			console.log("getTeamList"+json);
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.teamName;
+				temp += "'>";
+				temp += item.teamName;
+				temp += "</option>";
+				$("#teamName").append(temp);
+			});
+		}
+	});
+	// 포지션  불러오기
+	$.ajax({
+		url : "/getPlayerList",
+		method : "post",
+		success : function(json){
+			console.log("position 받아오기 성공 !");
+			console.log("getPlayerList :"+json);
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.playerNo;
+				temp += "'>";
+				temp += item.playerName;
+				temp += "</option>";
+				$("#player").append(temp);
+			});
+		}
+	});
+	 // 플레이어 입력
+	 $("#add").click(function() {
+		console.log("teamName"+$("#teamName").val());
+		console.log("player"+$("#player").val());
+		console.log("contractStart"+$("#contractStart").val());
+		console.log("contractEnd"+$("#contractEnd").val());
+		console.log("salary"+$("#salary").val());
+		console.log("transferFee"+$("#transferFee").val());
+		console.log("uniformBackNumber"+$("#uniformBackNumber").val());
+		$.ajax({
+			url : "/addPlayerContract",
+			method : "post",
+			data : {"teamName" : $("#teamName").val() ,
+					"playerNo" : $("#player").val() ,
+					"contractStart" : $("#contractStart").val() ,
+					"contractEnd" : $("#contractEnd").val() ,
+					"salary" : $("#salary").val() ,
+					"transferFee" : $("#transferFee").val() ,
+					"uniformBackNumber" : $("#uniformBackNumber").val()} ,
+			success : function(json) {
+				console.log(json + "행 입력 성공!");
+				
+			}
+		});
+	}); 
+    </script>
+</body>
+</html>

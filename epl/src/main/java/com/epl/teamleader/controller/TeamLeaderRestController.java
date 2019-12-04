@@ -16,7 +16,7 @@ import com.epl.vo.PlayerContract;
 public class TeamLeaderRestController {
 	@Autowired private TeamLeaderServiceImpl teamLeaderService;
 	
-	@PostMapping("/getPlayerContractList")
+	@PostMapping("/getPlayerContract")
 	public List<PlayerContract> getPlayerContractList(@RequestParam(value="teamName")String teamName){
 		
 		List<PlayerContract> list = teamLeaderService.getPlayerContractList(teamName);

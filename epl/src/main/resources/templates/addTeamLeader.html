@@ -124,7 +124,7 @@
 		console.log("teamName:"+$("#teamName").val());
 		// console.log("list:"+$("#playerNo").val());
 		$.ajax({
-			url:"/getPlayerContractList",
+			url:"/getPlayerContract",
 			method:"POST",
 			data:{"teamName": $("#teamName").val()},
 			success:function(json){

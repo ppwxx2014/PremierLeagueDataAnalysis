@@ -19,7 +19,6 @@
 		)
 	</insert>
 	
-	
 	<select id="selectAdminOne"
 		parameterType="com.epl.vo.Admin"
 		resultType="com.epl.vo.Admin">

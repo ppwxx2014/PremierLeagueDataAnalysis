@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.epl.manager.service.AdminService;
-import com.epl.manager.vo.Admin;
-import com.epl.manager.vo.LoginForm;
+import com.epl.vo.Admin;
+import com.epl.vo.LoginForm;
 
 @Controller
 public class LoginController {

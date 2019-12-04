@@ -1,4 +1,4 @@
-package com.epl.manager.vo;
+package com.epl.vo;
 
 import lombok.Data;
 

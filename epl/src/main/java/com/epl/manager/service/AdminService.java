@@ -1,7 +1,7 @@
 package com.epl.manager.service;
 
-import com.epl.manager.vo.Admin;
-import com.epl.manager.vo.LoginForm;
+import com.epl.vo.Admin;
+import com.epl.vo.LoginForm;
 
 public interface AdminService {
 	Admin getAdminOne(LoginForm loginForm);

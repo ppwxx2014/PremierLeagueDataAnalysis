@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.epl.match.mapper.MatchMapper;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
+import com.epl.vo.Player;
+import com.epl.vo.PlayerInfo;
 import com.epl.vo.Refree;
 import com.epl.vo.Team;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
@@ -49,5 +51,23 @@ public class MatchListServiceImpl implements MatchService
 	{
 		int check = matchMapper.insertMatchRefree(matchRefree);
 		return check;
+	}
+	
+	public List<MatchSchedule> selectMatchList()
+	{
+		List<MatchSchedule> list = matchMapper.selectMatchList();
+		return list;
+	}
+	
+	public MatchSchedule selectMatchOne(int matchNo) 
+	{
+		MatchSchedule matchSchedule = matchMapper.selectMatchOne(matchNo);
+		return matchSchedule;
+	}
+	
+	public List<PlayerInfo> selectPlayerListByTeamName(String teamName)
+	{
+		List<PlayerInfo> list	 = matchMapper.selectPlayerListByTeamName(teamName);
+		return list;
 	}
 }

@@ -18,6 +18,8 @@
 			owner			AS owner	
 		FROM
 			team
+		WHERE
+			active = 'T'
 	</select>
 	
 	<select id = "selectRefreeList" 
@@ -74,4 +76,47 @@
 						(#{matchNo},
 						#{refreeNo}  )
 	</insert>
+	
+	<select id = "selectMatchList"
+			resultType="com.epl.vo.MatchSchedule">
+		SELECT
+			match_no		AS matchNo,
+			hometeam_name	AS hometeamName,
+			awayteam_name	AS awayteamName,
+			match_date		AS matchDate
+		FROM
+			match_schedule
+	</select>
+	
+	<select id = "selectMatchOne"
+			resultType="com.epl.vo.MatchSchedule"
+			parameterType="int">
+		SELECT
+			match_no		AS matchNo,
+			hometeam_name	AS hometeamName,
+			awayteam_name	AS awayteamName,
+			match_date		AS matchDate,
+			match_time		AS matchTime,
+			stadium_name	AS stadiumName
+		FROM
+			match_schedule
+		WHERE
+			match_no = #{matchNo}
+	</select>
+	
+	<select id ="selectPlayerListByTeamName"
+			parameterType="String"
+			resultType="com.epl.vo.PlayerInfo">
+		SELECT
+		   p.player_no	AS playerNo,
+		   p.player_name AS playerName, 
+		   p.player_position AS playerPosition,
+		   (SELECT uniform_back_number FROM player_contract WHERE player_no = p.player_no) uniformBackNumber,
+		   p.country
+		FROM player p
+		WHERE p.player_no
+		IN (SELECT player_no
+		   FROM player_contract
+		   WHERE team_name = #{teamName})
+	</select>
 </mapper>

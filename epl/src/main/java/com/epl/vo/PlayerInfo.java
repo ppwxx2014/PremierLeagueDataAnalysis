@@ -3,10 +3,11 @@ package com.epl.vo;
 import lombok.Data;
 
 @Data
-public class Player {
+public class PlayerInfo 
+{
 	private int playerNo;
 	private String playerName;
-	private String birthDate;
-	private String country;
 	private String playerPosition;
+	private int uniformBackNumber;
+	private String Country;
 }

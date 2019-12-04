@@ -13,4 +13,11 @@ public class AddMatchController
 		System.out.println("----------add Match----------");
 		return "addMatch";
 	}
+	
+	@GetMapping("/startingLineUp")
+	public String startingLineUp() 
+	{
+		System.out.println("----------startingLineUp----------");
+		return "startingLineUp";
+	}
 }

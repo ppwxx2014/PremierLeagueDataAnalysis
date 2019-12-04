@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.manager.mapper.AdminMapper;
-import com.epl.manager.vo.Admin;
-import com.epl.manager.vo.LoginForm;
-import com.epl.manager.vo.MailForm;
+import com.epl.vo.Admin;
+import com.epl.vo.LoginForm;
+import com.epl.vo.MailForm;
 
 @Service
 @Transactional

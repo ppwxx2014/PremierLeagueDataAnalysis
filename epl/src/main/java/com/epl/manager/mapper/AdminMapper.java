@@ -2,8 +2,8 @@ package com.epl.manager.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.epl.manager.vo.Admin;
-import com.epl.manager.vo.LoginForm;
+import com.epl.vo.Admin;
+import com.epl.vo.LoginForm;
 
 @Mapper
 public interface AdminMapper {

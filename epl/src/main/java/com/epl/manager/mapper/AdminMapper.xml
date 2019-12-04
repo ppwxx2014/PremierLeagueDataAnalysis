@@ -5,7 +5,7 @@
 
 <mapper namespace="com.epl.manager.mapper.AdminMapper">
 	<insert id="insertAdmin"
-		parameterType="com.epl.manager.vo.Admin">
+		parameterType="com.epl.vo.Admin">
 		INSERT INTO admin(
 		admin_id,
 		admin_pw,
@@ -21,8 +21,8 @@
 	
 	
 	<select id="selectAdminOne"
-		parameterType="com.epl.manager.vo.Admin"
-		resultType="com.epl.manager.vo.Admin">
+		parameterType="com.epl.vo.Admin"
+		resultType="com.epl.vo.Admin">
 		SELECT
 		admin_id as adminId,
 		admin_pw as adminPw
@@ -32,7 +32,7 @@
 	</select>
 	
 	<update id="updateAdmin"
-		parameterType="com.epl.manager.vo.Admin">
+		parameterType="com.epl.vo.Admin">
 		
 		UPDATE admin SET
 		admin_pw = #{adminPw},
@@ -41,7 +41,7 @@
 	</update>
 	
 	<update id="updateAdminPw"
-		parameterType="com.epl.manager.vo.Admin">
+		parameterType="com.epl.vo.Admin">
 		
 		UPDATE admin SET
 		admin_pw = #{adminPw}

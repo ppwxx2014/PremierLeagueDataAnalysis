@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.epl.manager.service.AdminService;
-import com.epl.manager.vo.Admin;
+import com.epl.vo.Admin;
 
 @Controller
 public class AdminController {

@@ -17,11 +17,11 @@ public class TeamLeaderController {
 		
 		model.addAttribute("teamLeader",teamLeader);
 		
-		return "addTeamLeader";
+		return "club/addTeamLeader";
 	}
 	@PostMapping("/addTeamLeader")
 	public String addTeamLeader(TeamLeader teamLeader) {
 		teamLeaderService.addTeamLeader(teamLeader);
-		return "redirect:/addTeamLeader";
+		return "redirect:/club/addTeamLeader";
 	}
 }

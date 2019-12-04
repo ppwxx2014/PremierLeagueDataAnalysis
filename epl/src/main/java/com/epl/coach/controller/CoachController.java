@@ -25,13 +25,13 @@ public class CoachController {
 		coach = (Coach)session.getAttribute("coach");
 		model.addAttribute("coach",coach);
 		
-		return "addCoach";
+		return "coach/addCoach";
 	}
 	
 	@PostMapping("/addCoach")
 	public String addCoach(Coach coach) {
 		coachService.addCoach(coach);
-		return "redirect:/addCoach";
+		return "redirect:/coach/addCoach";
 	}
 	
 	

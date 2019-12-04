@@ -30,11 +30,10 @@
 		</div>
 		<div>
 			country
-			<button id ="countryBtn">리스트</button>
 			<tr>
 				<td>
 					<div>
-						<select size = "10" id = "country">
+						<select id = "country">
 							
 						</select>
 					</div>
@@ -68,7 +67,6 @@
 		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
 	
 	});
-	$("#countryBtn").click(function(){
 		$.ajax({
 			url:"/getCountry",
 			method:"POST",
@@ -83,8 +81,7 @@
 					$("#country").append(temp);
 				});
 			}
-		});
-	});	
+		});	
 	
 	$("#add").click(function(){
 		console.log("name:"+$("#coachName").val());

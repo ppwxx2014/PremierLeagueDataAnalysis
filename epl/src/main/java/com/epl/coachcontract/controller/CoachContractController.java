@@ -18,12 +18,12 @@ public class CoachContractController {
 	public String addCoachContract(HttpSession session,CoachContract coachContract,Model model) {
 		
 		model.addAttribute("CoachContract",coachContract);
-		return "addCoachContract";
+		return "/coach/addCoachContract";
 	}
 	@PostMapping("addCoachContract")
 	public String addCoachContract(CoachContract coachContract) {
 		int row = coachContractService.addCoachContract(coachContract);
 		System.out.println(row);
-		return "redirect:/addCoachContract";
+		return "redirect:/coach/addCoachContract";
 	}
 }

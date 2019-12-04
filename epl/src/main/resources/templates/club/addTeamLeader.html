@@ -25,7 +25,6 @@
         <h1>addTeamLeadr</h1>
 		<div>
 			PlayerName
-			<button id = "teamBtn">리스트</button>
 			<table>
 				<tr>
 					<td>
@@ -102,7 +101,6 @@
 	});
 	
 	
-	$("#teamBtn").click(function(){
 		$.ajax({
 			url:"/getTeamList",
 			method:"POST",
@@ -118,7 +116,7 @@
 				});
 			}
 		});
-	});
+
 	
 	$("#teamName").change(function(){
 		console.log("teamName:"+$("#teamName").val());

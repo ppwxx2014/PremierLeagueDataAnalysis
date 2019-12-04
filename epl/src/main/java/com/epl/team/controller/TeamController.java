@@ -23,13 +23,13 @@ public class TeamController {
 	
 		team = (Team)session.getAttribute("team");
 		model.addAttribute("team", team);
-		return "addTeam";
+		return "club/addTeam";
 	}
 
 	@PostMapping("/addTeam")
 	public String addTeam(Team team, HttpSession session) {
 		teamService.addTeam(team);
-		return "redirect:/addTeam";
+		return "redirect:/club/addTeam";
 	}
 	
 	@GetMapping("/getTeamList")
@@ -39,6 +39,7 @@ public class TeamController {
 		System.out.println("list:"+list);
 		return list;
 	}
+	
 	@GetMapping("/removeTeam")
 	public String removeTeam (String teamName) {
 		

@@ -55,7 +55,8 @@ public class AdminController {
 			return "redirect:/login";
 		}
         admin = (Admin)session.getAttribute("loginState");
-        System.out.println("::::::::::::::::::::::::::::::::::"+admin);
+        System.out.println("수정::::::::::::::::::::::::::::::::::"+admin);
+        System.out.println("수정::::::::::::::::::::::::::::::::::"+session);
         model.addAttribute("admin", admin);
         return "modifyAdmin";
     }
@@ -74,7 +75,7 @@ public class AdminController {
     		int row = adminService.modifyAdmin(admin);
     		System.out.println(row+"행 수정 완료");
     	}else {
-    		System.out.println("비밀번호 틀림 ㄲㅈ");
+    		System.out.println("비밀번호 틀림 ");
     		session.invalidate();// 로그아웃
     		return "redirect:/login";
     	}

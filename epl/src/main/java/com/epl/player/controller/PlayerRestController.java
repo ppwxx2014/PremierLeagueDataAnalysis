@@ -19,8 +19,8 @@ public class PlayerRestController {
 	public int addPlayer(Player player){
 		System.out.println("addPlayer 입력");
 		System.out.println("param player: " + player);
-		int player2 = playerservice.addPlayer(player);
-		return player2;
+		int row = playerservice.addPlayer(player);
+		return row;
 	}
 	@PostMapping("/getPlayerList")
 	public List<Player> getPlayerList() {

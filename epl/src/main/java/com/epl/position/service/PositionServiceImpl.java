@@ -1,6 +1,8 @@
 package com.epl.position.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +16,8 @@ public class PositionServiceImpl implements PositionService{
 	@Autowired private PositionMapper positionMapper;
 	
 	@Override
-	public int selectPositionNo(Position position) {
-		System.out.println("selectPositionNo service param position :"+position);
-		return positionMapper.selectPositionNo(position);
+	public List<Position> getPositionList(){
+		System.out.println("selectPosition sevice param position :");
+		return positionMapper.selectPositionList();
 	}
 }

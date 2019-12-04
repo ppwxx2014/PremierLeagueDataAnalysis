@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class TemplateController {
-
-	// 메인 홈
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
+	/*
+	 * // 메인 홈
+	 * 
+	 * @GetMapping("/index") public String index() { return "index"; }
+	 */
 	
 	// 게시판 이동
 	@GetMapping("/userBoard")	
@@ -113,4 +112,12 @@ public class TemplateController {
 	public String logout() {
 		return "logout";
 	}
+
+	
+	// :::::::::::::::::::::::::::: user index 설정 :::::::::::::::::::::::::::: //
+	@GetMapping("/user/index")	
+	public String userIndex() {
+		return "user/template/index";
+	}
+	
 }

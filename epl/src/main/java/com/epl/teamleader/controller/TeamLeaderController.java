@@ -19,9 +19,9 @@ public class TeamLeaderController {
 		
 		return "club/addTeamLeader";
 	}
-	@PostMapping("/addTeamLeader")
+	@PostMapping("/club/addTeamLeader")
 	public String addTeamLeader(TeamLeader teamLeader) {
 		teamLeaderService.addTeamLeader(teamLeader);
-		return "redirect:/club/addTeamLeader";
+		return "redirect:/addTeamLeader";
 	}
 }

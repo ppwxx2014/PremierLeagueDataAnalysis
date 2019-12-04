@@ -2,8 +2,10 @@
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
 
 <head>
+
 	<title>Template</title>
 	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
 </head>	
 
 <body>
@@ -144,7 +146,7 @@
 		console.log("contractStart:"+$("#contractStart").val());
 		console.log("contractEnd:"+$("#contractEnd").val());
 		$.ajax({
-			url:"/addCoachContract",
+			url:"/coach/addCoachContract",
 			method:"POST",
 			data:{"coachNo" : $("#coachNo").val(),
 					"teamName" : $("#teamName").val(),

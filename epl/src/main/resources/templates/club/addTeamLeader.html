@@ -4,6 +4,7 @@
 <head>
 	<title>Template</title>
 	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
 </head>	
 
 <body>
@@ -145,7 +146,7 @@
 		console.log("startDate:"+$("#startDate").val());
 		console.log("endDate:"+$("#endDate").val());
 		$.ajax({
-			url:"/addTeamLeader",
+			url:"/club/addTeamLeader",
 			method:"POST",
 			data:{"playerNo" : $("#playerNo").val(),
 					"teamName" : $("#teamName").val(),

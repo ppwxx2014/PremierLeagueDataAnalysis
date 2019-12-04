@@ -26,10 +26,10 @@ public class TeamController {
 		return "club/addTeam";
 	}
 
-	@PostMapping("/addTeam")
+	@PostMapping("/club/addTeam")
 	public String addTeam(Team team, HttpSession session) {
 		teamService.addTeam(team);
-		return "redirect:/club/addTeam";
+		return "redirect:/addTeam";
 	}
 	
 	@GetMapping("/getTeamList")

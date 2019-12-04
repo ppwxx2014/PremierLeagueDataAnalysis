@@ -4,6 +4,7 @@
 <head>
 	<title>Template</title>
 	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
 </head>	
 
 <body>
@@ -88,7 +89,7 @@
 		console.log("birthDate:"+$("#birthDate").val());
 		console.log("Country:"+$("#country").val());
 		$.ajax({
-			url:"/addCoach",
+			url:"/coach/addCoach",
 			method:"POST",
 			data:{"coachName": $("#coachName").val(),
 				"birthDate": $("#birthDate").val(),

@@ -20,10 +20,10 @@ public class CoachContractController {
 		model.addAttribute("CoachContract",coachContract);
 		return "/coach/addCoachContract";
 	}
-	@PostMapping("addCoachContract")
+	@PostMapping("/coach/addCoachContract")
 	public String addCoachContract(CoachContract coachContract) {
 		int row = coachContractService.addCoachContract(coachContract);
 		System.out.println(row);
-		return "redirect:/coach/addCoachContract";
+		return "redirect:/addCoachContract";
 	}
 }

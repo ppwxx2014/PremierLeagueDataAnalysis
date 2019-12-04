@@ -28,10 +28,10 @@ public class CoachController {
 		return "coach/addCoach";
 	}
 	
-	@PostMapping("/addCoach")
+	@PostMapping("/coach/addCoach")
 	public String addCoach(Coach coach) {
 		coachService.addCoach(coach);
-		return "redirect:/coach/addCoach";
+		return "redirect:/addCoach";
 	}
 	
 	

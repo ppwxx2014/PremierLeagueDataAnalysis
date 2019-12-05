@@ -116,4 +116,45 @@
 		FROM player_contract
 		WHERE team_name = #{teamName})
 	</select>
+	
+	<insert id = "insertMainPlayer"
+			parameterType="com.epl.vo.MatchPlayerNo">
+			INSERT INTO 
+			match_player(match_no,player_no,shooting,shoot_on_target,
+					pass,assist,foul,tackle,offside,goal_on_fk,
+					goal_on_pk,yellow_card,red_card,start_time,end_time)
+			VALUES(#{matchNo},#{playerNo},'0','0',
+					'0','0','0','0','0','0',
+					'0','0','0','00:00:00',null)
+	</insert>
+	
+	<insert id = "insertSubPlayer"
+			parameterType="com.epl.vo.MatchPlayerNo">
+			INSERT INTO 
+			match_player(match_no,player_no,shooting,shoot_on_target,
+					pass,assist,foul,tackle,offside,goal_on_fk,
+					goal_on_pk,yellow_card,red_card,start_time,end_time)
+			VALUES(#{matchNo},#{playerNo},'0','0',
+					'0','0','0','0','0','0',
+					'0','0','0',null,null)
+	</insert>
+	
+	<insert id = "insertKeeper"
+			parameterType="com.epl.vo.MatchPlayerNo">
+			INSERT INTO match_goalkeeper(match_no,
+				player_no,
+				save,
+				save_on_pk,
+				save_on_fk,
+				start_time,
+				end_time)
+				VALUES(#{matchNo},
+				#{playerNo},
+				'0',
+				'0',
+				'0',
+				'00:00:00',
+				null
+				)
+	</insert>
 </mapper>

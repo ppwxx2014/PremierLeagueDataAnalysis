@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.MatchMapper;
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.PlayerInfo;
@@ -21,25 +22,25 @@ public class MatchListServiceImpl implements MatchService {
 	private MatchMapper matchMapper;
 
 	@Override
-	public List<Team> teamList() {
+	public List<Team> getTeamList() {
 		List<Team> homeTeamList = matchMapper.selectTeamList();
 		return homeTeamList;
 	}
 
 	@Override
-	public List<Refree> refreeList() {
+	public List<Refree> getRefreeList() {
 		List<Refree> refreeList = matchMapper.selectRefreeList();
 		return refreeList;
 	}
 
 	@Override
-	public String selectStadiumByTeamName(String teamName) {
+	public String getStadiumByTeamName(String teamName) {
 		String stadium = matchMapper.selectStadiumByTeamName(teamName);
 		return stadium;
 	}
 
 	@Override
-	public int insertMatch(MatchSchedule matchSchedule) {
+	public int addMatch(MatchSchedule matchSchedule) {
 		int check = matchMapper.insertMatch(matchSchedule);
 		System.out.println("Match schedule 입력 성공? : " + check);
 		int matchNo = matchSchedule.getMatchNo();
@@ -47,26 +48,47 @@ public class MatchListServiceImpl implements MatchService {
 	}
 
 	@Override
-	public int insertMatchRefree(MatchRefree matchRefree) {
+	public int addMatchRefree(MatchRefree matchRefree) {
 		int check = matchMapper.insertMatchRefree(matchRefree);
 		return check;
 	}
 
 	@Override
-	public List<MatchSchedule> selectMatchList() {
+	public List<MatchSchedule> getMatchList() {
 		List<MatchSchedule> list = matchMapper.selectMatchList();
 		return list;
 	}
 
 	@Override
-	public MatchSchedule selectMatchOne(int matchNo) {
+	public MatchSchedule getMatchOne(int matchNo) {
 		MatchSchedule matchSchedule = matchMapper.selectMatchOne(matchNo);
 		return matchSchedule;
 	}
 
 	@Override
-	public List<PlayerInfo> selectPlayerListByTeamName(String teamName) {
+	public List<PlayerInfo> getPlayerListByTeamName(String teamName) {
 		List<PlayerInfo> list = matchMapper.selectPlayerListByTeamName(teamName);
 		return list;
+	}
+	
+	@Override
+	public int addMainPlayer(MatchPlayerNo MatchPlayerNo)
+	{
+		int check = matchMapper.insertMainPlayer(MatchPlayerNo);
+		return check;
+	}
+	
+	@Override
+	public int addSubPlayer(MatchPlayerNo MatchPlayerNo)
+	{
+		int check = matchMapper.insertSubPlayer(MatchPlayerNo);
+		return check;
+	}
+	
+	@Override
+	public int addKeeper(MatchPlayerNo MatchPlayerNo)
+	{
+		int check = matchMapper.insertKeeper(MatchPlayerNo);
+		return check;
 	}
 }

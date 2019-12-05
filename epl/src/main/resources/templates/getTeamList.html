@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+			<table class = "table">
+				<thead>
+					<tr>
+						<th>teamName</th>
+						<th>nick_name</th>
+						<th>foundation</th>
+						<th>stadium_name</th>
+						<th>home_place</th>
+						<th>rival</th>
+						<th>owner</th>
+					</tr>
+				</thead>
+				<tbody id = "teamName">
+						
+				</tbody>
+				<a href = "/addTeam">팀 추가</a>
+			</table>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    $.ajax({
+		url:"/getTeamList",	
+		method:"Post",
+		success:function(json){
+			$("#teamName").empty();
+			$(json).each(function(index, item){
+				console.log(item);
+				temp = "<tr><td>";
+				temp += item.teamName;
+				temp += "</td><td>";
+				temp += item.nickName;
+				temp += "</td><td>";
+				temp += item.foundation;
+				temp += "</td><td>";
+				temp += item.stadiumName;
+				temp += "</td><td>";
+				temp += item.homePlace;
+				temp += "</td><td>";
+				temp += item.rival;
+				temp += "</td><td>";
+				temp += item.owner;
+				temp += "</td></tr>";
+				$("#teamName").append(temp);
+			});
+		}
+	});
+    </script>
+</body>
+</html>

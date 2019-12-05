@@ -21,46 +21,39 @@
         
         <!-- Content -->
 		<div class="content">
-		<h1>addCoachContract</h1>
-		<div>
-			coachName
-			
-			<tr>
-				<td>
-					<div>
-						<select id = "coachNo">
-							
-						</select>
-					</div>
-				</td>
-			</tr>
-		</div>
-		<div>
-			teamName
-			<tr>
-				<td>
-					<div>
-						<select id ="teamName">
-						
-						</select>
-					</div>
-				</td>
-			</tr>
-		</div>
-		<div>
-			salary
-			<input type = "number" name = "salary" id ="salary" min="0"><!-- 숫자만 입력가능하게 수정 -->
-		</div>
-		<div>
-			contractStart
-			<input type = "text" name = "contractStart" id = "contractStart">
-		</div>
-		<div>
-			contractEnd
-			<input type = "text" name = "contractEnd" id = "contractEnd">
-		</div>
-		<button type = "submit" id = "add">addCoach</button>
+			<h1 class="container" style='width:400px;'>AddCoachContract</h1>
+			<div class="container" style='width:400px;'>
+				CoachName
+				<div>
+					<select id = "coachNo" class ="form-control form-control-sm">
+									
+					</select>
+				</div>
 
+			</div>
+			<div class="container" style='width:400px;'>
+				TeamName
+				<div>
+					<select id ="teamName" class ="form-control form-control-sm">
+							
+					</select>
+				</div>
+			</div>
+			<div class="container" style='width:400px;'>
+				Salary
+				<input type = "number" name = "salary" id ="salary" min="0" class ="form-control"><!-- 숫자만 입력가능하게 수정 -->
+			</div>
+			<div class="container" style='width:400px;'>
+				ContractStart
+				<input type = "text" name = "contractStart" id = "contractStart" class ="form-control">
+			</div>
+			<div class="container" style='width:400px;'>
+				ContractEnd
+				<input type = "text" name = "contractEnd" id = "contractEnd" class ="form-control">
+			</div>
+			<div class="container" style='width:400px;'>
+				<button type = "submit" id = "add" class="btn btn-success">Add CoachContract</button>
+			</div>
 		</div>
         <!-- /.content -->		
         

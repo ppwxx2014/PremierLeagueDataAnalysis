@@ -4,6 +4,7 @@
 <head>
 	<title>Template</title>
 	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
 </head>	
 
 <body>
@@ -19,50 +20,48 @@
         
         <!-- Content -->
 		<div class="content">
-			<h2>경기 입력 페이지</h2>
+			<p>경기 입력 페이지</p>
 
-	<table border = "1">
+	<table class = "table">
 		<thead>
 			<tr>
-				<td>Home Team</td>
-				<td>경기 시간</td>
-				<td>Away Team</td>
+				<td><b>Home Team</b></td>
+				<td><b>경기 시간</b></td>
+				<td><b>Away Team</b></td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>
-					<select id ="hometeamList">
+					<select id = "hometeamList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
+					
 					</select>
 				</td>
 				<td>
-					<input type ="text" id = "time" placeholder = "xx">:
-					<input type ="text" id = "minute" placeholder = "xx">
+					<input type ="time" id = "matchTime" class="form-control" placeholder="time input">
 				</td>
 				<td>
-					<select id ="awayteamList">
+					<select id ="awayteamList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td>심판</td>
-				<td>날짜</td>
-				<td> 경기장</td>
+				<td><b>심판</b></td>
+				<td><b>날짜</b></td>
+				<td><b>경기장</b></td>
 			</tr>
 			<tr>
-				<td><select id =refreeList>
+				<td><select id =refreeList name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
 					</select>
 				</td>
 				<td>
-					<input type ="text" id = "year" placeholder = "xxxx">-
-					<input type ="text" id = "mounth" placeholder = "xx">-
-					<input type ="text" id = "day" placeholder = "xx">
+					<input type ="text" id = "matchDate" placeholder = "날짜를 선택해 주세요!" style = "opacity: 0.5">
 				</td>
 				<td id ="stadium"></td>
-			<tr>
+			<tr>	
 		</tbody>
 	</table>
-	<button id="insert">경기 입력</button>
+	<button id="insert" class="btn btn-outline-info">경기 입력</button>
 		</div>
         <!-- /.content -->		
         
@@ -80,9 +79,18 @@
 
     <!--Local Stuff-->
     <script>
- // 홈팀 선택
+    $("#matchDate").datepicker({
+		dateFormat: 'yy-mm-dd',
+		changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+	
+		changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+		minDate: '-100y', //현재 년부터 100년 전까지
+		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.    
+	});	
+	
+ 	// 홈팀 선택
 	$.ajax({
-		url:"teamList",
+		url:"/teamList",
 		method:"POST",
 		success:function(json){
 			console.log(json);
@@ -101,7 +109,7 @@
 	//홈팀 선택시 자동의로 경기장 선택
 	$("#hometeamList").change(function(){
 	$.ajax({
-		url:"stadium",
+		url:"/stadium",
 		method:"POST",
 		data:{"teamName":$("#hometeamList").val()},
 		success:function(json){
@@ -115,7 +123,7 @@
 	
 	//어웨이팀 선택
 	$.ajax({
-		url:"teamList",
+		url:"/teamList",
 		method:"POST",
 		success:function(json){
 			console.log(json);
@@ -133,7 +141,7 @@
 	});
 	//심판 선택
 	$.ajax({
-		url:"refreeList",
+		url:"/refreeList",
 		method:"POST",
 		success:function(json){
 			console.log(json);
@@ -154,24 +162,25 @@
 		console.log("확인!");
 		console.log("hometeamName : ", $("#hometeamList").val());
 		console.log("awayteamName : ", $("#awayteamList").val());
-		console.log("matchDate : ", $("#year").val()+"-"+$("#mounth").val()+"-"+$("#day").val());
-		console.log("matchTime : ", $("#time").val()+":"+$("#minute").val()+":00");
+		console.log("matchDate : ", $("#matchDate").val());
+		console.log("matchTime : ", $("#matchTime").val());
 		console.log("stadiumName : ",$("#stadium").text());
 		console.log("refreeNo : ", $("#refreeList").val());
 		
 		$.ajax({
-			url:"insertMatch",
+			url:"/insertMatch",
 			method:"POST",
 			data:{
 				  "hometeamName":$("#hometeamList").val(),
 				  "awayteamName":$("#awayteamList").val(),
-				  "matchDate":$("#year").val()+"-"+$("#mounth").val()+"-"+$("#day").val(),
-				  "matchTime":$("#time").val()+":"+$("#minute").val()+":00",
+				  "matchDate":$("#matchDate").val(),
+				  "matchTime":$("#matchTime").val(),
 				  "stadiumName":$("#stadium").text(),
 				  "refreeNo":$("#refreeList").val()
 				  },
 			success:function(json){
 				console.log(json);
+				location.href = "/getPlayerList";
 				}	
 			});
 		});

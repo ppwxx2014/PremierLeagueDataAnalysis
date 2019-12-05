@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.epl.mapper.TeamLeaderMapper">
+	<insert id="insertTeamLeader"
+		parameterType="com.epl.vo.TeamLeader">
+		INSERT INTO team_leader(
+		player_no,
+		team_name,
+		start_date,
+		end_date
+		)VALUES(
+		#{playerNo},
+		#{teamName},
+		#{startDate},
+		#{endDate}
+		)
+	</insert>
+
+	<!-- &lt; ==> '<' -->
+	<!-- &gt; ==> '>' -->
+	<select id="selectPlayerContractList"
+		resultType="com.epl.vo.PlayerContract">
+		SELECT
+		pc.player_no as playerNo,
+		p.player_name as playerName
+		FROM
+		player_contract AS pc
+		JOIN
+		player as p
+		ON pc.player_no = p.player_no
+		WHERE pc.team_name = #{teamName}
+		AND
+		pc.contract_start &lt; now() &lt; pc.contract_end
+	</select>
+</mapper>
+
+
+

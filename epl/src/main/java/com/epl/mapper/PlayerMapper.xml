@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.epl.mapper.PlayerMapper">
+	<insert id="insertPlayer" parameterType="com.epl.vo.Player">
+		INSERT INTO player(
+		player_name,
+		birth_date ,
+		country ,
+		player_position
+		) VALUES (
+		#{playerName} ,
+		#{birthDate} ,
+		#{country} ,
+		#{playerPosition}
+		)
+	</insert>
+
+	<select id="selectPlayerList" resultType="com.epl.vo.Player">
+		SELECT player_no as
+		playerNo,
+		player_name as playerName,
+		birth_date as birthDate,
+		country as country ,
+		player_position as playerPosition
+		FROM player
+	</select>
+
+	<select id="selectPlayerListByPage"
+		resultType="com.epl.vo.Player" parameterType="com.epl.vo.Page">
+		SELECT player_no as playerNo,
+		player_name as playerName,
+		birth_date as birthDate,
+		country as country ,
+		player_position as playerPosition
+		FROM player
+		<where> <!-- where절 -->
+			<if test="searchWord != null">
+				player_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY birth_date ASC
+		LIMIT #{beginRow} , #{rowPerPage}
+	</select>
+
+
+	<select id="selectPlayerCount" resultType="int"
+		parameterType="com.epl.vo.Page">
+		SELECT COUNT(*) FROM player
+		<where>
+			<if test="searchWord != null">
+				player_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+	</select>
+
+	<select id="selectPlayerNo" resultType="com.epl.vo.Player"
+		parameterType="com.epl.vo.Player">
+		SELECT player_no
+		FROM player
+		WHERE player_name =
+		#{playerName}
+	</select>
+</mapper>  

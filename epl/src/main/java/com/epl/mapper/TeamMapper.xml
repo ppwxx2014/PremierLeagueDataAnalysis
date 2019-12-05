@@ -39,6 +39,7 @@
 		rival as rival,
 		owner as owner
 		FROM team
+		WHERE active = 'T'
 	</select>
 
 	<delete id="deleteTeam" parameterType="com.epl.vo.Team">

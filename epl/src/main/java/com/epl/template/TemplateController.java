@@ -26,16 +26,13 @@ public class TemplateController {
 	
 	// :::::::::::::::::::::::::::: 여기부터 팀 카테고리 :::::::::::::::::::::::::::: //
 	
-	@GetMapping("/getTeam")	
-	public String getTeam() {
-		return "getTeam";
-	}
+	
 
 	
-	@GetMapping("/addTeamLeader")	
+	/*@GetMapping("/addTeamLeader")	
 	public String addTeamLeader() {
 		return "addTeamLeader";
-	}
+	}*/
 	
 	
 	@GetMapping("/changeTeam")	

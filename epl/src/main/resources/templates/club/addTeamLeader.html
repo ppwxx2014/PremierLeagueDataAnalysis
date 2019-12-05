@@ -1,0 +1,164 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+		
+		</div>
+        <!-- /.content -->		
+        <h1>addTeamLeadr</h1>
+		<div>
+			PlayerName
+			<table>
+				<tr>
+					<td>
+						<div>
+							<select size = "10" id ="teamName">
+							
+							</select>
+						</div>
+					</td>
+					<td>
+						<div>
+							<select size = "10" id = "playerNo">
+							
+							</select>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			startDate
+			<input type = "text" id = "startDate" name = "startDate">
+			
+		</div>
+		<div>
+			endDate
+			<input type = "text" id ="endDate" name = "endDate">
+		</div>
+		<button type = "submit" id = "add">add coach</button>
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    $("#startDate").datepicker({
+		dateFormat: 'yy-mm-dd',
+		changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+	
+		changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+		minDate: '-100y', //현재 년부터 100년 전까지
+		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+		
+		onClose: function( selectedDate ) {    
+            // 시작일(startDate) datepicker가 닫힐때
+            // 종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+            $("#endDate").datepicker( "option", "minDate", selectedDate );
+        }       
+		
+	});
+	
+	$("#endDate").datepicker({
+		dateFormat: 'yy-mm-dd',
+		changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+	
+		changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+		minDate: '-100y', //현재 년부터 100년 전까지
+		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+		
+		onClose: function( selectedDate ) {
+            // 종료일(endDate) datepicker가 닫힐때
+            // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+            $("#startDate").datepicker( "option", "maxDate", selectedDate );
+        }        
+		
+	});
+	
+	
+		$.ajax({
+			url:"/getTeamList",
+			method:"POST",
+			success:function(json){
+				$("#teamName").empty();
+				$(json).each(function(index, item){
+					temp = "<option value = '";
+					temp += item.teamName;
+					temp += "'>";
+					temp += item.teamName;
+					temp += "</option>";
+					$("#teamName").append(temp);
+				});
+			}
+		});
+
+	
+	$("#teamName").change(function(){
+		console.log("teamName:"+$("#teamName").val());
+		// console.log("list:"+$("#playerNo").val());
+		$.ajax({
+			url:"/getPlayerContract",
+			method:"POST",
+			data:{"teamName": $("#teamName").val()},
+			success:function(json){
+				$("#playerNo").empty();
+				$(json).each(function(index, item){
+					temp = "<option value = '";
+					temp += item.playerNo;
+					temp += "'>";
+					temp += item.playerName;
+					temp += "</option>";
+					$("#playerNo").append(temp);
+				});
+			}
+		});
+	});
+	$("#add").click(function(){
+		console.log("palyerName:"+$("#playerName").val());
+		console.log("playerNo:"+$("#playerNo").val());
+		console.log("teamName:"+$("#teamName").val());
+		console.log("startDate:"+$("#startDate").val());
+		console.log("endDate:"+$("#endDate").val());
+		$.ajax({
+			url:"/club/addTeamLeader",
+			method:"POST",
+			data:{"playerNo" : $("#playerNo").val(),
+					"teamName" : $("#teamName").val(),
+					"startDate" : $("#startDate").val(),
+					"endDate" : $("#endDate").val()
+			},
+			success:function(json){
+				alert("add teamLeader");
+				
+			}
+		});
+	});
+    </script>
+</body>
+</html>

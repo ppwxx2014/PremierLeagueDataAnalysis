@@ -68,7 +68,7 @@
 		method : "post",
 		success : function(json){
 			console.log("team 받아오기 성공 !");
-			console.log("getTeamList"+json);
+			//console.log("getTeamList"+json);
 			$(json).each(function(index, item){
 				temp = "<option value = '";
 				temp += item.teamName;
@@ -85,7 +85,7 @@
 		method : "post",
 		success : function(json){
 			console.log("position 받아오기 성공 !");
-			console.log("getPlayerList :"+json);
+			//console.log("getPlayerList :"+json);
 			$(json).each(function(index, item){
 				temp = "<option value = '";
 				temp += item.playerNo;

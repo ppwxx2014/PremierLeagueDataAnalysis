@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.epl.mapper.AdminMapper">
+	<insert id="insertAdmin" parameterType="com.epl.vo.Admin">
+		INSERT INTO admin(
+		admin_id,
+		admin_pw,
+		admin_name,
+		admin_email
+		)VALUES(
+		#{adminId},
+		#{adminPw},
+		#{adminName},
+		#{adminEmail}
+		)
+	</insert>
+
+	<select id="selectAdminOne" parameterType="com.epl.vo.Admin"
+		resultType="com.epl.vo.Admin">
+		SELECT
+		admin_id as adminId,
+		admin_pw as adminPw
+		FROM admin
+		WHERE admin_id = #{adminId}
+		AND admin_pw = #{adminPw}
+	</select>
+
+	<update id="updateAdmin" parameterType="com.epl.vo.Admin">
+
+		UPDATE admin SET
+		admin_pw = #{adminPw},
+		admin_name = #{adminName}
+		WHERE
+		admin_id = #{adminId}
+	</update>
+
+	<update id="updateAdminPw" parameterType="com.epl.vo.Admin">
+
+		UPDATE admin SET
+		admin_pw = #{adminPw}
+		WHERE admin_email = #{adminEmail}
+	</update>
+
+</mapper>
+
+
+

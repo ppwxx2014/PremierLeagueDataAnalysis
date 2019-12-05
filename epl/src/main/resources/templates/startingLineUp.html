@@ -6,7 +6,7 @@
 	<th:block th:include = "template/part/headLayout"></th:block>
 </head>	
 <style>
-.center {
+.table {
    margin: 0 auto;
    text-align: center;
 }
@@ -46,80 +46,55 @@
 			<div class = "center">
    <h2>선발출전 명단 설정입니다.</h2>
    <h3>선수를 한명씩 눌러주세요.</h3>
-   <table border = "1" class = "center">
+   <table class="table table-hover  table-bordered ">
       <tr>
-         <td>HOME Team</td>
-         <td>
-            <select id ="matchList"></select>
+         <td class="table-active">HOME Team</td>
+         <td class="table-active">
+         	<!-- 경기 리스트 -->
+            <select id ="matchList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm"></select>
          </td>
-         <td>AWAY team</td>
+         <td class="table-active">AWAY team</td>
       </tr>
       <tr>
-         <td id ="HomeTeam">HomeTeam</td>
-         <td id ="MatchDate">MatchDate</td>
-         <td id ="AwayTeam">AwayTeam</td>
+      	 <!-- 선택한 경기의 홈팀 어웨이팀과 경기날짜가 표시됨 -->
+         <td id ="HomeTeam" class="table-primary">HomeTeam Name</td>
+         <td id ="MatchDate" class="table-active">Match Date</td>
+         <td id ="AwayTeam" class="table-danger">AwayTeam Name</td>
       </tr>
       
       <tr>
-         <td>
+         <td class="table-primary">
             <!-- 홈팀 선수 리스트 -->
          <select id ="homeTeamPlayer" multiple="multiple" class = "playerList"></select>
       </td>
-         <!-- <td>
-            <div>선발추가</div>   
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         <div>후보추가</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         <div>키퍼선택</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>   
-         </td> -->
+         <td class="table-success">
          
-         <td>
-            <!-- 선발선수 -->
-            
-            <div>선발 명단</div>
-         <select id ="hMainPlayer" multiple="multiple" class = "main"></select>
-         <select id ="aMainPlayer" multiple="multiple" class = "main"></select>
+         <!-- 골키퍼 제외 선발선수 10명 선택-->
+         <div><dt><mark>선발 명단</mark></dt></div>
+         <select id ="hMainPlayer" multiple="multiple" class = "main table-primary"></select>
+         <select id ="aMainPlayer" multiple="multiple" class = "main table-danger"></select>
          <br>
          
-         <!-- 양팀 키퍼 선택 -->
-         <div>선발 키퍼</div>
-         <select id ="hKeeper" multiple="multiple" class = "keeper"></select>
-         <select id ="aKeeper" multiple="multiple" class = "keeper"></select>
+         <!--키퍼 선택 -->
+         <div><dt><mark>선발 키퍼</mark></dt></div>
+         <select id ="hKeeper" multiple="multiple" class = "keeper table-primary"></select>
+         <select id ="aKeeper" multiple="multiple" class = "keeper table-danger"></select>
          <br>
          
-         <!-- 후보 선수 -->
-         
-         <div>교체 선수</div>
-         <select id ="hSubPlayer" multiple="multiple" class = "sub"></select>
-         <select id ="aSubPlayer" multiple="multiple" class = "sub"></select>   
+         <!--후보 선수 7 명 선택-->
+         <div><dt><mark>교체 선수</mark></dt></div>
+         <select id ="hSubPlayer" multiple="multiple" class = "sub table-primary"></select>
+         <select id ="aSubPlayer" multiple="multiple" class = "sub table-danger"></select>   
          </td>
          
-         <!-- <td>
-            <div>선발추가</div>   
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         
-         <div>후보추가</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         
-         <div>키퍼선택</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         </td> -->
-         <td>
+         <!--어웨이팀 선수 리스트-->
+      	 <td class="table-danger">
          <select id ="awayTeamPlayer" multiple="multiple" class = "playerList"></select>
-      </td>
+      	 </td>
       </tr>
    </table>
+   	
+   <button id = "insertMatchPlayer">선발 명단 입력</button>
 </div>
 		</div>
         <!-- /.content -->		
@@ -281,6 +256,14 @@
                  }   
               })
         });
+     
+     $("#insertMatchPlayer").click(function() {
+    	 var hTP = [];
+    	 $('#homeTeamPlayer > option').each(function(){
+    		 hTP.push ( $(this).val() );
+    	 });
+    	 console.log(hTP)
+      });
      
     </script>
 </body>

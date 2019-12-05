@@ -11,19 +11,19 @@ import com.epl.vo.Team;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 
 public interface MatchService {
-	public List<Team> teamList();
+	public List<Team> getTeamList();
 
-	public List<Refree> refreeList();
+	public List<Refree> getRefreeList();
 
-	public String selectStadiumByTeamName(String teamName);
+	public String getStadiumByTeamName(String teamName);
 
-	public int insertMatch(MatchSchedule matchSchedule);
+	public int addMatch(MatchSchedule matchSchedule);
 
-	public int insertMatchRefree(MatchRefree matchRefree);
+	public int addMatchRefree(MatchRefree matchRefree);
 
-	public List<MatchSchedule> selectMatchList();
+	public List<MatchSchedule> getMatchList();
 
-	public MatchSchedule selectMatchOne(int matchNo);
+	public MatchSchedule getMatchOne(int matchNo);
 
-	public List<PlayerInfo> selectPlayerListByTeamName(String teamName);
+	public List<PlayerInfo> getPlayerListByTeamName(String teamName);
 }

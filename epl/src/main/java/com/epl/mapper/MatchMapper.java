@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.Player;
@@ -29,4 +30,10 @@ public interface MatchMapper {
 	public MatchSchedule selectMatchOne(int matchNo);
 
 	public List<PlayerInfo> selectPlayerListByTeamName(String teamName);
+	
+	public int insertMainPlayer(MatchPlayerNo MatchPlayerNo);
+	
+	public int insertSubPlayer(MatchPlayerNo MatchPlayerNo);
+	
+	public int insertKeeper(MatchPlayerNo MatchPlayerNo);
 }

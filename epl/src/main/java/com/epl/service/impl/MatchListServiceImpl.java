@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.MatchMapper;
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.PlayerInfo;
@@ -68,5 +69,26 @@ public class MatchListServiceImpl implements MatchService {
 	public List<PlayerInfo> getPlayerListByTeamName(String teamName) {
 		List<PlayerInfo> list = matchMapper.selectPlayerListByTeamName(teamName);
 		return list;
+	}
+	
+	@Override
+	public int addMainPlayer(MatchPlayerNo MatchPlayerNo)
+	{
+		int check = matchMapper.insertMainPlayer(MatchPlayerNo);
+		return check;
+	}
+	
+	@Override
+	public int addSubPlayer(MatchPlayerNo MatchPlayerNo)
+	{
+		int check = matchMapper.insertSubPlayer(MatchPlayerNo);
+		return check;
+	}
+	
+	@Override
+	public int addKeeper(MatchPlayerNo MatchPlayerNo)
+	{
+		int check = matchMapper.insertKeeper(MatchPlayerNo);
+		return check;
 	}
 }

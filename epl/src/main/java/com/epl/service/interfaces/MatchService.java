@@ -2,6 +2,7 @@ package com.epl.service.interfaces;
 
 import java.util.List;
 
+import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.Player;
@@ -26,4 +27,10 @@ public interface MatchService {
 	public MatchSchedule getMatchOne(int matchNo);
 
 	public List<PlayerInfo> getPlayerListByTeamName(String teamName);
+	
+	public int addMainPlayer(MatchPlayerNo MatchPlayerNo);
+	
+	public int addSubPlayer(MatchPlayerNo MatchPlayerNo);
+	
+	public int addKeeper(MatchPlayerNo MatchPlayerNo);
 }

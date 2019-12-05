@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.PlayerInfo;
@@ -98,5 +99,51 @@ public class MatchRestController
 	}
 	
 	//startingLineUp 페이지에서 입력한 값들은 각자에 맞는 양식으로 match_player, match_keeper에 insert하는 매서드
+	@PostMapping("/addMatchPlayerKeeper")
+	public String addMatchPlayerKeeper(@RequestParam("mainPlayerNo[]") List<String> mainPlayerNo,
+									   @RequestParam("KeeperNo[]") List<String> KeeperNo,
+									   @RequestParam("subPlayerNo[]") List<String> subPlayerNo,
+									   @RequestParam("matchNo") int matchNo)
+	{
+		System.out.println("-----add Match Player Keeper restController 진입-----");
+		System.out.println("startTime 0으로 matchPlayer에 insert : "+mainPlayerNo);
+		System.out.println("startTime 0으로 matchKeeper에 insert : "+KeeperNo);
+		System.out.println("startTime (null)으로 matchPlayer에 insert : "+subPlayerNo);
+		System.out.println("입력할 경기의 No : "+matchNo);
+		int mainCheck = 0;
+		int subCheck = 0;
+		int keeperCheck = 0;
+		//메인선수들 입력
+		for(int i=0;i<mainPlayerNo.size();i++)
+		{
+			MatchPlayerNo matchPlayerNo = new MatchPlayerNo();
+			matchPlayerNo.setMatchNo(matchNo);
+			matchPlayerNo.setPlayerNo(mainPlayerNo.get(i));
+			int check = matchService.addMainPlayer(matchPlayerNo);
+			mainCheck = mainCheck+check;
+		}
+		System.out.println("20이면 메인선수 입력 성공 : " + mainCheck);
+		//서브선수들 입력
+		for(int i=0;i<subPlayerNo.size();i++)
+		{
+			MatchPlayerNo matchPlayerNo = new MatchPlayerNo();
+			matchPlayerNo.setMatchNo(matchNo);
+			matchPlayerNo.setPlayerNo(subPlayerNo.get(i));
+			int check = matchService.addSubPlayer(matchPlayerNo);
+			subCheck = subCheck+check;
+		}
+		System.out.println("14이면 서브선수 입력 성공 : " + subCheck);
+		//골키퍼 둘 입력
+		for(int i=0;i<KeeperNo.size();i++)
+		{
+			MatchPlayerNo matchPlayerNo = new MatchPlayerNo();
+			matchPlayerNo.setMatchNo(matchNo);
+			matchPlayerNo.setPlayerNo(KeeperNo.get(i));
+			int check = matchService.addKeeper(matchPlayerNo);
+			keeperCheck = keeperCheck+check;
+		}
+		System.out.println("2면 키퍼 입력 성공 : " + keeperCheck);
+		return null;
+	}
 	
 }

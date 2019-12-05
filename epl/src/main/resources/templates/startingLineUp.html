@@ -179,7 +179,8 @@
      $('#aSubPlayer').click(function() {
         return !$('#aSubPlayer option:selected').remove().appendTo('#awayTeamPlayer');
      });
-     
+    
+     //매치 목록
      $.ajax({
         url:"/getMatchList",
         method:"POST",
@@ -259,30 +260,37 @@
    	
      
   // select의 value 값들을 빼온다
+  	var mainPlayerNo = [];
+  	var KeeperNo = [];
+  	var subPlayerNo = [];
    	$("#insertMatchPlayer").click(function() {
    	// Hm
-   		var homeTeamPlayerNo = [];
+   		var homeTeamMainNo = [];
     	$('#hMainPlayer > option').each(function(){
-    		homeTeamPlayerNo.push ( $(this).val() );
+    		homeTeamMainNo.push ( $(this).val() );
+    		mainPlayerNo.push ( $(this).val() );
     	});
     	console.log("H팀 메인");
-    	console.log(homeTeamPlayerNo);
+    	console.log(homeTeamMainNo);
     	
     // Am
-    	var awayTeamPlayerNo = [];
+    	var awayTeamMainNo = [];
     	$('#aMainPlayer > option').each(function(){
-    		awayTeamPlayerNo.push ( $(this).val() );
+    		awayTeamMainNo.push ( $(this).val() );
+    		mainPlayerNo.push ( $(this).val() );
     	});
     	console.log("A팀 메인");
-    	console.log(awayTeamPlayerNo);
+    	console.log(awayTeamMainNo);
     	
     // Hk
 	    var homeTeamKeeperNo = $('#hKeeper > option').val();
+	    KeeperNo.push (homeTeamKeeperNo);
 	    console.log("H팀 키퍼");
 	    console.log(homeTeamKeeperNo);
 	    
     // Ak
     	var awayTeamKeeperNo = $('#aKeeper > option').val();
+    	KeeperNo.push (awayTeamKeeperNo);
 	    console.log("A팀 키퍼");
 	    console.log(awayTeamKeeperNo);
 	    
@@ -290,6 +298,7 @@
     	var homeTeamSubNo = [];
 	    $('#hSubPlayer > option').each(function(){
 	    	homeTeamSubNo.push ( $(this).val() );
+	    	subPlayerNo.push ( $(this).val() );
     	});
     	console.log("H팀 서브");
     	console.log(homeTeamSubNo);
@@ -298,26 +307,31 @@
     	var awayTeamSubNo = [];
 	    $('#aSubPlayer > option').each(function(){
 	    	awayTeamSubNo.push ( $(this).val() );
+	    	subPlayerNo.push ( $(this).val() );
     	});
     	console.log("A팀 서브");
     	console.log(awayTeamSubNo);
+    	
+    	console.log("넘길 값");
+    	console.log(mainPlayerNo);
+    	console.log(KeeperNo);
+    	console.log(subPlayerNo);
+    	console.log($("#matchList").val());
     //받은 PlayerNo를 넘겨 insert한다
-    /*
+    
     	$.ajax({
-            url:"/",
+            url:"/addMatchPlayerKeeper",
             method:"POST",
-            "teamName":$("#AwayTeam").text()
-            data:{	"homeTeamPlayerNo":homeTeamPlayerNo,
-            		"awayTeamPlayerNo":awayTeamPlayerNo,
-            		"homeTeamKeeperNo":homeTeamKeeperNo,
-            		"awayTeamKeeperNo":awayTeamKeeperNo,
-            		"homeTeamSubNo":homeTeamSubNo,
-            		"awayTeamSubNo":awayTeamSubNo},
+    		dataType : 'json',
+            data:{	"mainPlayerNo":mainPlayerNo,
+            		"KeeperNo":KeeperNo,
+            		"subPlayerNo":subPlayerNo,
+            		"matchNo":$("#matchList").val()},
             success:function(json){
                console.log(json);
             }
          });
-    */
+    
       });
   
     </script>

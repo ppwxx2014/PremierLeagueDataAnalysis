@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -16,12 +16,83 @@
 		<!-- Header-->
 		<div th:include="template/part/topBar::topBar"></div>
 		<!-- /#header -->
-
+		<!-- 경로 표시 -->
+		<div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 리스트</font></font></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="index"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">홈</font></font></a></li>
+                                    <li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수</font></font></a></li>
+                                    <li class="active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 리스트</font></font></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#경로 표시 -->
 		<!-- Content -->
 		<div class="content">
-			<a href="/addPlayer">선수 추가</a>
+		<div class="animated fadeIn">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">선수 </strong>
+							</div>
+							<div class="card-body">
+							
+									<div id="bootstrap-data-table_filter" class="dataTables_filter">
+										<label>검색(선수 이름) : </label><label>
+										<input type="search" class="form-control form-control-sm"  id ="searchWord"
+											placeholder="" aria-controls="bootstrap-data-table"></label>
+											
+										<button class="btn btn-sm btn-primary" type="submit" id="search">검색</button>
+									</div>
+								<table id="bootstrap-data-table"
+									class="table table-striped">
+									<thead>
+										<tr>
+											<td>선수 번호</td>
+											<td>선수 이름</td>
+											<td>선수 생일</td>
+											<td>출신 국가</td>
+											<td>선수 포지션</td>
+											<!-- <td>선수 포지션</td> -->
+										</tr>
+									</thead>
+									<tbody  id="list">
+
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+									<li class="page-item"><a class="page-link" id="preBtn">이전</a></li>
+									<li class="page-item"><a class="page-link" id="nextBtn">다음</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- .animated -->
+			<!-- <div>
+				<span>전체 선수 수 : <span id="totalRowCount">map.totalRowCount</span>
+				</span>
+			</div>
+			<a href="addPlayer">선수 추가</a>
 				<div>
-					<label>검색어(선수이름) :</label> <input id ="searchWord" type="text">
+					<label>검색어(선수이름) :</label> <input class="form-control" id ="searchWord" type="text">
 					<button type="submit" id="search">검색</button>
 				</div>
 			<table border="1">
@@ -32,15 +103,13 @@
 						<td>선수 생일</td>
 						<td>출신 국가</td>
 						<td>선수 포지션</td>
-						<!-- <td>선수 포지션</td> -->
+						<td>선수 포지션</td>
 					</tr>
 				</thead>
 				<tbody id="list">
 
 				</tbody>
-			</table>
-			<button type="button" id="preBtn">이전</button>
-			<button type="button" id="nextBtn">다음</button>
+			</table> -->
 			<!-- <a th:if="${map.currentPage} > 1" th:href="@{/getPlayerList?(currentPage=${map.currentPage-1},searchWord=${map.searchWord})}">이전</a>
 			<c:if test="${map.currentPage < map.lastPage}">
 			<a th:if="${map.currentPage} < ${map.lastPage}-1" th:href="@{/getPlayerList?(currentPage=${map.currentPage+1},searchWord=${map.searchWord})}">다음</a> -->

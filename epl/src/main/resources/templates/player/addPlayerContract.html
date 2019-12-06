@@ -16,10 +16,120 @@
 		<!-- Header-->
 		<div th:include="template/part/topBar::topBar"></div>
 		<!-- /#header -->
-
+		<!-- 경로 표시 -->
+		<div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 입력</font></font></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="index"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">홈</font></font></a></li>
+                                    <li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수</font></font></a></li>
+                                    <li class="active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 입력</font></font></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#경로 표시 -->
 		<!-- Content -->
 		<div class="content">
-			<div>
+			<div class="card">
+				<div class="card-header">
+					<strong><font style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;">선수 </font></font></strong><font
+						style="vertical-align: inherit;"><font
+						style="vertical-align: inherit;"> 계약 정보 입력 </font></font>
+				</div>
+				<div class="card-body card-block">
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="select" class=" form-control-label">팀명 : </label>
+						</div>
+						<div class="col-12 col-md-9">
+							<select name="select" id="teamName" class="form-control">
+   								<option value="none">::: 팀명 선택 :::</option>
+							</select>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="select" class=" form-control-label">선수 : </label>
+						</div>
+						<div class="col-12 col-md-9">
+							<select name="select" id="player" class="form-control">
+   								<option value="none">::: 선수 선택 :::</option>
+							</select>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label"><font
+								style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">계약일 : </font></font></label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="date" id="contractStart" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label"><font
+								style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">계약 종료일 : </font></font></label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="date" id="contractEnd" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label">연봉 : 
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="salary" name="text-input"
+								placeholder="선수 연봉 입력" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label">이적료 : 
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="transferFee" name="text-input"
+								placeholder="선수 이적료 입력" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label">등번호 : 
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="uniformBackNumber" name="text-input"
+								placeholder="선수 등번호 입력" class="form-control">
+						</div>
+					</div>
+					
+					<button type="button" class="btn btn-lg btn-info btn-block" id="add"><font
+							style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;"> 선수 계약 추가 </font></font>
+					</button>
+				</div>
+			</div>
+			<!-- <div>
 				<div>
 					teamName : <select id="teamName">
 					</select>
@@ -44,7 +154,7 @@
 					uniform_back_number : <input type="number" id="uniformBackNumber">
 				</div>
 			</div>
-			<button type="button" id="add">PlayerContract Add</button>
+			<button type="button" id="add">PlayerContract Add</button> -->
 		</div>
 		<!-- /.content -->
 

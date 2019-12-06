@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	
+    <!-- Title -->
+    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+    <th:block th:include = "/user/template/layout/headLayout"></th:block>
+</head>
+
+
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/user/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+
+    <section class="newspaper-team mb-30">
+		<br><br><br><br>
+		<div class = "container">
+			<table id = "teamList">
+				
+			</table>
+		</div>
+	</section>
+    <!-- ##### Footer Area Start ##### -->
+    <div th:include ="/user/template/layout/footer::footer"></div>
+    <!-- ##### Footer Area End ##### -->
+
+<!-- <table> -->
+<!-- 	<tr> -->
+<!-- 		<td>img</td> -->
+<!-- 		<td>Asnal</td> -->
+<!-- 		<td>Emirates Stadium</td> -->
+<!-- 	</tr> -->
+<!-- </table> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+// let model = ["AFC Bournemouth.png", "Arsenal.png", "Aston Villa.png",
+// 			"Brighton and Hove Albion.png", "Burnley.png", "Chelsea.png",
+// 			"Crystal Palace.png", "Everton.png", "Leicester City.png",
+// 			"Liverpool.png", "Manchester City.png", "Manchester United.png",
+// 			"Newcastle United.png", "Norwich City.png", "Sheffield United.png",
+// 			"Southampton.png", "Tottenham.png", "Watford.png",
+// 			"West Ham United.png", "Wolverhampton Wanderers.png"];
+
+$(document).ready(function(){
+	$.ajax({	
+		url:"/getUserTeamList",
+		method:"POST",
+		success:function(json){
+			$("#teamList").empty();
+			$(json).each(function(index, item){
+				console.log(json);
+				/* temp = "<div class='single-team-member'>";
+				temp += "<img src='/images/teamlogo/";
+				temp += item.teamName;
+				temp += ".png'>";
+				temp += "<div class='team-info'>";
+				temp += "<h5>"+item.teamName+"</h5>";
+				temp += "<h6>"+item.stadiumName+"</h6>";
+				temp += "</div></div>"; */
+				temp = "<td><a href = '/getUserTeamOne?teamName="+item.teamName+"'><img src='/images/teamlogo/";
+				temp += item.teamName;
+				temp += ".png'></a>";
+				temp += "<span></span><h5>"+item.teamName+"</h5>";
+				temp += "<h6>"+item.stadiumName+"</h6></td>";
+				
+				
+				$("#teamList").append(temp);
+				if((index+1) % 5==0 && index > 0){
+					$("#teamList").append("</tr><tr>");
+				}
+			});
+		}
+	});
+	
+
+
+});
+</script>
+</body>
+</html>

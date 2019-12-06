@@ -21,13 +21,6 @@ public class MatchRestController
 	@Autowired MatchService matchService;
 	//팀의 리스트를 가져오는 매서드 (수정필요 : enum이 t인 팀)
 	
-	@PostMapping("/teamList")
-	public List<Team> getTeamList()
-	{
-		System.out.println("-----team restController 진입-----");
-		List<Team> list = matchService.getTeamList();
-		return list;
-	}
 	// 경기장의 리스트를 가져오는 매서드
 	@PostMapping("/getStadiumByTeamName")
 	public String stadium(@RequestParam("teamName") String teamName)

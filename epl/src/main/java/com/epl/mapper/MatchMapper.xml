@@ -6,31 +6,6 @@
 
 <mapper namespace="com.epl.mapper.MatchMapper">
 
-	<select id="selectTeamList" resultType="com.epl.vo.Team">
-		SELECT
-		team_name AS teamName,
-		nick_name AS nickName,
-		foundation AS foundation,
-		stadium_name AS stadiumName,
-		home_place AS homePlace,
-		rival AS rival,
-		owner AS owner
-		FROM
-		team
-		WHERE
-		active = 'T'
-	</select>
-
-	<select id="selectRefreeList" resultType="com.epl.vo.Refree">
-		SELECT
-		refree_no AS refreeNo,
-		refree_name AS refreeName,
-		birth_date AS birthDate,
-		country AS country
-		FROM
-		refree
-	</select>
-
 	<select id="selectStadiumByTeamName" parameterType="String"
 		resultType="String">
 		SELECT

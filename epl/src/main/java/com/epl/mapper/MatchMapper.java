@@ -15,10 +15,6 @@ import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 
 @Mapper
 public interface MatchMapper {
-	public List<Team> selectTeamList();
-
-	public List<Refree> selectRefreeList();
-
 	public String selectStadiumByTeamName(String teamName);
 
 	public int insertMatch(MatchSchedule matchSchedule);

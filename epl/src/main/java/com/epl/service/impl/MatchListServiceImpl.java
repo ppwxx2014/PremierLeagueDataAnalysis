@@ -20,19 +20,7 @@ import com.epl.vo.Team;
 public class MatchListServiceImpl implements MatchService {
 	@Autowired
 	private MatchMapper matchMapper;
-
-	@Override
-	public List<Team> getTeamList() {
-		List<Team> homeTeamList = matchMapper.selectTeamList();
-		return homeTeamList;
-	}
-
-	@Override
-	public List<Refree> getRefreeList() {
-		List<Refree> refreeList = matchMapper.selectRefreeList();
-		return refreeList;
-	}
-
+	
 	@Override
 	public String getStadiumByTeamName(String teamName) {
 		String stadium = matchMapper.selectStadiumByTeamName(teamName);

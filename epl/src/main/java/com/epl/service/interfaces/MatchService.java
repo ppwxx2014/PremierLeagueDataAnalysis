@@ -12,9 +12,6 @@ import com.epl.vo.Team;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 
 public interface MatchService {
-	public List<Team> getTeamList();
-
-	public List<Refree> getRefreeList();
 
 	public String getStadiumByTeamName(String teamName);
 

@@ -28,14 +28,6 @@ public class MatchRestController
 		List<Team> list = matchService.getTeamList();
 		return list;
 	}
-	// 심판의 이름 리스트를 가져오는 매서드
-	@PostMapping("/getRefreeList")
-	public List<Refree> refreeList()
-	{
-		System.out.println("-----refree restController 진입-----");
-		List<Refree> refreeList = matchService.getRefreeList();
-		return refreeList;
-	}
 	// 경기장의 리스트를 가져오는 매서드
 	@PostMapping("/getStadiumByTeamName")
 	public String stadium(@RequestParam("teamName") String teamName)

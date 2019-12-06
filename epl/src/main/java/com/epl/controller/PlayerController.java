@@ -2,6 +2,7 @@ package com.epl.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.epl.service.interfaces.PlayerService;
@@ -21,10 +22,13 @@ public class PlayerController {
 	@GetMapping("/getPlayerList")
 	public String getPlayerList() {
 		System.out.println("getPlayerList 요청");
-		/*
-		 * List<Player> list = playerService.getPlayerList();
-		 * System.out.println("playerController @PostMapping list :" + list);
-		 */
+		
 		return "player/getPlayerList";
+	}
+	@GetMapping("/modifyPlayer")
+	public String modifyPlayer() {
+		System.out.println("modifyPlayer 요청");
+		
+		return "player/modifyPlayer";
 	}
 }

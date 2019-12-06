@@ -18,7 +18,17 @@ import com.epl.vo.Player;
 public class PlayerRestController {
 	@Autowired
 	private PlayerService playerService;
-
+	// 선수 수정
+	@PostMapping("/modifyPlayer")
+	public int modifyPlayer(Player player) {
+		System.out.println("modifyPlayer 수정");
+		System.out.println("param player: " + player);
+		int row = playerService.modifyPlayer(player);
+		
+		System.out.println(row+"행 수정 성공!");
+		return row;
+	}
+	// 선수 추가
 	@PostMapping("/addPlayer")
 	public int addPlayer(Player player) {
 		System.out.println("addPlayer 입력");
@@ -26,6 +36,7 @@ public class PlayerRestController {
 		int row = playerService.addPlayer(player);
 		return row;
 	}
+	// 선수 리스트 출력
 	@PostMapping("/getPlayerList")
 	public List<Player> getPlayerList(){
 		System.out.println("getPlayerList controller 폼 요청");
@@ -54,7 +65,7 @@ public class PlayerRestController {
 	public int getPlayerListCount(@RequestParam(value = "searchWord", required = false) String searchWord) {
 		Page page = new Page();
 		page.setSearchWord(searchWord);
-		int row = playerService.selectPlayerCount(page);
+		int row = playerService.getPlayerCount(page);
 		return row;
 	}
 	/*

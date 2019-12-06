@@ -21,7 +21,8 @@
 		<div class="content">
 			<div>
 				<div>
-					Name : <input type="text" id="playerName">
+					player : <select id="player">
+					</select>
 				</div>
 				<div>
 					Birth-Date : <input type="date" id="birthDate">
@@ -35,7 +36,7 @@
 					</select>
 				</div>
 			</div>
-			<button type="button" id="add">player Add</button>
+			<button type="button" id="modify">player modify</button>
 		</div>
 		<!-- /.content -->
 
@@ -54,6 +55,22 @@
 	<!--Local Stuff-->
 	<script>
 	// 국가리스트 불러오기
+	$.ajax({
+		url : "getPlayerList",
+		method : "post",
+		success : function(json){
+			console.log("player 받아오기 성공 !");
+			console.log(json);
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.playerNo;
+				temp += "'>";
+				temp += item.playerName;
+				temp += "</option>";
+				$("#player").append(temp);
+			});
+		}
+	});
 	$.ajax({
 		url : "getCountryList",
 		method : "post",
@@ -88,15 +105,15 @@
 		}
 	});
 	 // 플레이어 입력
-	 $("#add").click(function() {
-		console.log("name"+$("#playerName").val());
+	 $("#modify").click(function() {
+		console.log("no"+$("#player").val());
 		console.log("birthDate"+$("#birthDate").val());
 		console.log("countryList"+$("#countryList").val());
 		console.log("playerPosition"+$("#position").val());
 		$.ajax({
-			url : "/addPlayer",
+			url : "/modifyPlayer",
 			method : "post",
-			data : {"playerName" : $("#playerName").val() ,
+			data : {"playerNo" : $("#player").val() ,
 					"birthDate" : $("#birthDate").val() ,
 					"country" : $("#countryList").val() ,
 					"playerPosition" : $("#position").val()} ,

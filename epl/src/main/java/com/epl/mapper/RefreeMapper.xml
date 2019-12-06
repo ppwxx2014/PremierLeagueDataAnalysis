@@ -14,4 +14,39 @@
 		#{country}
 		)
 	</insert>
+	
+	<select id="selectRefreeList" resultType="com.epl.vo.Refree">
+		SELECT
+		refree_no as refreeNo ,
+		refree_name as refreeName ,
+		birth_date as birthDate ,
+		country as country
+		FROM refree
+	</select>
+	<select id="selectRefreeListByPage"
+		resultType="com.epl.vo.Refree" parameterType="com.epl.vo.Page">
+		SELECT
+		refree_no as refreeNo ,
+		refree_name as refreeName ,
+		birth_date as birthDate ,
+		country as country
+		FROM refree
+		<where> <!-- where절 -->
+			<if test="searchWord != null">
+				refree_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY birth_date ASC
+		LIMIT #{beginRow} , #{rowPerPage}
+	</select>
+	
+	<select id="selectRefreeCount" resultType="int"
+		parameterType="com.epl.vo.Page">
+		SELECT COUNT(*) FROM refree
+		<where>
+			<if test="searchWord != null">
+				refree_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+	</select>
 </mapper>

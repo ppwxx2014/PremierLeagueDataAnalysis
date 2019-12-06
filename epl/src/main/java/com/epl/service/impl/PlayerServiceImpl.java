@@ -26,15 +26,8 @@ public class PlayerServiceImpl implements PlayerService {
 		int row = playerMapper.insertPlayer(player);
 		return row;
 	}
-
-	/*
-	 * // 플레이어의 포지션 지정하기
-	 * 
-	 * @Override public int addPlayerPosition(PlayerPosition playerPosition) {
-	 * System.out.println("addPlayerPosition service 요청"); int row =
-	 * playerMapper.insertPlayerPosition(playerPosition); System.out.println(row +
-	 * "행 입력  실행 완료"); return row; }
-	 */
+	
+	
 	// 플레이어의 번호 가져오기
 	@Override
 	public int getPlayerNo(Player player) {
@@ -67,8 +60,15 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 	// 선수 수 가져오기
 	@Override
-	public int selectPlayerCount(Page page) {
+	public int getPlayerCount(Page page) {
 		int totalRowCount = playerMapper.selectPlayerCount(page);
 		return totalRowCount;
+	}
+	
+	// 플레이어 수정
+	@Override
+	public int modifyPlayer(Player player) {
+		int row = playerMapper.updatePlayer(player);
+		return row;
 	}
 }

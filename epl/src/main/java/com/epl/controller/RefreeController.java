@@ -16,4 +16,11 @@ public class RefreeController {
 		System.out.println("addRefree Controller 폼요청");
 		return "refree/addRefree";
 	}
+	
+	@GetMapping("/getRefreeList")
+	public String getPlayerList() {
+		System.out.println("getRefreeList 요청");
+		
+		return "refree/getRefreeList";
+	}
 }

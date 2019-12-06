@@ -14,5 +14,7 @@ public interface PlayerService {
 
 	public List<Player> getPlayerListByPage(int currentPage, int rowPerPage, String searchWord);
 
-	int selectPlayerCount(Page page);
+	public int getPlayerCount(Page page);
+	
+	public int modifyPlayer(Player player);
 }

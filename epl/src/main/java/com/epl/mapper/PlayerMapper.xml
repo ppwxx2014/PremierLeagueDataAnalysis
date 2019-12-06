@@ -3,6 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.epl.mapper.PlayerMapper">
+	<update id="updatePlayer" parameterType="com.epl.vo.Player">
+		UPDATE player
+		SET birth_date = #{birthDate}, country = #{country}, player_position = #{playerPosition}
+		WHERE player_no = #{playerNo};
+	</update>
 	<insert id="insertPlayer" parameterType="com.epl.vo.Player">
 		INSERT INTO player(
 		player_name,
@@ -18,8 +23,8 @@
 	</insert>
 
 	<select id="selectPlayerList" resultType="com.epl.vo.Player">
-		SELECT player_no as
-		playerNo,
+		SELECT
+		player_no as playerNo,
 		player_name as playerName,
 		birth_date as birthDate,
 		country as country ,

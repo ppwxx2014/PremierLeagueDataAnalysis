@@ -19,7 +19,7 @@
 
 		<!-- Content -->
 		<div class="content">
-			<a href="/addPlayer">선수 추가</a>
+			<a href="/addRefree">심판 추가</a>
 				<div>
 					<label>검색어(선수이름) :</label> <input id ="searchWord" type="text">
 					<button type="submit" id="search">검색</button>
@@ -27,12 +27,10 @@
 			<table border="1">
 				<thead>
 					<tr>
-						<td>선수 번호</td>
-						<td>선수 이름</td>
-						<td>선수 생일</td>
-						<td>출신 국가</td>
-						<td>선수 포지션</td>
-						<!-- <td>선수 포지션</td> -->
+						<td>심판 번호</td>
+						<td>심판 이름</td>
+						<td>심판 생일</td>
+						<td>심판 국가</td>
 					</tr>
 				</thead>
 				<tbody id="list">
@@ -41,10 +39,7 @@
 			</table>
 			<button type="button" id="preBtn">이전</button>
 			<button type="button" id="nextBtn">다음</button>
-			<!-- <a th:if="${map.currentPage} > 1" th:href="@{/getPlayerList?(currentPage=${map.currentPage-1},searchWord=${map.searchWord})}">이전</a>
-			<c:if test="${map.currentPage < map.lastPage}">
-			<a th:if="${map.currentPage} < ${map.lastPage}-1" th:href="@{/getPlayerList?(currentPage=${map.currentPage+1},searchWord=${map.searchWord})}">다음</a> -->
-
+			
 		</div>
 		<!-- /.content -->
 
@@ -64,18 +59,17 @@
 	<script>
 		let currentPage = 1;
 		$.ajax({
-			url : "/getPlayerListByPage",
+			url : "/getRefreeListByPage",
 			method : "post",
 			// json으로 넘어온 리턴값을 JQuery로 바꿔줌
 			success : function(json) {
-				//console.log("getPlayerList json 값 확인 :" + json);
+				//console.log("getRefreeListByPage json 값 확인 :" + json);
 				$(json).each(function(index, item) {
 					temp = "<tr>";
-					temp += "<td>" + item.playerNo + "</td>";
-					temp += "<td>" + item.playerName + "</td>";
-					temp += "<td>" + item.birthDate + "</td>";
-					temp += "<td>" + item.country + "</td>";
-					temp += "<td>" + item.playerPosition + "</td>";
+					temp += "<td>" + item.refreeNo+ "</td>";
+					temp += "<td>" + item.refreeName+ "</td>";
+					temp += "<td>" + item.birthDate+ "</td>";
+					temp += "<td>" + item.country+ "</td>";
 					temp += "</tr>";
 					$("#list").append(temp);
 				});
@@ -93,19 +87,18 @@
 			
 			$("#list").empty(); // 요청 중복을 막기 위해 청소
 			$.ajax({
-				url : "/getPlayerListByPage" ,
-				method :"post",
+				url : "/getRefreeListByPage" ,
+				method :"post", 
 				async : false,
 				data : {"currentPage" : currentPage, "searchWord" : searchWord},
 				success : function(json){
-					console.log("getPlayerList json 값 확인 :" + json);
+					console.log("getRefreeListByPage json 값 확인 :" + json);
 					$(json).each(function(index, item) {
 						temp = "<tr>";
-						temp += "<td>" + item.playerNo + "</td>";
-						temp += "<td>" + item.playerName + "</td>";
-						temp += "<td>" + item.birthDate + "</td>";
-						temp += "<td>" + item.country + "</td>";
-						temp += "<td>" + item.playerPosition + "</td>";
+						temp += "<td>" + item.refreeNo+ "</td>";
+						temp += "<td>" + item.refreeName+ "</td>";
+						temp += "<td>" + item.birthDate+ "</td>";
+						temp += "<td>" + item.country+ "</td>";
 						temp += "</tr>";
 						$("#list").append(temp);
 						
@@ -129,20 +122,19 @@
 			$("#list").empty(); // 요청 중복을 막기 위해 청소
 
 			$.ajax({
-				url : "/getPlayerListByPage",
+				url : "/getRefreeListByPage",
 				method : "post",
 				async : false,
 				data : {"currentPage" : currentPage, "searchWord" : searchWord},
 				// json으로 넘어온 리턴값을 JQuery로 바꿔줌
 				success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
-					console.log("getPlayerList json 값 확인 :" + json);
+					console.log("getRefreeListByPage json 값 확인 :" + json);
 					$(json).each(function(index, item) {
 						temp = "<tr>";
-						temp += "<td>" + item.playerNo + "</td>";
-						temp += "<td>" + item.playerName + "</td>";
-						temp += "<td>" + item.birthDate + "</td>";
-						temp += "<td>" + item.country + "</td>";
-						temp += "<td>" + item.playerPosition + "</td>";
+						temp += "<td>" + item.refreeNo+ "</td>";
+						temp += "<td>" + item.refreeName+ "</td>";
+						temp += "<td>" + item.birthDate+ "</td>";
+						temp += "<td>" + item.country+ "</td>";
 						temp += "</tr>";
 						$("#list").append(temp);
 					});
@@ -162,7 +154,7 @@
 						// 비동기 요청 : false
 						async : false,
 						success : function(json) {
-							console.log("선수의 수"+json);
+							console.log("심판의 수"+json);
 							count = Number(json);
 							console.log("count :"+count);
 						}
@@ -183,19 +175,18 @@
 					
 					$("#list").empty(); // 요청 중복을 막기 위해 청소
 					$.ajax({
-						url : "/getPlayerListByPage",
+						url : "/getRefreeListByPage",
 						method : "post",
 						data : {"currentPage" : currentPage, "searchWord" : $("#searchWord").val()},
 						// json으로 넘어온 리턴값을 JQuery로 바꿔줌
 						success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
-							console.log("getPlayerList json 값 확인 :" + json);
+							console.log("getRefreeListByPage json 값 확인 :" + json);
 							$(json).each(function(index, item) {
 								temp = "<tr>";
-								temp += "<td>" + item.playerNo + "</td>";
-								temp += "<td>" + item.playerName + "</td>";
-								temp += "<td>" + item.birthDate + "</td>";
-								temp += "<td>" + item.country + "</td>";
-								temp += "<td>" + item.playerPosition + "</td>";
+								temp += "<td>" + item.refreeNo+ "</td>";
+								temp += "<td>" + item.refreeName+ "</td>";
+								temp += "<td>" + item.birthDate+ "</td>";
+								temp += "<td>" + item.country+ "</td>";
 								temp += "</tr>";
 								$("#list").append(temp);
 							});

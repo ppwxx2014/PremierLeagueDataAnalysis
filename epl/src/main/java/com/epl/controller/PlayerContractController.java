@@ -21,7 +21,7 @@ public class PlayerContractController {
 	@GetMapping("/addPlayerContract")
 	public String addPlayerContract() {
 		System.out.println("addPlayerContract 폼 요청");
-		return "addPlayerContract";
+		return "player/addPlayerContract";
 	}
 
 	// 선수계약 리스트 폼
@@ -39,6 +39,6 @@ public class PlayerContractController {
 		System.out.println("getPlayerContractList controller map :" + map);
 
 		model.addAttribute("map", map);
-		return "getPlayerContractList";
+		return "player/getPlayerContractList";
 	}
 }

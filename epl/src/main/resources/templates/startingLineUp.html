@@ -113,6 +113,7 @@
 
     <!--Local Stuff-->
     <script>
+    //homeTeamPlayer >> main sub keeper 
     $('#homeTeamPlayer').click(function() {
         let homeMainCount = $('#hMainPlayer > option').length + 1;
         let homeSubCount = $('#hSubPlayer > option').length + 1;
@@ -133,7 +134,7 @@
         }
      });
      
-     // 홈팀 선수 명단 삭제
+     // main sub keeper  >> homeTeamPlayer
      $('#hMainPlayer').click(function() {
         return !$('#hMainPlayer option:selected').remove().appendTo('#homeTeamPlayer');
      });
@@ -146,7 +147,7 @@
         return !$('#hSubPlayer option:selected').remove().appendTo('#homeTeamPlayer');
      });
 
-     // 어웨이팀 선수 명단 추가
+     //awayTeamPlayer >> main sub keeper 
      $('#awayTeamPlayer').click(function() {
           let awayMainCount = $('#aMainPlayer > option').length + 1;
           let awaySubCount = $('#aSubPlayer > option').length + 1;
@@ -167,7 +168,7 @@
         }
      });
 
-     // 어웨이팀 선수 명단 삭제
+     // main sub keeper  >> awayTeamPlayer
      $('#aMainPlayer').click(function() {
         return !$('#aMainPlayer option:selected').remove().appendTo('#awayTeamPlayer');
      });
@@ -180,7 +181,8 @@
         return !$('#aSubPlayer option:selected').remove().appendTo('#awayTeamPlayer');
      });
     
-     //매치 목록
+     
+     //매치 목록을 가져온다
      $.ajax({
         url:"/getMatchList",
         method:"POST",
@@ -198,7 +200,8 @@
            });
         }
      });
-     
+    
+     // 매치를 선택시 해당 매치의 팀들과 경기 날짜를 가져온다
      $("#matchList").change(function(){
            $.ajax({
               url:"/getMatchOne",
@@ -219,6 +222,7 @@
                  console.log("홈팀 값 : ")
                  console.log($("#HomeTeam").text())
                  
+                 //가져온 팀의 No를 넘겨 해당 팀의 선수들을 가져온다 (homeTeam)
                  $.ajax({
                     url:"/getPlayerListByTeamName",
                     method:"POST",
@@ -226,6 +230,11 @@
                     success:function(json){
                        console.log("선수 리스트");
                        console.log(json);   
+                     //경기를바꿀시 homeTeamPlayer select 내용을 초기화
+                       if($("#homeTeamPlayer > option").size()!=0)
+                       {
+                     	  $('#homeTeamPlayer > option[value!="0"]').remove();	  
+                       }
                        $(json).each(function(index,item){
                           temp="<option value='";
                           temp+=item.playerNo;
@@ -236,7 +245,7 @@
                        })
                        }   
                     })
-                    
+                 //가져온 팀의 No를 넘겨 해당 팀의 선수들을 가져온다 (awayTeam)
                  $.ajax({
                     url:"/getPlayerListByTeamName",
                     method:"POST",
@@ -244,6 +253,11 @@
                     success:function(json){
                        console.log("선수 리스트");
                        console.log(json);
+                       //경기를바꿀시 awayTeamPlayer select 내용을 초기화
+                       if($("#awayTeamPlayer > option").size()!=0)
+                       {
+                     	  $('#awayTeamPlayer > option[value!="0"]').remove();	  
+                       }
                        $(json).each(function(index,item){
                           temp="<option value='";
                           temp+=item.playerNo;
@@ -254,12 +268,37 @@
                        })
                        }   
                     })
+                   // 경기를 바꿀시 6개의select의 내용을 초기화
+	                 if($("#hMainPlayer > option").size()!=0)
+	                 {
+	                 	$('#hMainPlayer > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#aMainPlayer > option").size()!=0)
+	                 {
+	               	 	$('#aMainPlayer > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#hKeeper > option").size()!=0)
+	                 {
+	               	 	$('#hKeeper > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#aKeeper > option").size()!=0)
+	                 {
+	               	 	$('#aKeeper > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#hSubPlayer > option").size()!=0)
+	                 {
+	               	 	$('#hSubPlayer > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#aSubPlayer > option").size()!=0)
+	                 {
+	               	 	$('#aSubPlayer > option[value!="0"]').remove();	  
+	                 }
                  }   
               })
         });
    	
      
-  // select의 value 값들을 빼온다
+  // 홈팀 메인 ,서브, 키퍼  어웨이팀 메인 ,서브 ,키퍼 select 박스에 있는 선수들의 밸류값(playerNo)를 뺴와 리스트에 넣는다
   	var mainPlayerNo = [];
   	var KeeperNo = [];
   	var subPlayerNo = [];
@@ -317,8 +356,8 @@
     	console.log(KeeperNo);
     	console.log(subPlayerNo);
     	console.log($("#matchList").val());
-    //받은 PlayerNo를 넘겨 insert한다
-    
+   
+    	//받은 20+14+2 의 리스트(playerNo)를 넘겨 DB에 각각 insert한다
     	$.ajax({
             url:"/addMatchPlayerKeeper",
             method:"POST",

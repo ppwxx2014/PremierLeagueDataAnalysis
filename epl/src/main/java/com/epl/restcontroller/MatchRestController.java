@@ -19,8 +19,8 @@ import com.epl.vo.Team;
 public class MatchRestController 
 {
 	@Autowired MatchService matchService;
-	//팀의 리스트를 가져오는 매서드 (수정필요 : enum이 t인 팀)
 	
+	//팀의 리스트를 가져오는 매서드
 	@PostMapping("/teamList")
 	public List<Team> getTeamList()
 	{
@@ -28,7 +28,8 @@ public class MatchRestController
 		List<Team> list = matchService.getTeamList();
 		return list;
 	}
-	// 심판의 이름 리스트를 가져오는 매서드
+	
+	//심판의 이름 리스트를 가져오는 매서드
 	@PostMapping("/getRefreeList")
 	public List<Refree> refreeList()
 	{
@@ -36,7 +37,8 @@ public class MatchRestController
 		List<Refree> refreeList = matchService.getRefreeList();
 		return refreeList;
 	}
-	// 경기장의 리스트를 가져오는 매서드
+	
+	//경기장의 리스트를 가져오는 매서드
 	@PostMapping("/getStadiumByTeamName")
 	public String stadium(@RequestParam("teamName") String teamName)
 	{
@@ -45,7 +47,8 @@ public class MatchRestController
 		String stadium = matchService.getStadiumByTeamName(teamName);
 		return stadium;
 	}
-	// Match Schedule을 insert하기위한 테이블
+	
+	// Match Schedule을 insert하고 성공시 matchRefree도 insert한다
 	@PostMapping("/addMatch")
 	public String insertMatch(MatchSchedule matchSchedule,
 							  @RequestParam("refreeNo") int refreeNo)
@@ -70,7 +73,8 @@ public class MatchRestController
 		}
 		return null;
 	}
-	//경기번호의 홈팀 선수목록을 가져오는 매서드  = 경기 선수,경기 키퍼를 만들기위한 매서드
+	
+	// 경기의 리스트를 가져오는 매서드 (수정필요: 아직 끝나지않은경기 where T )
 	@PostMapping("/getMatchList")
 	public List<MatchSchedule> selectMatchList()
 	{
@@ -78,7 +82,8 @@ public class MatchRestController
 		List<MatchSchedule> list = matchService.getMatchList();
 		return list;
 	}
-	//선택한 경기의 One을 가져오는 매서드
+	
+	//경기의 One을 가져오는 매서드
 	@PostMapping("/getMatchOne")
 	public MatchSchedule selectMatchOne(@RequestParam("matchNo") int matchNo)
 	{

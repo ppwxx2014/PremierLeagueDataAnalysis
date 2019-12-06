@@ -9,7 +9,7 @@ public class PlayerContract {
 	private String contractStart;
 	private String contractEnd;
 	private int salary;
-	private int trasferFee;
-	private int uniformBackNo;
+	private int transferFee;
+	private int uniformBackNumber;
 	private String playerName;
 }

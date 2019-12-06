@@ -55,7 +55,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 	// 플레이어 리스트 페이지별 가져오기
 	@Override
-	public Map<String, Object> getPlayerListByPage(int currentPage, int rowPerPage, String searchWord) {
+	public List<Player> getPlayerListByPage(int currentPage, int rowPerPage, String searchWord) {
 		Page page = new Page();
 		page.setRowPerPage(rowPerPage);
 		page.setBeginRow((currentPage - 1) * rowPerPage);
@@ -63,20 +63,12 @@ public class PlayerServiceImpl implements PlayerService {
 
 		List<Player> list = playerMapper.selectPlayerListByPage(page);
 
+		return list;
+	}
+	// 선수 수 가져오기
+	@Override
+	public int selectPlayerCount(Page page) {
 		int totalRowCount = playerMapper.selectPlayerCount(page);
-		int lastPage = totalRowCount / rowPerPage;
-
-		if (totalRowCount / rowPerPage != 0) {
-			lastPage += 1;
-		}
-		;
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("totalRowCount", totalRowCount);
-		map.put("lastPage", lastPage);
-		map.put("searchWord", searchWord);
-		return map;
+		return totalRowCount;
 	}
 }

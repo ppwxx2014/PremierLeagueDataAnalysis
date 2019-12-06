@@ -139,7 +139,7 @@
 		console.log("contractStart:"+$("#contractStart").val());
 		console.log("contractEnd:"+$("#contractEnd").val());
 		$.ajax({
-			url:"/coach/addCoachContract",
+			url:"/addCoachContract",
 			method:"POST",
 			data:{"coachNo" : $("#coachNo").val(),
 					"teamName" : $("#teamName").val(),

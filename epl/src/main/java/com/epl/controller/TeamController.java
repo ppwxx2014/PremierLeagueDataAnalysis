@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.epl.service.interfaces.TeamService;
 import com.epl.vo.Team;
+import com.epl.vo.UpdateTeam;
 
 @Controller
 public class TeamController {
@@ -26,11 +27,7 @@ public class TeamController {
 		return "club/addTeam";
 	}
 
-	@PostMapping("/club/addTeam")
-	public String addTeam(Team team, HttpSession session) {
-		teamService.addTeam(team);
-		return "redirect:/addTeam";
-	}
+	
 
 	@GetMapping("/getTeamList")
 	public List<Team> getTeamList(Model model) {
@@ -40,31 +37,29 @@ public class TeamController {
 		return list;
 	}
 
-	@GetMapping("/removeTeam")
-	public String removeTeam(String teamName) {
-
-		return "removeTeam";
+	@GetMapping("/leagueUpdate")
+	public String leagueUpdate() {
+		
+		return "/leagueUpdate";
 	}
-
-	@PostMapping("/removeTeam")
-	public String removeTeam(Team team) {
-		int row = teamService.removeTeam(team);
-		if (row == 0) {
-			return "fail";
-		}
-		return "redirect:/removeTeam";
-	}
-
-	@GetMapping("/modifyTeam")
-	public String modifyTeam() {
-
-		return "modifyTeam";
-	}
-
-	@PostMapping("/modifyTeam")
-	public String modifyTeam(Team team) {
-		teamService.modifyTeam(team);
-		return "redirect:/modifyTeam";
-	}
+	
+	
+	
+	/*
+	 * @GetMapping("/removeTeam") public String removeTeam(String teamName) {
+	 * 
+	 * return "removeTeam"; }
+	 * 
+	 * @PostMapping("/removeTeam") public String removeTeam(Team team) { int row =
+	 * teamService.removeTeam(team); if (row == 0) { return "fail"; } return
+	 * "redirect:/removeTeam"; }
+	 * 
+	 * @GetMapping("/modifyTeam") public String modifyTeam() {
+	 * 
+	 * return "modifyTeam"; }
+	 * 
+	 * @PostMapping("/modifyTeam") public String modifyTeam(Team team) {
+	 * teamService.modifyTeam(team); return "redirect:/modifyTeam"; }
+	 */
 
 }

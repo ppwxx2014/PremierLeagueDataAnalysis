@@ -37,12 +37,25 @@
 		stadium_name as stadiumName,
 		home_place as homePlace,
 		rival as rival,
-		owner as owner
+		owner as owner,
+		active as  active
 		FROM team
 		WHERE active = 'T'
 	</select>
-
-	<delete id="deleteTeam" parameterType="com.epl.vo.Team">
+	<select id = "selectDownTeamList" resultType="com.epl.vo.Team">
+		SELECT
+		team_name as teamName,
+		nick_name as nickName,
+		foundation as foundation,
+		stadium_name as stadiumName,
+		home_place as homePlace,
+		rival as rival,
+		owner as owner,
+		active as  active
+		FROM team
+		WHERE active = 'F'
+	</select>
+	<!-- <delete id="deleteTeam" parameterType="com.epl.vo.Team">
 		DELETE FROM team
 		WHERE team_name = #{teamName}
 	</delete>
@@ -50,6 +63,24 @@
 		UPDATE team
 		SET active = #{active}
 		WHERE team_name = #{teamName}
+	</update> -->
+	
+	<update id = "leagueUpdate" parameterType="com.epl.vo.Team">
+		UPDATE team SET
+			<choose>
+				<when test = "active != 'T'">
+					active = 'T'
+				</when>
+				<otherwise>
+					active = 'F'
+				</otherwise>
+			</choose>
+		WHERE team_name = #{teamNameOne}
+		OR team_name = #{teamNameTwo}
+		OR team_name = #{teamNameThree}
+		OR team_name = #{teamNameFour}
+		OR team_name = #{teamNameFive}
+		OR team_name = #{teamNameSix}
 	</update>
 </mapper>
   

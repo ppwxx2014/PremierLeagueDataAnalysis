@@ -21,6 +21,11 @@ public class CoachRestController {
 		System.out.println("counlist:" + list);
 		return list;
 	}
+	@PostMapping("/addCoach")
+	public String addCoach(Coach coach) {
+		coachService.addCoach(coach);
+		return "addCoach";
+	}
 
 	@PostMapping("/getCoachList")
 	public List<Coach> getCoachList() {

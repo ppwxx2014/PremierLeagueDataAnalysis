@@ -144,7 +144,7 @@
 		console.log("startDate:"+$("#startDate").val());
 		console.log("endDate:"+$("#endDate").val());
 		$.ajax({
-			url:"/club/addTeamLeader",
+			url:"/addTeamLeader",
 			method:"POST",
 			data:{"playerNo" : $("#playerNo").val(),
 					"teamName" : $("#teamName").val(),

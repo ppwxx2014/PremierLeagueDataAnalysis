@@ -23,10 +23,5 @@ public class CoachContractController {
 		return "/coach/addCoachContract";
 	}
 
-	@PostMapping("/coach/addCoachContract")
-	public String addCoachContract(CoachContract coachContract) {
-		int row = coachContractService.addCoachContract(coachContract);
-		System.out.println(row);
-		return "redirect:/addCoachContract";
-	}
+	
 }

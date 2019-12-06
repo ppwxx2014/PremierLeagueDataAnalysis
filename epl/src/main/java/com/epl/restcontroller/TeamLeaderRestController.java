@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.epl.service.interfaces.TeamLeaderService;
 import com.epl.vo.PlayerContract;
+import com.epl.vo.TeamLeader;
 
 @RestController
 public class TeamLeaderRestController {
@@ -22,5 +23,10 @@ public class TeamLeaderRestController {
 		System.out.println("playerContract:" + list);
 		System.out.println("conTeamName:" + teamName);
 		return list;
+	}
+	@PostMapping("/addTeamLeader")
+	public void addTeamLeader(TeamLeader teamLeader) {
+		teamLeaderService.addTeamLeader(teamLeader);
+		
 	}
 }

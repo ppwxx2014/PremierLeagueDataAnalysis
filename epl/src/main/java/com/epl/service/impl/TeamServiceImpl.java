@@ -10,6 +10,7 @@ import com.epl.mapper.TeamMapper;
 import com.epl.service.interfaces.TeamService;
 import com.epl.vo.Stadium;
 import com.epl.vo.Team;
+import com.epl.vo.UpdateTeam;
 
 @Service
 @Transactional
@@ -34,16 +35,30 @@ public class TeamServiceImpl implements TeamService {
 
 		return teamMapper.selectTeamList();
 	}
-
+	
 	@Override
-	public int removeTeam(Team team) {
-
-		return teamMapper.deleteTeam(team);
+	public List<Team> getDownTeamList() {
+		List<Team> list = teamMapper.selectDownTeamList();
+		System.out.println("list:"+list);
+		return list;
 	}
 
+	/*
+	 * @Override public int removeTeam(Team team) {
+	 * 
+	 * return teamMapper.deleteTeam(team); }
+	 * 
+	 * @Override public int modifyTeam(Team team) {
+	 * 
+	 * return teamMapper.updateTeam(team); }
+	 */
+	
 	@Override
-	public int modifyTeam(Team team) {
-
-		return teamMapper.updateTeam(team);
+	public int leagueUpdate(UpdateTeam updateTeam) {
+		
+		return teamMapper.leagueUpdate(updateTeam);
 	}
 }
+
+
+

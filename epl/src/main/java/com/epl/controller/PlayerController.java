@@ -15,7 +15,7 @@ public class PlayerController {
 	@GetMapping("/addPlayer")
 	public String addPlayer() {
 		System.out.println("addPlayer 폼요청");
-		return "addPlayer";
+		return "player/addPlayer";
 	};
 
 	@GetMapping("/getPlayerList")
@@ -25,6 +25,6 @@ public class PlayerController {
 		 * List<Player> list = playerService.getPlayerList();
 		 * System.out.println("playerController @PostMapping list :" + list);
 		 */
-		return "getPlayerList";
+		return "player/getPlayerList";
 	}
 }

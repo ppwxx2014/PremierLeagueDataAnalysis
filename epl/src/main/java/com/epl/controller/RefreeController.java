@@ -14,6 +14,6 @@ public class RefreeController {
 	@GetMapping("/addRefree")
 	public String addRefree() {
 		System.out.println("addRefree Controller 폼요청");
-		return "addRefree";
+		return "refree/addRefree";
 	}
 }

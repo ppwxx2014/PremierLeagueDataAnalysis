@@ -6,7 +6,7 @@
 	<th:block th:include = "template/part/headLayout"></th:block>
 </head>	
 <style>
-.center {
+.table {
    margin: 0 auto;
    text-align: center;
 }
@@ -46,80 +46,55 @@
 			<div class = "center">
    <h2>선발출전 명단 설정입니다.</h2>
    <h3>선수를 한명씩 눌러주세요.</h3>
-   <table border = "1" class = "center">
+   <table class="table table-hover  table-bordered ">
       <tr>
-         <td>HOME Team</td>
-         <td>
-            <select id ="matchList"></select>
+         <td class="table-active">HOME Team</td>
+         <td class="table-active">
+         	<!-- 경기 리스트 -->
+            <select id ="matchList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm"></select>
          </td>
-         <td>AWAY team</td>
+         <td class="table-active">AWAY team</td>
       </tr>
       <tr>
-         <td id ="HomeTeam">HomeTeam</td>
-         <td id ="MatchDate">MatchDate</td>
-         <td id ="AwayTeam">AwayTeam</td>
+      	 <!-- 선택한 경기의 홈팀 어웨이팀과 경기날짜가 표시됨 -->
+         <td id ="HomeTeam" class="table-primary">HomeTeam Name</td>
+         <td id ="MatchDate" class="table-active">Match Date</td>
+         <td id ="AwayTeam" class="table-danger">AwayTeam Name</td>
       </tr>
       
       <tr>
-         <td>
+         <td class="table-primary">
             <!-- 홈팀 선수 리스트 -->
          <select id ="homeTeamPlayer" multiple="multiple" class = "playerList"></select>
       </td>
-         <!-- <td>
-            <div>선발추가</div>   
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         <div>후보추가</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         <div>키퍼선택</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>   
-         </td> -->
+         <td class="table-success">
          
-         <td>
-            <!-- 선발선수 -->
-            
-            <div>선발 명단</div>
-         <select id ="hMainPlayer" multiple="multiple" class = "main"></select>
-         <select id ="aMainPlayer" multiple="multiple" class = "main"></select>
+         <!-- 골키퍼 제외 선발선수 10명 선택-->
+         <div><dt><mark>선발 명단</mark></dt></div>
+         <select id ="hMainPlayer" multiple="multiple" class = "main table-primary"></select>
+         <select id ="aMainPlayer" multiple="multiple" class = "main table-danger"></select>
          <br>
          
-         <!-- 양팀 키퍼 선택 -->
-         <div>선발 키퍼</div>
-         <select id ="hKeeper" multiple="multiple" class = "keeper"></select>
-         <select id ="aKeeper" multiple="multiple" class = "keeper"></select>
+         <!--키퍼 선택 -->
+         <div><dt><mark>선발 키퍼</mark></dt></div>
+         <select id ="hKeeper" multiple="multiple" class = "keeper table-primary"></select>
+         <select id ="aKeeper" multiple="multiple" class = "keeper table-danger"></select>
          <br>
          
-         <!-- 후보 선수 -->
-         
-         <div>교체 선수</div>
-         <select id ="hSubPlayer" multiple="multiple" class = "sub"></select>
-         <select id ="aSubPlayer" multiple="multiple" class = "sub"></select>   
+         <!--후보 선수 7 명 선택-->
+         <div><dt><mark>교체 선수</mark></dt></div>
+         <select id ="hSubPlayer" multiple="multiple" class = "sub table-primary"></select>
+         <select id ="aSubPlayer" multiple="multiple" class = "sub table-danger"></select>   
          </td>
          
-         <!-- <td>
-            <div>선발추가</div>   
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         
-         <div>후보추가</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         <br>
-         
-         <div>키퍼선택</div>
-         <button type ="button">&lt;</button>
-         <button type ="button">&gt;</button>
-         </td> -->
-         <td>
+         <!--어웨이팀 선수 리스트-->
+      	 <td class="table-danger">
          <select id ="awayTeamPlayer" multiple="multiple" class = "playerList"></select>
-      </td>
+      	 </td>
       </tr>
    </table>
+   	
+   <button id = "insertMatchPlayer">선발 명단 입력</button>
 </div>
 		</div>
         <!-- /.content -->		
@@ -138,6 +113,7 @@
 
     <!--Local Stuff-->
     <script>
+    //homeTeamPlayer >> main sub keeper 
     $('#homeTeamPlayer').click(function() {
         let homeMainCount = $('#hMainPlayer > option').length + 1;
         let homeSubCount = $('#hSubPlayer > option').length + 1;
@@ -158,7 +134,7 @@
         }
      });
      
-     // 홈팀 선수 명단 삭제
+     // main sub keeper  >> homeTeamPlayer
      $('#hMainPlayer').click(function() {
         return !$('#hMainPlayer option:selected').remove().appendTo('#homeTeamPlayer');
      });
@@ -171,7 +147,7 @@
         return !$('#hSubPlayer option:selected').remove().appendTo('#homeTeamPlayer');
      });
 
-     // 어웨이팀 선수 명단 추가
+     //awayTeamPlayer >> main sub keeper 
      $('#awayTeamPlayer').click(function() {
           let awayMainCount = $('#aMainPlayer > option').length + 1;
           let awaySubCount = $('#aSubPlayer > option').length + 1;
@@ -192,7 +168,7 @@
         }
      });
 
-     // 어웨이팀 선수 명단 삭제
+     // main sub keeper  >> awayTeamPlayer
      $('#aMainPlayer').click(function() {
         return !$('#aMainPlayer option:selected').remove().appendTo('#awayTeamPlayer');
      });
@@ -204,9 +180,11 @@
      $('#aSubPlayer').click(function() {
         return !$('#aSubPlayer option:selected').remove().appendTo('#awayTeamPlayer');
      });
+    
      
+     //매치 목록을 가져온다
      $.ajax({
-        url:"/selectMatchList",
+        url:"/getMatchList",
         method:"POST",
         success:function(json){
            console.log(json);
@@ -222,10 +200,11 @@
            });
         }
      });
-     
+    
+     // 매치를 선택시 해당 매치의 팀들과 경기 날짜를 가져온다
      $("#matchList").change(function(){
            $.ajax({
-              url:"/selectMatchOne",
+              url:"/getMatchOne",
               method:"POST",
               data:{"matchNo":$("#matchList").val()},
               success:function(json){
@@ -243,13 +222,19 @@
                  console.log("홈팀 값 : ")
                  console.log($("#HomeTeam").text())
                  
+                 //가져온 팀의 No를 넘겨 해당 팀의 선수들을 가져온다 (homeTeam)
                  $.ajax({
-                    url:"/selectPlayerByTeam",
+                    url:"/getPlayerListByTeamName",
                     method:"POST",
                     data:{"teamName":$("#HomeTeam").text()},
                     success:function(json){
                        console.log("선수 리스트");
                        console.log(json);   
+                     //경기를바꿀시 homeTeamPlayer select 내용을 초기화
+                       if($("#homeTeamPlayer > option").size()!=0)
+                       {
+                     	  $('#homeTeamPlayer > option[value!="0"]').remove();	  
+                       }
                        $(json).each(function(index,item){
                           temp="<option value='";
                           temp+=item.playerNo;
@@ -260,14 +245,19 @@
                        })
                        }   
                     })
-                    
+                 //가져온 팀의 No를 넘겨 해당 팀의 선수들을 가져온다 (awayTeam)
                  $.ajax({
-                    url:"/selectPlayerByTeam",
+                    url:"/getPlayerListByTeamName",
                     method:"POST",
                     data:{"teamName":$("#AwayTeam").text()},
                     success:function(json){
                        console.log("선수 리스트");
                        console.log(json);
+                       //경기를바꿀시 awayTeamPlayer select 내용을 초기화
+                       if($("#awayTeamPlayer > option").size()!=0)
+                       {
+                     	  $('#awayTeamPlayer > option[value!="0"]').remove();	  
+                       }
                        $(json).each(function(index,item){
                           temp="<option value='";
                           temp+=item.playerNo;
@@ -278,10 +268,111 @@
                        })
                        }   
                     })
+                   // 경기를 바꿀시 6개의select의 내용을 초기화
+	                 if($("#hMainPlayer > option").size()!=0)
+	                 {
+	                 	$('#hMainPlayer > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#aMainPlayer > option").size()!=0)
+	                 {
+	               	 	$('#aMainPlayer > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#hKeeper > option").size()!=0)
+	                 {
+	               	 	$('#hKeeper > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#aKeeper > option").size()!=0)
+	                 {
+	               	 	$('#aKeeper > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#hSubPlayer > option").size()!=0)
+	                 {
+	               	 	$('#hSubPlayer > option[value!="0"]').remove();	  
+	                 }
+	                 if($("#aSubPlayer > option").size()!=0)
+	                 {
+	               	 	$('#aSubPlayer > option[value!="0"]').remove();	  
+	                 }
                  }   
               })
         });
+   	
      
+  // 홈팀 메인 ,서브, 키퍼  어웨이팀 메인 ,서브 ,키퍼 select 박스에 있는 선수들의 밸류값(playerNo)를 뺴와 리스트에 넣는다
+  	var mainPlayerNo = [];
+  	var KeeperNo = [];
+  	var subPlayerNo = [];
+   	$("#insertMatchPlayer").click(function() {
+   	// Hm
+   		var homeTeamMainNo = [];
+    	$('#hMainPlayer > option').each(function(){
+    		homeTeamMainNo.push ( $(this).val() );
+    		mainPlayerNo.push ( $(this).val() );
+    	});
+    	console.log("H팀 메인");
+    	console.log(homeTeamMainNo);
+    	
+    // Am
+    	var awayTeamMainNo = [];
+    	$('#aMainPlayer > option').each(function(){
+    		awayTeamMainNo.push ( $(this).val() );
+    		mainPlayerNo.push ( $(this).val() );
+    	});
+    	console.log("A팀 메인");
+    	console.log(awayTeamMainNo);
+    	
+    // Hk
+	    var homeTeamKeeperNo = $('#hKeeper > option').val();
+	    KeeperNo.push (homeTeamKeeperNo);
+	    console.log("H팀 키퍼");
+	    console.log(homeTeamKeeperNo);
+	    
+    // Ak
+    	var awayTeamKeeperNo = $('#aKeeper > option').val();
+    	KeeperNo.push (awayTeamKeeperNo);
+	    console.log("A팀 키퍼");
+	    console.log(awayTeamKeeperNo);
+	    
+    // Hs
+    	var homeTeamSubNo = [];
+	    $('#hSubPlayer > option').each(function(){
+	    	homeTeamSubNo.push ( $(this).val() );
+	    	subPlayerNo.push ( $(this).val() );
+    	});
+    	console.log("H팀 서브");
+    	console.log(homeTeamSubNo);
+    	
+    // As
+    	var awayTeamSubNo = [];
+	    $('#aSubPlayer > option').each(function(){
+	    	awayTeamSubNo.push ( $(this).val() );
+	    	subPlayerNo.push ( $(this).val() );
+    	});
+    	console.log("A팀 서브");
+    	console.log(awayTeamSubNo);
+    	
+    	console.log("넘길 값");
+    	console.log(mainPlayerNo);
+    	console.log(KeeperNo);
+    	console.log(subPlayerNo);
+    	console.log($("#matchList").val());
+   
+    	//받은 20+14+2 의 리스트(playerNo)를 넘겨 DB에 각각 insert한다
+    	$.ajax({
+            url:"/addMatchPlayerKeeper",
+            method:"POST",
+    		dataType : 'json',
+            data:{	"mainPlayerNo":mainPlayerNo,
+            		"KeeperNo":KeeperNo,
+            		"subPlayerNo":subPlayerNo,
+            		"matchNo":$("#matchList").val()},
+            success:function(json){
+               console.log(json);
+            }
+         });
+    
+      });
+  
     </script>
 </body>
 </html>

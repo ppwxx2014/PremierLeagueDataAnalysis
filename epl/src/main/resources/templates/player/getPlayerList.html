@@ -1,0 +1,277 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+</head>
+
+<body>
+	<!-- Left Panel -->
+	<th:block th:include="template/part/aside"></th:block>
+	<!-- /#left-panel -->
+
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+		<!-- Header-->
+		<div th:include="template/part/topBar::topBar"></div>
+		<!-- /#header -->
+		<!-- 경로 표시 -->
+		<div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 리스트</font></font></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="index"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">홈</font></font></a></li>
+                                    <li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수</font></font></a></li>
+                                    <li class="active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 리스트</font></font></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#경로 표시 -->
+		<!-- Content -->
+		<div class="content">
+		<div class="animated fadeIn">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">선수 </strong>
+							</div>
+							<div class="card-body">
+							
+									<div id="bootstrap-data-table_filter" class="dataTables_filter">
+										<label>검색(선수 이름) : </label><label>
+										<input type="search" class="form-control form-control-sm"  id ="searchWord"
+											placeholder="" aria-controls="bootstrap-data-table"></label>
+											
+										<button class="btn btn-sm btn-primary" type="submit" id="search">검색</button>
+									</div>
+								<table id="bootstrap-data-table"
+									class="table table-striped">
+									<thead>
+										<tr>
+											<td>선수 번호</td>
+											<td>선수 이름</td>
+											<td>선수 생일</td>
+											<td>출신 국가</td>
+											<td>선수 포지션</td>
+											<!-- <td>선수 포지션</td> -->
+										</tr>
+									</thead>
+									<tbody  id="list">
+
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+									<li class="page-item"><a class="page-link" id="preBtn">이전</a></li>
+									<li class="page-item"><a class="page-link" id="nextBtn">다음</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- .animated -->
+			<!-- <div>
+				<span>전체 선수 수 : <span id="totalRowCount">map.totalRowCount</span>
+				</span>
+			</div>
+			<a href="addPlayer">선수 추가</a>
+				<div>
+					<label>검색어(선수이름) :</label> <input class="form-control" id ="searchWord" type="text">
+					<button type="submit" id="search">검색</button>
+				</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<td>선수 번호</td>
+						<td>선수 이름</td>
+						<td>선수 생일</td>
+						<td>출신 국가</td>
+						<td>선수 포지션</td>
+						<td>선수 포지션</td>
+					</tr>
+				</thead>
+				<tbody id="list">
+
+				</tbody>
+			</table> -->
+			<!-- <a th:if="${map.currentPage} > 1" th:href="@{/getPlayerList?(currentPage=${map.currentPage-1},searchWord=${map.searchWord})}">이전</a>
+			<c:if test="${map.currentPage < map.lastPage}">
+			<a th:if="${map.currentPage} < ${map.lastPage}-1" th:href="@{/getPlayerList?(currentPage=${map.currentPage+1},searchWord=${map.searchWord})}">다음</a> -->
+
+		</div>
+		<!-- /.content -->
+
+
+		<div class="clearfix"></div>
+
+		<!-- Footer -->
+		<div th:include="template/part/footer::footer"></div>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /#right-panel -->
+
+
+
+	<!--Local Stuff-->
+	<script>
+		let currentPage = 1;
+		$.ajax({
+			url : "/getPlayerListByPage",
+			method : "post",
+			// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+			success : function(json) {
+				//console.log("getPlayerList json 값 확인 :" + json);
+				$(json).each(function(index, item) {
+					temp = "<tr>";
+					temp += "<td>" + item.playerNo + "</td>";
+					temp += "<td>" + item.playerName + "</td>";
+					temp += "<td>" + item.birthDate + "</td>";
+					temp += "<td>" + item.country + "</td>";
+					temp += "<td>" + item.playerPosition + "</td>";
+					temp += "</tr>";
+					$("#list").append(temp);
+				});
+			}
+		});
+		// 검색 단어 저장
+		let searchWord = null;
+		
+		// 검색
+		$("#search").click(function(){
+			
+			searchWord = $("#searchWord").val();
+			
+			console.log("searchWord 검색 실행! searchWord :"+searchWord);
+			
+			$("#list").empty(); // 요청 중복을 막기 위해 청소
+			$.ajax({
+				url : "/getPlayerListByPage" ,
+				method :"post",
+				async : false,
+				data : {"currentPage" : currentPage, "searchWord" : searchWord},
+				success : function(json){
+					console.log("getPlayerList json 값 확인 :" + json);
+					$(json).each(function(index, item) {
+						temp = "<tr>";
+						temp += "<td>" + item.playerNo + "</td>";
+						temp += "<td>" + item.playerName + "</td>";
+						temp += "<td>" + item.birthDate + "</td>";
+						temp += "<td>" + item.country + "</td>";
+						temp += "<td>" + item.playerPosition + "</td>";
+						temp += "</tr>";
+						$("#list").append(temp);
+						
+					});
+				}
+			});
+		});
+		
+		// 이전버튼
+		$("#preBtn").click(function() {
+			console.log("이전 버튼 클릭! 현제 currentPage : " + currentPage);
+			console.log("searchWord 값 검색 searchWord :"+searchWord);
+			if (currentPage === 1) {
+				alert("현재 1페이지입니다.");
+				return;
+			}
+
+			currentPage--;
+			console.log("바뀐  currentPage :" + currentPage);
+
+			$("#list").empty(); // 요청 중복을 막기 위해 청소
+
+			$.ajax({
+				url : "/getPlayerListByPage",
+				method : "post",
+				async : false,
+				data : {"currentPage" : currentPage, "searchWord" : searchWord},
+				// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+				success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+					console.log("getPlayerList json 값 확인 :" + json);
+					$(json).each(function(index, item) {
+						temp = "<tr>";
+						temp += "<td>" + item.playerNo + "</td>";
+						temp += "<td>" + item.playerName + "</td>";
+						temp += "<td>" + item.birthDate + "</td>";
+						temp += "<td>" + item.country + "</td>";
+						temp += "<td>" + item.playerPosition + "</td>";
+						temp += "</tr>";
+						$("#list").append(temp);
+					});
+				}
+			});
+		});
+
+		// 다음버튼
+		$("#nextBtn").click(
+				function() {
+					console.log("다음 버튼 클릭! 현제 currentPage : " + currentPage);
+					// db에서 전체 데이터 사이즈를 가지고 온다.
+					let count = 0;
+					$.ajax({
+						url : "/getPlayerListCount",
+						method : "post",
+						// 비동기 요청 : false
+						async : false,
+						success : function(json) {
+							console.log("선수의 수"+json);
+							count = Number(json);
+							console.log("count :"+count);
+						}
+					});
+					
+					// 마지막페이지
+					let lastPage = Math.ceil(count/10); // rowPerPage = 10
+					if(currentPage == lastPage) {
+						alert("마지막 페이지입니다~");
+						return;
+					}
+					
+					currentPage++;
+					
+					
+					console.log("바뀐  currentPage :" + currentPage);
+					console.log("lastPage :"+lastPage);
+					
+					$("#list").empty(); // 요청 중복을 막기 위해 청소
+					$.ajax({
+						url : "/getPlayerListByPage",
+						method : "post",
+						data : {"currentPage" : currentPage, "searchWord" : $("#searchWord").val()},
+						// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+						success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+							console.log("getPlayerList json 값 확인 :" + json);
+							$(json).each(function(index, item) {
+								temp = "<tr>";
+								temp += "<td>" + item.playerNo + "</td>";
+								temp += "<td>" + item.playerName + "</td>";
+								temp += "<td>" + item.birthDate + "</td>";
+								temp += "<td>" + item.country + "</td>";
+								temp += "<td>" + item.playerPosition + "</td>";
+								temp += "</tr>";
+								$("#list").append(temp);
+							});
+						}
+					});
+
+				});
+	</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+</head>
+
+<body>
+	<!-- Left Panel -->
+	<th:block th:include="template/part/aside"></th:block>
+	<!-- /#left-panel -->
+
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+		<!-- Header-->
+		<div th:include="template/part/topBar::topBar"></div>
+		<!-- /#header -->
+		<!-- 경로 표시 -->
+		<div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 입력</font></font></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="index"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">홈</font></font></a></li>
+                                    <li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수</font></font></a></li>
+                                    <li class="active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">선수 입력</font></font></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#경로 표시 -->
+		<!-- Content -->
+		<div class="content">
+			<div class="card">
+				<div class="card-header">
+					<strong><font style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;">선수 </font></font></strong><font
+						style="vertical-align: inherit;"><font
+						style="vertical-align: inherit;"> 계약 정보 입력 </font></font>
+				</div>
+				<div class="card-body card-block">
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="select" class=" form-control-label">팀명 : </label>
+						</div>
+						<div class="col-12 col-md-9">
+							<select name="select" id="teamName" class="form-control">
+   								<option value="none">::: 팀명 선택 :::</option>
+							</select>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="select" class=" form-control-label">선수 : </label>
+						</div>
+						<div class="col-12 col-md-9">
+							<select name="select" id="player" class="form-control">
+   								<option value="none">::: 선수 선택 :::</option>
+							</select>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label"><font
+								style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">계약일 : </font></font></label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="date" id="contractStart" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label"><font
+								style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">계약 종료일 : </font></font></label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="date" id="contractEnd" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label">연봉 : 
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="salary" name="text-input"
+								placeholder="선수 연봉 입력" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label">이적료 : 
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="transferFee" name="text-input"
+								placeholder="선수 이적료 입력" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="disabled-input" class=" form-control-label">등번호 : 
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="uniformBackNumber" name="text-input"
+								placeholder="선수 등번호 입력" class="form-control">
+						</div>
+					</div>
+					
+					<button type="button" class="btn btn-lg btn-info btn-block" id="add"><font
+							style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;"> 선수 계약 추가 </font></font>
+					</button>
+				</div>
+			</div>
+			<!-- <div>
+				<div>
+					teamName : <select id="teamName">
+					</select>
+				</div>
+				<div>
+					player : <select id="player">
+					</select>
+				</div>
+				<div>
+					contract_start : <input type="date" id="contractStart">
+				</div>
+				<div>
+					contract_end : <input type="date" id="contractEnd">
+				</div>
+				<div>
+					salary : <input type="number" id="salary">
+				</div>
+				<div>
+					transfer_fee : <input type="number" id="transferFee">
+				</div>
+				<div>
+					uniform_back_number : <input type="number" id="uniformBackNumber">
+				</div>
+			</div>
+			<button type="button" id="add">PlayerContract Add</button> -->
+		</div>
+		<!-- /.content -->
+
+
+		<div class="clearfix"></div>
+
+		<!-- Footer -->
+		<div th:include="template/part/footer::footer"></div>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /#right-panel -->
+
+
+
+	<!--Local Stuff-->
+	<script>
+	// 국가리스트 불러오기
+	$.ajax({
+		url : "/getTeamList",
+		method : "post",
+		success : function(json){
+			console.log("team 받아오기 성공 !");
+			//console.log("getTeamList"+json);
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.teamName;
+				temp += "'>";
+				temp += item.teamName;
+				temp += "</option>";
+				$("#teamName").append(temp);
+			});
+		}
+	});
+	// 포지션  불러오기
+	$.ajax({
+		url : "/getPlayerList",
+		method : "post",
+		success : function(json){
+			console.log("position 받아오기 성공 !");
+			//console.log("getPlayerList :"+json);
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.playerNo;
+				temp += "'>";
+				temp += item.playerName;
+				temp += "</option>";
+				$("#player").append(temp);
+			});
+		}
+	});
+	 // 플레이어 입력
+	 $("#add").click(function() {
+		console.log("teamName"+$("#teamName").val());
+		console.log("player"+$("#player").val());
+		console.log("contractStart"+$("#contractStart").val());
+		console.log("contractEnd"+$("#contractEnd").val());
+		console.log("salary"+$("#salary").val());
+		console.log("transferFee"+$("#transferFee").val());
+		console.log("uniformBackNumber"+$("#uniformBackNumber").val());
+		$.ajax({
+			url : "/addPlayerContract",
+			method : "post",
+			data : {"teamName" : $("#teamName").val() ,
+					"playerNo" : $("#player").val() ,
+					"contractStart" : $("#contractStart").val() ,
+					"contractEnd" : $("#contractEnd").val() ,
+					"salary" : $("#salary").val() ,
+					"transferFee" : $("#transferFee").val() ,
+					"uniformBackNumber" : $("#uniformBackNumber").val()} ,
+			success : function(json) {
+				console.log(json + "행 입력 성공!");
+				
+			}
+		});
+	}); 
+    </script>
+</body>
+</html>

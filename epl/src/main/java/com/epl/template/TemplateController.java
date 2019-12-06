@@ -14,11 +14,6 @@ public class TemplateController {
 	
 	// :::::::::::::::::::::::::::: 여기부터 선수 카테고리 :::::::::::::::::::::::::::: //
 	
-	@GetMapping("/modifyPlayer")	
-	public String modifyPlayer() {
-		return "modifyPlayer";
-	}
-	
 	@GetMapping("/playerContract")	
 	public String playerContract() {
 		return "playerContract	";

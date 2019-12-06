@@ -19,9 +19,189 @@
         
         <!-- Content -->
 		<div class="content">
-			<h1>이곳은 인덱스 화면이다!으하하핳</h1>
+
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 선수 리스트</button>
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 팀 리스트　</button>
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 심판 리스트</button>
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 감독 리스트</button>
+									
+								
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+					<!-- /# column -->
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addPlayer'"><i class="fa fa-plus"></i> 선수 추가</button>
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-plus"></i> 팀 추가　</button>
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-plus"></i> 심판 추가</button>
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-plus"></i> 감독 추가</button>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 선수 수정</button>
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 팀 수정　</button>
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 심판 수정</button>
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 감독 수정</button>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 회원 관리　　</button>
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 공지사함 관리</button>
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 게시판 관리　</button>
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 기타 등등　　</button>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="mb-3">게시판별 접속자 수</h4>
+								<div class="flot-container">
+									<div id="flot-pie" class="flot-pie-container"></div>
+								</div>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+					<!-- /# column -->
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="mb-3">Line Chart</h4>
+								<div class="flot-container">
+									<div id="chart1" style="width: 100%; height: 275px;"></div>
+								</div>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+				</div>
+				<!-- /# row -->
+			</div>
+			<!-- .animated -->
+			<div class="card">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title"><font
+							style="vertical-align: inherit;"><font
+								style="vertical-align: inherit;">맞춤 표</font></font></strong>
+					</div>
+					<div class="table-stats order-table ov-h">
+						<table class="table ">
+							<thead>
+								<tr>
+									<th class="serial"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">#</font></font></th>
+									<th class="avatar"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">화신</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">신분증</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">이름</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">생성물</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">수량</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">지위</font></font></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="serial"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">2.</font></font></td>
+									<td class="avatar">
+										<div class="round-img">
+											<a href="#"><img class="rounded-circle"
+												src="images/avatar/2.jpg" alt=""></a>
+										</div>
+									</td>
+									<td><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;"> # 5468 </font></font></td>
+									<td><span class="name"></span></td>
+									<td><span class="product"></span></td>
+									<td><span class="count"></span></td>
+									<td><span class="badge badge-complete"></span></td>
+								</tr>
+								<tr>
+									<td class="serial"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">2.</font></font></td>
+									<td class="avatar">
+										<div class="round-img">
+											<a href="#"><img class="rounded-circle"
+												src="images/avatar/2.jpg" alt=""></a>
+										</div>
+									</td>
+									<td><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;"> # 5468 </font></font></td>
+									<td><span class="name"></span></td>
+									<td><span class="product"></span></td>
+									<td><span class="count"></span></td>
+									<td><span class="badge badge-complete"></span></td>
+								</tr>
+								<tr>
+									<td class="serial"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">2.</font></font></td>
+									<td class="avatar">
+										<div class="round-img">
+											<a href="#"><img class="rounded-circle"
+												src="images/avatar/2.jpg" alt=""></a>
+										</div>
+									</td>
+									<td><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;"> # 5468 </font></font></td>
+									<td><span class="name"></span></td>
+									<td><span class="product"></span></td>
+									<td><span class="count"></span></td>
+									<td><span class="badge badge-complete"></span></td>
+								</tr><tr>
+									<td class="serial"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">2.</font></font></td>
+									<td class="avatar">
+										<div class="round-img">
+											<a href="#"><img class="rounded-circle"
+												src="images/avatar/2.jpg" alt=""></a>
+										</div>
+									</td>
+									<td><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;"> # 5468 </font></font></td>
+									<td><span class="name"></span></td>
+									<td><span class="product"></span></td>
+									<td><span class="count"></span></td>
+									<td><span class="badge badge-complete"></span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.table-stats -->
+				</div>
+			</div>
 		</div>
-        <!-- /.content -->		
+		<!-- /.content -->		
         
         
         <div class="clearfix"></div>
@@ -33,11 +213,145 @@
     </div>
     <!-- /#right-panel -->
 
-    
-
+    <script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/excanvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/jquery.flot.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.time.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.stack.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.resize.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.crosshair.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot.curvedlines@1.1.1/curvedLines.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot.tooltip@0.9.0/js/jquery.flot.tooltip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
     <!--Local Stuff-->
     <script>
+		(function($) {
+			var pieFlot = function() {
 
-    </script>
+				var data = [ {
+					label : " 자유 게시판",
+					data : 2,
+					color : "#8fc9fb"
+				}, {
+					label : " 팀 게시판",
+					data : 4,
+					color : "#007BFF"
+				}, {
+					label : " 토론 게시판",
+					data : 7,
+					color : "#00c292"
+				}, {
+					label : " 해충갤1",
+					data : 15,
+					color : "#F54336"
+				}, {
+					label : " 해충갤2",
+					data : 15,
+					color : "#164336"
+				}, {
+					label : " 해충갤3",
+					data : 15,
+					color : "#214336"
+				}, {
+					label : " 해충갤4",
+					data : 15,
+					color : "#324336"
+				}, {
+					label : " 해충갤5",
+					data : 15,
+					color : "#474336"
+				}, {
+					label : " 해충갤6",
+					data : 15,
+					color : "#584336"
+				}, {
+					label : " 해충갤7",
+					data : 15,
+					color : "#694336"
+				}, {
+					label : " 해충갤8",
+					data : 15,
+					color : "#740336"
+				} ];
+
+				var plotObj = $.plot($("#flot-pie"), data, {
+					series : {
+						pie : {
+							show : true,
+							radius : 1,
+							label : {
+								show : false,
+
+							}
+						}
+					},
+					grid : {
+						hoverable : true
+					},
+					tooltip : {
+						show : true,
+						content : "%p.0%, %s, user=%n", // show percentages, rounding to 2 decimal places
+						shifts : {
+							x : 20,
+							y : 0
+						},
+						defaultTheme : false
+					}
+				});
+			}
+			var lineFlot = function() {
+
+				// first chart
+				var chart1Options = {
+					series : {
+						lines : {
+							show : true
+						},
+						points : {
+							show : true
+						}
+					},
+					xaxis : {
+						mode : "time",
+						timeformat : "%m/%d",
+						minTickSize : [ 1, "day" ]
+					},
+					grid : {
+						hoverable : true
+					},
+					legend : {
+						show : false
+					},
+					grid : {
+						color : "#fff",
+						hoverable : true,
+						borderWidth : 0,
+						backgroundColor : 'transparent'
+					},
+					tooltip : {
+						show : true,
+						content : "접속자: %y"
+					}
+				};
+				var chart1Data = {
+					label : "chart1",
+					color : "#007BFF",
+					data : [ [ 1354521600000, 6322 ],
+							[ 1354840000000, 6340 ],
+							[ 1355223600000, 6368 ],
+							[ 1355306400000, 6374 ],
+							[ 1355487300000, 6388 ],
+							[ 1355571900000, 6400 ] ]
+				};
+
+				$.plot($("#chart1"), [ chart1Data ], chart1Options);
+			}
+			$(document).ready(function($) {
+
+				pieFlot();
+				lineFlot();
+			});
+		})(jQuery);
+				</script>
 </body>
 </html>

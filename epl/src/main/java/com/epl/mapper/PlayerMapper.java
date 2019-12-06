@@ -21,4 +21,6 @@ public interface PlayerMapper {
 	public ArrayList<Player> selectPlayerListByPage(Page page);
 
 	public int selectPlayerCount(Page page);
+	
+	public int updatePlayer(Player player);
 }

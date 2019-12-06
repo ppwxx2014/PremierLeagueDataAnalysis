@@ -90,7 +90,7 @@
 	
  	// 홈팀 선택
 	$.ajax({
-		url:"/teamList",
+		url:"/getTeamList",
 		method:"POST",
 		success:function(json){
 			console.log(json);
@@ -109,7 +109,7 @@
 	//홈팀 선택시 자동의로 경기장 선택
 	$("#hometeamList").change(function(){
 	$.ajax({
-		url:"/stadium",
+		url:"/getStadiumByTeamName",
 		method:"POST",
 		data:{"teamName":$("#hometeamList").val()},
 		success:function(json){
@@ -123,7 +123,7 @@
 	
 	//어웨이팀 선택
 	$.ajax({
-		url:"/teamList",
+		url:"/getTeamList",
 		method:"POST",
 		success:function(json){
 			console.log(json);
@@ -141,7 +141,7 @@
 	});
 	//심판 선택
 	$.ajax({
-		url:"/refreeList",
+		url:"/getRefreeList",
 		method:"POST",
 		success:function(json){
 			console.log(json);
@@ -168,7 +168,7 @@
 		console.log("refreeNo : ", $("#refreeList").val());
 		
 		$.ajax({
-			url:"/insertMatch",
+			url:"/addMatch",
 			method:"POST",
 			data:{
 				  "hometeamName":$("#hometeamList").val(),

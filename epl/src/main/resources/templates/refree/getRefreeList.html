@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+</head>
+
+<body>
+	<!-- Left Panel -->
+	<th:block th:include="template/part/aside"></th:block>
+	<!-- /#left-panel -->
+
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+		<!-- Header-->
+		<div th:include="template/part/topBar::topBar"></div>
+		<!-- /#header -->
+
+		<!-- Content -->
+		<div class="content">
+			<a href="/addRefree">심판 추가</a>
+				<div>
+					<label>검색어(선수이름) :</label> <input id ="searchWord" type="text">
+					<button type="submit" id="search">검색</button>
+				</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<td>심판 번호</td>
+						<td>심판 이름</td>
+						<td>심판 생일</td>
+						<td>심판 국가</td>
+					</tr>
+				</thead>
+				<tbody id="list">
+
+				</tbody>
+			</table>
+			<button type="button" id="preBtn">이전</button>
+			<button type="button" id="nextBtn">다음</button>
+			
+		</div>
+		<!-- /.content -->
+
+
+		<div class="clearfix"></div>
+
+		<!-- Footer -->
+		<div th:include="template/part/footer::footer"></div>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /#right-panel -->
+
+
+
+	<!--Local Stuff-->
+	<script>
+		let currentPage = 1;
+		$.ajax({
+			url : "/getRefreeListByPage",
+			method : "post",
+			// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+			success : function(json) {
+				//console.log("getRefreeListByPage json 값 확인 :" + json);
+				$(json).each(function(index, item) {
+					temp = "<tr>";
+					temp += "<td>" + item.refreeNo+ "</td>";
+					temp += "<td>" + item.refreeName+ "</td>";
+					temp += "<td>" + item.birthDate+ "</td>";
+					temp += "<td>" + item.country+ "</td>";
+					temp += "</tr>";
+					$("#list").append(temp);
+				});
+			}
+		});
+		// 검색 단어 저장
+		let searchWord = null;
+		
+		// 검색
+		$("#search").click(function(){
+			
+			searchWord = $("#searchWord").val();
+			
+			console.log("searchWord 검색 실행! searchWord :"+searchWord);
+			
+			$("#list").empty(); // 요청 중복을 막기 위해 청소
+			$.ajax({
+				url : "/getRefreeListByPage" ,
+				method :"post", 
+				async : false,
+				data : {"currentPage" : currentPage, "searchWord" : searchWord},
+				success : function(json){
+					console.log("getRefreeListByPage json 값 확인 :" + json);
+					$(json).each(function(index, item) {
+						temp = "<tr>";
+						temp += "<td>" + item.refreeNo+ "</td>";
+						temp += "<td>" + item.refreeName+ "</td>";
+						temp += "<td>" + item.birthDate+ "</td>";
+						temp += "<td>" + item.country+ "</td>";
+						temp += "</tr>";
+						$("#list").append(temp);
+						
+					});
+				}
+			});
+		});
+		
+		// 이전버튼
+		$("#preBtn").click(function() {
+			console.log("이전 버튼 클릭! 현제 currentPage : " + currentPage);
+			console.log("searchWord 값 검색 searchWord :"+searchWord);
+			if (currentPage === 1) {
+				alert("현재 1페이지입니다.");
+				return;
+			}
+
+			currentPage--;
+			console.log("바뀐  currentPage :" + currentPage);
+
+			$("#list").empty(); // 요청 중복을 막기 위해 청소
+
+			$.ajax({
+				url : "/getRefreeListByPage",
+				method : "post",
+				async : false,
+				data : {"currentPage" : currentPage, "searchWord" : searchWord},
+				// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+				success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+					console.log("getRefreeListByPage json 값 확인 :" + json);
+					$(json).each(function(index, item) {
+						temp = "<tr>";
+						temp += "<td>" + item.refreeNo+ "</td>";
+						temp += "<td>" + item.refreeName+ "</td>";
+						temp += "<td>" + item.birthDate+ "</td>";
+						temp += "<td>" + item.country+ "</td>";
+						temp += "</tr>";
+						$("#list").append(temp);
+					});
+				}
+			});
+		});
+
+		// 다음버튼
+		$("#nextBtn").click(
+				function() {
+					console.log("다음 버튼 클릭! 현제 currentPage : " + currentPage);
+					// db에서 전체 데이터 사이즈를 가지고 온다.
+					let count = 0;
+					$.ajax({
+						url : "/getPlayerListCount",
+						method : "post",
+						// 비동기 요청 : false
+						async : false,
+						success : function(json) {
+							console.log("심판의 수"+json);
+							count = Number(json);
+							console.log("count :"+count);
+						}
+					});
+					
+					// 마지막페이지
+					let lastPage = Math.ceil(count/10); // rowPerPage = 10
+					if(currentPage == lastPage) {
+						alert("마지막 페이지입니다~");
+						return;
+					}
+					
+					currentPage++;
+					
+					
+					console.log("바뀐  currentPage :" + currentPage);
+					console.log("lastPage :"+lastPage);
+					
+					$("#list").empty(); // 요청 중복을 막기 위해 청소
+					$.ajax({
+						url : "/getRefreeListByPage",
+						method : "post",
+						data : {"currentPage" : currentPage, "searchWord" : $("#searchWord").val()},
+						// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+						success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+							console.log("getRefreeListByPage json 값 확인 :" + json);
+							$(json).each(function(index, item) {
+								temp = "<tr>";
+								temp += "<td>" + item.refreeNo+ "</td>";
+								temp += "<td>" + item.refreeName+ "</td>";
+								temp += "<td>" + item.birthDate+ "</td>";
+								temp += "<td>" + item.country+ "</td>";
+								temp += "</tr>";
+								$("#list").append(temp);
+							});
+						}
+					});
+
+				});
+	</script>
+</body>
+</html>

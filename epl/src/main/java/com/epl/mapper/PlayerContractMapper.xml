@@ -20,8 +20,8 @@
 		#{contractStart} ,
 		#{contractEnd},
 		#{salary},
-		#{trasferFee},
-		#{uniformBackNo}
+		#{transferFee},
+		#{uniformBackNumber}
 		)
 	</insert>
 	<select id="selectPlayerContractList"

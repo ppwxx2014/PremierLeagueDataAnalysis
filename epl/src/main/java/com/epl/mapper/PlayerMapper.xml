@@ -5,7 +5,7 @@
 <mapper namespace="com.epl.mapper.PlayerMapper">
 	<update id="updatePlayer" parameterType="com.epl.vo.Player">
 		UPDATE player
-		SET birth_date = #{birthDate}, country = #{country}, player_position = #{playerPosition}
+		SET birth_date = #{birthDate}, country = #{country}, height = #{height}, weight = #{weight} , player_position = #{playerPosition}
 		WHERE player_no = #{playerNo};
 	</update>
 	<insert id="insertPlayer" parameterType="com.epl.vo.Player">
@@ -13,11 +13,15 @@
 		player_name,
 		birth_date ,
 		country ,
+		height ,
+		weight ,
 		player_position
 		) VALUES (
 		#{playerName} ,
 		#{birthDate} ,
 		#{country} ,
+		#{height} ,
+		#{weight} ,
 		#{playerPosition}
 		)
 	</insert>
@@ -28,6 +32,8 @@
 		player_name as playerName,
 		birth_date as birthDate,
 		country as country ,
+		height as height ,
+		weight as weight ,
 		player_position as playerPosition
 		FROM player
 	</select>
@@ -38,6 +44,8 @@
 		player_name as playerName,
 		birth_date as birthDate,
 		country as country ,
+		height as height ,
+		weight as weight ,
 		player_position as playerPosition
 		FROM player
 		<where> <!-- where절 -->

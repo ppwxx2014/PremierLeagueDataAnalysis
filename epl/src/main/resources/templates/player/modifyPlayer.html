@@ -84,7 +84,29 @@
 								<input type="date" id="birthDate" class="form-control">
 							</div>
 						</div>
-	
+						
+						<div class="row form-group">
+							<div class="col col-md-3">
+								<label for="disabled-input" class=" form-control-label"><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">키 : </font></font></label>
+							</div>
+							<div class="col-12 col-md-9">
+								<input type="email" id="height" class="form-control">
+							</div>
+						</div>
+						
+						<div class="row form-group">
+							<div class="col col-md-3">
+								<label for="disabled-input" class=" form-control-label"><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">몸무게 : </font></font></label>
+							</div>
+							<div class="col-12 col-md-9">
+								<input type="email" id="weight" class="form-control">
+							</div>
+						</div>
+						
 						<div class="row form-group">
 							<div class="col col-md-3">
 								<label for="select" class=" form-control-label"><font
@@ -198,18 +220,30 @@
 			});
 		}
 	});
+	
+	
 	 // 플레이어 입력
 	 $("#modify").click(function() {
 		console.log("no"+$("#player").val());
 		console.log("birthDate"+$("#birthDate").val());
 		console.log("countryList"+$("#countryList").val());
+		console.log("height"+$("#height").val());
+		console.log("weight"+$("#weight").val());
 		console.log("playerPosition"+$("#position").val());
+		
+		let height = $("#height").val()+"cm";
+		let weight = $("#weight").val()+"kg";
+		
+		console.log("new height :" + height);
+		console.log("new weight :" + weight);
 		$.ajax({
 			url : "/modifyPlayer",
 			method : "post",
 			data : {"playerNo" : $("#player").val() ,
 					"birthDate" : $("#birthDate").val() ,
 					"country" : $("#countryList").val() ,
+					"height" : height ,
+					"weight" : weight ,
 					"playerPosition" : $("#position").val()} ,
 			success : function(json) {
 				console.log(json + "행 입력 성공!");

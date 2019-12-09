@@ -9,12 +9,18 @@ public class MatchController {
 	@GetMapping("/addMatch")
 	public String matchadd() {
 		System.out.println("----------add Match----------");
-		return "addMatch";
+		return "/match/addPlayerRecord";
 	}
 
 	@GetMapping("/startingLineUp")
 	public String startingLineUp() {
 		System.out.println("----------startingLineUp----------");
-		return "startingLineUp";
+		return "/match/startingLineUp";
+	}
+	
+	@GetMapping("/addPlayerRecord")
+	public String addPlayerRecord() {
+		System.out.println("----------addPlayerRecord----------");
+		return "/match/addPlayerRecord";
 	}
 }

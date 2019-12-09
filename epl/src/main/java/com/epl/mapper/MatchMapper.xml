@@ -134,4 +134,60 @@
 				null
 				)
 	</insert>
+	
+	<select id = "selectKeeperInMatch"
+			parameterType="com.epl.vo.MatchCheckKeeper"
+			resultType="com.epl.vo.MatchCheckKeeper">
+			SELECT player_no AS playerNo,
+				   match_no as matchNo
+		 	FROM match_goalkeeper
+			WHERE match_no = #{matchNo}
+			AND player_no = #{playerNo}
+	</select>
+	
+	<select id = "selectmatchPlayerOne"
+			parameterType="com.epl.vo.MatchPlayer"
+			resultType="com.epl.vo.MatchPlayer">
+			SELECT
+				match_no		AS matchNo,
+				player_no		AS playerNo,
+				shooting		AS shooting,
+				shoot_on_target AS shootOnTarget,
+				pass			AS pass,
+				assist			AS assist,
+				foul			AS foul,
+				tackle			AS tackle,
+				offside			AS offside,
+				goal_on_fk		AS goalOnFk,
+				goal_on_pk		AS goalOnPk,
+				yellow_card		AS yellowCard,
+				red_card		AS redCard,
+				start_time		AS startTime,
+				end_time		AS endTime
+			FROM 
+				match_player
+			WHERE
+				match_no = #{matchNo}
+			AND
+				player_no = #{playerNo}
+	</select>
+	
+	<select id = "selectMatchGoalKeeperOne"
+			parameterType="com.epl.vo.MatchGoalKeeper"
+			resultType="com.epl.vo.MatchGoalKeeper">
+			SELECT
+				match_no		AS matchNo,
+				player_no		AS playerNo,
+				save			AS save,
+				save_on_pk		AS saveOnPk,
+				save_on_fk		AS saveOnFk,
+				start_time		AS startTime,
+				end_time		AS endTime
+			FROM 
+				match_goalkeeper
+			WHERE
+				match_no = #{matchNo}
+			AND
+				player_no = #{playerNo}
+	</select>
 </mapper>

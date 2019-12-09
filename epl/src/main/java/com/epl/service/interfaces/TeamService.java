@@ -20,6 +20,8 @@ public interface TeamService {
 	 * int modifyTeam(Team team);
 	 */
 	
-	public int leagueUpdate(UpdateTeam updateTeam);
+	public int leagueDown(UpdateTeam updateTeam);
+	
+	public int leagueUp(UpdateTeam updateTeam);
 
 }

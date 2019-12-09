@@ -41,10 +41,18 @@ public class TeamRestController {
 		teamService.addTeam(team);
 	}
 	
-	@PostMapping("/leagueUpdate")
-	public int leagueUpdate(UpdateTeam updateTeam) {
-		int row = teamService.leagueUpdate(updateTeam);
-		System.out.println("row:"+row);
+	@PostMapping("/leagueDown")
+	public int leagueDown(UpdateTeam updateTeam) {
+		int row = teamService.leagueDown(updateTeam);
+		System.out.println("conRow:"+row);
 		return row;
 	}
+	
+	@PostMapping("/leagueUp")
+	public int leagueUp(UpdateTeam updateTeam) {
+		int row = teamService.leagueUp(updateTeam);
+		System.out.println("conRow:"+row);
+		return row;
+	}
+
 }

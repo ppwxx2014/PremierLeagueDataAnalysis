@@ -23,5 +23,7 @@ public interface TeamMapper {
 	
 	public List<Team> selectDownTeamList();
 	
-	public int leagueUpdate(UpdateTeam updateTeam);
+	public int leagueDown(UpdateTeam updateTeam);
+	
+	public int leagueUp(UpdateTeam updateTeam);
 }

@@ -21,39 +21,55 @@
 		<div class="content">
 			<h1 class="container" style='width:800px;'>leagueUpdate</h1>
 			<div class="container form-inline" style='width:800px;'>
-				ATeamName
-				BTeamName
+				<div>
+					ATeamName
+				</div>
+				<div class="container" style='width:300px;'>
+					BTeamName
+				</div>
+				
 					<div class="container form-inline">
-						<select id ="teamList" class ="form-control form-control-sm">
+						<select id ="teamList" class ="form-control form-control-sm"  style="width:230px;height:30px;">
 							
 						</select>
-						<button id = "add">add</button>
-						<select id = "bTeamList" class ="form-control form-control-sm">
+						<button id = "add" class="btn btn-info">add</button>
+						<select id = "bTeamList" class ="form-control form-control-sm"  style="width:230px;height:30px;">
 						
 						</select>
-						<button id = "addT">add</button>
+						<button id = "addT" class="btn btn-info">add</button>
 					</div>
 			</div>
-			<div class="container form-inline" style='width:800px;'>
+			<br>
+			<div class="container form-inline" style='width:840px;'>
 				18th
 				<input type ="text" id = "18th" name = "18th" readonly="readonly" class ="form-control">
-				1st
-				<input type ="text" id = "1st" name = "1st" readonly="readonly" class ="form-control">
+				<div class="container" style='width:510px;'>
+					1st
+					<input type ="text" id = "1st" name = "1st" readonly="readonly" class ="form-control">
+				</div>
 			</div>
-			<div class="container form-inline" style='width:800px;'>
+			<br>
+			<div class="container form-inline" style='width:840px;'>
 				19th
 				<input type = "text" id = "19th" name = "19th" readonly="readonly" class ="form-control">
-				2ed
-				<input type ="text" id = "2ed" name = "2ed" readonly="readonly" class ="form-control">
+				<div class="container" style='width:522px;'>
+					2ed
+					<input type ="text" id = "2ed" name = "2ed" readonly="readonly" class ="form-control">
+				</div>
 			</div>
-			<div class="container form-inline" style='width:800px;'>
+			<br>
+			<div class="container form-inline" style='width:840px;'>
 				20th
 				<input type = "text" id = "20th" name = "20th" readonly="readonly" class ="form-control">
-				3rd
-				<input type ="text" id = "3rd" name = "3rd" readonly="readonly" class ="form-control">
+				<div class="container" style='width:515px;'>
+					3rd
+					<input type ="text" id = "3rd" name = "3rd" readonly="readonly" class ="form-control">
+				</div>
 			</div>
-			<div class="container form-inline" style='width:300px;'>
-				<button type = "submit" id = "drop" class="btn btn-success">승강</button>
+			<br>
+			<div class="container form-inline" style='width:430px;'>
+				<button id = "allDelete" class = "btn btn-success">초기화</button>
+				<button type = "submit" id = "drop" class="btn btn-success">리그 변동</button>
 			</div>	
 		</div>
         <!-- /.content -->		
@@ -67,9 +83,9 @@
         
     </div>
     <!-- /#right-panel -->
-
+	
     
-
+	
     <!--Local Stuff-->
     <script>
     $.ajax({
@@ -106,16 +122,27 @@
 	let count = 0;
 	$("#add").click(function() {
 		count ++;
-		var team = $("#teamList option:checked").text();
+		var Ateam = $("#teamList option:checked").text();
 		if(count ==1){
-			console.log(team);
-			$("#18th").val(team);
+			console.log(Ateam);
+			console.log(count);
+			$("#18th").val(Ateam);
 		}else if(count ==2){
-			console.log(team);
-			$("#19th").val(team);
+			if($("#18th").val()==Ateam){
+				count =1;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
+			console.log(Ateam);
+			console.log(count);
+			$("#19th").val(Ateam);
 		}else{
-			console.log(team);
-			$("#20th").val(team);
+			if($("#19th").val()==Ateam || $("#18th").val()==Ateam){
+				count =2;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
+			console.log(Ateam);
+			console.log(count);
+			$("#20th").val(Ateam);
 		}
 	});
 	let countT = 0;
@@ -127,30 +154,61 @@
 			console.log(countT);
 			$("#1st").val(Bteam);
 		}else if(countT == 2){
+			if($("#1st").val()==Bteam){
+				countT =1;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
 			console.log(Bteam);
 			console.log(countT);
 			$("#2ed").val(Bteam);
 		}else{
+			if($("#2ed").val()==Bteam || $("#1st").val()==Bteam){
+				countT =2;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
 			console.log(Bteam);
 			console.log(countT);
 			$("#3rd").val(Bteam);
 		}
 	});
+	$("#allDelete").click(function(){
+		$("#18th").val('');
+		$("#19th").val('');
+		$("#20th").val('');
+		$("#1st").val('');
+		$("#2ed").val('');
+		$("#3rd").val('');
+		count = 0;
+		countT = 0;
+	});
 	$("#drop").click(function(){
-		$.ajax({
-			url:"/leagueUpdate",
-			method:"POST",
-			data:{"teamNameOne" : $("#18th").val(),
-				"teamNameTwo" : $("#19th").val(),
-				"teamNameThree" : $("#20th").val(),
-				"teamNameFour" : $("#1st").val(),
-				"teamNameFive" : $("#2ed").val(),
-				"teamNameSix" : $("#3rd").val()
-			},
-			success:function(json){
-				alert("리그 변동");
-			}
-		});
+		if(count<3 || countT<3){
+			alert("팀 정보를 입력하지 않으시거나 중복입력 하셨습니다. 팀 정보를 모두 입력해주세요.");
+		}else{
+			$.ajax({
+				url:"/leagueDown",
+				method:"POST",
+				data:{"teamNameOne" : $("#18th").val(),
+					"teamNameTwo" : $("#19th").val(),
+					"teamNameThree" : $("#20th").val()
+				},
+				success:function(json){
+					
+				}
+			});
+			$.ajax({
+				url:"/leagueUp",
+				method:"POST",
+				data:{"teamNameFour" : $("#1st").val(),
+					"teamNameFive" : $("#2ed").val(),
+					"teamNameSix" : $("#3rd").val()
+				},
+				success:function(json){
+					alert("리그 변동");
+					location.href="/index"
+				}
+			});
+		}
 	});
 	
     </script>

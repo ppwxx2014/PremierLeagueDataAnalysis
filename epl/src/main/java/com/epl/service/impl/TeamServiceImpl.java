@@ -54,9 +54,16 @@ public class TeamServiceImpl implements TeamService {
 	 */
 	
 	@Override
-	public int leagueUpdate(UpdateTeam updateTeam) {
-		
-		return teamMapper.leagueUpdate(updateTeam);
+	public int leagueDown(UpdateTeam updateTeam) {
+		int row = teamMapper.leagueDown(updateTeam);
+		System.out.println("serRow:"+row);
+		return row;
+	}
+	@Override
+	public int leagueUp(UpdateTeam updateTeam) {
+		int row = teamMapper.leagueUp(updateTeam);
+		System.out.println("serRow:"+row);
+		return row;
 	}
 }
 

@@ -70,7 +70,14 @@
 
 	<select id="selectPlayerOne" resultType="com.epl.vo.Player"
 		parameterType="int">
-		SELECT	*
+		SELECT
+		player_no as playerNo,
+		player_name as playerName,
+		birth_date as birthDate,
+		country as country ,
+		height as height ,
+		weight as weight ,
+		player_position as playerPosition
 		FROM player
 		WHERE player_no = #{playerNo}
 	</select>

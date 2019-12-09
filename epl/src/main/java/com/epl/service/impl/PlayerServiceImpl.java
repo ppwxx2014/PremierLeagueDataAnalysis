@@ -30,7 +30,7 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public Player getPlayerOne(int playerNo) { // player 안에 no 를 셋팅
 		System.out.println("getPlayerNo service 요청");
-		Player getPlayer = playerMapper.selectPlayeOne(playerNo);
+		Player getPlayer = playerMapper.selectPlayerOne(playerNo);
 		return getPlayer;
 	}
 

@@ -18,6 +18,17 @@ import com.epl.vo.Player;
 public class PlayerRestController {
 	@Autowired
 	private PlayerService playerService;
+	// 선수 상세 보기
+	@PostMapping("/getPlayerOne")
+	public Player getPlayerOne(@RequestParam(value = "playerNo", required = true ) int playerNo) {
+		System.out.println("getPlayerOne 객체 요청");
+		System.out.println("param playerNo :" + playerNo);
+
+		Player player = playerService.getPlayerOne(playerNo);
+		
+		System.out.println("getPlayerOne result player :"+ player);
+		return player;
+	}
 	// 선수 수정
 	@PostMapping("/modifyPlayer")
 	public int modifyPlayer(Player player) {

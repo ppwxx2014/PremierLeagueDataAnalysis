@@ -30,10 +30,10 @@ public class PlayerServiceImpl implements PlayerService {
 	
 	// 플레이어의 번호 가져오기
 	@Override
-	public int getPlayerNo(Player player) {
+	public Player getPlayerOne(int playerNo) { // player 안에 no 를 셋팅
 		System.out.println("getPlayerNo service 요청");
-		int playerNo = playerMapper.selectPlayerNo(player);
-		return playerNo;
+		Player getPlayer = playerMapper.selectPlayeOne(playerNo);
+		return getPlayer;
 	}
 
 	// 플레이어 리스트 가져오기

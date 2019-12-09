@@ -12,7 +12,7 @@ import com.epl.vo.Player;
 public interface PlayerMapper {
 	public int insertPlayer(Player player);
 
-	public int selectPlayerNo(Player player);
+	public Player selectPlayeOne(int playerNo);
 
 	public List<Player> selectPlayerList();
 

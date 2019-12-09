@@ -60,11 +60,10 @@
 		</where>
 	</select>
 
-	<select id="selectPlayerNo" resultType="com.epl.vo.Player"
-		parameterType="com.epl.vo.Player">
-		SELECT player_no
+	<select id="selectPlayerOne" resultType="com.epl.vo.Player"
+		parameterType="int">
+		SELECT	*
 		FROM player
-		WHERE player_name =
-		#{playerName}
+		WHERE player_no = #{playerNo}
 	</select>
 </mapper>  

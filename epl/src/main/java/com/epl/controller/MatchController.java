@@ -9,7 +9,7 @@ public class MatchController {
 	@GetMapping("/addMatch")
 	public String matchadd() {
 		System.out.println("----------add Match----------");
-		return "/match/addPlayerRecord";
+		return "/match/addMatch";
 	}
 
 	@GetMapping("/startingLineUp")

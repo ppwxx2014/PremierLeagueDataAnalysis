@@ -129,6 +129,18 @@
 			<td><button id ="saveOnFkPlus">+</button></td>
 		</tr>
 		<tr>
+			<td>goal</td>
+			<td><button id ="goalKeeperMin">-</button></td>
+			<td id = "goalKeeper">0</td>
+			<td><button id ="goalKeeperPlus">+</button></td>
+		</tr>
+		<tr>
+			<td>own-goal</td>
+			<td><button id ="ownGoalKeeperMin">-</button></td>
+			<td id = "ownGoalKeeper">0</td>
+			<td><button id ="ownGoalKeeperPlus">+</button></td>
+		</tr>
+		<tr>
 			<td>뛰기 시작한 시간</td>
 			<td><input type = "time" id = "startTimeKeeper"></td>
 			<td>startTime</td>
@@ -196,6 +208,7 @@
 		    }
 		 });
 	})
+	//////////////////////////전체선수가아닌 해당게임의 해당 팀의 선수가 필요
 	$("#teamList").change(function(){
 		$.ajax({
             url:"/getPlayerListByTeamName",
@@ -284,6 +297,52 @@
 	$("#saveOnFkPlus").click(function(){
 		$("#saveOnFk").text(parseInt($("#saveOnFk").text())+1);
 	});
+	$("#goalKeeperPlus").click(function(){
+		$("#goalKeeper").text(parseInt($("#goalKeeper").text())+1);
+		//경기No 선수No 골넣은시간 을 match goals에 기록한다
+		$.ajax({
+            url:"/addMatchGoals",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("골 입력 성공시 1 출력 : "+json);
+              }  					   
+         });
+		//match result쿼리 추가
+		$.ajax({
+            url:"/modifyMatchResultByGoal",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
+              }  					   
+         });
+	});
+	$("#ownGoalKeeperPlus").click(function(){
+		$("#ownGoalKeeper").text(parseInt($("#ownGoalKeeper").text())+1);
+		//경기No 선수No 자책골넣은시간 을 match ownGoals에 기록한다
+		$.ajax({
+            url:"/addMatchOwnGoals",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("자책골 입력 성공시 1 출력 : "+json);
+              }  					   
+         });
+		//match result쿼리 추가
+		$.ajax({
+            url:"/modifyMatchResultByOwnGoal",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
+              }  					   
+         });
+	});
 
 
 //키퍼 기록 버튼들 -
@@ -305,6 +364,18 @@
 			$("#saveOnFk").text(parseInt($("#saveOnFk").text())-1);	
 		}
 	});
+	$("#goalKeeperMin").click(function(){
+		if(parseInt($("#goalKeeper").text())>0)
+		{
+			$("#goalKeeper").text(parseInt($("#goalKeeper").text())-1);	
+		}
+	});
+	$("#ownGoalKeeperMin").click(function(){
+		if(parseInt($("#ownGoalKeeper").text())>0)
+		{
+			$("#ownGoalKeeper").text(parseInt($("#ownGoalKeeper").text())-1);	
+		}
+	});
 
 
 //선수 기록 버튼들 +
@@ -318,10 +389,49 @@
 		$("#goal").text(parseInt($("#goal").text())+1);
 		$("#shooting").text(parseInt($("#shooting").text())+1);
 		$("#shootOnTarget").text(parseInt($("#shootOnTarget").text())+1);	
-		//쿼리추가
+		//경기No 선수No 골넣은시간 을 match goals에 기록한다
+		$.ajax({
+            url:"/addMatchGoals",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("골 입력 성공시 1 출력 : "+json);
+              }  					   
+         });
+		//match result쿼리 추가
+		$.ajax({
+            url:"/modifyMatchResultByGoal",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
+              }  					   
+         });
 	});
 	$("#ownGoalPlus").click(function(){
-		$("#ownGoal").text(parseInt($("#ownGoal").text())+1);	
+		$("#ownGoal").text(parseInt($("#ownGoal").text())+1);
+		//경기No 선수No 골넣은시간 을 match goals에 기록한다
+		$.ajax({
+            url:"/addMatchOwnGoals",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("자책골 입력 성공시 1 출력 : "+json);
+              }  					   
+         });
+		//match result쿼리 추가
+		$.ajax({
+            url:"/modifyMatchResultByOwnGoal",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val()},
+            success:function(json){
+            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
+              }  					   
+         });
 		});
 	$("#passPlus").click(function(){
 		$("#pass").text(parseInt($("#pass").text())+1);
@@ -345,7 +455,14 @@
 		$("#goalOnPk").text(parseInt($("#goalOnPk").text())+1);
 	});
 	$("#yellowCardPlus").click(function(){
-		$("#yellowCard").text(parseInt($("#yellowCard").text())+1);
+		if(parseInt($("#yellowCard").text()) < 2)
+		{
+			$("#yellowCard").text(parseInt($("#yellowCard").text())+1);
+		}
+		if(parseInt($("#yellowCard").text()) == 2)
+		{
+			$("#redCard").text(parseInt($("#redCard").text())+1);
+		}
 	});
 	$("#redCardPlus").click(function(){
 		$("#redCard").text(parseInt($("#redCard").text())+1);
@@ -443,9 +560,11 @@
 	//선수 기록 입력 버튼
 	$("#playerInsertBtn").click(function(){
 		$.ajax({
-            url:"/선수기록 입력",
+            url:"/modifyMatchPlayer",
             method:"POST",
-            data:{"shooting":$("#shooting").text(),
+            data:{"playerNo":$("#playerList").val(),
+          	 	  "matchNo":$("#matchList").val(),
+            	  "shooting":$("#shooting").text(),
             	  "shootOnTarget":$("#shootOnTarget").text(),
             	  "pass":$("#pass").text(),
             	  "assist":$("#assist").text(),
@@ -459,14 +578,30 @@
             	  "startTime":$("#startTime").val(),
             	  "endTime":$("#endTime").val(),},
             success:function(json){
-            	console.log("성공");
+            	console.log("성공시 1 출력 : "+json);
               }  					   
          })
 	});
 	
 	//키퍼 기록 입력 버튼
 	$("#keeperInsertBtn").click(function(){
-		
+		$.ajax({
+            url:"/modifyMatchKeeper",
+            method:"POST",
+            data:{"playerNo":$("#playerList").val(),
+        	 	  "matchNo":$("#matchList").val(),
+            	  "save":$("#save").text(),
+          	 	  "saveOnPk":$("#saveOnPk").text(),
+            	  "saveOnFk":$("#saveOnFk").text(),
+            	  "startTimeKeeper":$("#startTimeKeeper").val(),
+            	  "endTimeKeeper":$("#endTimeKeeper").val()},
+            success:function(json){
+            	console.log("성공시 1 출력 : "+json);
+              }  					   
+         })
 	});
+	
+	//옐로 카드 2장이나 레드카드를 받을시 
+	
 </script>
 </html>

@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.epl.service.interfaces.MatchService;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
+import com.epl.vo.MatchResult;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.PlayerInfo;
 import com.epl.vo.Refree;
@@ -54,6 +57,15 @@ public class MatchRestController
 			if( check != 0)
 			{
 				System.out.println("매치심판입력 성공");
+				MatchResult matchResult = new MatchResult();
+				matchResult.setMatchNo(matchNo);
+				matchResult.setHometeamName(matchSchedule.getHometeamName());
+				matchResult.setAwayteamName(matchSchedule.getAwayteamName());
+				int check2 = matchService.addMatchResult(matchResult);
+				if(check2 != 0)
+				{
+					System.out.println("매치결과 입력 성공");	
+				}	
 			}
 		}
 		return null;
@@ -181,5 +193,70 @@ public class MatchRestController
 		System.out.println("가져온 매치플레이어 : " + check);
 		return check;
 	}
+	
+	@PostMapping("/modifyMatchPlayer")
+	public int modifyMatchPlayer(MatchPlayer matchPlayer)
+	{
+		System.out.println("-----modifyMatchPlayer restController 진입-----");
+		System.out.println("입력할 matchPlayer : " + matchPlayer);
+		int check = matchService.modifyMatchPlayer(matchPlayer);
+		System.out.println("선수 기록 입력 성공 ? : "+ check);
+		return check; 
+	}
+	
+	@PostMapping("/addMatchGoals")
+	public int addMatchGoals(MatchGoals matchGoals)
+	{
+		System.out.println("-----addMatchGoals restController 진입-----");
+		System.out.println("골을 넣은 선수 No : " + matchGoals.getPlayerNo());
+		System.out.println("골을 넣은 경기 No : " + matchGoals.getMatchNo());
+		int check = matchService.addMatchGoals(matchGoals);
+		System.out.println("골 넣은 기록 입력 성공 ? : "+ check);
+		return check; 
+	}
+	
+	@PostMapping("/addMatchOwnGoals")
+	public int addMatchOwnGoals(MatchOwnGoals matchOwnGoals)
+	{
+		System.out.println("-----addMatchGoals restController 진입-----");
+		System.out.println("자책골을 넣은 선수 No : " + matchOwnGoals.getPlayerNo());
+		System.out.println("자책골을 넣은 경기 No : " + matchOwnGoals.getMatchNo());
+		int check = matchService.addMatchOwnGoals(matchOwnGoals);
+		System.out.println("자책골 넣은 기록 입력 성공 ? : "+ check);
+		return check; 
+	}
+	
+	@PostMapping("/modifyMatchResultByGoal")
+	public int modifyMatchResultByGoal(MatchGoals matchGoals)
+	{
+		System.out.println("-----modifyMatchResultByGoal restController 진입-----");
+		System.out.println("골을 넣은 선수 No : " + matchGoals.getPlayerNo());
+		System.out.println("골을 넣은 경기 No : " + matchGoals.getMatchNo());
+		int check = matchService.modifyMatchResultByGoal(matchGoals);
+		System.out.println("골넣었을때 실시간테이블 업데이트 성공 ? : "+ check);
+		return check;
+	}
+	
+	@PostMapping("/modifyMatchResultByOwnGoal")
+	public int modifyMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals)
+	{
+		System.out.println("-----modifyMatchResultByOwnGoal restController 진입-----");
+		System.out.println("골을 넣은 선수 No : " + matchOwnGoals.getPlayerNo());
+		System.out.println("골을 넣은 경기 No : " + matchOwnGoals.getMatchNo());
+		int check = matchService.modifyMatchResultByOwnGoal(matchOwnGoals);
+		System.out.println(" 자책골넣었을때 실시간테이블 업데이트 성공 ? : "+ check);
+		return check;
+	}
+	
+	@PostMapping("/modifyMatchKeeper")
+	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper)
+	{
+		System.out.println("-----modifyMatchKeeper restController 진입-----");
+		System.out.println("입력할 키퍼의 기록 : "+ matchGoalKeeper);
+		int check = matchService.modifyMatchKeeper(matchGoalKeeper);
+		System.out.println("키퍼 기록 업데이트 성공? : "+ check);
+		return check;
+	}
+	
 	
 }

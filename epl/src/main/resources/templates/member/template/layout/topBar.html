@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<div th:fragment = "topBar">
@@ -21,10 +23,11 @@
                             <!-- Login Search Area -->
                             <div class="login-search-area d-flex align-items-right">
                                 <!-- Login -->
-                                <div class="login d-flex">
-                                    <a href="#">Login</a>
-                                    <a href="#">Register</a>
+                                <div class="login d-flex" id = "memberLogin">
+                                    
                                 </div>
+
+                                
                                 <!-- Search Form -->
                                 <!-- <div class="search-form">
                                     <form action="#" method="post">
@@ -142,7 +145,42 @@
                                             </div>
                                         </div>
                                     </li> -->
-                                    <li><a href="#">팀</a></li>
+                                    <li><a href="#">팀</a>
+                                    	<div class="megamenu">
+                                    		<div class="single-mega col-1">
+                                    			<a href="#" class="post-catagory">i</a>
+                                    			<a href="#" class="post-catagory">i</a>
+                                    		</div>
+                                    		<div class="single-mega col-1">
+                                    			<a href="#" class="post-catagory">i</a>
+                                    			<a href="#" class="post-catagory">i</a>
+                                    		</div>
+                                    		<div class="single-mega col-1">
+                                    			<a href="#" class="post-catagory">i</a>
+                                    			<a href="#" class="post-catagory">i</a>
+                                    		</div>
+                                    		<div class="single-mega">
+                                    			<a href="#" class="post-catagory">i</a>
+                                    			<a href="#" class="post-catagory">i</a>
+                                    		</div>
+                                    		<div class="single-mega">
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    		</div>
+                                    		<div class="single-mega">
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    		</div>
+                                    		<div class="single-mega">
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    		</div>
+                                    		<div class="single-mega">
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    			<a href="#" class="post-catagory">Travel</a>
+                                    		</div>
+                                    	</div>
+                                    </li>
                                     <li><a href="#">선수</a></li>
                                     <li><a href="#">경기 일정</a></li>
                                     <li><a href="#">통계</a></li>
@@ -158,4 +196,34 @@
     </header>
 	    </div>
 </body>
+<script>
+$(document).ready(function() {
+	let memberId = null; // 로그인 세션 저장
+	$.ajax({
+		url : "/getSessionInfo",
+		method : "post",
+		async : false, // 비동기화 해제
+		success : function(json) {
+			console.log("sessionInfo Json: " + json);
+			memberId = json;
+			console.log("sessionInfo: " + memberId);
+			if(memberId == "") {
+				$("#memberLogin").empty();
+				$("#memberLogin").append("<a href='/memberLogin'>Login</a>");
+				$("#memberLogin").append("<a href='/memberLogin'>Register</a>");
+			} else{
+				$("#memberLogin").empty();
+				$("#memberLogin").append("<a href = '/memberLogout'>로그아웃</a>");
+			}
+		}	
+	});
+
+	//alert(memberId);
+});
+</script>
 </html>
+
+
+
+
+

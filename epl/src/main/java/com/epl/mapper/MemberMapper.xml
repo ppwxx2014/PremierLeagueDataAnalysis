@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper
+	namespace="com.epl.mapper.MemberMapper">
+	<select id="selectMemberList" resultType="com.epl.vo.Member">
+		SELECT
+		member_email as memberEmail,
+		member_nick_name as memberNickName,
+		member_age as memberAge,
+		member_gender as memberGender
+		FROM member
+	</select>
+	
+	<insert id="insertMember"
+		parameterType="com.epl.vo.Member">
+		
+		INSERT INTO member(
+			member_email, 
+			member_nick_name, 
+			member_age, 
+			member_gender
+			) VALUES (
+			#{memberId},
+			#{memberNickName},
+			#{memberAge},
+			#{memberGender}
+			)
+	</insert>
+	
+	<select id = "selectMemberOne"
+		parameterType = "String"
+		resultType = "String">
+		SELECT
+		member_email as memberEmail
+		FROM member
+		WHERE member_email = #{memberEmail}
+	</select>
+</mapper>
+

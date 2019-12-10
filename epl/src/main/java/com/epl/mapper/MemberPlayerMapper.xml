@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.epl.mapper.MemberPlayerMapper">
+	<select id = "selectMemberPlayerList" resultType="com.epl.vo.Player" parameterType="com.epl.vo.Page">
+		SELECT player_no as playerNo,
+		player_name as playerName,
+		birth_date as birthDate,
+		country as country ,
+		height as height ,
+		weight as weight ,
+		player_position as playerPosition
+		FROM player
+		<where> <!-- where절 -->
+			<if test="searchWord != null">
+				player_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY birth_date ASC
+		LIMIT #{beginRow} , #{rowPerPage}
+	</select>
+	<select id = "selectMemberPlayerOne" resultType="com.epl.vo.Player" parameterType="int">
+		SELECT
+			player_no as playerNo,
+			player_name as playerName,
+			country as country,
+			birth_date as birthDate,
+			height as height,
+			weight as weight,
+			player_position as playerPosition
+		FROM player
+		WHERE
+		player_no = #{playerNo}
+	</select>
+	<select id = "selectMemberPlayerInfo" resultType="com.epl.vo.PlayerContract" parameterType="int">
+		SELECT
+			team_name as teamName,
+			player_no as playerNo,
+			contract_start as contractStart,
+			contract_end as contractEnd,
+			salary as salary,
+			transfer_fee as transferFee,
+			uniform_back_number as uniformBackNumber
+		FROM player_contract
+		WHERE
+		player_no = #{playerNo}
+	</select>
+</mapper>

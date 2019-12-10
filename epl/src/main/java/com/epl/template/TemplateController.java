@@ -44,38 +44,10 @@ public class TemplateController {
 	
 	// :::::::::::::::::::::::::::: 여기부터 경기 카테고리 :::::::::::::::::::::::::::: //
 	
-	@GetMapping("/addMatchSchedule")	
-	public String addMatchSchedule() {
-		return "addMatchSchedule";
-	}
-	
-	@GetMapping("/getMatchSchedule")	
-	public String getMatchSchedule() {
-		return "getMatchSchedule";
-	}	
-	
-	@GetMapping("/matchResult")	
-	public String matchResult() {
-		return "matchResult";
-	}
+
 	
 	// :::::::::::::::::::::::::::: 여기부터 실시간 경기 카테고리 :::::::::::::::::::::::::::: //
-	
-	@GetMapping("/addLineUp")	
-	public String addLineUp() {
-		return "addLineUp";
-	}
-	
-	@GetMapping("/addPlayerRecord")	
-	public String addPlayerRecord() {
-		return "addPlayerRecord";
-	}
-	
-	@GetMapping("/addKepperRecord")	
-	public String addKepperRecord() {
-		return "addKepperRecord";
-	}
-	
+
 	// :::::::::::::::::::::::::::: 여기부터 회원관리 카테고리 :::::::::::::::::::::::::::: //
 	
 	@GetMapping("/addNotice")	

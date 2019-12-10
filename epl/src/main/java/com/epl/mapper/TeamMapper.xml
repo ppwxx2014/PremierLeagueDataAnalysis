@@ -65,20 +65,17 @@
 		WHERE team_name = #{teamName}
 	</update> -->
 	
-	<update id = "leagueUpdate" parameterType="com.epl.vo.Team">
+	<update id = "leagueDown" parameterType="com.epl.vo.Team">
 		UPDATE team SET
-			<choose>
-				<when test = "active != 'T'">
-					active = 'T'
-				</when>
-				<otherwise>
-					active = 'F'
-				</otherwise>
-			</choose>
+		active = 'F'
 		WHERE team_name = #{teamNameOne}
 		OR team_name = #{teamNameTwo}
 		OR team_name = #{teamNameThree}
-		OR team_name = #{teamNameFour}
+	</update>
+	<update id = "leagueUp" parameterType="com.epl.vo.Team">
+		UPDATE team SET
+		active = 'T'
+		WHERE team_name = #{teamNameFour}
 		OR team_name = #{teamNameFive}
 		OR team_name = #{teamNameSix}
 	</update>

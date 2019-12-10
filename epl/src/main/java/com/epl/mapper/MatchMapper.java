@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.epl.vo.MatchCheckKeeper;
+import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
@@ -32,4 +35,10 @@ public interface MatchMapper {
 	public int insertSubPlayer(MatchPlayerNo MatchPlayerNo);
 	
 	public int insertKeeper(MatchPlayerNo MatchPlayerNo);
+	
+	public MatchCheckKeeper selectKeeperInMatch(MatchCheckKeeper  matchCheckKeeper);
+	
+	public MatchPlayer selectmatchPlayerOne(MatchPlayer matchPlayer);
+	
+	public MatchGoalKeeper selectMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper);
 }

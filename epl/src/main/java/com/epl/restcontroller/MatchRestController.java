@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.MatchCheckKeeper;
+import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
@@ -129,6 +132,54 @@ public class MatchRestController
 		}
 		System.out.println("2면 키퍼 입력 성공 : " + keeperCheck);
 		return null;
+	}
+	
+	//이경기에 이선수가 골키퍼로 뛰고있는지 아닌지 검사하는 매서드
+	@PostMapping("/playercheck")
+	public String matchPlayer(MatchCheckKeeper matchCheckKeeper)
+	{
+		System.out.println("-----matchPlayer restController 진입-----");
+		System.out.println("포지션을 검색할 선수의 No : "+matchCheckKeeper.getPlayerNo());
+		System.out.println("경기의 No : "+matchCheckKeeper.getMatchNo());
+	
+		MatchCheckKeeper check = matchService.checkKeeper(matchCheckKeeper);
+		String position = null;
+		System.out.println("check: "+check);
+		if(check != null)
+		{
+			System.out.println("골키퍼다");
+			position = "GK";
+		}
+		else
+		{
+			System.out.println("아니다");
+			position = "FW,MF,DF";
+		}
+		return position;
+	}
+	
+	//MatchPlayerOne을가져오는 매서드
+	@PostMapping("/getMatchPlayerOne")
+	public MatchPlayer  getMatchPlayerOne(MatchPlayer matchPlayer)
+	{
+		System.out.println("-----getMatchPlayerOne restController 진입-----");
+		System.out.println("검색할 선수의 No : "+matchPlayer.getPlayerNo());
+		System.out.println("경기 No : "+matchPlayer.getMatchNo());
+		MatchPlayer check = matchService.getMatchPlayerOne(matchPlayer);
+		System.out.println("가져온 매치플레이어 : " + check);
+		return check;
+	}
+	
+	//MatchGoalKeeperOne를 가져오는 매서드
+	@PostMapping("/getMatchGoalKeeperOne")
+	public MatchGoalKeeper  getMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper)
+	{
+		System.out.println("-----getMatchGoalKeeperOne restController 진입-----");
+		System.out.println("검색할 키퍼의 No : "+matchGoalKeeper.getPlayerNo());
+		System.out.println("경기 No : "+matchGoalKeeper.getMatchNo());
+		MatchGoalKeeper check = matchService.getMatchGoalKeeperOne(matchGoalKeeper);
+		System.out.println("가져온 매치플레이어 : " + check);
+		return check;
 	}
 	
 }

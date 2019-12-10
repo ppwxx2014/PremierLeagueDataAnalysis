@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.MatchMapper;
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.MatchCheckKeeper;
+import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
@@ -77,6 +80,28 @@ public class MatchListServiceImpl implements MatchService {
 	public int addKeeper(MatchPlayerNo MatchPlayerNo)
 	{
 		int check = matchMapper.insertKeeper(MatchPlayerNo);
+		return check;
+	}
+	
+	@Override
+	public MatchCheckKeeper checkKeeper(MatchCheckKeeper matchCheckKeeper)
+	{
+		MatchCheckKeeper Keeper = matchMapper.selectKeeperInMatch(matchCheckKeeper);
+		return Keeper;
+	}
+	
+	@Override
+	public MatchPlayer getMatchPlayerOne(MatchPlayer matchPlayer)
+	{
+		MatchPlayer check = matchMapper.selectmatchPlayerOne(matchPlayer);
+		return check;
+		
+	}
+	
+	@Override
+	public MatchGoalKeeper getMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper)
+	{
+		MatchGoalKeeper check = matchMapper.selectMatchGoalKeeperOne(matchGoalKeeper);
 		return check;
 	}
 }

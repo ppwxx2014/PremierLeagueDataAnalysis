@@ -106,6 +106,36 @@
 							</select>
 						</div>
 					</div>
+					
+					
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">키 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="height" name="text-input"
+								placeholder="선수 키" class="form-control">
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">몸무게 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="email" id="weight" name="text-input"
+								placeholder="선수 몸무게" class="form-control">
+						</div>
+					</div>
+						
 					<button type="button" class="btn btn-lg btn-info btn-block" id="add"><font
 							style="vertical-align: inherit;"><font
 							style="vertical-align: inherit;"> 입력</font></font>
@@ -148,51 +178,54 @@
 	<!--Local Stuff-->
 	<script>
 		// 국가리스트 불러오기
-		$
-				.ajax({
-					url : "getCountryList",
-					method : "post",
-					success : function(json) {
-						console.log("country 받아오기 성공 !");
-						console.log(json);
-						$(json)
-								.each(
-										function(index, item) {
-											temp = "<option value = '";
+		$.ajax({
+			url : "getCountryList",
+			method : "post",
+			success : function(json) {
+				console.log("country 받아오기 성공 !");
+				console.log(json);
+				$(json).each(function(index, item) {
+				temp = "<option value = '";
 				temp += item.countryName;
 				temp += "'>";
-											temp += item.countryName;
-											temp += "</option>";
-											$("#countryList").append(temp);
-										});
-					}
+				temp += item.countryName;
+				temp += "</option>";
+				$("#countryList").append(temp);
 				});
+			}
+		});
 		// 포지션  불러오기
-		$
-				.ajax({
-					url : "getPositionList",
-					method : "post",
-					success : function(json) {
-						console.log("position 받아오기 성공 !");
-						console.log(json);
-						$(json)
-								.each(
-										function(index, item) {
-											temp = "<option value = '";
-				temp += item.position;
-				temp += "'>";
-											temp += item.position;
-											temp += "</option>";
-											$("#position").append(temp);
-										});
-					}
+		$.ajax({
+			url : "getPositionList",
+			method : "post",
+			success : function(json) {
+				console.log("position 받아오기 성공 !");
+				console.log(json);
+				$(json).each(
+				function(index, item) {
+					temp = "<option value = '";
+					temp += item.position;
+					temp += "'>";
+					temp += item.position;
+					temp += "</option>";
+					$("#position").append(temp);
 				});
+			}
+		});
 		// 플레이어 입력
 		$("#add").click(function() {
 			console.log("name" + $("#playerName").val());
 			console.log("birthDate" + $("#birthDate").val());
 			console.log("countryList" + $("#countryList").val());
+			console.log("weight" + $("#weight").val());
+			console.log("height" + $("#height").val());
 			console.log("playerPosition" + $("#position").val());
+			
+			let height = $("#height").val()+"cm";
+			let weight = $("#weight").val()+"kg";
+			
+			console.log("new height :"+ height);
+			console.log("new weight :"+ weight);
 			$.ajax({
 				url : "/addPlayer",
 				method : "post",
@@ -200,6 +233,8 @@
 					"playerName" : $("#playerName").val(),
 					"birthDate" : $("#birthDate").val(),
 					"country" : $("#countryList").val(),
+					"height" : height,
+					"weight" : weight,
 					"playerPosition" : $("#position").val()
 				},
 				success : function(json) {

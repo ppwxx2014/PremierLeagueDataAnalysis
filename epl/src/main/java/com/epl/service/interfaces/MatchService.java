@@ -2,6 +2,9 @@ package com.epl.service.interfaces;
 
 import java.util.List;
 
+import com.epl.vo.MatchCheckKeeper;
+import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchSchedule;
@@ -30,4 +33,10 @@ public interface MatchService {
 	public int addSubPlayer(MatchPlayerNo MatchPlayerNo);
 	
 	public int addKeeper(MatchPlayerNo MatchPlayerNo);
+	
+	public MatchCheckKeeper checkKeeper(MatchCheckKeeper matchCheckKeeper);
+	
+	public MatchPlayer getMatchPlayerOne(MatchPlayer matchPlayer);
+	
+	public MatchGoalKeeper getMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper);
 }

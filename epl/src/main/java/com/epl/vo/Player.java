@@ -8,5 +8,7 @@ public class Player {
 	private String playerName;
 	private String birthDate;
 	private String country;
+	private String height;
+	private String weight;
 	private String playerPosition;
 }

@@ -6,11 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TemplateController {
 
-	// 게시판 이동
-	@GetMapping("/userBoard")	
-	public String userBoard() {
-		return "userBoard";
-	}
 	
 	// :::::::::::::::::::::::::::: 여기부터 선수 카테고리 :::::::::::::::::::::::::::: //
 	
@@ -74,9 +69,9 @@ public class TemplateController {
 
 	
 	// :::::::::::::::::::::::::::: user index 설정 :::::::::::::::::::::::::::: //
-	@GetMapping("/user/index")	
-	public String userIndex() {
-		return "user/template/index";
+	@GetMapping("/member/index")	
+	public String memberIndex() {
+		return "member/index";
 	}
 	
 }

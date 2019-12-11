@@ -45,7 +45,15 @@ public class AdminController {
 		model.addAttribute("loginState", loginState);
 		return "index";
 	}
-
+	@GetMapping("/scheduler")
+	public String scheduler(HttpSession session, Model model) {
+		Admin loginState = (Admin) session.getAttribute("loginState");
+		if (session.getAttribute("loginState") == null) {
+			return "login";
+		}
+		model.addAttribute("loginState", loginState);
+		return "scheduler";
+	}
 	// 수정
 	@GetMapping("/modifyAdmin")
 	public String modifyAdmin(HttpSession session, Model model, Admin admin) {

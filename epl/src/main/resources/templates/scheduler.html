@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Javascript Calendar</title>
+<th:block th:include="template/part/headLayout"></th:block>
+<link rel="stylesheet" th:href="@{/assets/css/calendar.css}" />
+<script th:src="@{/assets/js/calendar.js}"></script>
+</head>
+<body>
+	<!-- Left Panel -->
+	<th:block th:include="template/part/aside"></th:block>
+	<!-- /#left-panel -->
+
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+		<!-- Header-->
+		<div th:include="template/part/topBar::topBar"></div>
+		<!-- /#header -->
+
+		<!-- Content -->
+		<div class="content">
+			<div class="sufee-login d-flex align-content-center flex-wrap container-fluid">
+				<div id="page-body">
+					<!-- [PERIOD SELECTOR] -->
+					<div id="cal-date">
+						<select id="cal-mth"></select> <select id="cal-yr"></select> 
+						<input id="cal-set" type="button" value="검색" />
+					</div>
+
+					<!-- [CALENDAR] -->
+					<div id="cal-container" style="width: 300% ;height: 400px;"></div>
+
+					<!-- [EVENT] -->
+					<div id="cal-event"></div>
+				</div>
+			</div>
+		</div>
+		<!-- /.content -->
+
+
+		<div class="clearfix"></div>
+
+		<!-- Footer -->
+		<div th:include="template/part/footer::footer"></div>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /#right-panel -->
+
+
+
+	<!--Local Stuff-->
+</body>
+<!-- <script type="text/script" src="/assets/js/calendar.js"></script> -->
+</html>

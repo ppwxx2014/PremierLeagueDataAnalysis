@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Title -->
+    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+    <th:block th:include = "/member/template/layout/headLayout"></th:block>
+</head>
+
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/member/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+    <br><br><br><br><br><br>
+	<div class = "container">
+		<h1>게시글 목록</h1>
+		<div id="bootstrap-data-table_filter" class="dataTables_filter">
+			<label>검색(제목) : </label>
+			<label> 
+			<input type="search"
+				class="form-control form-control-sm" id="searchWord" placeholder=""
+				aria-controls="bootstrap-data-table">
+			</label>
+
+			<button class="btn btn-sm btn-primary" type="submit" id="search">검색</button>
+			<a href = "/addMemberBoard"><button class="btn btn-sm btn-primary" type = "button" style = "float: right;">글 쓰러가기</button></a>
+		</div>
+
+		<table id="bootstrap-data-table" class="table table-striped">
+			<thead>
+				<tr>
+					<td>글 번호</td>
+					<td>제목</td>
+					<td>작성자</td>
+					<td>작성 날짜</td>
+				</tr>
+			</thead>
+			<tbody id="list">
+
+			</tbody>
+		</table>
+		
+		<ul class="pagination pagination-sm">
+			<li class="page-item"><a class="page-link" id="preBtn">이전</a></li>
+			<li class="page-item"><a class="page-link" id="nextBtn">다음</a></li>
+		</ul>
+	</div>
+    <!-- ##### Footer Area Start ##### -->
+    <div th:include ="/member/template/layout/footer::footer"></div>
+    <!-- ##### Footer Area End ##### -->
+</body>
+
+<script>
+let currentPage = 1;
+$.ajax({
+	url : "/getMemberBoardByPage",
+	method : "post",
+	// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+	success : function(json) {
+		console.log("리스트 성공!");
+		$(json).each(function(index, item) {
+			temp = "<tr>";
+			temp += "<td>" + item.boardNo + "</td>";
+			temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+			temp += "<td>" + item.boardUser + "</td>";
+			temp += "<td>" + item.boardDate + "</td>";
+			temp += "</tr>";
+			$("#list").append(temp);
+		});
+	}
+});
+	// 검색 단어 저장
+	let searchWord = null;
+
+	// 검색
+	$("#search").click(function(){
+		
+		searchWord = $("#searchWord").val();
+		
+		console.log("searchWord : " + searchWord);
+		
+		$("#list").empty(); // 요청 중복을 막기 위해 청소
+		$.ajax({
+			url : "/getMemberBoardByPage",
+			method :"post",
+			async : false,
+			data : {"currentPage" : currentPage, "searchWord" : searchWord},
+			success : function(json){
+				console.log("리스트 성공!");
+				$(json).each(function(index, item) {
+					temp = "<tr>";
+					temp += "<td>" + item.boardNo + "</td>";
+					temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+					temp += "<td>" + item.boardUser + "</td>";
+					temp += "<td>" + item.boardDate + "</td>";
+					temp += "</tr>";
+					$("#list").append(temp);
+					
+				});
+			}
+		});
+	});
+	
+	// 이전버튼
+	$("#preBtn").click(function() {
+		console.log("이전 버튼 클릭! 현제 currentPage : " + currentPage);
+		console.log("searchWord 값 검색 searchWord :"+searchWord);
+		if (currentPage === 1) {
+			alert("현재 1페이지입니다.");
+			return;
+		}
+	
+		currentPage--;
+		
+		console.log(" currentPage-- :" + currentPage);
+	
+		$("#list").empty(); // 요청 중복을 막기 위해 청소
+	
+		$.ajax({
+			url : "/getMemberBoardByPage",
+			method : "post",
+			async : false,
+			data : {"currentPage" : currentPage, "searchWord" : searchWord},
+			// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+			success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+				console.log("리스트 성공!");
+				$(json).each(function(index, item) {
+					temp = "<tr>";
+					temp += "<td>" + item.boardNo + "</td>";
+					temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+					temp += "<td>" + item.boardUser + "</td>";
+					temp += "<td>" + item.boardDate + "</td>";
+					temp += "</tr>";
+					$("#list").append(temp);
+				});
+			}
+		});
+	});
+	
+	// 다음버튼
+	$("#nextBtn").click(
+			function() {
+				console.log("currentPage++ : " + currentPage);
+				// db에서 전체 데이터 사이즈를 가지고 온다.
+				let count = 0;
+				$.ajax({
+					url : "/getMemberBoardListCount",
+					method : "post",
+					// 비동기 요청 : false
+					async : false,
+					success : function(json) {
+						console.log("선수의 수" + json);
+						count = Number(json);
+						console.log("count :" + count);
+					}
+				});
+				
+				// 마지막페이지
+				let lastPage = Math.ceil(count/10); // rowPerPage = 10
+				if(currentPage == lastPage) {
+					alert("마지막 페이지입니다!");
+					return;
+				}
+				
+				currentPage++;
+				
+				
+				console.log("currentPage++ :" + currentPage);
+				console.log("lastPage : " + lastPage);
+				
+				$("#list").empty(); // 요청 중복을 막기 위해 청소
+				$.ajax({
+					url : "/getMemberBoardByPage",
+					method : "post",
+					data : {"currentPage" : currentPage, "searchWord" : $("#searchWord").val()},
+					// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+					success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+						console.log("리스트 성공!");
+						$(json).each(function(index, item) {
+							temp = "<tr>";
+							temp += "<td>" + item.boardNo + "</td>";
+							temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+							temp += "<td>" + item.boardUser + "</td>";
+							temp += "<td>" + item.boardDate + "</td>";
+							temp += "</tr>";
+							$("#list").append(temp);
+						});
+					}
+				});
+	
+			});
+</script>
+
+</html>

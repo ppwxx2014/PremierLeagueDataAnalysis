@@ -14,10 +14,17 @@
     <!-- ##### TopBar Area End ##### -->
 
     <div>TEST</div>
+    <button type = "button" id = "addMemberBoard">글 입력</button>
 
     <!-- ##### Footer Area Start ##### -->
     <div th:include ="/member/template/layout/footer::footer"></div>
     <!-- ##### Footer Area End ##### -->
 </body>
+
+<script>
+	$("#addMemberBoard").click(function() {
+		location.href = "/addMemberBoard";
+	});
+</script>
 
 </html>

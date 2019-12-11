@@ -42,12 +42,16 @@ public class MemberLoginRestController {
 		member.setMemberGender(memberGender);
 		
 		session.setAttribute("memberId", memberEmail);
-		String memberConfirmEmail = memberService.selectMemberOne(memberEmail);
+		Member memberConfirm = memberService.selectMemberOne(memberEmail);
 		
-		System.out.println(memberConfirmEmail);
+		System.out.println(memberConfirm);
 		int row = 0;
-		if(memberConfirmEmail == null) {
+		if(memberConfirm.getMemberId() == null) {
 			row = memberService.addMember(member);
+		}else {
+			if(memberConfirm.getMemberNickName() != memberNickName || memberConfirm.getMemberAge() != memberAge) {
+				memberService.modifyMember(member);
+			}
 		}
 		System.out.println("row : " + row);
 		return row;

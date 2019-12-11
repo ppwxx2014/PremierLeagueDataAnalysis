@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Title -->
+    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+    <th:block th:include = "/member/template/layout/headLayout"></th:block>
+</head>
+
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/member/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+    <br><br><br><br><br><br>
+	<div class = "container">
+	<h2>게시글 입력</h2>
+    <form enctype = "multipart/form-data">
+    	<div class="form-group">
+            <label for="boardFile">boardFile :</label>
+            <input class="form-control" id="boardFile" type="file"/>
+        </div>
+        
+        <div class="form-group">
+            <label for="boardPw">boardTitle :</label>
+            <input class="form-control" id="boardTitle" type="text"/>
+        </div>
+        
+        <div class="form-group">
+            <label for="boardContent">boardContent :</label>
+            <textarea class="form-control" id="boardContent" rows="5" cols="50"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="boardName">boardName :</label>
+            <input class="form-control" id="boardUser" type="text" readonly="readonly"/>
+        </div>
+        
+        <div>     
+            <input class="btn btn-default" id="addButton" type="button" value="글입력"/>
+            <a class="btn btn-default" href="#">글목록</a>
+        </div>
+    </form>
+	</div>
+    <!-- ##### Footer Area Start ##### -->
+    <div th:include ="/member/template/layout/footer::footer"></div>
+    <!-- ##### Footer Area End ##### -->
+</body>
+
+<script>
+	
+	$("#boardUser").val(memberId);
+	console.log("boardUser : " + $("#boardUser").val());
+	$("#addButton").click(function() {
+		$.ajax({
+			url : "/addMemberBoard",
+			method : "post",
+			data : {
+				"boardUser" : $("#boardUser").val(),
+				"boardTitle" : $("#boardTitle").val(),
+				"boardContent" : $("#boardContent").val()
+			},
+			success : function(json) {
+				console.log(json + "행 입력 성공!");
+				location.href = "/getMemberBoardList";
+			}
+		});
+	});
+</script>
+
+</html>

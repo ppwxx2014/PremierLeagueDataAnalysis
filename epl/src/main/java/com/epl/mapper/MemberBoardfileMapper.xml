@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace = "com.epl.mapper.MemberBoardfileMapper">
+	<insert id = "insertMemberBoardfile" 
+			parameterType = "com.epl.mapper.MemberBoardfileMapper">
+		INSERT INTO member_boardfile (
+			board_no,
+			filename,
+			extension,
+			content_type,
+			size,
+			origin_name
+		) VALUES (
+			#{boardNo},
+			#{fileName},
+			#{extension},
+			#{contentType},
+			#{size},
+			#{originName}
+		)		
+	</insert>
+	
+	<select id = "selectMemberBoardfileOne"
+			parameterType = "int"
+			resultType = "com.epl.vo.MemberBoardfile">
+		SELECT
+			board_no as boardNo,
+			filename as fileName,
+			extension as extension,
+			origin_name as originName
+		FROM member_boardfile
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	<delete id = "deleteMemberBoardfile"
+			parameterType = "int">
+		DELETE FROM boardfile
+		WHERE board_no = #{boardNo}
+	</delete>
+</mapper>

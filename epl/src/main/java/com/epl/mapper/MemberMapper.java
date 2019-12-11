@@ -16,5 +16,8 @@ public interface MemberMapper {
 	int insertMember(Member member);
 	
 	// 유저 정보 상세보기
-	String selectMemberOne(String memberEmail);
+	Member selectMemberOne(String memberEmail);
+	
+	// 유저 정보 업데이트
+	int updateMember(Member member);
 }

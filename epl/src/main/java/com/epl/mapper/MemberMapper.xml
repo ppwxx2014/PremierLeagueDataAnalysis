@@ -7,7 +7,7 @@
 	namespace="com.epl.mapper.MemberMapper">
 	<select id="selectMemberList" resultType="com.epl.vo.Member">
 		SELECT
-		member_email as memberEmail,
+		member_email as memberId,
 		member_nick_name as memberNickName,
 		member_age as memberAge,
 		member_gender as memberGender
@@ -32,11 +32,22 @@
 	
 	<select id = "selectMemberOne"
 		parameterType = "String"
-		resultType = "String">
+		resultType = "com.epl.vo.Member">
 		SELECT
-		member_email as memberEmail
+		member_email as memberId,
+		member_nick_name as memberNickName,
+		member_age as memberAge
 		FROM member
-		WHERE member_email = #{memberEmail}
+		WHERE member_email = #{memberId}
 	</select>
+	
+	<update id = "updateMember"
+			parameterType = "com.epl.vo.Member">
+		UPDATE member SET
+		member_nick_name = #{memberNickName},
+		member_age = #{memberAge}
+		WHERE
+		member_email = #{memberId}
+	</update>
 </mapper>
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Title -->
+    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+    <th:block th:include = "/member/template/layout/headLayout"></th:block>
+</head>
+
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/member/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+    <br><br><br><br><br><br>
+	<div class = "container">
+		<!-- content -->
+		<p id = "boardTitle" style = "font-weight: bold; color: black;"></p>
+		<hr>
+		<div style = "display: inline;" id = "boardInfo"></div>
+		<hr><br>
+		<div id = "boardContent"></div>
+		
+		
+		
+	</div>
+    <!-- ##### Footer Area Start ##### -->
+    <div th:include ="/member/template/layout/footer::footer"></div>
+    <!-- ##### Footer Area End ##### -->
+</body>
+
+<script>
+$.ajax({	
+	url:"/getMemberBoardListOne",
+	method:"post",
+	success:function(json){
+		$("#listOne").empty();
+		$(json).each(function(index, item){
+		console.log("ListOne");
+		console.log(json);
+			$("#boardTitle").append("("+item.boardNo+") " + item.boardTitle);
+			$("#boardInfo").append(item.boardUser + " │ " + item.boardDate);
+			$("#boardContent").append(item.boardContent);
+			// $("#listOne").append(temp); 
+		});		
+	}
+});
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

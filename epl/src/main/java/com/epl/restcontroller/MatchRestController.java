@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.InGamePosition;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchNoTeamName;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
@@ -88,28 +90,20 @@ public class MatchRestController
 		return matchSchedule;
 	}
 	
-	//팀이름을 param으로 주고 해당 팀의 선수 리스트를 가져오는 매서드
-	@PostMapping("/getPlayerListByTeamName")
-	public List<PlayerInfo> selectPlayerByTeam(@RequestParam("teamName") String teamName)
-	{
-		System.out.println("-----player List restController 진입-----");
-		System.out.println("가져올 선수들의 팀이름 : " + teamName);
-		List<PlayerInfo> list = matchService.getPlayerListByTeamName(teamName);
-		return list;
-	}
-	
 	//startingLineUp 페이지에서 입력한 값들은 각자에 맞는 양식으로 match_player, match_keeper에 insert하는 매서드
 	@PostMapping("/addMatchPlayerKeeper")
 	public String addMatchPlayerKeeper(@RequestParam("mainPlayerNo[]") List<String> mainPlayerNo,
 									   @RequestParam("KeeperNo[]") List<String> KeeperNo,
 									   @RequestParam("subPlayerNo[]") List<String> subPlayerNo,
-									   @RequestParam("matchNo") int matchNo)
+									   @RequestParam("matchNo") int matchNo,
+									   @RequestParam("matchTime") String matchTime)
 	{
 		System.out.println("-----add Match Player Keeper restController 진입-----");
 		System.out.println("startTime 0으로 matchPlayer에 insert : "+mainPlayerNo);
 		System.out.println("startTime 0으로 matchKeeper에 insert : "+KeeperNo);
 		System.out.println("startTime (null)으로 matchPlayer에 insert : "+subPlayerNo);
 		System.out.println("입력할 경기의 No : "+matchNo);
+		System.out.println("입력할 경기의 matchTime : "+matchTime);
 		int mainCheck = 0;
 		int subCheck = 0;
 		int keeperCheck = 0;
@@ -119,6 +113,7 @@ public class MatchRestController
 			MatchPlayerNo matchPlayerNo = new MatchPlayerNo();
 			matchPlayerNo.setMatchNo(matchNo);
 			matchPlayerNo.setPlayerNo(mainPlayerNo.get(i));
+			matchPlayerNo.setMatchTime(matchTime);
 			int check = matchService.addMainPlayer(matchPlayerNo);
 			mainCheck = mainCheck+check;
 		}
@@ -139,6 +134,7 @@ public class MatchRestController
 			MatchPlayerNo matchPlayerNo = new MatchPlayerNo();
 			matchPlayerNo.setMatchNo(matchNo);
 			matchPlayerNo.setPlayerNo(KeeperNo.get(i));
+			matchPlayerNo.setMatchTime(matchTime);
 			int check = matchService.addKeeper(matchPlayerNo);
 			keeperCheck = keeperCheck+check;
 		}
@@ -199,6 +195,14 @@ public class MatchRestController
 	{
 		System.out.println("-----modifyMatchPlayer restController 진입-----");
 		System.out.println("입력할 matchPlayer : " + matchPlayer);
+		if(matchPlayer.getStartTime().equals(""))
+		{
+			matchPlayer.setStartTime(null);
+		}
+		if(matchPlayer.getEndTime().equals(""))
+		{
+			matchPlayer.setEndTime(null);
+		}
 		int check = matchService.modifyMatchPlayer(matchPlayer);
 		System.out.println("선수 기록 입력 성공 ? : "+ check);
 		return check; 
@@ -258,5 +262,23 @@ public class MatchRestController
 		return check;
 	}
 	
+	//팀이름과 경기넘버를주고 경기 선수리스트를 가져오는매서드
+	@PostMapping("/getInGamePosition")
+	public List<InGamePosition> getInGamePosition(MatchNoTeamName matchNoTeamName)
+	{
+		System.out.println("-----getInGamePosition restController 진입-----");
+		System.out.println("가져올 선수리스트의 경기NO와 팀이름 : "+ matchNoTeamName);
+		List<InGamePosition> list = matchService.getInGamePosition(matchNoTeamName);
+		System.out.println(list);
+		return list;
+	}
 	
+	@PostMapping("/getPlayerListByTeamName")
+	public List<PlayerInfo> selectPlayerByTeam(@RequestParam("teamName") String teamName)
+	{
+		System.out.println("-----player List restController 진입-----");
+		System.out.println("가져올 선수들의 팀이름 : " + teamName);
+		List<PlayerInfo> list = matchService.getPlayerListByTeamName(teamName);
+		return list;
+	}
 }

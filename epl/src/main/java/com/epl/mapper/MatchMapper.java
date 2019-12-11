@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.epl.vo.InGamePosition;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchNoTeamName;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
@@ -30,8 +32,6 @@ public interface MatchMapper {
 	public List<MatchSchedule> selectMatchList();
 
 	public MatchSchedule selectMatchOne(int matchNo);
-
-	public List<PlayerInfo> selectPlayerListByTeamName(String teamName);
 	
 	public int insertMainPlayer(MatchPlayerNo MatchPlayerNo);
 	
@@ -56,4 +56,8 @@ public interface MatchMapper {
 	public int updateMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals);
 	
 	public int updateMatchKeeper(MatchGoalKeeper matchGoalKeeper);
+	
+	public List<InGamePosition> selectInGamePosition(MatchNoTeamName matchNoTeamName);
+	
+	public List<PlayerInfo> selectPlayerListByTeamName(String teamName);
 }

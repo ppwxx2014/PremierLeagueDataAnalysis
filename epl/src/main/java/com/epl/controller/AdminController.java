@@ -36,7 +36,7 @@ public class AdminController {
 		return "redirect:/login";
 	}
 
-	@GetMapping({ "/", "/index" })
+	@GetMapping("/index")
 	public String index(HttpSession session, Model model) {
 		Admin loginState = (Admin) session.getAttribute("loginState");
 		if (session.getAttribute("loginState") == null) {
@@ -98,5 +98,11 @@ public class AdminController {
 	@GetMapping("/modifyAdminPw")
 	public String addMember() {
 		return "modifyAdminPw";
+	}
+	
+	@GetMapping("/")
+	public String main() {
+		return "main";
+		
 	}
 }

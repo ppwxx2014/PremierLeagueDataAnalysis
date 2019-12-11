@@ -10,9 +10,12 @@ import com.epl.mapper.MatchMapper;
 import com.epl.service.interfaces.MatchService;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
+import com.epl.vo.MatchResult;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.PlayerInfo;
 import com.epl.vo.Refree;
@@ -102,6 +105,55 @@ public class MatchListServiceImpl implements MatchService {
 	public MatchGoalKeeper getMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper)
 	{
 		MatchGoalKeeper check = matchMapper.selectMatchGoalKeeperOne(matchGoalKeeper);
+		return check;
+	}
+	
+	@Override
+	public int modifyMatchPlayer(MatchPlayer matchPlayer)
+	{
+		int check = matchMapper.updateMatchPlayer(matchPlayer);
+		return check;
+	}
+	
+	@Override
+	public int addMatchGoals(MatchGoals matchGoals)
+	{
+		int check = matchMapper.insertMatchGoals(matchGoals);
+		return check;
+	}
+	
+	@Override
+	public int addMatchOwnGoals(MatchOwnGoals matchOwnGoals)
+	{
+		int check = matchMapper.insertMatchOwnGoals(matchOwnGoals);
+		return check;
+	}
+	
+	@Override
+	public int addMatchResult(MatchResult matchResult)
+	{
+		int check = matchMapper.insertMatchResult(matchResult);
+		return check;
+	}
+	
+	@Override
+	public int modifyMatchResultByGoal(MatchGoals matchGoals)
+	{
+		int check = matchMapper.updateMatchResultByGoal(matchGoals);
+		return check;
+	}
+	
+	@Override
+	public int modifyMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals)
+	{
+		int check = matchMapper.updateMatchResultByOwnGoal(matchOwnGoals);
+		return check;
+	}
+	
+	@Override
+	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper)
+	{
+		int check = matchMapper.updateMatchKeeper(matchGoalKeeper);
 		return check;
 	}
 }

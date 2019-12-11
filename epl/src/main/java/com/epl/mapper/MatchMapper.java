@@ -6,9 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
+import com.epl.vo.MatchResult;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.Player;
 import com.epl.vo.PlayerInfo;
@@ -41,4 +44,16 @@ public interface MatchMapper {
 	public MatchPlayer selectmatchPlayerOne(MatchPlayer matchPlayer);
 	
 	public MatchGoalKeeper selectMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper);
+	
+	public int updateMatchPlayer(MatchPlayer matchPlayer);
+	
+	public int insertMatchGoals(MatchGoals matchGoals);
+	public int insertMatchOwnGoals(MatchOwnGoals matchOwnGoals);
+	
+	public int insertMatchResult(MatchResult matchResult);
+	
+	public int updateMatchResultByGoal(MatchGoals matchGoals);
+	public int updateMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals);
+	
+	public int updateMatchKeeper(MatchGoalKeeper matchGoalKeeper);
 }

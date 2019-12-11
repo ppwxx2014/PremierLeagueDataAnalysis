@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
+import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
+import com.epl.vo.MatchResult;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.Player;
 import com.epl.vo.PlayerInfo;
@@ -39,4 +42,16 @@ public interface MatchService {
 	public MatchPlayer getMatchPlayerOne(MatchPlayer matchPlayer);
 	
 	public MatchGoalKeeper getMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper);
+	
+	public int modifyMatchPlayer(MatchPlayer matchPlayer);
+	
+	public int addMatchGoals(MatchGoals matchGoals);
+	public int addMatchOwnGoals(MatchOwnGoals matchOwnGoals);
+	
+	public int addMatchResult(MatchResult matchResult);
+	
+	public int modifyMatchResultByGoal(MatchGoals matchGoals);
+	public int modifyMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals);
+	
+	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper);
 }

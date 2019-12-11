@@ -190,4 +190,112 @@
 			AND
 				player_no = #{playerNo}
 	</select>
+	
+	<update id = "updateMatchPlayer"
+			parameterType="com.epl.vo.MatchPlayer">
+			UPDATE match_player SET
+				shooting		= #{shooting},
+				shoot_on_target = #{shootOnTarget},
+				pass			= #{pass},
+				assist			= #{assist},
+				foul			= #{foul},
+				tackle			= #{tackle},
+				offside			= #{offside},
+				goal_on_fk		= #{goalOnFk},
+				goal_on_pk		= #{goalOnPk},
+				yellow_card		= #{yellowCard},
+				red_card		= #{redCard},
+				start_time		= #{startTime},
+				end_time		= #{endTime},
+				active 			= 'F'
+			WHERE 
+				player_no = #{playerNo}
+			AND
+				match_no = #{matchNo}
+			
+	</update>
+	
+	<insert id = "insertMatchGoals"
+			parameterType="com.epl.vo.MatchGoals">
+			INSERT INTO match_goals(
+				match_no,
+				player_no,
+				time)
+			VALUES(
+				#{matchNo},
+				#{playerNo},
+				NOW())
+	</insert>
+	
+	<insert id = "insertMatchOwnGoals"
+			parameterType="com.epl.vo.MatchOwnGoals">
+			INSERT INTO match_own_goals(
+				match_no,
+				player_no,
+				time)
+			VALUES(
+				#{matchNo},
+				#{playerNo},
+				NOW())
+	</insert>
+	
+	<insert id = "insertMatchResult"
+			parameterType="com.epl.vo.MatchResult">
+			INSERT INTO match_result(
+				match_no,
+				hometeam_name,
+				awayteam_name,
+				hometeam_goals,
+				awayteam_goals)
+			VALUES(
+				#{matchNo},
+				#{hometeamName},
+				#{awayteamName},
+				'0',
+				'0')
+	</insert>
+	
+	<update id = "updateMatchResultByGoal"
+			parameterType="com.epl.vo.MatchGoals">
+		UPDATE match_result 
+		SET hometeam_goals=
+		   	case when (SELECT team_name FROM player_contract WHERE player_no = #{playerNo} AND contract_end >= CURDATE())=hometeam_name then hometeam_goals+1 
+		ELSE hometeam_goals 
+		END ,
+			awayteam_goals=
+		   	case when (SELECT team_name FROM player_contract WHERE player_no = #{playerNo} AND contract_end >= CURDATE())=awayteam_name then awayteam_goals+1 
+		   	ELSE awayteam_goals 
+		END 
+		WHERE match_no = #{matchNo}
+	</update>
+	
+	<update id = "updateMatchResultByOwnGoal"
+			parameterType="com.epl.vo.MatchOwnGoals">
+		UPDATE match_result 
+		SET 
+			hometeam_goals=
+		  	case when (SELECT team_name FROM player_contract WHERE player_no = #{playerNo} AND contract_end >= CURDATE())=awayteam_name then hometeam_goals+1 
+		ELSE hometeam_goals 
+		END ,
+		   	awayteam_goals=
+		   	case when (SELECT team_name FROM player_contract WHERE player_no = #{playerNo} AND contract_end >= CURDATE())=hometeam_name then awayteam_goals+1 
+		ELSE awayteam_goals 
+		END 
+		WHERE match_no = #{matchNo}
+	</update>
+	
+	<update id = "updateMatchKeeper"
+			parameterType="com.epl.vo.MatchGoalKeeper">
+		UPDATE match_goalkeeper SET
+			save		=	#{save},
+			save_on_PK	=	#{saveOnPk},
+			save_on_FK	=	#{saveOnFk},
+			start_time	=	#{startTime},
+			end_time	=	#{endTime},
+			active		=	'F'	 
+		WHERE 
+			player_no 	= 	#{playerNo}
+		AND
+			match_no 	= 	#{matchNo}
+	</update>
 </mapper>

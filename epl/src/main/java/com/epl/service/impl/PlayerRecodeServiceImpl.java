@@ -10,6 +10,7 @@ import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
+import com.epl.vo.Player;
 
 
 @Service
@@ -41,4 +42,11 @@ public class PlayerRecodeServiceImpl implements PlayerRecodeService {
 		System.out.println(matchGoalKeeper);
 		return matchGoalKeeper;
 	}
+	//getMemberPlayerOne에 속한 결과값이라 불필요.
+	/*@Override
+	public Player getMemberPlayerName(int playerNo) {
+		Player player = playerRecodeMapper.selectMemberPlayerName(playerNo);
+		System.out.println("Player:"+player);
+		return player;
+	}*/
 }

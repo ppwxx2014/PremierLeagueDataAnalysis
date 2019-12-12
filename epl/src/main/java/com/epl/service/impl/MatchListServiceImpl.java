@@ -110,6 +110,12 @@ public class MatchListServiceImpl implements MatchService {
 		int check = matchMapper.updateMatchPlayer(matchPlayer);
 		return check;
 	}
+	@Override
+	public int modifyMatchPlayerT(MatchPlayer matchPlayer)
+	{
+		int check = matchMapper.updateMatchPlayerT(matchPlayer);
+		return check;
+	}
 	
 	@Override
 	public int addMatchGoals(MatchGoals matchGoals)
@@ -154,9 +160,16 @@ public class MatchListServiceImpl implements MatchService {
 	}
 	
 	@Override
-	public List<InGamePosition> getInGamePosition(MatchNoTeamName matchNoTeamName)
+	public int modifyMatchKeeperT(MatchGoalKeeper matchGoalKeeper)
 	{
-		List<InGamePosition> list = matchMapper.selectInGamePosition(matchNoTeamName);
+		int check = matchMapper.updateMatchKeeperT(matchGoalKeeper);
+		return check;
+	}
+	
+	@Override
+	public List<InGamePosition> getMainAndKeeper(MatchNoTeamName matchNoTeamName)
+	{
+		List<InGamePosition> list = matchMapper.selectMainAndKeeper(matchNoTeamName);
 		System.out.println("service - getInGamePosition : "+list);
 		return list;
 	}
@@ -166,5 +179,20 @@ public class MatchListServiceImpl implements MatchService {
 	{
 		List<PlayerInfo> list = matchMapper.selectPlayerListByTeamName(teamName);
 		return list;
+	}
+	
+	@Override
+	public List<InGamePosition> getCommutablePlayer(MatchNoTeamName matchNoTeamName)
+	{
+		List<InGamePosition> list = matchMapper.selectCommutablePlayer(matchNoTeamName);
+		System.out.println("service - getInGamePosition : "+list);
+		return list;
+	}
+	
+	@Override
+	public int removeMatchPlayer(MatchPlayer matchPlayer)
+	{
+		int check = matchMapper.deleteMatchPlayer(matchPlayer);
+		return check;
 	}
 }

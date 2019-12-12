@@ -44,6 +44,7 @@ public interface MatchService {
 	public MatchGoalKeeper getMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper);
 	
 	public int modifyMatchPlayer(MatchPlayer matchPlayer);
+	public int modifyMatchPlayerT(MatchPlayer matchPlayer);
 	
 	public int addMatchGoals(MatchGoals matchGoals);
 	public int addMatchOwnGoals(MatchOwnGoals matchOwnGoals);
@@ -54,8 +55,12 @@ public interface MatchService {
 	public int modifyMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals);
 	
 	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper);
+	public int modifyMatchKeeperT(MatchGoalKeeper matchGoalKeeper);
 	
 	public List<PlayerInfo> getPlayerListByTeamName(String teamName);
 	
-	public List<InGamePosition> getInGamePosition(MatchNoTeamName matchNoTeamName);
+	public List<InGamePosition> getMainAndKeeper(MatchNoTeamName matchNoTeamName);
+	public List<InGamePosition> getCommutablePlayer(MatchNoTeamName matchNoTeamName);
+	
+	public int removeMatchPlayer(MatchPlayer matchPlayer);
 }

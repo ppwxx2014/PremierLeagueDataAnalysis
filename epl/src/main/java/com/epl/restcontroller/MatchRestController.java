@@ -208,6 +208,24 @@ public class MatchRestController
 		return check; 
 	}
 	
+	@PostMapping("/modifyMatchPlayerT")
+	public int modifyMatchPlayerT(MatchPlayer matchPlayer)
+	{
+		System.out.println("-----modifyMatchPlayer restController 진입-----");
+		System.out.println("입력할 matchPlayer : " + matchPlayer);
+		if(matchPlayer.getStartTime().equals(""))
+		{
+			matchPlayer.setStartTime(null);
+		}
+		if(matchPlayer.getEndTime().equals(""))
+		{
+			matchPlayer.setEndTime(null);
+		}
+		int check = matchService.modifyMatchPlayerT(matchPlayer);
+		System.out.println("후보 시작 기록 입력 성공 ? : "+ check);
+		return check; 
+	}
+	
 	@PostMapping("/addMatchGoals")
 	public int addMatchGoals(MatchGoals matchGoals)
 	{
@@ -262,16 +280,37 @@ public class MatchRestController
 		return check;
 	}
 	
+	@PostMapping("/modifyMatchKeeperT")
+	public int modifyMatchKeeperT(MatchGoalKeeper matchGoalKeeper)
+	{
+		System.out.println("-----modifyMatchKeeper restController 진입-----");
+		System.out.println("입력할 키퍼의 기록 : "+ matchGoalKeeper);
+		int check = matchService.modifyMatchKeeperT(matchGoalKeeper);
+		System.out.println("키퍼 기록 업데이트 성공? : "+ check);
+		return check;
+	}
+	
 	//팀이름과 경기넘버를주고 경기 선수리스트를 가져오는매서드
-	@PostMapping("/getInGamePosition")
+	@PostMapping("/getMainAndKeeper")
 	public List<InGamePosition> getInGamePosition(MatchNoTeamName matchNoTeamName)
 	{
 		System.out.println("-----getInGamePosition restController 진입-----");
 		System.out.println("가져올 선수리스트의 경기NO와 팀이름 : "+ matchNoTeamName);
-		List<InGamePosition> list = matchService.getInGamePosition(matchNoTeamName);
+		List<InGamePosition> list = matchService.getMainAndKeeper(matchNoTeamName);
 		System.out.println(list);
 		return list;
 	}
+	
+	//팀이름과 경기넘버를주고 경기 gnqh리스트를 가져오는매서드
+		@PostMapping("/getCommutablePlayer")
+		public List<InGamePosition> getCommutablePlayer(MatchNoTeamName matchNoTeamName)
+		{
+			System.out.println("-----getCommutablePlayer restController 진입-----");
+			System.out.println("가져올 후보리스트의 경기NO와 팀이름 : "+ matchNoTeamName);
+			List<InGamePosition> list = matchService.getCommutablePlayer(matchNoTeamName);
+			System.out.println(list);
+			return list;
+		}
 	
 	@PostMapping("/getPlayerListByTeamName")
 	public List<PlayerInfo> selectPlayerByTeam(@RequestParam("teamName") String teamName)
@@ -280,5 +319,23 @@ public class MatchRestController
 		System.out.println("가져올 선수들의 팀이름 : " + teamName);
 		List<PlayerInfo> list = matchService.getPlayerListByTeamName(teamName);
 		return list;
+	}
+	
+	@PostMapping("/removeMatchPlayer")
+	public int removeMatchPlayer(MatchPlayer matchPlayer)
+	{
+		System.out.println("-----removeMatchPlayer restController 진입-----");
+		System.out.println("matchPlayer에서 삭제할 선수NO,매치No : " + matchPlayer);
+		int check = matchService.removeMatchPlayer(matchPlayer);
+		return check;
+	}
+	
+	@PostMapping("/addMatchKeeper")
+	public int addMatchKeeper(MatchPlayerNo matchPlayerNo)
+	{
+		System.out.println("-----removeMatchPlayer restController 진입-----");
+		System.out.println("입력할 교대 골키퍼 MatchNo.playerNo,startTime : " + matchPlayerNo);
+		int check = matchService.addKeeper(matchPlayerNo);
+		return 0;
 	}
 }

@@ -16,7 +16,7 @@
 			origin_name
 		) VALUES (
 			#{boardNo},
-			#{fileName},
+			#{filename},
 			#{extension},
 			#{contentType},
 			#{size},

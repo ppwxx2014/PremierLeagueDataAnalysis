@@ -1,70 +1,131 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Title -->
-    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
-    <th:block th:include = "/member/template/layout/headLayout"></th:block>
+<!-- Title -->
+<title>PremierLeagueDataAnalysis - User index &amp; Template</title>
+<th:block th:include="/member/template/layout/headLayout"></th:block>
 </head>
 
 <body>
-    <!-- ##### TopBar Area Start ##### -->
-   	<th:block th:include = "/member/template/layout/topBar"></th:block>
-    <!-- ##### TopBar Area End ##### -->
-    <br><br><br><br><br><br>
-	<div class = "container">
-	<h2>게시글 입력</h2>
-    <form enctype = "multipart/form-data">
-    	<div class="form-group">
-            <label for="boardFile">boardFile :</label>
-            <input class="form-control" id="boardFile" type="file"/>
-        </div>
-        
-        <div class="form-group">
-            <label for="boardPw">boardTitle :</label>
-            <input class="form-control" id="boardTitle" type="text"/>
-        </div>
-        
-        <div class="form-group">
-            <label for="boardContent">boardContent :</label>
-            <textarea class="form-control" id="boardContent" rows="5" cols="50"></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label for="boardName">boardName :</label>
-            <input class="form-control" id="boardUser" type="text" readonly="readonly"/>
-        </div>
-        
-        <div>     
-            <input class="btn btn-default" id="addButton" type="button" value="글입력"/>
-            <a class="btn btn-default" href="#">글목록</a>
-        </div>
-    </form>
-	</div>
-    <!-- ##### Footer Area Start ##### -->
-    <div th:include ="/member/template/layout/footer::footer"></div>
-    <!-- ##### Footer Area End ##### -->
-</body>
+	<!-- ##### TopBar Area Start ##### -->
+	<th:block th:include="/member/template/layout/topBar"></th:block>
+	<!-- ##### TopBar Area End ##### -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		<h2>게시글 입력</h2>
+		<form enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="boardFile">boardFile :</label> 
+				<input class="form-control" id="boardfile" type="file" multiple="multiple"/>
+				
+				<!-- 들어간 파일 리스트 -->
+				<div id = "fileList"></div>
+			</div>
 
-<script>
-	
-	$("#boardUser").val(memberId);
-	console.log("boardUser : " + $("#boardUser").val());
-	$("#addButton").click(function() {
-		$.ajax({
-			url : "/addMemberBoard",
-			method : "post",
-			data : {
-				"boardUser" : $("#boardUser").val(),
-				"boardTitle" : $("#boardTitle").val(),
-				"boardContent" : $("#boardContent").val()
-			},
-			success : function(json) {
-				console.log(json + "행 입력 성공!");
-				location.href = "/getMemberBoardList";
+			<div class="form-group">
+				<label for="boardPw">boardTitle :</label> <input
+					class="form-control" id="boardTitle" type="text" />
+			</div>
+
+			<div class="form-group">
+				<label for="boardContent">boardContent :</label>
+				<textarea class="summernote" id="boardContent" rows="5" cols="50"></textarea>
+			</div>
+
+			<div class="form-group">
+				<label for="boardName">boardName :</label> <input
+					class="form-control" id="boardUser" type="text" readonly="readonly" />
+			</div>
+
+			<div>
+				<input class="btn btn-default" id="addButton" type="button"
+					value="글입력" /> <a class="btn btn-default" href="#">글목록</a>
+			</div>
+		</form>
+	</div>
+	<!-- ##### Footer Area Start ##### -->
+	<th:block th:include="/member/template/layout/footer"></th:block>
+	<!-- ##### Footer Area End ##### -->
+	<script>
+	$(document).ready(function(){
+		var newJquery = $.noConflict(true); // 스크립트 버전 충돌 방지
+		
+		$("#boardUser").val(memberId);
+		console.log(memberId);
+		
+		var formData = new FormData(); // formData 인터페이스
+		
+		var fileList = new Object();
+		$("#boardfile").change(function () {
+			fileList = $(this)[0].files;  //파일 대상이 리스트 형태로 넘어옴
+			console.log($(this)[0].files);
+			let file = null;
+			for(let i = 0; i < fileList.length; i++) {
+				$("#fileList").append("<div> 파일 이름: " + fileList[i].name + "<button type = 'button' id = 'deleteFile' value = '"+i+"'>파일 삭제<button></div>");
+				file = fileList[i];
+				formData.append("boardfile", file);  //파일을 더해준다.
+				
 			}
+			
+			$(document).on("click", "#deleteFile", function(index) {
+				let newFileList = new Object();
+				for(let i = 0; i < fileList.length; i++) {
+					console.log( !($(this).val()==i) );
+					if( !($(this).val()==i) ){
+						newFileList[i]=fileList[i];
+					}
+				} 
+				console.log(newFileList);
+				
+				formData = new FormData(); // 파일 변경이 일어난 후 파일객체를 담을 formData 객체 생성
+					for(let i = 0; i < fileList.length; i++) {
+						file = newFileList[i];
+						formData.append("boardfile", file); 
+						console.log(file);
+					} //파일을 더해준다.
+				$(this).parent().empty();
+			});
+			
+		});
+		
+		
+		
+		$("#addButton").click(function() {
+			// formData 인터페이스 사용해서 파일 및 컨텐츠 전송
+			formData.append("boardTitle", $("#boardTitle").val());
+			formData.append("boardContent", $("#boardContent").val());
+			formData.append("boardUser", $("#boardUser").val());
+			console.log(formData.get("boardfile")); // 담았던 파일 전송
+			
+			newJquery.ajax({
+				url : "/addMemberBoard",
+				method : "post",
+				data : formData,
+				// ajax로 데이터를 보낼 시 contentType, processData를 false로 명시해줘야함
+				contentType : false,
+				processData : false,
+				success : function(json) {
+					console.log(json + "행 입력 성공!");
+					location.href = "/getMemberBoardList";
+				}
+			});
+		});
+	  $('.summernote').summernote({ 
+		lang: 'ko-KR',
+		placeholder: '내용을 입력해주세요',
+		tabsize: 4,
+		height: 150
 		});
 	});
 </script>
+</body>
+
+
 
 </html>

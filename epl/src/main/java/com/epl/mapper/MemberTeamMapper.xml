@@ -26,4 +26,24 @@
 		FROM team
 		where team_name = #{teamName}
 	</select>
+	<select id="selectMemberPlayersList"
+	parameterType="String"
+	resultType="com.epl.vo.Player">
+		SELECT 
+			player_no as playerNo,
+			player_name as playerName,
+			country as country,
+			birth_date as birthDate,
+			height as height,
+			weight as weight,
+			player_position as playerPosition
+		FROM player
+			WHERE player_no
+			IN 
+			(SELECT player_no
+			FROM player_contract
+			WHERE contract_end >= CURDATE()
+			AND team_name = #{players})
+	</select>
+	
 </mapper>

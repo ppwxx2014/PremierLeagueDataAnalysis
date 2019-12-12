@@ -7,6 +7,7 @@
     <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
     <th:block th:include = "/member/template/layout/headLayout"></th:block>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -662,199 +663,43 @@
     <!-- ##### Footer Area End ##### -->
 </body>
   <script>
-  $.ajax({
-		 url:"/getMemberPlayerOne",
-		 method:"POST",
-		 success:function(json){
-			 $(json).each(function(index, item){
-				var playerPosition = item.playerPosition;
-				console.log("position:"+playerPosition);
-				if(playerPosition=="GK"){
-					 $.ajax({
-				  		 url:"/getMemberGoalKeeperRecode",
-				  		 method:"POST",
-				  		 success:function(json){
-				  			 $("recode").empty();
-				  			 $(json).each(function(index, item){
-				  				temp = "<tr><td>";
-				  				temp +="선방";
-				  				temp +="</td><td>";
-				  				temp +="프리킥방어";
-				  				temp +="</td><td>";
-				  				temp +="패널티킥 방어";	
-				  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
-				  				temp +=item.save;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.saveOnPk;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.saveOnFk;
-				  				temp +="</td></tr>";
-				  				$("#recode").append(temp);
-				  			 });
-				  		 }
-				  	  });
-					 
-					 $.ajax({
-							url:"/getMemberGoalKeeperRecode",
-							method:"POST",
-							success:function(json){
-								$(json).each(function(index, item){
-									console.log("name:"+item.playerName);
-									var marksCanvas = document.getElementById("marksChart");
-
-									Chart.defaults.global.defaultFontFamily = "Lato";
-									Chart.defaults.global.defaultFontSize = 18;
-
-									var marksData = {
-									  labels: ["save", "saveOnPk", "saveOnFk"],
-									  datasets: [{
-									    label: item.playerName,
-									    backgroundColor: "transparent",
-									    borderColor: "rgba(200,0,0,0.6)",
-									    fill: false,
-									    radius: 6,
-									    pointRadius: 6,
-									    pointBorderWidth: 3,
-									    pointBackgroundColor: "red",
-									    pointBorderColor: "rgba(200,0,0,0.6)",
-									    pointHoverRadius: 10,
-									    data: [item.save,item.saveOnPk,item.saveOnFk]
-									  }]
-									};
-
-									var chartOptions = {
-									 
-										scale: {
-									    gridLines: {
-									      color: "black",
-									      lineWidth: 3
-									    },
-									    angleLines: {
-									      display: false
-									    },
-									    ticks: {
-									      beginAtZero: true,
-									      min: 0,
-									      max: 50,
-									      stepSize: 10
-									    },
-									    pointLabels: {
-									      fontSize: 13,
-									      fontColor: "green"
-									    }
-									  },
-									  legend: {
-									    position: 'left'
-									  }
-									};
-
-									var radarChart = new Chart(marksCanvas, {
-									  type: 'radar',
-									  data: marksData,
-									  options: chartOptions
-									});
-								});
-							}
-						});
-					 
-					 
-				}else{
-					var goal = 0;
-					var ownGoal = 0;
+  //포지션 검사후 골키퍼와 나머지로 분리
+ $.ajax({
+	 url:"/getMemberPlayerOne",
+	 method:"POST",
+	 success:function(json){
+		 $(json).each(function(index, item){
+			var playerPosition = item.playerPosition;
+			console.log("position:"+playerPosition);
+			//포지션이 골키퍼인 경우
+			if(playerPosition=="GK"){
+				//골키퍼의 개인 기록을 테이블로 출력
 				$.ajax({
-						url:"/getMemberPlayerGoals",
-						method:"POST",
-						async:false,
-						success:function(json){
-							console.log("json:"+json);
-							$(json).each(function(index, item){
-								goal = item.goal;
-								console.log("goal:"+goal);
-							});
-						}
-					});
-				$.ajax({
-					url:"/getMemberPlayerOwnGoals",
-					method:"POST",
-					async:false,
-					success:function(json){
-						console.log("json:"+json);
-						$(json).each(function(index, item){
-							ownGoal = item.ownGoal;
-							console.log("ownGoal:"+ownGoal);
-						});
-					}
-				});
-					console.log("owngoal:"+ownGoal);
-					console.log("cgoal:"+goal);
-					//선수의 기록중 골,유효슈팅,패스, 태클횟수를 테이블로 출력
-				  	  $.ajax({
-				  		 url:"/getMemberPlayerRecode",
-				  		 method:"POST",
-				  		 success:function(json){
-				  			 $("recode").empty();
-				  			 $(json).each(function(index, item){
-				  				temp = "<tr><td>";
-				  				temp +="골";
-				  				temp +="</td><td>";
-				  				temp +="유효 슈팅";
-				  				temp +="</td><td>";
-				  				temp +="패스";
-				  				temp +="</td><td>";
-				  				temp +="어시스트";
-				  				temp +="</td><td>";
-				  				temp +="자살골";
-				  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
-				  				temp +=goal;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.shootOnTarget;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.pass;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.assist;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=ownGoal;
-				  				temp +="</td></tr>";
-				  				$("#recode").append(temp);
-				  			 });
-				  		 }
-				  	  });
-				  		//선수의 기록중 옐로,레드카드, 오프사이드, 패널티킥의 횟수를 테이블로 출력
-				  	$.ajax({
-				 		 url:"/getMemberPlayerRecode",
-				 		 method:"POST",
-				 		 success:function(json){
-				 			 $("recodeT").empty();
-				 			 $(json).each(function(index, item){
-				 				temp = "<tr><td>";
-				  				temp +="옐로 카드";
-				  				temp +="</td><td>";
-				  				temp +="레드 카드";
-				  				temp +="</td><td>";
-				  				temp +="오프사이드";
-				  				temp +="</td><td>";
-				  				temp +="태클";
-				  				temp +="</td><td>";
-				  				temp +="파울";
-				  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
-				  				temp +=item.yellowCard;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.redCard;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.offside;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.tackle;
-				  				temp +="</td><td bgcolor = '#F2F2F2'>";
-				  				temp +=item.foul;
-				  				temp +="</td></tr>";
-				  				$("#recodeT").append(temp);
-				 			 });
-				 		 }
-				 	  });
-				  		
-					//선수의 기록을 레이더 차트로 출력
-					$.ajax({
-						url:"/getMemberPlayerRecode",
+			  		 url:"/getMemberGoalKeeperRecode",
+			  		 method:"POST",
+			  		 success:function(json){
+			  			 $("recode").empty();
+			  			 $(json).each(function(index, item){
+			  				temp = "<tr><td>";
+			  				temp +="선방";
+			  				temp +="</td><td>";
+			  				temp +="프리킥방어";
+			  				temp +="</td><td>";
+			  				temp +="패널티킥 방어";	
+			  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
+			  				temp +=item.save;
+			  				temp +="</td><td bgcolor = '#F2F2F2'>";
+			  				temp +=item.saveOnPk;
+			  				temp +="</td><td bgcolor = '#F2F2F2'>";
+			  				temp +=item.saveOnFk;
+			  				temp +="</td></tr>";
+			  				$("#recode").append(temp);
+			  			 });
+			  		 }
+			  	  });
+				 //골키퍼의 개인 기록을 방사형 차트로 출력
+				 $.ajax({
+						url:"/getMemberGoalKeeperRecode",
 						method:"POST",
 						success:function(json){
 							$(json).each(function(index, item){
@@ -865,9 +710,9 @@
 								Chart.defaults.global.defaultFontSize = 18;
 
 								var marksData = {
-								  labels: ["Goal", "Pass", "Shoot", "Takle", "Assist", "offside"],
+								  labels: ["save", "saveOnPk", "saveOnFk"],
 								  datasets: [{
-								    label: item.playerName,
+								    label:playerName,
 								    backgroundColor: "transparent",
 								    borderColor: "rgba(200,0,0,0.6)",
 								    fill: false,
@@ -877,12 +722,13 @@
 								    pointBackgroundColor: "red",
 								    pointBorderColor: "rgba(200,0,0,0.6)",
 								    pointHoverRadius: 10,
-								    data: [goal,item.pass,item.shootOnTarget,item.tackle,item.assist,item.offside]
+								    data: [item.save,item.saveOnPk,item.saveOnFk]
 								  }]
 								};
 
 								var chartOptions = {
-								  scale: {
+								 
+									scale: {
 								    gridLines: {
 								      color: "black",
 								      lineWidth: 3
@@ -893,11 +739,11 @@
 								    ticks: {
 								      beginAtZero: true,
 								      min: 0,
-								      max: 30,
-								      stepSize: 5
+								      max: 50,
+								      stepSize: 10
 								    },
 								    pointLabels: {
-								      fontSize: 18,
+								      fontSize: 13,
 								      fontColor: "green"
 								    }
 								  },
@@ -914,29 +760,345 @@
 							});
 						}
 					});
-					
-					
+				 $.ajax({
+						url:"/getMemberGoalKeeperRecode",
+						method:"POST",
+						success:function(json){
+							$(json).each(function(index, item){
+								//막대 그래프 출력
+								var densityCanvas = document.getElementById("densityChart");
+
+								Chart.defaults.global.defaultFontFamily = "Lato";
+								Chart.defaults.global.defaultFontSize = 18;
+
+								var goalKeeperData = {
+								  label: playerName,
+								  data: [item.save, item.saveOnPk,item.saveOnFk],
+								  backgroundColor: [
+								    'rgba(0, 99, 132, 0.6)',
+								    'rgba(120, 99, 132, 0.6)',
+								    'rgba(240, 99, 132, 0.6)'
+								  ],
+								  borderColor: [
+								    'rgba(0, 99, 132, 1)',
+								    'rgba(120, 99, 132, 1)',
+								    'rgba(240, 99, 132, 1)'
+								  ],
+								  borderWidth: 2,
+								  hoverBorderWidth: 0
+								};
+
+								var chartOptions = {
+								  scales: {
+								    yAxes: [{
+								      barPercentage: 0.5,
+								      gridLines: {
+								        display: false
+								      }
+								    }],
+								    xAxes: [{
+								      gridLines: {
+								        zeroLineColor: "black",
+								        zeroLineWidth: 2
+								      },
+								      ticks: {
+								        min: 0,
+								        max: 40,
+								        stepSize: 5
+								      },
+								      scaleLabel: {
+								        display: true,
+								        labelString: "recode"
+								      }
+								    }]
+								  },
+								  elements: {
+								    rectangle: {
+								      borderSkipped: 'left',
+								    }
+								  }
+								};
+
+								var barChart = new Chart(densityCanvas, {
+								  type: 'horizontalBar',
+								  data: {
+								    labels: ["Save", "SaveOnPk", "SaveOnFk"],
+								    datasets: [goalKeeperData],
+								  },
+								  options: chartOptions
+								});
+							});
+						}
+					});
+				 
+			//골키퍼가 아닐경우 
+			}else{
+				var goal = 0;
+				var ownGoal = 0;
+			//선수의 개인 골기록 전역변수 설정
+			$.ajax({
+					url:"/getMemberPlayerGoals",
+					method:"POST",
+					async:false,
+					success:function(json){
+						console.log("json:"+json);
+						$(json).each(function(index, item){
+							goal = item.goal;
+							console.log("goal:"+goal);
+						});
+					}
+				});
+			//선수의 개인 자살골 기록 전역변수 설정
+			$.ajax({
+				url:"/getMemberPlayerOwnGoals",
+				method:"POST",
+				async:false,
+				success:function(json){
+					console.log("json:"+json);
+					$(json).each(function(index, item){
+						ownGoal = item.ownGoal;
+						console.log("ownGoal:"+ownGoal);
+					});
 				}
-			 });
-		 }
-	  });
-  		//선수 이미지 출력
-  	  $.ajax({
-  		 url:"/getMemberPlayerOne" ,
-  		 method:"POST",	
-  		 success:function(json){
-  			 $("#img").empty();
-  			 $(json).each(function(index, item){
-  				temp = "<img src = 'images/player/";
-  				temp += item.playerName;
-  				temp += ".jpg'>";
-  				$("#img").append(temp);
-  				console.log("img:"+item.playerName);
-  			 });
-  		 }
-  	  });
-  	//선수의 신상정보및 상세정보를 테이블로 출력
-	  $.ajax({
+			});
+				console.log("owngoal:"+ownGoal);
+				console.log("cgoal:"+goal);
+				//선수의 기록중 골,유효슈팅,패스,어시스트, 자살골횟수를 테이블로 출력
+			  	 $.ajax({
+			  		url:"/getMemberPlayerRecode",
+			  		method:"POST",
+			  		success:function(json){
+			  			$("recode").empty();
+			  			$(json).each(function(index, item){
+			  				temp = "<tr><td>";
+			  				temp +="골";
+			  				temp +="</td><td>";
+			  				temp +="유효 슈팅";
+			  				temp +="</td><td>";
+			  				temp +="패스";
+			  				temp +="</td><td>";
+			  				temp +="어시스트";
+			  				temp +="</td><td>";
+			  				temp +="자살골";
+			  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
+			  				temp +=goal;
+			  				temp +="</td><td bgcolor = '#F2F2F2'>";
+			  				temp +=item.shootOnTarget;
+			  				temp +="</td><td bgcolor = '#F2F2F2'>";
+			  				temp +=item.pass;
+			  				temp +="</td><td bgcolor = '#F2F2F2'>";
+			  				temp +=item.assist;
+			  				temp +="</td><td bgcolor = '#F2F2F2'>";
+			  				temp +=ownGoal;
+			  				temp +="</td></tr>";
+			  				$("#recode").append(temp);
+			  			 });
+			  		 }
+			  	  });
+			//선수의 기록중 옐로,레드카드, 오프사이드,태클,파울의 횟수를 테이블로 출력
+		 	$.ajax({
+				 url:"/getMemberPlayerRecode",
+				 method:"POST",
+				 success:function(json){
+					 $("recodeT").empty();
+					 $(json).each(function(index, item){
+						temp = "<tr><td>";
+		 				temp +="옐로 카드";
+		 				temp +="</td><td>";
+		 				temp +="레드 카드";
+		 				temp +="</td><td>";
+		 				temp +="오프사이드";
+		 				temp +="</td><td>";
+		 				temp +="태클";
+		 				temp +="</td><td>";
+		 				temp +="파울";
+		 				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
+		 				temp +=item.yellowCard;
+		 				temp +="</td><td bgcolor = '#F2F2F2'>";
+		 				temp +=item.redCard;
+		 				temp +="</td><td bgcolor = '#F2F2F2'>";
+		 				temp +=item.offside;
+		 				temp +="</td><td bgcolor = '#F2F2F2'>";
+		 				temp +=item.tackle;
+		 				temp +="</td><td bgcolor = '#F2F2F2'>";
+		 				temp +=item.foul;
+		 				temp +="</td></tr>";
+		 				$("#recodeT").append(temp);
+					 });
+				 }
+			  });
+			  		
+			//선수의 기록을 방사형 차트로 출력
+			$.ajax({
+				url:"/getMemberPlayerRecode",
+				method:"POST",
+				success:function(json){
+					$(json).each(function(index, item){
+						var marksCanvas = document.getElementById("marksChart");
+		
+						Chart.defaults.global.defaultFontFamily = "Lato";
+						Chart.defaults.global.defaultFontSize = 18;
+		
+						var marksData = {
+						  labels: ["Goal", "Pass", "Shoot", "Takle", "Assist", "offside"],
+						  datasets: [{
+						    label: playerName,
+						    backgroundColor: "transparent",
+						    borderColor: "rgba(200,0,0,0.6)",
+						    fill: false,
+						    radius: 6,
+						    pointRadius: 6,
+						    pointBorderWidth: 3,
+						    pointBackgroundColor: "red",
+						    pointBorderColor: "rgba(200,0,0,0.6)",
+						    pointHoverRadius: 10,
+						    data: [goal,item.pass,item.shootOnTarget,item.tackle,item.assist,item.offside]
+						  }]
+						};
+
+						var chartOptions = {
+						  scale: {
+						    gridLines: {
+						      color: "black",
+						      lineWidth: 3
+						    },
+						    angleLines: {
+						      display: false
+						    },
+						    ticks: {
+						      beginAtZero: true,
+						      min: 0,
+						      max: 30,
+						      stepSize: 5
+						    },
+						    pointLabels: {
+						      fontSize: 18,
+						      fontColor: "green"
+						    }
+						  },
+						  legend: {
+						    position: 'left'
+						  }
+						};
+		
+						var radarChart = new Chart(marksCanvas, {
+						  type: 'radar',
+						  data: marksData,
+						  options: chartOptions
+						});
+					});
+				}
+			});
+						
+			$.ajax({
+				url:"/getMemberPlayerRecode",
+				method:"POST",
+				success:function(json){
+					$(json).each(function(index, item){
+						//막대 그래프 출력
+						var densityCanvas = document.getElementById("densityChart");
+
+						Chart.defaults.global.defaultFontFamily = "Lato";
+						Chart.defaults.global.defaultFontSize = 18;
+
+						var playerData = {
+						  label: playerName,
+						  data: [goal,item.shootOnTarget,item.pass,item.assist,item.foul,item.tackle,item.offside,item.yellowCard,item.redCard],
+						  backgroundColor: [
+							    'rgba(0, 99, 132, 0.6)',
+							    'rgba(30, 99, 132, 0.6)',
+							    'rgba(60, 99, 132, 0.6)',
+							    'rgba(90, 99, 132, 0.6)',
+							    'rgba(120, 99, 132, 0.6)',
+							    'rgba(150, 99, 132, 0.6)',
+							    'rgba(180, 99, 132, 0.6)',
+							    'rgba(210, 99, 132, 0.6)',
+							    'rgba(240, 99, 132, 0.6)'
+							  ],
+							  borderColor: [
+							    'rgba(0, 99, 132, 1)',
+							    'rgba(30, 99, 132, 1)',
+							    'rgba(60, 99, 132, 1)',
+							    'rgba(90, 99, 132, 1)',
+							    'rgba(120, 99, 132, 1)',
+							    'rgba(150, 99, 132, 1)',
+							    'rgba(180, 99, 132, 1)',
+							    'rgba(210, 99, 132, 1)',
+							    'rgba(240, 99, 132, 1)'
+							  ],
+						  borderWidth: 2,
+						  hoverBorderWidth: 0
+						};
+
+						var chartOptions = {
+						  scales: {
+						    yAxes: [{
+						      barPercentage: 0.5,
+						      gridLines: {
+						        display: false
+						      }
+						    }],
+						    xAxes: [{
+						      gridLines: {
+						        zeroLineColor: "black",
+						        zeroLineWidth: 2
+						      },
+						      ticks: {
+						        min: 0,
+						        max: 40,
+						        stepSize: 5
+						      },
+						      scaleLabel: {
+						        display: true,
+						        labelString: "recode"
+						      }
+						    }]
+						  },
+						  elements: {
+						    rectangle: {
+						      borderSkipped: 'left',
+						    }
+						  }
+						};
+
+						var barChart = new Chart(densityCanvas, {
+						  type: 'horizontalBar',
+						  data: {
+						    labels: ["Goal","shoot","pass","assist","foul","tackle","offside","yellowCard","redCard"],
+						    datasets: [playerData],
+						  },
+						  options: chartOptions
+						});
+					});
+				}
+			});
+				
+			}
+		 });
+	 }
+  });
+	var playerName = null;
+	
+	 //선수 이미지 출력
+	$.ajax({
+	 		 url:"/getMemberPlayerOne" ,
+	 		 method:"POST",
+	 		 async:false,
+	 		 success:function(json){
+	 			 $("#img").empty();
+	 			 $(json).each(function(index, item){
+	 				playerName = item.playerName;
+	 				temp = "<img src = 'images/player/";
+	 				temp += item.playerName;
+	 				temp += ".jpg'>";
+	 				$("#img").append(temp);
+	 				console.log("img:"+item.playerName);
+	 			 });
+	 		 }
+	 	  });
+	 	  console.log("PlayerName:"+playerName);
+	 	//선수의 신상정보및 상세정보를 테이블로 출력
+	$.ajax({
 			 url:"/getMemberPlayerOne",
 			 method:"POST",
 			 success:function(json){
@@ -975,110 +1137,37 @@
 					$("#playerName").append(temp);
 				 });
 			 }
-		  });
-  		//선수가 속한 팀명을 화면 상단에 출력
-	$.ajax({
-		url:"/getMemberPlayerInfo",
-		method:"POST",
-		success:function(json){
-			$("#teamName").empty();
-			$(json).each(function(index, item){
-				temp = item.teamName;
-				$("#teamName").append(temp);
-			});
-		}
-	});
-	//선수의 등번호를 출력
-	$.ajax({
-		url:"/getMemberPlayerInfo",
-		method:"POST",
-		success:function(json){
-			$("#backNumber").empty();
-			$(json).each(function(index, item){
-				temp = item.uniformBackNumber;
-				$("#backNumber").append(temp);
-			});
-		}
-	});
-  		
-	
-	
-	
-	
-	var densityCanvas = document.getElementById("densityChart");
+	  });
+ 		//선수가 속한 팀명을 화면 상단에 출력
+$.ajax({
+	url:"/getMemberPlayerInfo",
+	method:"POST",
+	success:function(json){
+		$("#teamName").empty();
+		$(json).each(function(index, item){
+			temp = item.teamName;
+			$("#teamName").append(temp);
+		});
+	}
+});
+//선수의 등번호를 출력
+$.ajax({
+	url:"/getMemberPlayerInfo",
+	method:"POST",
+	success:function(json){
+		$("#backNumber").empty();
+		$(json).each(function(index, item){
+			temp = item.uniformBackNumber;
+			$("#backNumber").append(temp);
+		});
+	}
+});
+ 		
 
-	Chart.defaults.global.defaultFontFamily = "Lato";
-	Chart.defaults.global.defaultFontSize = 18;
 
-	var densityData = {
-	  label: 'Density',
-	  data: [5427, 5243, 5514, 3933, 1326, 687, 1271, 1638],
-	  backgroundColor: [
-	    'rgba(0, 99, 132, 0.6)',
-	    'rgba(30, 99, 132, 0.6)',
-	    'rgba(60, 99, 132, 0.6)',
-	    'rgba(90, 99, 132, 0.6)',
-	    'rgba(120, 99, 132, 0.6)',
-	    'rgba(150, 99, 132, 0.6)',
-	    'rgba(180, 99, 132, 0.6)',
-	    'rgba(210, 99, 132, 0.6)',
-	    'rgba(240, 99, 132, 0.6)'
-	  ],
-	  borderColor: [
-	    'rgba(0, 99, 132, 1)',
-	    'rgba(30, 99, 132, 1)',
-	    'rgba(60, 99, 132, 1)',
-	    'rgba(90, 99, 132, 1)',
-	    'rgba(120, 99, 132, 1)',
-	    'rgba(150, 99, 132, 1)',
-	    'rgba(180, 99, 132, 1)',
-	    'rgba(210, 99, 132, 1)',
-	    'rgba(240, 99, 132, 1)'
-	  ],
-	  borderWidth: 2,
-	  hoverBorderWidth: 0
-	};
 
-	var chartOptions = {
-	  scales: {
-	    yAxes: [{
-	      barPercentage: 0.5,
-	      gridLines: {
-	        display: false
-	      }
-	    }],
-	    xAxes: [{
-	      gridLines: {
-	        zeroLineColor: "black",
-	        zeroLineWidth: 2
-	      },
-	      ticks: {
-	        min: 0,
-	        max: 6500,
-	        stepSize: 1300
-	      },
-	      scaleLabel: {
-	        display: true,
-	        labelString: "Density in kg/m3"
-	      }
-	    }]
-	  },
-	  elements: {
-	    rectangle: {
-	      borderSkipped: 'left',
-	    }
-	  }
-	};
 
-	var barChart = new Chart(densityCanvas, {
-	  type: 'horizontalBar',
-	  data: {
-	    labels: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
-	    datasets: [densityData],
-	  },
-	  options: chartOptions
-	});
-	
-    </script>
+
+   </script>
 
 </html>

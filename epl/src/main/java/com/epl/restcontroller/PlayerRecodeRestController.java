@@ -11,6 +11,7 @@ import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
+import com.epl.vo.Player;
 
 
 @RestController
@@ -45,4 +46,12 @@ public class PlayerRecodeRestController {
 		System.out.println("conmatchGoalKeeper:"+matchGoalKeeper);
 		return matchGoalKeeper;
 	}
+	//getMemberPlayerOne에 속한 결과값이라  불필요
+	/*@PostMapping("/getMemberPlayerName")
+	public Player getMemberPlayerName(HttpSession session) {
+		int playerNo = (int)session.getAttribute("playerNo");
+		Player player = playerRecodeService.getMemberPlayerName(playerNo);
+		System.out.println("conplayer:"+player);
+		return player;
+	}*/
 }

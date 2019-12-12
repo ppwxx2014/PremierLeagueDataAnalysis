@@ -13,8 +13,11 @@ public class MemberTeamController {
 	
 	@Autowired private MemberTeamService memberTeamService;
 
+		
+	
 		@GetMapping("/getMemberTeamList")
-		public String memberteamList(){
+		public String getmemberTeamList(){
+			
 			return "member/getMemberTeamList";
 		}
 		
@@ -25,6 +28,10 @@ public class MemberTeamController {
 			return "member/getMemberTeamOne";	
 		}
 		
+//		@GetMapping("/getMemberTeamOne")
+//		public String getMemberTeamOne(){
+//		retrun "member/getMemberTeamOne";
+//		}
 	}
 
 

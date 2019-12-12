@@ -8,13 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.MemberTeamMapper;
 import com.epl.service.interfaces.MemberTeamService;
+import com.epl.vo.Player;
 import com.epl.vo.Team;
 
 @Service
 @Transactional
 public class MemberTeamServiceImpl implements MemberTeamService{
 @Autowired private MemberTeamMapper memberTeamMapper;
-	 
+	  
 	@Override
 	public List<Team> selectMemberTeam() {
 	List<Team> list = memberTeamMapper.selectMemberTeamList();
@@ -23,11 +24,19 @@ public class MemberTeamServiceImpl implements MemberTeamService{
 	return list;
 	}
 	
-	
 	@Override
 	public List<Team> selectMemberOne(String teamName) {
 		List<Team> list = memberTeamMapper.selectMemberTeamOne(teamName);
 		System.out.println("MemberService::::::::::::::::::::::::::" + list);
 		return list;
 	}
+	
+	@Override
+	public List<Player> selectMemberPlayerList(String players){
+		List<Player> list = memberTeamMapper.selectMemberPlayersList(players);
+		System.out.println("PlayerService::::::::::::::::::::::::::" + list);
+		return list;
+	}
+	
+	
 }

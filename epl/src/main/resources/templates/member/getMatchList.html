@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Title -->
+<title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+<th:block th:include = "/member/template/layout/headLayout"></th:block>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+.topD {
+	margin: 0;
+	text-align: left;
+	font-family: Consolas, monospace;
+	font-style: italic;
+	width: 59%;
+	height: 110px;
+	background: linear-gradient(to bottom, #6666ff 0%, #6600ff 100%);
+	border: 2px solid;
+	padding: 0;
+	line-height: 1em;
+	border-top-left-radius: 0.7em;
+	border-top-right-radius: 0.7em;
+}
+
+.tt {
+	text-align: center;
+}
+
+.floD{
+	border-right : 1px solid #ffffff;
+	border: 1px solid #000;
+	width: 25%;
+	height: 100px;
+	float: left;
+	
+}
+.floD2{
+	border: 1px solid #000;
+	width: 25%;
+	height: 100px;
+	float: left;
+}
+h5 {
+	font-weight: 1000;
+}
+.matchDateTable {
+	border-spacing: 10px;
+	border-collapse: separate;
+	
+}
+.match{
+	border: 2px solid;
+	width: 59%;
+	font-style: italic;
+}
+</style>
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/member/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Featured Post Area Start ##### -->
+	<div class="popular-news-area section-padding-80-50 container-fluid">
+		<div class="table-stats order-table ov-h">
+			<div class = "container">
+			<div class ="topD">
+				<!-- epl로고사진 -->
+				<img width="30" height="50" src="/images/teamlogo/Liverpool.png">
+				<div class ="tt">
+					<h5 style ="color: #ffffff; text-shadow: 6px 2px 2px black;">England PremierLegue Match Calendar</h5>
+					<p id="matchDay">xxxx-x-xx</p>
+					
+				</div>
+				
+			</div>
+				
+		<!-- 1라운드씩 나와야됨 -->
+			<table class = "match">
+				<tbody>
+					<!-- 첫번째 행 -->
+					<tr>
+						<!-- 경기 -->
+						<td>
+							<table>
+								<tbody>
+									<tr>
+										<td>
+											<table class = "matchDateTable">
+												<tr class = "hometeam">
+													<td>hometeam</td>
+												</tr>
+												<tr class = "awayteam">
+													<td>awayteam</td>
+												</tr>
+											</table>
+										</td>
+										<td>
+											<table class = "matchDateTable">
+												<tr class = "hometeam">
+													<td>hometeam goal</td>
+												</tr>
+												<tr class = "awayteam">
+													<td>awayteam goal</td>
+												</tr>
+											</table>
+										</td>
+										
+										<td>
+											<table class = "matchDateTable">
+												<tr class = "matchDate">
+													<td>MatchDate</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+						
+						<!-- 경기 -->
+						<td>
+							<table>
+								<tbody>
+									<tr>
+										<td>
+											<table class = "matchDateTable">
+												<tr  class = "hometeam">
+													<td>hometeam</td>
+												</tr>
+												<tr  class = "awayteam">
+													<td>awayteam</td>
+												</tr>
+											</table>
+										</td>
+										<td>
+											<table class = "matchDateTable">
+												<tr class = "hometeam">
+													<td>hometeam goal</td>
+												</tr>
+												<tr class = "awayteam">
+													<td>awayteam goal</td>
+												</tr>
+											</table>
+										</td>
+										
+										<td>
+											<table class = "matchDateTable">
+												<tr class = "matchDate">
+													<td>MatchDate</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+	<!-- ##### Featured Post Area End ##### -->
+	
+    <!-- ##### Footer Area Start ##### -->
+    <div th:include ="/member/template/layout/footer::footer"></div>
+    <!-- ##### Footer Area End ##### -->
+</body>
+<script type="text/javascript">
+	let currentPage = 1;
+	$.ajax({
+		url : "",
+		method : , 
+		success : function(json){
+			$(json).each(function(index , item)){
+				
+			}
+		}
+	})
+</script>
+</html>

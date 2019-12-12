@@ -21,8 +21,21 @@
 	<br>
 	<div class="container">
 		<div class="bg-light text-dark">
-			<table class="table table-hover">
+			<table class="table table-hover" >
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>PlayerName</th>
+						<th>Country</th>
+						<th>BirthDate</th>
+						<th>Height</th>
+						<th>Weight</th>
+						<th>PlayerPosition</th>
+					</tr>
+				</thead>
+				<tbody id = "playerList">
 				
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -52,6 +65,27 @@ $(document).ready(function(){
 				temp += "<div class='col-sm-4'><img src='/images/stadium.png'></div>"
 				$("#teamOne").append(temp); 
 			});		
+		}
+	});
+});
+
+$(document).ready(function(){
+	$.ajax({
+		url:"getMemberPlayersList",
+		method:"POST",
+		success:function(json){
+			$("#playerList").empty();
+			$(json).each(function(index, item){
+				console.log("getMemberPlayerList 요청 성공");
+				temp = "<tr><td>"+item.playerNo+"</td>";
+				temp += "<td>"+item.playerName+"</td>";
+				temp +=	"<td>"+item.country+"</td>";
+				temp +=	"<td>"+item.birthDate+"</td>";
+				temp += "<td>"+item.height+"</td>";
+				temp += "<td>"+item.weight+"</td>";
+				temp += "<td>"+item.playerPosition+"</td></tr>";
+				$("#playerList").append(temp);
+			})
 		}
 	});
 });

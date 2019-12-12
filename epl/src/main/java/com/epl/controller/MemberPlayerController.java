@@ -21,7 +21,7 @@ public class MemberPlayerController {
 	@GetMapping("/getMemberPlayerList")
 	public String getUserPlayerList(){
 		
-		return "/getMemberPlayerList";
+		return "/getMemberPlayerList"; 
 	}
 	@GetMapping("/getMemberPlayerOne")
 	public String getUserPlayerOne(@RequestParam(value = "playerNo", required = true)int playerNo, HttpSession session) {

@@ -7,4 +7,5 @@ public class MatchGoals {
 	private int matchNo;
 	private int playerNo;
 	private String time;
+	private int goal;
 }

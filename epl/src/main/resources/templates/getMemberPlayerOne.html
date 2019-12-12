@@ -6,6 +6,7 @@
     <!-- Title -->
     <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
     <th:block th:include = "/member/template/layout/headLayout"></th:block>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
 </head>
 
 <body>
@@ -18,35 +19,7 @@
         <div class="container">
             <div class="row align-items-center">
             <h1 id = "teamName"></h1>
-                <div class="col-12 col-lg-8">
-                    <!-- Breaking News Widget -->
-                    <div class="breaking-news-area d-flex align-items-center">
-                        <div class="news-title">
-                            <p>Breaking News</p>
-                        </div>
-                        <div id="breakingNewsTicker" class="ticker">
-                            <ul>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
-                                <li><a href="#">Welcome to Colorlib Family.</a></li>
-                                <li><a href="#">Nam eu metus sitsit amet, consec!</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Breaking News Widget -->
-                    <div class="breaking-news-area d-flex align-items-center mt-15">
-                        <div class="news-title title2">
-                            <p>International</p>
-                        </div>
-                        <div id="internationalTicker" class="ticker">
-                            <ul>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
-                                <li><a href="#">Welcome to Colorlib Family.</a></li>
-                                <li><a href="#">Nam eu metus sitsit amet, consec!</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
 				<div class = "container form-inline">
 					<div id = "img">
 			
@@ -69,61 +42,39 @@
 				</div>
 				<div>
 						<table border = "1" style="text-align: center;" class="table table-striped">
-							<tbody id = "state">
+							<thead id = "state">
 								
-							</tbody>
+							</thead>
 						</table>
 					</div>
 				<div class = "container form-inline">
 					<table border = "1" style="text-align: center;" class = "table table-striped">
-						<thead>
-							<tr>
-								<th>골</th>
-								<th>유효 슈팅</th>
-								<th>패스</th>
-								<th>태클 횟수</th>
-							</tr>
+						<thead id = "recode">
+						
 						</thead>
-						<tbody id = "recode">
-							<tr>
-								<th>0</th>
-								<th>0</th>
-								<th>0</th>
-								<th>0</th>
-								
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th>옐로카드</th>
-								<th>레드카드</th>
-								<th>오프사이드</th>
-								<th>패널티킥</th>
-							</tr>
+						<thead id ="recodeT">
+		
 						</thead>
-						<tbody id ="recodeT">
-							<tr>
-								<th>0</th>
-								<th>0</th>
-								<th>0</th>
-								<th>0</th>
-							</tr>
-						</tbody>
+
 					</table>
 						<div class="col-lg-6">
 		                        <div class="card">
-		                            <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-		                                <h4 class="mb-3">Rader chart </h4>
+		                            <div class="card-body">
+		                            	
+		                                <h4 class="mb-3">Player recode </h4>
 		                                
-		                            <canvas id="radarChart" height="634" width="1190" class="chartjs-render-monitor" style="display: block; width: 595px; height: 317px;"></canvas></div>
+		                         		 <canvas id="marksChart" width="595" height="317"></canvas>
+		                          	</div>
 		                        </div>
 		                </div>
 		                <div class="col-lg-6">
 		                        <div class="card">
-		                            <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-		                                <h4 class="mb-3">Rader chart </h4>
+		                            <div class="card-body">
+		                            	
+		                                <h4 class="mb-3">Bar chart </h4>
 		                                
-		                            <canvas id="radarChart" height="634" width="1190" class="chartjs-render-monitor" style="display: block; width: 595px; height: 317px;"></canvas></div>
+		                            	<canvas id="densityChart" width="595" height="317"></canvas>
+		                            </div>
 		                        </div>
 		                </div>
 				</div>
@@ -711,9 +662,268 @@
     <!-- ##### Footer Area End ##### -->
 </body>
   <script>
+  $.ajax({
+		 url:"/getMemberPlayerOne",
+		 method:"POST",
+		 success:function(json){
+			 $(json).each(function(index, item){
+				var playerPosition = item.playerPosition;
+				console.log("position:"+playerPosition);
+				if(playerPosition=="GK"){
+					 $.ajax({
+				  		 url:"/getMemberGoalKeeperRecode",
+				  		 method:"POST",
+				  		 success:function(json){
+				  			 $("recode").empty();
+				  			 $(json).each(function(index, item){
+				  				temp = "<tr><td>";
+				  				temp +="선방";
+				  				temp +="</td><td>";
+				  				temp +="프리킥방어";
+				  				temp +="</td><td>";
+				  				temp +="패널티킥 방어";	
+				  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
+				  				temp +=item.save;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.saveOnPk;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.saveOnFk;
+				  				temp +="</td></tr>";
+				  				$("#recode").append(temp);
+				  			 });
+				  		 }
+				  	  });
+					 
+					 $.ajax({
+							url:"/getMemberGoalKeeperRecode",
+							method:"POST",
+							success:function(json){
+								$(json).each(function(index, item){
+									console.log("name:"+item.playerName);
+									var marksCanvas = document.getElementById("marksChart");
+
+									Chart.defaults.global.defaultFontFamily = "Lato";
+									Chart.defaults.global.defaultFontSize = 18;
+
+									var marksData = {
+									  labels: ["save", "saveOnPk", "saveOnFk"],
+									  datasets: [{
+									    label: item.playerName,
+									    backgroundColor: "transparent",
+									    borderColor: "rgba(200,0,0,0.6)",
+									    fill: false,
+									    radius: 6,
+									    pointRadius: 6,
+									    pointBorderWidth: 3,
+									    pointBackgroundColor: "red",
+									    pointBorderColor: "rgba(200,0,0,0.6)",
+									    pointHoverRadius: 10,
+									    data: [item.save,item.saveOnPk,item.saveOnFk]
+									  }]
+									};
+
+									var chartOptions = {
+									 
+										scale: {
+									    gridLines: {
+									      color: "black",
+									      lineWidth: 3
+									    },
+									    angleLines: {
+									      display: false
+									    },
+									    ticks: {
+									      beginAtZero: true,
+									      min: 0,
+									      max: 50,
+									      stepSize: 10
+									    },
+									    pointLabels: {
+									      fontSize: 13,
+									      fontColor: "green"
+									    }
+									  },
+									  legend: {
+									    position: 'left'
+									  }
+									};
+
+									var radarChart = new Chart(marksCanvas, {
+									  type: 'radar',
+									  data: marksData,
+									  options: chartOptions
+									});
+								});
+							}
+						});
+					 
+					 
+				}else{
+					var goal = 0;
+					var ownGoal = 0;
+				$.ajax({
+						url:"/getMemberPlayerGoals",
+						method:"POST",
+						async:false,
+						success:function(json){
+							console.log("json:"+json);
+							$(json).each(function(index, item){
+								goal = item.goal;
+								console.log("goal:"+goal);
+							});
+						}
+					});
+				$.ajax({
+					url:"/getMemberPlayerOwnGoals",
+					method:"POST",
+					async:false,
+					success:function(json){
+						console.log("json:"+json);
+						$(json).each(function(index, item){
+							ownGoal = item.ownGoal;
+							console.log("ownGoal:"+ownGoal);
+						});
+					}
+				});
+					console.log("owngoal:"+ownGoal);
+					console.log("cgoal:"+goal);
+					//선수의 기록중 골,유효슈팅,패스, 태클횟수를 테이블로 출력
+				  	  $.ajax({
+				  		 url:"/getMemberPlayerRecode",
+				  		 method:"POST",
+				  		 success:function(json){
+				  			 $("recode").empty();
+				  			 $(json).each(function(index, item){
+				  				temp = "<tr><td>";
+				  				temp +="골";
+				  				temp +="</td><td>";
+				  				temp +="유효 슈팅";
+				  				temp +="</td><td>";
+				  				temp +="패스";
+				  				temp +="</td><td>";
+				  				temp +="어시스트";
+				  				temp +="</td><td>";
+				  				temp +="자살골";
+				  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
+				  				temp +=goal;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.shootOnTarget;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.pass;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.assist;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=ownGoal;
+				  				temp +="</td></tr>";
+				  				$("#recode").append(temp);
+				  			 });
+				  		 }
+				  	  });
+				  		//선수의 기록중 옐로,레드카드, 오프사이드, 패널티킥의 횟수를 테이블로 출력
+				  	$.ajax({
+				 		 url:"/getMemberPlayerRecode",
+				 		 method:"POST",
+				 		 success:function(json){
+				 			 $("recodeT").empty();
+				 			 $(json).each(function(index, item){
+				 				temp = "<tr><td>";
+				  				temp +="옐로 카드";
+				  				temp +="</td><td>";
+				  				temp +="레드 카드";
+				  				temp +="</td><td>";
+				  				temp +="오프사이드";
+				  				temp +="</td><td>";
+				  				temp +="태클";
+				  				temp +="</td><td>";
+				  				temp +="파울";
+				  				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
+				  				temp +=item.yellowCard;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.redCard;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.offside;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.tackle;
+				  				temp +="</td><td bgcolor = '#F2F2F2'>";
+				  				temp +=item.foul;
+				  				temp +="</td></tr>";
+				  				$("#recodeT").append(temp);
+				 			 });
+				 		 }
+				 	  });
+				  		
+					//선수의 기록을 레이더 차트로 출력
+					$.ajax({
+						url:"/getMemberPlayerRecode",
+						method:"POST",
+						success:function(json){
+							$(json).each(function(index, item){
+								console.log("name:"+item.playerName);
+								var marksCanvas = document.getElementById("marksChart");
+
+								Chart.defaults.global.defaultFontFamily = "Lato";
+								Chart.defaults.global.defaultFontSize = 18;
+
+								var marksData = {
+								  labels: ["Goal", "Pass", "Shoot", "Takle", "Assist", "offside"],
+								  datasets: [{
+								    label: item.playerName,
+								    backgroundColor: "transparent",
+								    borderColor: "rgba(200,0,0,0.6)",
+								    fill: false,
+								    radius: 6,
+								    pointRadius: 6,
+								    pointBorderWidth: 3,
+								    pointBackgroundColor: "red",
+								    pointBorderColor: "rgba(200,0,0,0.6)",
+								    pointHoverRadius: 10,
+								    data: [goal,item.pass,item.shootOnTarget,item.tackle,item.assist,item.offside]
+								  }]
+								};
+
+								var chartOptions = {
+								  scale: {
+								    gridLines: {
+								      color: "black",
+								      lineWidth: 3
+								    },
+								    angleLines: {
+								      display: false
+								    },
+								    ticks: {
+								      beginAtZero: true,
+								      min: 0,
+								      max: 30,
+								      stepSize: 5
+								    },
+								    pointLabels: {
+								      fontSize: 18,
+								      fontColor: "green"
+								    }
+								  },
+								  legend: {
+								    position: 'left'
+								  }
+								};
+
+								var radarChart = new Chart(marksCanvas, {
+								  type: 'radar',
+								  data: marksData,
+								  options: chartOptions
+								});
+							});
+						}
+					});
+					
+					
+				}
+			 });
+		 }
+	  });
+  		//선수 이미지 출력
   	  $.ajax({
   		 url:"/getMemberPlayerOne" ,
-  		 method:"POST",
+  		 method:"POST",	
   		 success:function(json){
   			 $("#img").empty();
   			 $(json).each(function(index, item){
@@ -721,10 +931,11 @@
   				temp += item.playerName;
   				temp += ".jpg'>";
   				$("#img").append(temp);
+  				console.log("img:"+item.playerName);
   			 });
   		 }
   	  });
-  
+  	//선수의 신상정보및 상세정보를 테이블로 출력
 	  $.ajax({
 			 url:"/getMemberPlayerOne",
 			 method:"POST",
@@ -765,6 +976,7 @@
 				 });
 			 }
 		  });
+  		//선수가 속한 팀명을 화면 상단에 출력
 	$.ajax({
 		url:"/getMemberPlayerInfo",
 		method:"POST",
@@ -776,6 +988,7 @@
 			});
 		}
 	});
+	//선수의 등번호를 출력
 	$.ajax({
 		url:"/getMemberPlayerInfo",
 		method:"POST",
@@ -787,8 +1000,85 @@
 			});
 		}
 	});
+  		
+	
+	
+	
+	
+	var densityCanvas = document.getElementById("densityChart");
 
+	Chart.defaults.global.defaultFontFamily = "Lato";
+	Chart.defaults.global.defaultFontSize = 18;
 
+	var densityData = {
+	  label: 'Density',
+	  data: [5427, 5243, 5514, 3933, 1326, 687, 1271, 1638],
+	  backgroundColor: [
+	    'rgba(0, 99, 132, 0.6)',
+	    'rgba(30, 99, 132, 0.6)',
+	    'rgba(60, 99, 132, 0.6)',
+	    'rgba(90, 99, 132, 0.6)',
+	    'rgba(120, 99, 132, 0.6)',
+	    'rgba(150, 99, 132, 0.6)',
+	    'rgba(180, 99, 132, 0.6)',
+	    'rgba(210, 99, 132, 0.6)',
+	    'rgba(240, 99, 132, 0.6)'
+	  ],
+	  borderColor: [
+	    'rgba(0, 99, 132, 1)',
+	    'rgba(30, 99, 132, 1)',
+	    'rgba(60, 99, 132, 1)',
+	    'rgba(90, 99, 132, 1)',
+	    'rgba(120, 99, 132, 1)',
+	    'rgba(150, 99, 132, 1)',
+	    'rgba(180, 99, 132, 1)',
+	    'rgba(210, 99, 132, 1)',
+	    'rgba(240, 99, 132, 1)'
+	  ],
+	  borderWidth: 2,
+	  hoverBorderWidth: 0
+	};
+
+	var chartOptions = {
+	  scales: {
+	    yAxes: [{
+	      barPercentage: 0.5,
+	      gridLines: {
+	        display: false
+	      }
+	    }],
+	    xAxes: [{
+	      gridLines: {
+	        zeroLineColor: "black",
+	        zeroLineWidth: 2
+	      },
+	      ticks: {
+	        min: 0,
+	        max: 6500,
+	        stepSize: 1300
+	      },
+	      scaleLabel: {
+	        display: true,
+	        labelString: "Density in kg/m3"
+	      }
+	    }]
+	  },
+	  elements: {
+	    rectangle: {
+	      borderSkipped: 'left',
+	    }
+	  }
+	};
+
+	var barChart = new Chart(densityCanvas, {
+	  type: 'horizontalBar',
+	  data: {
+	    labels: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
+	    datasets: [densityData],
+	  },
+	  options: chartOptions
+	});
+	
     </script>
 
 </html>

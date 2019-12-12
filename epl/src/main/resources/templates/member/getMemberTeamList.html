@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>	
 	
     <!-- Title -->
     <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
@@ -13,13 +18,46 @@
     <!-- ##### TopBar Area Start ##### -->
    	<th:block th:include = "/member/template/layout/topBar"></th:block>
     <!-- ##### TopBar Area End ##### -->
-
+	<div col class="bg-danger text-white">
+		<div class="col-12">
+			<br>
+				<div class="container">
+					<br>
+						<div><h1  class="text-white">Clubs</h1></div>
+						<div>
+							<div id="bootstrap-data-table_filter" class="dataTables_filter">
+								<label>
+									<input type="search" class="form-control form-control-sm"  id ="searchWord"
+										placeholder="search" aria-controls="bootstrap-data-table">
+								</label>
+									<button class="btn btn-sm btn-primary box" type="submit" id="search">검색</button>
+									
+								<table>
+									<thead>
+										<tr>
+											<td>Team</td>
+											<td>Stadium</td>
+										</tr>
+									</thead>
+									<tbody id="list">
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+					<br>
+				</div>
+			<br>
+		</div>
+	</div>
     <section class="newspaper-team mb-30">
 		<br><br><br><br>
 		<div class = "container">
-			<table id = "teamList">
-				
-			</table>
+			
+				<table id = "teamList">
+					
+				</table>
+			
 		</div>
 	</section>
     <!-- ##### Footer Area Start ##### -->
@@ -39,11 +77,11 @@ $(document).ready(function(){
 			$(json).each(function(index, item){
 				console.log(json);
 				temp = "<td><a href = '/getMemberTeamOne?teamName="+item.teamName+"'>";
-				temp += "<img src='/images/teamlogo/";
+				temp += "<div align='center'><img src='/images/teamlogo/";
 				temp += item.teamName;
-				temp += ".png'></a>";
-				temp += "<h5>"+item.teamName+"</h5>";
-				temp += "<h6>"+item.stadiumName+"</h6></td>";
+				temp += ".png'></div></a>";
+				temp += "<h6 align='center'>"+item.teamName+"</h6>";
+				temp += "<h6 align='center'>"+item.stadiumName+"</h6></td>";
 				
 				$("#teamList").append(temp);
 				if((index+1) % 5==0 && index > 0){
@@ -52,8 +90,29 @@ $(document).ready(function(){
 			});
 		}
 	});
-
 });
+
+$("#search").click(function(){
+	searchWord = $("#searchWord").val();
+	$.ajax({
+		url : "/getMemberTeamSearch",
+		method :"post",
+		async : false,
+		data : {"searchWord" : searchWord},
+		success : function(json){
+			console.log(json);
+			$(json).each(function(index, item) {
+				temp = "<tr>";
+				temp += "<td>" + item.teamName + "</td>";
+				temp += "<td>" + item.stadiumName + "</td>";
+				temp += "</tr>";
+				$("#list").append(temp);
+				
+			});
+		}
+	});
+});
+
 </script>
 </body>
 </html>

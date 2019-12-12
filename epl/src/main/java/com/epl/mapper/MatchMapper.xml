@@ -78,22 +78,6 @@
 		match_no = #{matchNo}
 	</select>
 
-	<select id="selectPlayerListByTeamName" parameterType="String"
-		resultType="com.epl.vo.PlayerInfo">
-		SELECT
-		p.player_no AS playerNo,
-		p.player_name AS playerName,
-		p.player_position AS playerPosition,
-		(SELECT uniform_back_number FROM player_contract WHERE player_no =
-		p.player_no) uniformBackNumber,
-		p.country
-		FROM player p
-		WHERE p.player_no
-		IN (SELECT player_no
-		FROM player_contract
-		WHERE team_name = #{teamName})
-	</select>
-	
 	<insert id = "insertMainPlayer"
 			parameterType="com.epl.vo.MatchPlayerNo">
 			INSERT INTO 
@@ -102,7 +86,7 @@
 					goal_on_pk,yellow_card,red_card,start_time,end_time)
 			VALUES(#{matchNo},#{playerNo},'0','0',
 					'0','0','0','0','0','0',
-					'0','0','0','00:00:00',null)
+					'0','0','0',#{matchTime},null)
 	</insert>
 	
 	<insert id = "insertSubPlayer"
@@ -130,7 +114,7 @@
 				'0',
 				'0',
 				'0',
-				'00:00:00',
+				#{matchTime},
 				null
 				)
 	</insert>
@@ -212,7 +196,33 @@
 				player_no = #{playerNo}
 			AND
 				match_no = #{matchNo}
-			
+			AND
+				active = 'T'
+	</update>
+	
+	<update id = "updateMatchPlayerT"
+			parameterType="com.epl.vo.MatchPlayer">
+			UPDATE match_player SET
+				shooting		= #{shooting},
+				shoot_on_target = #{shootOnTarget},
+				pass			= #{pass},
+				assist			= #{assist},
+				foul			= #{foul},
+				tackle			= #{tackle},
+				offside			= #{offside},
+				goal_on_fk		= #{goalOnFk},
+				goal_on_pk		= #{goalOnPk},
+				yellow_card		= #{yellowCard},
+				red_card		= #{redCard},
+				start_time		= #{startTime},
+				end_time		= null,
+				active 			= 'T'
+			WHERE 
+				player_no = #{playerNo}
+			AND
+				match_no = #{matchNo}
+			AND
+				active = 'T'
 	</update>
 	
 	<insert id = "insertMatchGoals"
@@ -297,5 +307,134 @@
 			player_no 	= 	#{playerNo}
 		AND
 			match_no 	= 	#{matchNo}
+		AND
+			active 		=	'T'
 	</update>
+	
+	<update id = "updateMatchKeeperT"
+			parameterType="com.epl.vo.MatchGoalKeeper">
+		UPDATE match_goalkeeper SET
+			save		=	#{save},
+			save_on_PK	=	#{saveOnPk},
+			save_on_FK	=	#{saveOnFk},
+			start_time	=	#{startTime},
+			end_time	=	#{endTime},
+			active		=	'T'	 
+		WHERE 
+			player_no 	= 	#{playerNo}
+		AND
+			match_no 	= 	#{matchNo}
+		AND
+			active 		=	'T'
+	</update>
+	
+	<select	id = "selectMainAndKeeper"
+			parameterType="com.epl.vo.MatchNoTeamName"
+			resultType="com.epl.vo.InGamePosition">
+		SELECT player_no AS playerNo, 
+   (SELECT player_name 
+   FROM player 
+   WHERE player_no=match_player.player_no) 'playerName',
+   (SELECT player_position 
+   FROM player
+   WHERE player_no=match_player.player_no) 'playerPosition',
+   (SELECT uniform_back_number 
+   FROM player_contract 
+   WHERE player_no=match_player.player_no 
+   AND contract_end >= CURDATE()) 'uniformBackNumber',
+   case when start_time=
+      (SELECT match_time 
+      FROM match_schedule 
+      WHERE match_no = #{matchNo}) then '선발' 
+   END as inGamePosition
+FROM match_player
+WHERE player_no 
+IN (
+   SELECT player_no
+   FROM player_contract
+   WHERE contract_end >= CURDATE()
+   AND team_name =  #{teamName})
+AND match_no =  #{matchNo}
+AND start_time=
+      (SELECT match_time 
+      FROM match_schedule 
+      WHERE match_no = #{matchNo})
+UNION
+SELECT player_no AS player_no, 
+   (SELECT player_name 
+   FROM player 
+   WHERE player_no=match_goalkeeper.player_no) AS 'playerName',
+   (SELECT player_position 
+   FROM player 
+   WHERE player_no=match_goalkeeper.player_no) AS 'playerPosition',
+   (SELECT uniform_back_number 
+   FROM player_contract 
+   WHERE player_no=match_goalkeeper.player_no 
+   AND contract_end >= CURDATE()) 'uniformBackNumber',
+   case when start_time=
+      (SELECT match_time 
+      FROM match_schedule 
+      WHERE match_no = #{matchNo}) then '키퍼' 
+   END as inGamePosition
+FROM match_goalkeeper
+WHERE player_no 
+IN (
+   SELECT player_no
+   FROM player_contract
+   WHERE contract_end >= CURDATE()
+   AND team_name = #{teamName})
+AND match_no =  #{matchNo}
+	</select>
+	
+	<select id = "selectCommutablePlayer"
+			parameterType="com.epl.vo.MatchNoTeamName"
+			resultType="com.epl.vo.InGamePosition">
+	SELECT player_no AS playerNo, 
+	   (SELECT player_name 
+	   FROM player 
+	   WHERE player_no=match_player.player_no) 'playerName',
+	   (SELECT player_position 
+	   FROM player
+	   WHERE player_no=match_player.player_no) 'playerPosition',
+	   (SELECT uniform_back_number 
+	   FROM player_contract 
+	   WHERE player_no=match_player.player_no 
+	   AND contract_end >= CURDATE()) 'uniformBackNumber'
+	FROM match_player
+	WHERE player_no 
+	IN (
+	   SELECT player_no
+	   FROM player_contract
+	   WHERE contract_end >= CURDATE()
+	   AND team_name = #{teamName})
+	AND match_no = #{matchNo}
+	AND start_time is null
+	</select>
+	
+	<select id="selectPlayerListByTeamName" parameterType="String"
+		resultType="com.epl.vo.PlayerInfo">
+		SELECT
+		p.player_no AS playerNo,
+		p.player_name AS playerName,
+		p.player_position AS playerPosition,
+		(SELECT uniform_back_number FROM player_contract WHERE player_no =
+		p.player_no) uniformBackNumber,
+		p.country
+		FROM player p
+		WHERE p.player_no
+		IN (SELECT player_no
+		FROM player_contract
+		WHERE team_name = #{teamName})
+	</select>
+	
+	<delete id = "deleteMatchPlayer"
+			parameterType="int">
+		DELETE
+		FROM 
+			match_player
+		WHERE
+			player_no = #{playerNo}
+		AND 
+			match_no = #{matchNo}
+	</delete>
 </mapper>

@@ -2,9 +2,11 @@ package com.epl.service.interfaces;
 
 import java.util.List;
 
+import com.epl.vo.InGamePosition;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchNoTeamName;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
@@ -29,8 +31,6 @@ public interface MatchService {
 
 	public MatchSchedule getMatchOne(int matchNo);
 
-	public List<PlayerInfo> getPlayerListByTeamName(String teamName);
-	
 	public int addMainPlayer(MatchPlayerNo MatchPlayerNo);
 	
 	public int addSubPlayer(MatchPlayerNo MatchPlayerNo);
@@ -44,6 +44,7 @@ public interface MatchService {
 	public MatchGoalKeeper getMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper);
 	
 	public int modifyMatchPlayer(MatchPlayer matchPlayer);
+	public int modifyMatchPlayerT(MatchPlayer matchPlayer);
 	
 	public int addMatchGoals(MatchGoals matchGoals);
 	public int addMatchOwnGoals(MatchOwnGoals matchOwnGoals);
@@ -54,4 +55,12 @@ public interface MatchService {
 	public int modifyMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals);
 	
 	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper);
+	public int modifyMatchKeeperT(MatchGoalKeeper matchGoalKeeper);
+	
+	public List<PlayerInfo> getPlayerListByTeamName(String teamName);
+	
+	public List<InGamePosition> getMainAndKeeper(MatchNoTeamName matchNoTeamName);
+	public List<InGamePosition> getCommutablePlayer(MatchNoTeamName matchNoTeamName);
+	
+	public int removeMatchPlayer(MatchPlayer matchPlayer);
 }

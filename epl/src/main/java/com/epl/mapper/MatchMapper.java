@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.epl.vo.InGamePosition;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchNoTeamName;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
@@ -30,8 +32,6 @@ public interface MatchMapper {
 	public List<MatchSchedule> selectMatchList();
 
 	public MatchSchedule selectMatchOne(int matchNo);
-
-	public List<PlayerInfo> selectPlayerListByTeamName(String teamName);
 	
 	public int insertMainPlayer(MatchPlayerNo MatchPlayerNo);
 	
@@ -45,7 +45,10 @@ public interface MatchMapper {
 	
 	public MatchGoalKeeper selectMatchGoalKeeperOne(MatchGoalKeeper matchGoalKeeper);
 	
+	//경기가끝날때까지 뛰던선수  F
 	public int updateMatchPlayer(MatchPlayer matchPlayer);
+	//선수교체시 새로운선수가 뛰기 시작한시간을 입력  T
+	public int updateMatchPlayerT(MatchPlayer matchPlayer);
 	
 	public int insertMatchGoals(MatchGoals matchGoals);
 	public int insertMatchOwnGoals(MatchOwnGoals matchOwnGoals);
@@ -56,4 +59,14 @@ public interface MatchMapper {
 	public int updateMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals);
 	
 	public int updateMatchKeeper(MatchGoalKeeper matchGoalKeeper);
+	public int updateMatchKeeperT(MatchGoalKeeper matchGoalKeeper);
+	
+	
+	public List<InGamePosition> selectMainAndKeeper(MatchNoTeamName matchNoTeamName);
+	
+	public List<PlayerInfo> selectPlayerListByTeamName(String teamName);
+	
+	public List<InGamePosition> selectCommutablePlayer(MatchNoTeamName matchNoTeamName);
+	
+	public int deleteMatchPlayer(MatchPlayer matchPlayer);
 }

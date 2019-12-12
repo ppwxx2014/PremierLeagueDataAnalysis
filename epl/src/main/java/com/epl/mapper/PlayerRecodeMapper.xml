@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.epl.mapper.PlayerRecodeMapper">
+	<select id ="selectMemberPlayerRecode" resultType="com.epl.vo.MatchPlayer" parameterType="int">
+		SELECT
+			player_no as playerNo,
+			sum(shoot_on_target) as shootOnTarget,
+			sum(pass) as pass,
+			sum(assist) as assist,
+			sum(foul) as foul,
+			sum(tackle) as tackle,
+			sum(offside) as offside,
+			sum(yellow_card) as yellowCard,
+			sum(red_card) as redCard
+		FROM match_player
+		WHERE player_no = #{playerNo}
+	</select>
+	<select id ="selectMemberPlayerGoals" resultType="com.epl.vo.MatchGoals" parameterType="int">
+		SELECT
+			COUNT(player_no) as goal
+		FROM match_goals
+		WHERE player_no = #{playerNo}
+	</select>
+	<select id ="selectMemberPlayerOwnGoals" resultType="com.epl.vo.MatchOwnGoals" parameterType="int">
+		SELECT
+			COUNT(player_no) as ownGoal
+		FROM match_own_goals
+		WHERE player_no = #{playerNo}
+	</select>
+	<select id = "selectMemberGoalKeeperRecode" resultType="com.epl.vo.MatchGoalKeeper" parameterType="int">
+		SELECT
+			save as save,
+			save_on_pk as saveOnPk,
+			save_on_fk as saveOnFk
+		FROM match_goalkeeper
+		WHERE player_no = #{playerNo}
+	</select>
+</mapper>

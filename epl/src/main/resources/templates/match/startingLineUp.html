@@ -12,22 +12,22 @@
 }
    .playerList {
    height: 680px;
-   width: 250px;
+   width: 450px;
 }
 
 .main {
    height: 300px;
-   width: 250px;
+   width: 450px;
 }
 
 .sub {
    height: 200px;
-   width: 250px;
+   width: 450px;
 }
 
 .keeper {
    height: 100px;
-   width: 250px;
+   width: 450px;
 }
 </style>
 <body>
@@ -58,14 +58,14 @@
       <tr>
       	 <!-- 선택한 경기의 홈팀 어웨이팀과 경기날짜가 표시됨 -->
          <td id ="HomeTeam" class="table-primary">HomeTeam Name</td>
-         <td id ="MatchDate" class="table-active">Match Date</td>
+         <td> <div id ="MatchDate" class="table-active">Match Date</div> <div id ="MatchTime" class="table-active">matchTime</div></td>
          <td id ="AwayTeam" class="table-danger">AwayTeam Name</td>
       </tr>
       
       <tr>
          <td class="table-primary">
             <!-- 홈팀 선수 리스트 -->
-         <select id ="homeTeamPlayer" multiple="multiple" class = "playerList"></select>
+         <select id ="homeTeamPlayer" multiple="multiple" class = "playerList" width = "600"></select>
       </td>
          <td class="table-success">
          
@@ -213,10 +213,12 @@
                  
                  $("#HomeTeam").empty();
                  $("#MatchDate").empty();
+                 $("#MatchTime").empty();
                  $("#AwayTeam").empty();
                  
                  $("#HomeTeam").append(json.hometeamName);
                  $("#MatchDate").append(json.matchDate);
+                 $("#MatchTime").append(json.matchTime);
                  $("#AwayTeam").append(json.awayteamName);
                  
                  console.log("홈팀 값 : ")
@@ -359,12 +361,14 @@
    
     	//받은 20+14+2 의 리스트(playerNo)를 넘겨 DB에 각각 insert한다
     	$.ajax({
+    		
             url:"/addMatchPlayerKeeper",
             method:"POST",
     		dataType : 'json',
             data:{	"mainPlayerNo":mainPlayerNo,
             		"KeeperNo":KeeperNo,
             		"subPlayerNo":subPlayerNo,
+            		"matchTime":$("#MatchTime").text(),
             		"matchNo":$("#matchList").val()},
             success:function(json){
                console.log(json);
@@ -376,3 +380,4 @@
     </script>
 </body>
 </html>
+      

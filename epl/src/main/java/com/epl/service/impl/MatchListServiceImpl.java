@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.MatchMapper;
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.InGamePosition;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchNoTeamName;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
@@ -57,12 +59,6 @@ public class MatchListServiceImpl implements MatchService {
 	public MatchSchedule getMatchOne(int matchNo) {
 		MatchSchedule matchSchedule = matchMapper.selectMatchOne(matchNo);
 		return matchSchedule;
-	}
-
-	@Override
-	public List<PlayerInfo> getPlayerListByTeamName(String teamName) {
-		List<PlayerInfo> list = matchMapper.selectPlayerListByTeamName(teamName);
-		return list;
 	}
 	
 	@Override
@@ -114,6 +110,12 @@ public class MatchListServiceImpl implements MatchService {
 		int check = matchMapper.updateMatchPlayer(matchPlayer);
 		return check;
 	}
+	@Override
+	public int modifyMatchPlayerT(MatchPlayer matchPlayer)
+	{
+		int check = matchMapper.updateMatchPlayerT(matchPlayer);
+		return check;
+	}
 	
 	@Override
 	public int addMatchGoals(MatchGoals matchGoals)
@@ -154,6 +156,43 @@ public class MatchListServiceImpl implements MatchService {
 	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper)
 	{
 		int check = matchMapper.updateMatchKeeper(matchGoalKeeper);
+		return check;
+	}
+	
+	@Override
+	public int modifyMatchKeeperT(MatchGoalKeeper matchGoalKeeper)
+	{
+		int check = matchMapper.updateMatchKeeperT(matchGoalKeeper);
+		return check;
+	}
+	
+	@Override
+	public List<InGamePosition> getMainAndKeeper(MatchNoTeamName matchNoTeamName)
+	{
+		List<InGamePosition> list = matchMapper.selectMainAndKeeper(matchNoTeamName);
+		System.out.println("service - getInGamePosition : "+list);
+		return list;
+	}
+	
+	@Override
+	public List<PlayerInfo> getPlayerListByTeamName(String teamName) 
+	{
+		List<PlayerInfo> list = matchMapper.selectPlayerListByTeamName(teamName);
+		return list;
+	}
+	
+	@Override
+	public List<InGamePosition> getCommutablePlayer(MatchNoTeamName matchNoTeamName)
+	{
+		List<InGamePosition> list = matchMapper.selectCommutablePlayer(matchNoTeamName);
+		System.out.println("service - getInGamePosition : "+list);
+		return list;
+	}
+	
+	@Override
+	public int removeMatchPlayer(MatchPlayer matchPlayer)
+	{
+		int check = matchMapper.deleteMatchPlayer(matchPlayer);
 		return check;
 	}
 }

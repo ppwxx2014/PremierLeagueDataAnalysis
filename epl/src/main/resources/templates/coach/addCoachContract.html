@@ -18,10 +18,124 @@
         <!-- Header-->
         	<div th:include ="template/part/topBar::topBar"></div>
         <!-- /#header -->
-        
+        <!-- 경로 표시 -->
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>
+									<font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">감독 추가</font></font>
+								</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="page-header float-right">
+							<div class="page-title">
+								<ol class="breadcrumb text-right">
+									<li><a href="index"><font
+											style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">홈</font></font></a></li>
+									<li><a href="#"><font style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">감독</font></font></a></li>
+									<li class="active"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">감독 계약 추가</font></font></li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /#경로 표시 -->
         <!-- Content -->
 		<div class="content">
-			<h1 class="container" style='width:400px;'>AddCoachContract</h1>
+			<div class="card">
+				<div class="card-header">
+					<strong><font style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;">감독 계약 </font></font></strong><font
+						style="vertical-align: inherit;"><font
+						style="vertical-align: inherit;"> 입력 </font></font>
+				</div>
+				<div class="card-body card-block">
+
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">감독 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<select name="select" id="coachNo" class="form-control">
+   								<option value="none">::: 감독 선택 :::</option>
+							</select>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">계약 팀 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<select name="select" id="teamName" class="form-control">
+   								<option value="none">::: 팀 선택 :::</option>
+							</select>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">연봉($) : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="number" id="salary" name="text-input" min="0"
+								class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">계약일 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="date" id="contractStart" name="text-input"
+								class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">계약 종료일 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="date" id="contractEnd" name="text-input"
+								class="form-control">
+						</div>
+					</div>
+					<button type="button" class="btn btn-lg btn-info btn-block" id="add"><font
+							style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;"> 입력</font></font>
+					</button>
+				</div>
+			</div></div>
+			<!-- <h1 class="container" style='width:400px;'>AddCoachContract</h1>
 			<div class="container" style='width:400px;'>
 				CoachName
 				<div>
@@ -41,7 +155,7 @@
 			</div>
 			<div class="container" style='width:400px;'>
 				Salary
-				<input type = "number" name = "salary" id ="salary" min="0" class ="form-control"><!-- 숫자만 입력가능하게 수정 -->
+				<input type = "number" name = "salary" id ="salary" min="0" class ="form-control">숫자만 입력가능하게 수정
 			</div>
 			<div class="container" style='width:400px;'>
 				ContractStart
@@ -54,7 +168,7 @@
 			<div class="container" style='width:400px;'>
 				<button type = "submit" id = "add" class="btn btn-success">Add CoachContract</button>
 			</div>
-		</div>
+		</div> -->
         <!-- /.content -->		
         
         

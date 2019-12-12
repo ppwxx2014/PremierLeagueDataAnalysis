@@ -2,9 +2,11 @@ package com.epl.service.interfaces;
 
 import java.util.List;
 
+import com.epl.vo.InGamePosition;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchNoTeamName;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
@@ -29,8 +31,6 @@ public interface MatchService {
 
 	public MatchSchedule getMatchOne(int matchNo);
 
-	public List<PlayerInfo> getPlayerListByTeamName(String teamName);
-	
 	public int addMainPlayer(MatchPlayerNo MatchPlayerNo);
 	
 	public int addSubPlayer(MatchPlayerNo MatchPlayerNo);
@@ -54,4 +54,8 @@ public interface MatchService {
 	public int modifyMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals);
 	
 	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper);
+	
+	public List<PlayerInfo> getPlayerListByTeamName(String teamName);
+	
+	public List<InGamePosition> getInGamePosition(MatchNoTeamName matchNoTeamName);
 }

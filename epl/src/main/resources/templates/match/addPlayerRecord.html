@@ -1,607 +1,744 @@
 <!doctype html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Template</title>
-	<th:block th:include = "template/part/headLayout"></th:block>
-	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
-</head>	
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+<link rel="stylesheet" type="text/css" href="/datepicker.css">
+</head>
 
 <body>
 	<h2>경기 내용 입력</h2>
-	
-	<select id = "matchList"></select>
+
+	<select id="matchList"></select>
 	<br>
-	<select id = "teamList"></select>
+	<select id="teamList"></select>
 	<br>
-	<select id = "playerList"></select>
-	
-	<table id = "playerChart">
+	<select id="playerList"></select>
+
+	<table id="playerChart">
 		<tr>
 			<td>shooting</td>
-			<td><button id ="shootingMin">-</button></td>
-			<td id = "shooting">0</td>
-			<td><button id ="shootingPlus">+</button></td>
+			<td><button id="shootingMin">-</button></td>
+			<td id="shooting">0</td>
+			<td><button id="shootingPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>shootOnTarget</td>
-			<td><button id ="shootOnTargetMin">-</button></td>
-			<td id = "shootOnTarget">0</td>
-			<td><button id ="shootOnTargetPlus">+</button></td>
+			<td><button id="shootOnTargetMin">-</button></td>
+			<td id="shootOnTarget">0</td>
+			<td><button id="shootOnTargetPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>goal</td>
-			<td><button id ="goalMin">-</button></td>
-			<td id = "goal">0</td>
-			<td><button id ="goalPlus">+</button></td>
+			<td><button id="goalMin">-</button></td>
+			<td id="goal">0</td>
+			<td><button id="goalPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>ownGoal</td>
-			<td><button id ="ownGoalMin">-</button></td>
-			<td id = "ownGoal">0</td>
-			<td><button id ="ownGoalPlus">+</button></td>
+			<td><button id="ownGoalMin">-</button></td>
+			<td id="ownGoal">0</td>
+			<td><button id="ownGoalPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>pass</td>
-			<td><button id ="passMin">-</button></td>
-			<td id = "pass">0</td>
-			<td><button id ="passPlus">+</button></td>
+			<td><button id="passMin">-</button></td>
+			<td id="pass">0</td>
+			<td><button id="passPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>assist</td>
-			<td><button id ="assistMin">-</button></td>
-			<td id = "assist">0</td>
-			<td><button id ="assistPlus">+</button></td>
+			<td><button id="assistMin">-</button></td>
+			<td id="assist">0</td>
+			<td><button id="assistPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>poul</td>
-			<td><button id ="poulMin">-</button></td>
-			<td id = "poul">0</td>
-			<td><button id ="poulPlus">+</button></td>
+			<td><button id="poulMin">-</button></td>
+			<td id="poul">0</td>
+			<td><button id="poulPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>tackle</td>
-			<td><button id ="tackleMin">-</button></td>
-			<td id = "tackle">0</td>
-			<td><button id ="tacklePlus">+</button></td>
+			<td><button id="tackleMin">-</button></td>
+			<td id="tackle">0</td>
+			<td><button id="tacklePlus">+</button></td>
 		</tr>
 		<tr>
 			<td>offSide</td>
-			<td><button id ="offSideMin">-</button></td>
-			<td id = "offSide">0</td>
-			<td><button id ="offSidePlus">+</button></td>
+			<td><button id="offSideMin">-</button></td>
+			<td id="offSide">0</td>
+			<td><button id="offSidePlus">+</button></td>
 		</tr>
 		<tr>
 			<td>goalOnFk</td>
-			<td><button id ="goalOnFkMin">-</button></td>
-			<td id = "goalOnFk">0</td>
-			<td><button id ="goalOnFkPlus">+</button></td>
+			<td><button id="goalOnFkMin">-</button></td>
+			<td id="goalOnFk">0</td>
+			<td><button id="goalOnFkPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>goalOnPk</td>
-			<td><button id ="goalOnPkMin">-</button></td>
-			<td id = "goalOnPk">0</td>
-			<td><button id ="goalOnPkPlus">+</button></td>
+			<td><button id="goalOnPkMin">-</button></td>
+			<td id="goalOnPk">0</td>
+			<td><button id="goalOnPkPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>yellowCard</td>
-			<td><button id ="yellowCardMin">-</button></td>
-			<td id = "yellowCard">0</td>
-			<td><button id ="yellowCardPlus">+</button></td>
+			<td><button id="yellowCardMin">-</button></td>
+			<td id="yellowCard">0</td>
+			<td><button id="yellowCardPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>redCard</td>
-			<td><button id ="redCardMin">-</button></td>
-			<td id = "redCard">0</td>
-			<td><button id ="redCardPlus">+</button></td>
+			<td><button id="redCardMin">-</button></td>
+			<td id="redCard">0</td>
+			<td><button id="redCardPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>뛰기 시작한 시간</td>
-			<td><input type = "time" id = "startTime"></td>
+			<td><input type="time" id="startTime"></td>
 			<td>startTime</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>끝난/교체한 시간</td>
-			<td><input type = "time" id = "endTime"></td>
+			<td><input type="time" id="endTime"></td>
 			<td>endTime</td>
 			<td></td>
 		</tr>
+		<tr>
+			<td>선수 교체(3번)</td>
+			<td><button id=searchSubPlayer>교체가능한 선수 검색</button></td>
+			<td><select id="subPlayerList"></select></td>
+			<td><button id="changePlayer">선수 교체</button></td>
+		</tr>
 	</table>
-	
-	<table id = "keeperChart">
+
+	<table id="keeperChart">
 		<tr>
 			<td>save</td>
-			<td><button id ="saveMin">-</button></td>
-			<td id = "save">0</td>
-			<td><button id ="savePlus">+</button></td>
+			<td><button id="saveMin">-</button></td>
+			<td id="save">0</td>
+			<td><button id="savePlus">+</button></td>
 		</tr>
 		<tr>
 			<td>saveOnPk</td>
-			<td><button id ="saveOnPkMin">-</button></td>
-			<td id = "saveOnPk">0</td>
-			<td><button id ="saveOnPkPlus">+</button></td>
+			<td><button id="saveOnPkMin">-</button></td>
+			<td id="saveOnPk">0</td>
+			<td><button id="saveOnPkPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>saveOnFk</td>
-			<td><button id ="saveOnFkMin">-</button></td>
-			<td id = "saveOnFk">0</td>
-			<td><button id ="saveOnFkPlus">+</button></td>
+			<td><button id="saveOnFkMin">-</button></td>
+			<td id="saveOnFk">0</td>
+			<td><button id="saveOnFkPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>goal</td>
-			<td><button id ="goalKeeperMin">-</button></td>
-			<td id = "goalKeeper">0</td>
-			<td><button id ="goalKeeperPlus">+</button></td>
+			<td><button id="goalKeeperMin">-</button></td>
+			<td id="goalKeeper">0</td>
+			<td><button id="goalKeeperPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>own-goal</td>
-			<td><button id ="ownGoalKeeperMin">-</button></td>
-			<td id = "ownGoalKeeper">0</td>
-			<td><button id ="ownGoalKeeperPlus">+</button></td>
+			<td><button id="ownGoalKeeperMin">-</button></td>
+			<td id="ownGoalKeeper">0</td>
+			<td><button id="ownGoalKeeperPlus">+</button></td>
 		</tr>
 		<tr>
 			<td>뛰기 시작한 시간</td>
-			<td><input type = "time" id = "startTimeKeeper"></td>
+			<td><input type="time" id="startTimeKeeper"></td>
 			<td>startTime</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>끝난/교체한 시간</td>
-			<td><input type = "time" id = "endTimeKeeper"></td>
+			<td><input type="time" id="endTimeKeeper"></td>
 			<td>endTime</td>
 			<td></td>
 		</tr>
+		<tr>
+			<td>선수 교체(3번)</td>
+			<td><button id=searchSubPlayerKeeper>교체가능한 선수 검색</button></td>
+			<td><select id="subPlayerListKeeper"></select></td>
+			<td><button id="changePlayerKeeper">선수 교체</button></td>
+		</tr>
 	</table>
-	
-	<button id = "playerInsertBtn">Player Insert</button>
-	<button id = "keeperInsertBtn">KeeperInsert</button>
+
+	<button id="playerInsertBtn">Player Insert</button>
+	<button id="keeperInsertBtn">KeeperInsert</button>
+
 </body>
 <script>
-	$.ajax({
-	    url:"/getMatchList",
-	    method:"POST",
-	    success:function(json){
-	       console.log(json);
-	       $("#matchList").empty();
-	       $("#matchList").append("<option value='none'>--선택--</option>")
-	       $("#playerList").append("<option value='none'>--선택--</option>")
-	       $("#teamList").append("<option value='none'>--선택--</option>")
-	       $(json).each(function(index,item){
-	          temp="<option value='";
+	$
+			.ajax({
+				url : "/getMatchList",
+				method : "POST",
+				success : function(json) {
+					console.log(json);
+					$("#matchList").empty();
+					$("#matchList").append(
+							"<option value='none'>--선택--</option>")
+					$("#playerList").append(
+							"<option value='none'>--선택--</option>")
+					$("#teamList").append(
+							"<option value='none'>--선택--</option>")
+					$(json)
+							.each(
+									function(index, item) {
+										temp = "<option value='";
 	          temp+=item.matchNo;
 	          temp+="'>";
-	          temp+=item.matchDate+"  "+item.hometeamName+"  vs  "+item.awayteamName;
-	          temp+="</option>";
-	          $("#matchList").append(temp);
-	          $("#playerChart").hide();
-	          $("#keeperChart").hide();
-	          $("#playerInsertBtn").hide();
-	          $("#keeperInsertBtn").hide();
-	       });
-	    }
-	 });
-	
-	$("#matchList").change(function(){
-		$.ajax({
-		    url:"/getMatchOne",
-		    method:"POST",
-		    data:{"matchNo":$("#matchList").val()},
-		    success:function(json){
-		       console.log(json);
-		       $("#teamList").empty();
-		       $("#teamList").append("<option value='none'>--선택--</option>")
-		       
-		       $(json).each(function(index,item){
-		    	 temp="<option value='";
+										temp += item.matchDate + "  "
+												+ item.hometeamName + "  vs  "
+												+ item.awayteamName;
+										temp += "</option>";
+										$("#matchList").append(temp);
+										$("#playerChart").hide();
+										$("#keeperChart").hide();
+										$("#playerInsertBtn").hide();
+										$("#keeperInsertBtn").hide();
+									});
+				}
+			});
+
+	$("#matchList")
+			.change(
+					function() {
+						$
+								.ajax({
+									url : "/getMatchOne",
+									method : "POST",
+									data : {
+										"matchNo" : $("#matchList").val()
+									},
+									success : function(json) {
+										console.log(json);
+										$("#teamList").empty();
+										$("#teamList")
+												.append(
+														"<option value='none'>--선택--</option>")
+
+										$(json)
+												.each(
+														function(index, item) {
+															temp = "<option value='";
 			     temp+=item.hometeamName;
 			     temp+="'>";
-			     temp+=item.hometeamName;
-			     temp+="</option>";
-			     temp+="<option value='";
+															temp += item.hometeamName;
+															temp += "</option>";
+															temp += "<option value='";
 			     temp+=item.awayteamName;
 			     temp+="'>";
-			     temp+=item.awayteamName;
-			     temp+="</option>";
-	           $("#teamList").append(temp);
-	      	 });
-		    }
-		 });
-	})
+															temp += item.awayteamName;
+															temp += "</option>";
+															$("#teamList")
+																	.append(
+																			temp);
+														});
+									}
+								});
+					})
 	//////////////////////////전체선수가아닌 해당게임의 해당 팀의 선수가 필요
-	$("#teamList").change(function(){
-		$.ajax({
-            url:"/getPlayerListByTeamName",
-            method:"POST",
-            data:{"teamName":$("#teamList").val()},
-            success:function(json){
-               console.log("선수 리스트");
-               console.log(json);  
-               
-               $("#playerList").empty();
-		       $("#playerList").append("<option value='none'>--선택--</option>")
-               $(json).each(function(index,item){
-                  temp="<option value='";
+	$("#teamList")
+			.change(
+					function() {
+						$
+								.ajax({
+									url : "/getInGamePosition",
+									method : "POST",
+									data : {
+										"teamName" : $("#teamList").val(),
+										"matchNo" : $("#matchList").val()
+									},
+									success : function(json) {
+										console.log("선수 리스트");
+										console.log(json);
+
+										$("#playerList").empty();
+										$("#playerList")
+												.append(
+														"<option value='none'>--선택--</option>")
+										$(json)
+												.each(
+														function(index, item) {
+															temp = "<option value='";
                   temp+=item.playerNo;
                   temp+="'>";
-                  temp+="등번호 : "+item.uniformBackNumber+"    이름 : "+item.playerName+"    포지션 : "+item.playerPosition;
-                  temp+="</option>";
-                  $("#playerList").append(temp);
-               })
-               }   
-            })
-	})
-	
-	$("#playerList").change(function(){
-		$.ajax({
-            url:"/playercheck",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-            	  "matchNo":$("#matchList").val()},
-            success:function(json){
-               console.log("선수의 포지션 : ");
-               console.log(json); 
-               let position = null;
-               position = json 
-               // 선택한 선수가 경기에서 키퍼를 담당하고 있을 떄
-               if(position==="GK")
-               {
-            		$("#playerChart").hide();
-     	           	$("#keeperChart").show();
-     	           	$("#playerInsertBtn").hide();
-     	          	$("#keeperInsertBtn").show();
-     	          	
-     	          	$.ajax({
-                        url:"/getMatchGoalKeeperOne",
-                        method:"POST",
-                        data:{"playerNo":$("#playerList").val(),
-                        	  "matchNo":$("#matchList").val()},
-                        success:function(json){
-                        	console.log("키퍼선수의시작시간");
-                        	console.log(json.startTime);
-                        	$("#startTimeKeeper").val(json.startTime);
-                          }  					   
-                     })
-               }
-            // 선택한 선수가 경기에서 키퍼를 담당하고 있지 않을 때
-               else
-               {
+															temp += "**"
+																	+ item.inGamePosition
+																	+ "**   "
+																	+ "등번호 : "
+																	+ item.uniformBackNumber
+																	+ "    이름 : "
+																	+ item.playerName
+																	+ "    포지션 : "
+																	+ item.playerPosition;
+															temp += "</option>";
+															$("#playerList")
+																	.append(
+																			temp);
+														})
+									}
+								})
+					})
 
-      	          	$("#keeperChart").hide();
-            	   	$("#playerChart").show();
-            	   	$("#playerInsertBtn").show();
-     	          	$("#keeperInsertBtn").hide();
-            	   	
-            	   	$.ajax({
-                        url:"/getMatchPlayerOne",
-                        method:"POST",
-                        data:{"playerNo":$("#playerList").val(),
-                        	  "matchNo":$("#matchList").val()},
-                        success:function(json){
-                        	console.log("선수의시작시간");
-                        	console.log(json.startTime);
-                        	$("#startTime").val(json.startTime);
-                          }  					   
-                     })
-               }
-              }  					   
-            })
+	$("#playerList").change(function() {
+		$("#shooting").text(0);
+		$("#shootOnTarget").text(0);
+		$("#goal").text(0);
+		$("#ownGoal").text(0);
+		$("#pass").text(0);
+		$("#assist").text(0);
+		$("#poul").text(0);
+		$("#tackle").text(0);
+		$("#offSide").text(0);
+		$("#goalOnFk").text(0);
+		$("#goalOnPk").text(0);
+		$("#yellowCard").text(0);
+		$("#redCard").text(0);
+		$("#save").text(0);
+		$("#goalKeeper").text(0);
+		$("#saveOnFk").text(0);
+		$("#goalKeeper").text(0);
+		$("#ownGoalKeeper").text(0);
+		$("#endTime").val(null);
+		$("#endTimeKeeper").val(null);
+		$.ajax({
+			url : "/playercheck",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("선수의 포지션 : ");
+				console.log(json);
+				let position = null;
+				position = json
+				// 선택한 선수가 경기에서 키퍼를 담당하고 있을 떄
+				if (position === "GK") {
+					$("#playerChart").hide();
+					$("#keeperChart").show();
+					$("#playerInsertBtn").hide();
+					$("#keeperInsertBtn").show();
+
+					$.ajax({
+						url : "/getMatchGoalKeeperOne",
+						method : "POST",
+						data : {
+							"playerNo" : $("#playerList").val(),
+							"matchNo" : $("#matchList").val()
+						},
+						success : function(json) {
+							console.log("키퍼선수의시작시간");
+							console.log(json.startTime);
+							$("#startTimeKeeper").val(json.startTime);
+						}
+					})
+				}
+				// 선택한 선수가 경기에서 키퍼를 담당하고 있지 않을 때
+				else {
+
+					$("#keeperChart").hide();
+					$("#playerChart").show();
+					$("#playerInsertBtn").show();
+					$("#keeperInsertBtn").hide();
+
+					$.ajax({
+						url : "/getMatchPlayerOne",
+						method : "POST",
+						data : {
+							"playerNo" : $("#playerList").val(),
+							"matchNo" : $("#matchList").val()
+						},
+						success : function(json) {
+							console.log("선수의시작시간");
+							console.log(json.startTime);
+							$("#startTime").val(json.startTime);
+						}
+					})
+				}
+			}
+		})
 	})
-//키퍼 기록 버튼들 +
-	$("#savePlus").click(function(){
-		$("#save").text(parseInt($("#save").text())+1);
+	//키퍼 기록 버튼들 +
+	$("#savePlus").click(function() {
+		$("#save").text(parseInt($("#save").text()) + 1);
 	});
-	$("#saveOnPkPlus").click(function(){
-		$("#saveOnPk").text(parseInt($("#saveOnPk").text())+1);
+	$("#saveOnPkPlus").click(function() {
+		$("#saveOnPk").text(parseInt($("#saveOnPk").text()) + 1);
 	});
-	$("#saveOnFkPlus").click(function(){
-		$("#saveOnFk").text(parseInt($("#saveOnFk").text())+1);
+	$("#saveOnFkPlus").click(function() {
+		$("#saveOnFk").text(parseInt($("#saveOnFk").text()) + 1);
 	});
-	$("#goalKeeperPlus").click(function(){
-		$("#goalKeeper").text(parseInt($("#goalKeeper").text())+1);
+	$("#goalKeeperPlus").click(function() {
+		$("#goalKeeper").text(parseInt($("#goalKeeper").text()) + 1);
 		//경기No 선수No 골넣은시간 을 match goals에 기록한다
 		$.ajax({
-            url:"/addMatchGoals",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("골 입력 성공시 1 출력 : "+json);
-              }  					   
-         });
+			url : "/addMatchGoals",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("골 입력 성공시 1 출력 : " + json);
+			}
+		});
 		//match result쿼리 추가
 		$.ajax({
-            url:"/modifyMatchResultByGoal",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
-              }  					   
-         });
+			url : "/modifyMatchResultByGoal",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("실시간 결과 업데이트 성공시 1 출력 : " + json);
+			}
+		});
 	});
-	$("#ownGoalKeeperPlus").click(function(){
-		$("#ownGoalKeeper").text(parseInt($("#ownGoalKeeper").text())+1);
+	$("#ownGoalKeeperPlus").click(function() {
+		$("#ownGoalKeeper").text(parseInt($("#ownGoalKeeper").text()) + 1);
 		//경기No 선수No 자책골넣은시간 을 match ownGoals에 기록한다
 		$.ajax({
-            url:"/addMatchOwnGoals",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("자책골 입력 성공시 1 출력 : "+json);
-              }  					   
-         });
+			url : "/addMatchOwnGoals",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("자책골 입력 성공시 1 출력 : " + json);
+			}
+		});
 		//match result쿼리 추가
 		$.ajax({
-            url:"/modifyMatchResultByOwnGoal",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
-              }  					   
-         });
-	});
-
-
-//키퍼 기록 버튼들 -
-	$("#saveMin").click(function(){
-		if(parseInt($("#save").text())>0)
-		{
-			$("#save").text(parseInt($("#save").text())-1);	
-		}
-	});
-	$("#saveOnPkMin").click(function(){
-		if(parseInt($("#saveOnPk").text())>0)
-		{
-			$("#saveOnPk").text(parseInt($("#saveOnPk").text())-1);	
-		}
-	});
-	$("#saveOnFkMin").click(function(){
-		if(parseInt($("#saveOnFk").text())>0)
-		{
-			$("#saveOnFk").text(parseInt($("#saveOnFk").text())-1);	
-		}
-	});
-	$("#goalKeeperMin").click(function(){
-		if(parseInt($("#goalKeeper").text())>0)
-		{
-			$("#goalKeeper").text(parseInt($("#goalKeeper").text())-1);	
-		}
-	});
-	$("#ownGoalKeeperMin").click(function(){
-		if(parseInt($("#ownGoalKeeper").text())>0)
-		{
-			$("#ownGoalKeeper").text(parseInt($("#ownGoalKeeper").text())-1);	
-		}
-	});
-
-
-//선수 기록 버튼들 +
-	$("#shootingPlus").click(function(){
-		$("#shooting").text(parseInt($("#shooting").text())+1);
-	});
-	$("#shootOnTargetPlus").click(function(){
-		$("#shootOnTarget").text(parseInt($("#shootOnTarget").text())+1);	
+			url : "/modifyMatchResultByOwnGoal",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("실시간 결과 업데이트 성공시 1 출력 : " + json);
+			}
 		});
-	$("#goalPlus").click(function(){
-		$("#goal").text(parseInt($("#goal").text())+1);
-		$("#shooting").text(parseInt($("#shooting").text())+1);
-		$("#shootOnTarget").text(parseInt($("#shootOnTarget").text())+1);	
+	});
+
+	//키퍼 기록 버튼들 -
+	$("#saveMin").click(function() {
+		if (parseInt($("#save").text()) > 0) {
+			$("#save").text(parseInt($("#save").text()) - 1);
+		}
+	});
+	$("#saveOnPkMin").click(function() {
+		if (parseInt($("#saveOnPk").text()) > 0) {
+			$("#saveOnPk").text(parseInt($("#saveOnPk").text()) - 1);
+		}
+	});
+	$("#saveOnFkMin").click(function() {
+		if (parseInt($("#saveOnFk").text()) > 0) {
+			$("#saveOnFk").text(parseInt($("#saveOnFk").text()) - 1);
+		}
+	});
+	$("#goalKeeperMin").click(function() {
+		if (parseInt($("#goalKeeper").text()) > 0) {
+			$("#goalKeeper").text(parseInt($("#goalKeeper").text()) - 1);
+		}
+	});
+	$("#ownGoalKeeperMin").click(function() {
+		if (parseInt($("#ownGoalKeeper").text()) > 0) {
+			$("#ownGoalKeeper").text(parseInt($("#ownGoalKeeper").text()) - 1);
+		}
+	});
+
+	//선수 기록 버튼들 +
+	$("#shootingPlus").click(function() {
+		$("#shooting").text(parseInt($("#shooting").text()) + 1);
+	});
+	$("#shootOnTargetPlus").click(function() {
+		$("#shootOnTarget").text(parseInt($("#shootOnTarget").text()) + 1);
+	});
+	$("#goalPlus").click(function() {
+		$("#goal").text(parseInt($("#goal").text()) + 1);
+		$("#shooting").text(parseInt($("#shooting").text()) + 1);
+		$("#shootOnTarget").text(parseInt($("#shootOnTarget").text()) + 1);
 		//경기No 선수No 골넣은시간 을 match goals에 기록한다
 		$.ajax({
-            url:"/addMatchGoals",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("골 입력 성공시 1 출력 : "+json);
-              }  					   
-         });
+			url : "/addMatchGoals",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("골 입력 성공시 1 출력 : " + json);
+			}
+		});
 		//match result쿼리 추가
 		$.ajax({
-            url:"/modifyMatchResultByGoal",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
-              }  					   
-         });
+			url : "/modifyMatchResultByGoal",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("실시간 결과 업데이트 성공시 1 출력 : " + json);
+			}
+		});
 	});
-	$("#ownGoalPlus").click(function(){
-		$("#ownGoal").text(parseInt($("#ownGoal").text())+1);
+	$("#ownGoalPlus").click(function() {
+		$("#ownGoal").text(parseInt($("#ownGoal").text()) + 1);
 		//경기No 선수No 골넣은시간 을 match goals에 기록한다
 		$.ajax({
-            url:"/addMatchOwnGoals",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("자책골 입력 성공시 1 출력 : "+json);
-              }  					   
-         });
+			url : "/addMatchOwnGoals",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("자책골 입력 성공시 1 출력 : " + json);
+			}
+		});
 		//match result쿼리 추가
 		$.ajax({
-            url:"/modifyMatchResultByOwnGoal",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val()},
-            success:function(json){
-            	console.log("실시간 결과 업데이트 성공시 1 출력 : "+json);
-              }  					   
-         });
+			url : "/modifyMatchResultByOwnGoal",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val()
+			},
+			success : function(json) {
+				console.log("실시간 결과 업데이트 성공시 1 출력 : " + json);
+			}
 		});
-	$("#passPlus").click(function(){
-		$("#pass").text(parseInt($("#pass").text())+1);
 	});
-	$("#assistPlus").click(function(){
-		$("#assist").text(parseInt($("#assist").text())+1);
+	$("#passPlus").click(function() {
+		$("#pass").text(parseInt($("#pass").text()) + 1);
 	});
-	$("#poulPlus").click(function(){
-		$("#poul").text(parseInt($("#poul").text())+1);
+	$("#assistPlus").click(function() {
+		$("#assist").text(parseInt($("#assist").text()) + 1);
 	});
-	$("#tacklePlus").click(function(){
-		$("#tackle").text(parseInt($("#tackle").text())+1);
+	$("#poulPlus").click(function() {
+		$("#poul").text(parseInt($("#poul").text()) + 1);
 	});
-	$("#offSidePlus").click(function(){
-		$("#offSide").text(parseInt($("#offSide").text())+1);
+	$("#tacklePlus").click(function() {
+		$("#tackle").text(parseInt($("#tackle").text()) + 1);
 	});
-	$("#goalOnFkPlus").click(function(){
-		$("#goalOnFk").text(parseInt($("#goalOnFk").text())+1);
+	$("#offSidePlus").click(function() {
+		$("#offSide").text(parseInt($("#offSide").text()) + 1);
 	});
-	$("#goalOnPkPlus").click(function(){
-		$("#goalOnPk").text(parseInt($("#goalOnPk").text())+1);
+	$("#goalOnFkPlus").click(function() {
+		$("#goalOnFk").text(parseInt($("#goalOnFk").text()) + 1);
 	});
-	$("#yellowCardPlus").click(function(){
-		if(parseInt($("#yellowCard").text()) < 2)
-		{
-			$("#yellowCard").text(parseInt($("#yellowCard").text())+1);
+	$("#goalOnPkPlus").click(function() {
+		$("#goalOnPk").text(parseInt($("#goalOnPk").text()) + 1);
+	});
+	$("#yellowCardPlus").click(function() {
+		if (parseInt($("#yellowCard").text()) < 2) {
+			$("#yellowCard").text(parseInt($("#yellowCard").text()) + 1);
 		}
-		if(parseInt($("#yellowCard").text()) == 2)
-		{
-			$("#redCard").text(parseInt($("#redCard").text())+1);
+		if (parseInt($("#yellowCard").text()) == 2) {
+			$("#redCard").text(parseInt($("#redCard").text()) + 1);
 		}
 	});
-	$("#redCardPlus").click(function(){
-		$("#redCard").text(parseInt($("#redCard").text())+1);
+	$("#redCardPlus").click(function() {
+		$("#redCard").text(parseInt($("#redCard").text()) + 1);
 	});
 
-//선수 기록 버튼들 -
-	$("#shootingMin").click(function(){
-		if(parseInt($("#shooting").text())>0)
-		{
-			$("#shooting").text(parseInt($("#shooting").text())-1);
+	//선수 기록 버튼들 -
+	$("#shootingMin").click(function() {
+		if (parseInt($("#shooting").text()) > 0) {
+			$("#shooting").text(parseInt($("#shooting").text()) - 1);
 		}
 	});
-	$("#shootOnTargetMin").click(function(){
-		if(parseInt($("#shootOnTarget").text())>0)
-		{
-			$("#shootOnTarget").text(parseInt($("#shootOnTarget").text())-1);	
+	$("#shootOnTargetMin").click(function() {
+		if (parseInt($("#shootOnTarget").text()) > 0) {
+			$("#shootOnTarget").text(parseInt($("#shootOnTarget").text()) - 1);
 		}
 	});
-	$("#goalMin").click(function(){
-		if(parseInt($("#goal").text())>0)
-		{
-			$("#goal").text(parseInt($("#goal").text())-1);
+	$("#goalMin").click(function() {
+		if (parseInt($("#goal").text()) > 0) {
+			$("#goal").text(parseInt($("#goal").text()) - 1);
 		}
-		if(parseInt($("#shooting").text())>0)
-		{
-			$("#shooting").text(parseInt($("#shooting").text())-1);
+		if (parseInt($("#shooting").text()) > 0) {
+			$("#shooting").text(parseInt($("#shooting").text()) - 1);
 		}
-		if(parseInt($("#shootOnTarget").text())>0)
-		{
-			$("#shootOnTarget").text(parseInt($("#shootOnTarget").text())-1);
+		if (parseInt($("#shootOnTarget").text()) > 0) {
+			$("#shootOnTarget").text(parseInt($("#shootOnTarget").text()) - 1);
 		}
 		//쿼리추가
 	});
-	$("#ownGoalMin").click(function(){
-		if(parseInt($("#ownGoal").text())>0)
-		{
-			$("#ownGoal").text(parseInt($("#ownGoal").text())-1);
+	$("#ownGoalMin").click(function() {
+		if (parseInt($("#ownGoal").text()) > 0) {
+			$("#ownGoal").text(parseInt($("#ownGoal").text()) - 1);
 		}
 	});
-	$("#passMin").click(function(){
-		if(parseInt($("#pass").text())>0)
-		{
-			$("#pass").text(parseInt($("#pass").text())-1);
+	$("#passMin").click(function() {
+		if (parseInt($("#pass").text()) > 0) {
+			$("#pass").text(parseInt($("#pass").text()) - 1);
 		}
 	});
-	$("#assistMin").click(function(){
-		if(parseInt($("#assist").text())>0)
-		{
-			$("#assist").text(parseInt($("#assist").text())-1);
+	$("#assistMin").click(function() {
+		if (parseInt($("#assist").text()) > 0) {
+			$("#assist").text(parseInt($("#assist").text()) - 1);
 		}
 	});
-	$("#poulMin").click(function(){
-		if(parseInt($("#poul").text())>0)
-		{
-			$("#poul").text(parseInt($("#poul").text())-1);
+	$("#poulMin").click(function() {
+		if (parseInt($("#poul").text()) > 0) {
+			$("#poul").text(parseInt($("#poul").text()) - 1);
 		}
 	});
-	$("#tackleMin").click(function(){
-		if(parseInt($("#tackle").text())>0)
-		{
-			$("#tackle").text(parseInt($("#tackle").text())-1);
+	$("#tackleMin").click(function() {
+		if (parseInt($("#tackle").text()) > 0) {
+			$("#tackle").text(parseInt($("#tackle").text()) - 1);
 		}
 	});
-	$("#offSideMin").click(function(){
-		if(parseInt($("#offSide").text())>0)
-		{
-			$("#offSide").text(parseInt($("#offSide").text())-1);
+	$("#offSideMin").click(function() {
+		if (parseInt($("#offSide").text()) > 0) {
+			$("#offSide").text(parseInt($("#offSide").text()) - 1);
 		}
 	});
-	$("#goalOnFkMin").click(function(){
-		if(parseInt($("#goalOnFk").text())>0)
-		{
-			$("#goalOnFk").text(parseInt($("#goalOnFk").text())-1);
+	$("#goalOnFkMin").click(function() {
+		if (parseInt($("#goalOnFk").text()) > 0) {
+			$("#goalOnFk").text(parseInt($("#goalOnFk").text()) - 1);
 		}
 	});
-	$("#goalOnPkMin").click(function(){
-		if(parseInt($("#goalOnPk").text())>0)
-		{
-			$("#goalOnPk").text(parseInt($("#goalOnPk").text())-1);
+	$("#goalOnPkMin").click(function() {
+		if (parseInt($("#goalOnPk").text()) > 0) {
+			$("#goalOnPk").text(parseInt($("#goalOnPk").text()) - 1);
 		}
 	});
-	$("#yellowCardMin").click(function(){
-		if(parseInt($("#yellowCard").text())>0)
-		{
-			$("#yellowCard").text(parseInt($("#yellowCard").text())-1);
+	$("#yellowCardMin").click(function() {
+		if (parseInt($("#yellowCard").text()) > 0) {
+			$("#yellowCard").text(parseInt($("#yellowCard").text()) - 1);
 		}
 	});
-	$("#redCardMin").click(function(){
-		if(parseInt($("#redCard").text())>0)
-		{
-			$("#redCard").text(parseInt($("#redCard").text())-1);
+	$("#redCardMin").click(function() {
+		if (parseInt($("#redCard").text()) > 0) {
+			$("#redCard").text(parseInt($("#redCard").text()) - 1);
 		}
 	});
-	
+
 	//선수 기록 입력 버튼
-	$("#playerInsertBtn").click(function(){
+	$("#playerInsertBtn").click(function() {
 		$.ajax({
-            url:"/modifyMatchPlayer",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-          	 	  "matchNo":$("#matchList").val(),
-            	  "shooting":$("#shooting").text(),
-            	  "shootOnTarget":$("#shootOnTarget").text(),
-            	  "pass":$("#pass").text(),
-            	  "assist":$("#assist").text(),
-            	  "poul":$("#poul").text(),
-            	  "tackle":$("#tackle").text(),
-            	  "offSide":$("#offSide").text(),
-            	  "goalOnFk":$("#goalOnFk").text(),
-            	  "goalOnPk":$("#goalOnPk").text(),
-            	  "yellowCard":$("#yellowCard").text(),
-            	  "redCard":$("#redCard").text(),
-            	  "startTime":$("#startTime").val(),
-            	  "endTime":$("#endTime").val(),},
-            success:function(json){
-            	console.log("성공시 1 출력 : "+json);
-              }  					   
-         })
+			url : "/modifyMatchPlayer",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val(),
+				"shooting" : $("#shooting").text(),
+				"shootOnTarget" : $("#shootOnTarget").text(),
+				"pass" : $("#pass").text(),
+				"assist" : $("#assist").text(),
+				"poul" : $("#poul").text(),
+				"tackle" : $("#tackle").text(),
+				"offSide" : $("#offSide").text(),
+				"goalOnFk" : $("#goalOnFk").text(),
+				"goalOnPk" : $("#goalOnPk").text(),
+				"yellowCard" : $("#yellowCard").text(),
+				"redCard" : $("#redCard").text(),
+				"startTime" : $("#startTime").val(),
+				"endTime" : $("#endTime").val(),
+			},
+			success : function(json) {
+				console.log("성공시 1 출력 : " + json);
+			}
+		})
 	});
-	
+
 	//키퍼 기록 입력 버튼
-	$("#keeperInsertBtn").click(function(){
+	$("#keeperInsertBtn").click(function() {
 		$.ajax({
-            url:"/modifyMatchKeeper",
-            method:"POST",
-            data:{"playerNo":$("#playerList").val(),
-        	 	  "matchNo":$("#matchList").val(),
-            	  "save":$("#save").text(),
-          	 	  "saveOnPk":$("#saveOnPk").text(),
-            	  "saveOnFk":$("#saveOnFk").text(),
-            	  "startTimeKeeper":$("#startTimeKeeper").val(),
-            	  "endTimeKeeper":$("#endTimeKeeper").val()},
-            success:function(json){
-            	console.log("성공시 1 출력 : "+json);
-              }  					   
-         })
+			url : "/modifyMatchKeeper",
+			method : "POST",
+			data : {
+				"playerNo" : $("#playerList").val(),
+				"matchNo" : $("#matchList").val(),
+				"save" : $("#save").text(),
+				"saveOnPk" : $("#saveOnPk").text(),
+				"saveOnFk" : $("#saveOnFk").text(),
+				"startTimeKeeper" : $("#startTimeKeeper").val(),
+				"endTimeKeeper" : $("#endTimeKeeper").val()
+			},
+			success : function(json) {
+				console.log("성공시 1 출력 : " + json);
+			}
+		})
 	});
+	/*
+	//선수폼에서 후보선수 검색 ,횟수확인
+	$("#searchSubPlayer").click(function(){
+		$.ajax({
+	        url:"/같은팀의 후보선수 리스트를 가져옴",
+	        method:"POST",
+	        data:{	"playerNo":$("#playerList").val(),
+	        		"matchNo":$("#matchList").val(),
+	        		"teamName":$("#teamList").val()},
+	        success:function(json){
+	                 	console.log("현재후보리스트 출력 : "+json);
+	                 	if("리스트의 사이즈가 4이하면")
+	                 	{
+	                 		alert("교체한도초과")
+	                 	}
+	                 	else
+	                 	{
+	                 		$("#subPlayerList") 에 append
+	                 	}
+	                 }
+	           })  	
+	})
+	//선수폼에서 교체 클릭시
+	$("#changePlayer").click(function(){
+		//입력중이던 기록을 endTime에 현재시간을넣어서 업데이트시킴
+		//subPlayerList 의 밸류값으로 playerList를 선택한다
+		//startTime의 값을 현재시간으로 바꿔준다
+		//subPlayerList 를 비운다
+	})
+	//키퍼폼에서 후보선수 검색 , 횟수확인
+	$("#searchSubPlayerKeeper").click(function(){
+		$.ajax({
+	        url:"/같은팀의 후보선수 리스트를 가져옴",
+	        method:"POST",
+	        data:{	"playerNo":$("#playerList").val(),
+	        		"matchNo":$("#matchList").val(),
+	        		"teamName":$("#teamList").val()},
+	        success:function(json){
+	                 	console.log("현재후보리스트 출력 : "+json);
+	                 	if("리스트의 사이즈가 4이하면")
+	                 	{
+	                 		alert("교체한도초과")
+	                 	}
+	                 	else
+	                 	{
+	                 		$("#subPlayerListKeeper") 에 append
+	                 	}
+	                 }
+	           })  	
+	})
+	//키퍼폼에서 교체 클릭시
+	$("#changePlayer").click(function(){
+		//입력중이던 기록을 endTime에 현재시간을넣어서 업데이트시킴
+		//subPlayerList의 선수번호와 경기번호 now 를보내 키퍼테이블에 행을만든다
+		//일반 선수테이블에있던 자신의 행을 삭제한다
+		//subPlayerList 의 밸류값으로 playerList를 선택한다
+		//startTime의 값을 현재시간으로 바꿔준다
+	})
 	
-	//옐로 카드 2장이나 레드카드를 받을시 
 	
+	//////테스트
+	$("#change").click(function(){
+		console.log("원래값"+$("#playerList").val());
+		$("#playerList").val("24").prop("selected", true);
+		console.log("밸류값"+$("#playerList").val());
+		
+	})
+	 */
 </script>
 </html>

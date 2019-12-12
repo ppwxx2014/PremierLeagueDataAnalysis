@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.epl.mapper.MemberBoardMapper">
+	
+	<!-- 글 수정 -->
+	<update id = "updateMemberBoard"
+			parameterType = "com.epl.vo.MemberBoard">
+		UPDATE member_board
+		SET board_title = #{boardTitle},
+			board_content = #{boardContent}
+		WHERE board_no = #{boardNo}
+		AND board_user = #{memberId}
+	</update>
+		
+	<!-- 글 삭제 -->
+	<delete id = "deleteMemberBoard" 
+			parameterType = "com.epl.vo.MemberBoard">
+		DELETE FROM member_board
+		WHERE board_no = #{boardNo}
+		AND board_user = #{memberId}
+	</delete>
+	
+	<!-- 게시판 리스트(페이징) -->
+	<select id="selectMemberBoardList" 
+			parameterType="com.epl.vo.Page" 
+			resultType="com.epl.vo.MemberBoard">
+		SELECT 
+			board_no as boardNo, 
+			board_title as boardTitle,
+			board_user as boardUser,
+			board_date as boardDate 
+		FROM member_board 
+		<where> <!-- where절 -->
+			<if test = "searchWord != null">
+				board_title like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY board_date 
+		DESC LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 게시판 글 상세정보 -->
+	<select id = "selectMemberBoardOne"
+			parameterType = "int"
+			resultType = "com.epl.vo.MemberBoard">
+		SELECT 
+			board_no as boardNo, 
+			board_title as boardTitle,
+			board_content as boardContent,
+			board_user as boardUser, 
+			board_date as boardDate 
+		FROM member_board 
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	<!-- 게시판 입력 -->
+	<insert id = "insertMemberBoard"
+			parameterType = "com.epl.vo.MemberBoardForm">
+		<selectKey resultType = "int" keyProperty = "boardNo" order = "AFTER"> <!-- insert작업이 끝난 후 int boardNo값을 활용해 채워줌 -->
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		
+		INSERT INTO member_board(
+			board_title, 
+			board_content, 
+			board_user, 
+			board_date
+		) values(
+			#{boardTitle},
+			#{boardContent},
+			#{boardUser},
+			now()
+		)		
+	</insert>
+	
+	<!-- 게시판 글 목록의 총 갯수 -->
+	<select id = "selectMemberBoardCount"
+			resultType = "int">
+			SELECT COUNT(*) FROM member_board
+			<where>
+			<if test = "searchWord != null">
+				board_title like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 글 검사 -->
+	<select id="check" 
+			parameterType="com.epl.vo.MemberBoard"
+			resultType="int">
+      SELECT COUNT(*)
+      FROM member_board
+      WHERE board_no = #{boardNo}
+      AND board_user = #{memberId}
+   </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

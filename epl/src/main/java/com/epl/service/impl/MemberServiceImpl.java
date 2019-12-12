@@ -31,10 +31,18 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public String selectMemberOne(String memberEmail) {
-		String memberConfirmEmail = memberMapper.selectMemberOne(memberEmail);
-		System.out.println("MemberService:::::::" + memberConfirmEmail);
-		return memberConfirmEmail;
+	public Member selectMemberOne(String memberEmail) {
+		Member memberConfirm = memberMapper.selectMemberOne(memberEmail);
+		System.out.println("MemberService:::::::" + memberConfirm);
+		return memberConfirm;
+	}
+	
+	@Override
+	public int modifyMember(Member member) {
+		int row = memberMapper.updateMember(member);
+		System.out.println("MemberService:::::::" + row);
+		
+		return row;
 	}
 }
 

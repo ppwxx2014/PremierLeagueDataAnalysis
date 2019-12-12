@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.MatchMapper;
 import com.epl.service.interfaces.MatchService;
+import com.epl.vo.InGamePosition;
 import com.epl.vo.MatchCheckKeeper;
 import com.epl.vo.MatchGoalKeeper;
 import com.epl.vo.MatchGoals;
+import com.epl.vo.MatchNoTeamName;
 import com.epl.vo.MatchOwnGoals;
 import com.epl.vo.MatchPlayer;
 import com.epl.vo.MatchPlayerNo;
@@ -57,12 +59,6 @@ public class MatchListServiceImpl implements MatchService {
 	public MatchSchedule getMatchOne(int matchNo) {
 		MatchSchedule matchSchedule = matchMapper.selectMatchOne(matchNo);
 		return matchSchedule;
-	}
-
-	@Override
-	public List<PlayerInfo> getPlayerListByTeamName(String teamName) {
-		List<PlayerInfo> list = matchMapper.selectPlayerListByTeamName(teamName);
-		return list;
 	}
 	
 	@Override
@@ -155,5 +151,20 @@ public class MatchListServiceImpl implements MatchService {
 	{
 		int check = matchMapper.updateMatchKeeper(matchGoalKeeper);
 		return check;
+	}
+	
+	@Override
+	public List<InGamePosition> getInGamePosition(MatchNoTeamName matchNoTeamName)
+	{
+		List<InGamePosition> list = matchMapper.selectInGamePosition(matchNoTeamName);
+		System.out.println("service - getInGamePosition : "+list);
+		return list;
+	}
+	
+	@Override
+	public List<PlayerInfo> getPlayerListByTeamName(String teamName) 
+	{
+		List<PlayerInfo> list = matchMapper.selectPlayerListByTeamName(teamName);
+		return list;
 	}
 }

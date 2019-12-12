@@ -1,5 +1,7 @@
 package com.epl.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -9,5 +11,5 @@ public class MemberBoard {
 	private String boardContent;
 	private String boardUser;
 	private String boardDate;
-	private MemberBoardfile memberBoardfile;
+	private List<MemberBoardfile> memberBoardfile;
 }

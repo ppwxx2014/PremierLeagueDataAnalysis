@@ -59,11 +59,10 @@
 	
 	<!-- 게시판 입력 -->
 	<insert id = "insertMemberBoard"
-			parameterType = "com.epl.vo.MemberBoardForm">
+			parameterType = "com.epl.vo.MemberBoard">
 		<selectKey resultType = "int" keyProperty = "boardNo" order = "AFTER"> <!-- insert작업이 끝난 후 int boardNo값을 활용해 채워줌 -->
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		
 		INSERT INTO member_board(
 			board_title, 
 			board_content, 

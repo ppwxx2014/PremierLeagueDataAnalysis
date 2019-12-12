@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div th:fragment = "footer">
+
 		<!-- ##### 푸터 공백 지정 Start ##### -->
 	    <div class="footer-add-area">
 	        <div class="container">
@@ -141,6 +134,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="/userassts/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="/userassts/js/active.js"></script>
-	</div>
-</body>
-</html>
+    <script>
+	var memberId = null; // 로그인 세션 저장
+	$.ajax({
+		url : "/getSessionInfo",
+		method : "post",
+		async:false,
+		success : function(json) {
+			console.log("sessionInfo Json: " + json);
+			memberId = json;
+			console.log("sessionInfo: " + memberId);
+		}	
+	});
+	
+	if(memberId == "") {
+		$("#memberLogin").empty();
+		$("#memberLogin").append("<a href='/memberLogin'>Login</a>");
+		$("#memberLogin").append("<a href='/memberLogin'>Register</a>");
+	} else{
+		$("#memberLogin").empty();
+		$("#memberLogin").append("<a href = '/memberLogout'>로그아웃</a>");
+	}
+	//alert(memberId);
+</script>

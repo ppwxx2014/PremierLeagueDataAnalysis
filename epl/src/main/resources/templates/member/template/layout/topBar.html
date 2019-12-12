@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-</head>
-<body>
-	<div th:fragment = "topBar">
+
 		<header class="header-area">
 
         <!-- Top Header Area -->
@@ -194,31 +185,7 @@
             </div>
         </div>
     </header>
-	    </div>
-</body>
-<script>
-	let memberId = null; // 로그인 세션 저장
-	$.ajax({
-		url : "/getSessionInfo",
-		method : "post",
-		async : false, // 비동기화 해제
-		success : function(json) {
-			console.log("sessionInfo Json: " + json);
-			memberId = json;
-			console.log("sessionInfo: " + memberId);
-			if(memberId == "") {
-				$("#memberLogin").empty();
-				$("#memberLogin").append("<a href='/memberLogin'>Login</a>");
-				$("#memberLogin").append("<a href='/memberLogin'>Register</a>");
-			} else{
-				$("#memberLogin").empty();
-				$("#memberLogin").append("<a href = '/memberLogout'>로그아웃</a>");
-			}
-		}	
-	});
-	//alert(memberId);
-</script>
-</html>
+
 
 
 

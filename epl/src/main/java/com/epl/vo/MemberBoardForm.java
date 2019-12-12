@@ -13,5 +13,5 @@ public class MemberBoardForm {
 	private String boardContent;
 	private String boardUser;
 	private String boardDate;
-	private List<MultipartFile> boardFile; // 여러개 파일 업로드시 배열[] 또는 List<MultipartFile>...
+	private List<MultipartFile> boardfile; // 여러개 파일 업로드시 배열[] 또는 List<MultipartFile>...
 }

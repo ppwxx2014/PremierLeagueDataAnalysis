@@ -16,7 +16,7 @@ public interface MemberBoardMapper {
 	
 	MemberBoard selectMemberBoardOne(int boardNo);
 	
-	int insertMemberBoard(MemberBoardForm memberBoardForm);
+	int insertMemberBoard(MemberBoard memberBoard);
 
 	ArrayList<MemberBoard> selectMemberBoardList(Page page);
 	

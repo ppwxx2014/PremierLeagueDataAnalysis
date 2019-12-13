@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.epl.mapper.AdminIndexMapper">
+	<select id="selectAdminList" 
+		resultType="com.epl.vo.Admin">
+		SELECT
+		admin_id as adminId,
+		admin_name as adminName,
+		admin_email as adminEmail 
+		FROM admin
+	</select>
+
+</mapper>
+
+
+

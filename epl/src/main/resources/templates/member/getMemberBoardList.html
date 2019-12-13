@@ -5,6 +5,7 @@
     <!-- Title -->
     <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
     <th:block th:include = "/member/template/layout/headLayout"></th:block>
+
 </head>
 
 <body>
@@ -46,29 +47,31 @@
 		</ul>
 	</div>
     <!-- ##### Footer Area Start ##### -->
-    <div th:include ="/member/template/layout/footer::footer"></div>
+    <th:block th:include = "/member/template/layout/footer"></th:block>
+    
     <!-- ##### Footer Area End ##### -->
 </body>
 
 <script>
-let currentPage = 1;
-$.ajax({
-	url : "/getMemberBoardByPage",
-	method : "post",
-	// json으로 넘어온 리턴값을 JQuery로 바꿔줌
-	success : function(json) {
-		console.log("리스트 성공!");
-		$(json).each(function(index, item) {
-			temp = "<tr>";
-			temp += "<td>" + item.boardNo + "</td>";
-			temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
-			temp += "<td>" + item.boardUser + "</td>";
-			temp += "<td>" + item.boardDate + "</td>";
-			temp += "</tr>";
-			$("#list").append(temp);
-		});
-	}
-});
+	let currentPage = 1;
+
+	$.ajax({
+		url : "/getMemberBoardByPage",
+		method : "post",
+		// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+		success : function(json) {
+			console.log("리스트 성공!");
+			$(json).each(function(index, item) {
+				temp = "<tr>";
+				temp += "<td>" + item.boardNo + "</td>";
+				temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+				temp += "<td>" + item.boardUser + "</td>";
+				temp += "<td>" + item.boardDate + "</td>";
+				temp += "</tr>";
+				$("#list").append(temp);
+			});
+		}
+	});
 	// 검색 단어 저장
 	let searchWord = null;
 

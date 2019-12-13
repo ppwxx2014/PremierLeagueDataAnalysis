@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <!-- Title -->
+<!-- Title -->
     <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
     <th:block th:include = "/member/template/layout/headLayout"></th:block>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	  
+	<link href="/summernote/summernote-bs4.css" rel="stylesheet">
+	<script src="/summernote/summernote-bs4.js"></script>
+	
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	
 </head>
-
 <body>
     <!-- ##### TopBar Area Start ##### -->
    	<th:block th:include = "/member/template/layout/topBar"></th:block>
@@ -20,42 +28,43 @@
 		<hr><br>
 		<div id = "boardContent"></div>
 		
-		
-		
+		<hr>
+		<p>댓글</p>
+  		<div id="summernote"><p></p></div>
 	</div>
     <!-- ##### Footer Area Start ##### -->
-    <div th:include ="/member/template/layout/footer::footer"></div>
+	<th:block th:include = "/member/template/layout/footer"></th:block>
     <!-- ##### Footer Area End ##### -->
+
 </body>
 
-<script>
-$.ajax({	
-	url:"/getMemberBoardListOne",
-	method:"post",
-	success:function(json){
-		$("#listOne").empty();
-		$(json).each(function(index, item){
-		console.log("ListOne");
-		console.log(json);
-			$("#boardTitle").append("("+item.boardNo+") " + item.boardTitle);
-			$("#boardInfo").append(item.boardUser + " │ " + item.boardDate);
-			$("#boardContent").append(item.boardContent);
-			// $("#listOne").append(temp); 
-		});		
-	}
-});
-</script>
+	<script>
+	$.ajax({	
+		url:"/getMemberBoardListOne",
+		method:"post",
+		success:function(json){
+			$("#listOne").empty();
+			$(json).each(function(index, item){
+			console.log("ListOne");
+			console.log(json);
+				$("#boardTitle").append("("+item.boardNo+") " + item.boardTitle);
+				$("#boardInfo").append(item.boardUser + " │ " + item.boardDate);
+				$("#boardContent").append(item.boardContent);
+			});		
+		}
+	});
+	
+	// 새로운 JQuery버전 사용
+	var newJquery = $.noConflict(true);
+	$(document).ready(function() {
+		$('#summernote').summernote({ 
+			lang: 'ko-KR',
+			placeholder: '내용을 입력해주세요',
+			tabsize: 4,
+			height: 150
+		});
+	});
+	</script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 

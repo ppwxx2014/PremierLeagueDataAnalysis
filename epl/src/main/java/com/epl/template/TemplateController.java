@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TemplateController {
 
 	
+	@GetMapping("/test")
+	public String test() {
+		return "member/test";
+	}
+	
 	// :::::::::::::::::::::::::::: 여기부터 선수 카테고리 :::::::::::::::::::::::::::: //
 	
 	@GetMapping("/playerContract")	

@@ -24,7 +24,7 @@
 	text-align: left;
 	font-family: Consolas, monospace;
 	font-style: italic;
-	width: 59%;
+	width: 80%;
 	height: 110px;
 	background: linear-gradient(to bottom, #6666ff 0%, #6600ff 100%);
 	border: 2px solid;
@@ -32,39 +32,48 @@
 	line-height: 1em;
 	border-top-left-radius: 0.7em;
 	border-top-right-radius: 0.7em;
+	
 }
 
 .tt {
 	text-align: center;
 }
 
-.floD{
-	border-right : 1px solid #ffffff;
-	border: 1px solid #000;
-	width: 25%;
-	height: 100px;
-	float: left;
-	
-}
-.floD2{
-	border: 1px solid #000;
-	width: 25%;
-	height: 100px;
-	float: left;
-}
 h5 {
 	font-weight: 1000;
 }
-.matchDateTable {
-	border-spacing: 10px;
+.matchDateTable2{
+	border-spacing: 12px;
 	border-collapse: separate;
-	
+	border-right: 1px solid  #444444;
+	width: 95%;
+}
+.matchDateTable{
+	border-spacing: 10px;
+}
+.matchDateTable3{
+	width: 
 }
 .match{
 	border: 2px solid;
-	width: 59%;
+	width: 80%;
 	font-style: italic;
+	border-collapse:seperate;
+	table-layout:fixed;
 }
+.match1{
+	border: 2px solid;
+	line-height: 1em;
+	border-collapse: separate;
+	table-layout:fixed;
+}
+.match2{
+	border: 2px solid;
+	line-height: 1em;
+	border-collapse: separate;
+	table-layout:fixed;
+}
+
 </style>
 <body>
     <!-- ##### TopBar Area Start ##### -->
@@ -75,52 +84,48 @@ h5 {
 
     <!-- ##### Featured Post Area Start ##### -->
 	<div class="popular-news-area section-padding-80-50 container-fluid">
-		<div class="table-stats order-table ov-h">
+		<div class = "container">
 			<div class = "container">
 			<div class ="topD">
 				<!-- epl로고사진 -->
 				<img width="30" height="50" src="/images/teamlogo/Liverpool.png">
 				<div class ="tt">
 					<h5 style ="color: #ffffff; text-shadow: 6px 2px 2px black;">England PremierLegue Match Calendar</h5>
-					<p id="matchDay">xxxx-x-xx</p>
-					
+					<p id="matchDay">한국 표준시 기준</p>
 				</div>
-				
 			</div>
-				
 		<!-- 1라운드씩 나와야됨 -->
 			<table class = "match">
-				<tbody>
-					<!-- 첫번째 행 -->
+				<tbody class = "matchTable">
 					<tr>
 						<!-- 경기 -->
 						<td>
-							<table>
+							<table class="match1 container">
 								<tbody>
 									<tr>
 										<td>
 											<table class = "matchDateTable">
-												<tr class = "hometeam">
-													<td>hometeam</td>
+												<tr  class = "hometeam">
+													<td>셰펄드 유나이티드</td>
 												</tr>
-												<tr class = "awayteam">
+												<tr  class = "awayteam">
 													<td>awayteam</td>
 												</tr>
 											</table>
 										</td>
 										<td>
-											<table class = "matchDateTable">
+											<table class = "matchDateTable2">
 												<tr class = "hometeam">
-													<td>hometeam goal</td>
+													<td>0</td>
 												</tr>
 												<tr class = "awayteam">
-													<td>awayteam goal</td>
+													<td>0</td>
 												</tr>
 											</table>
 										</td>
 										
 										<td>
-											<table class = "matchDateTable">
+											<table class = "matchDateTable3">
 												<tr class = "matchDate">
 													<td>MatchDate</td>
 												</tr>
@@ -133,7 +138,7 @@ h5 {
 						
 						<!-- 경기 -->
 						<td>
-							<table>
+							<table class="match2 container">
 								<tbody>
 									<tr>
 										<td>
@@ -147,18 +152,95 @@ h5 {
 											</table>
 										</td>
 										<td>
-											<table class = "matchDateTable">
+											<table class = "matchDateTable2">
 												<tr class = "hometeam">
-													<td>hometeam goal</td>
+													<td>0</td>
 												</tr>
 												<tr class = "awayteam">
-													<td>awayteam goal</td>
+													<td>0</td>
 												</tr>
 											</table>
 										</td>
 										
 										<td>
+											<table class = "matchDateTable3">
+												<tr class = "matchDate">
+													<td>MatchDate</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<!-- 경기 -->
+						<td>
+							<table class="match1 container">
+								<tbody>
+									<tr>
+										<td>
 											<table class = "matchDateTable">
+												<tr  class = "hometeam">
+													<td>셰펄드 유나이티드</td>
+												</tr>
+												<tr  class = "awayteam">
+													<td>awayteam</td>
+												</tr>
+											</table>
+										</td>
+										<td>
+											<table class = "matchDateTable2">
+												<tr class = "hometeam">
+													<td>0</td>
+												</tr>
+												<tr class = "awayteam">
+													<td>0</td>
+												</tr>
+											</table>
+										</td>
+										
+										<td>
+											<table class = "matchDateTable3">
+												<tr class = "matchDate">
+													<td>MatchDate</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+						
+						<!-- 경기 -->
+						<td>
+							<table class="match2 container">
+								<tbody>
+									<tr>
+										<td>
+											<table class = "matchDateTable">
+												<tr  class = "hometeam">
+													<td>hometeam</td>
+												</tr>
+												<tr  class = "awayteam">
+													<td>awayteam</td>
+												</tr>
+											</table>
+										</td>
+										<td>
+											<table class = "matchDateTable2">
+												<tr class = "hometeam">
+													<td>0</td>
+												</tr>
+												<tr class = "awayteam">
+													<td>0</td>
+												</tr>
+											</table>
+										</td>
+										
+										<td>
+											<table class = "matchDateTable3">
 												<tr class = "matchDate">
 													<td>MatchDate</td>
 												</tr>
@@ -181,13 +263,81 @@ h5 {
     <!-- ##### Footer Area End ##### -->
 </body>
 <script type="text/javascript">
-	let currentPage = 1;
+	
 	$.ajax({
 		url : "",
-		method : , 
+		method : "post",
 		success : function(json){
-			$(json).each(function(index , item)){
-				
+			$(json).each(function(index , item)){ // 하나의 테이블 행을 추가 (이전경기 보기)
+					// 왼쪽 경기
+				/* let html = '<tr><td><table class="match1 container">'
+					html += '<tobody><tr><td>'
+					html +=	'<table class="matchDateTable"><tr  class = "hometeam">'
+					html += '<td>'index.hometeamName'</td>'
+					html += '<td>'index.awayteamName'</td>'
+					html += '</tr></table></td><td>'
+					html +=	'<table class="matchDateTable2"><tr  class = "hometeam">'
+					html += '<td>'index.hometeamGoals'</td>'
+					html += '<td>'index.awayteamGoals'</td>'
+					html += '</tr></table></td><td>'
+					html += '<table class = "matchDateTable3">'
+					html += '<tr class = "matchDate">'
+					html += '<td>'index.winnerteamName'</td>'
+					html += '</tr></table></td>'
+					html += '</tr></tbody></table></td></tr>'
+					// 오른쪽 경기
+					html += '<tr><td><table class="match2 container">'
+					html += '<tobody><tr><td>'
+					html +=	'<table class="matchDateTable"><tr  class = "hometeam">'
+					html += '<td>'index.hometeam'</td>'
+					html += '<td>'index.awayteam'</td>'
+					html += '</tr></table></td><td>'
+					html +=	'<table class="matchDateTable2"><tr  class = "hometeam">'
+					html += '<td>'index.hometeamGoals'</td>'
+					html += '<td>'index.awayteamGoals'</td>'
+					html += '</tr></table></td><td>'
+					html += '<table class = "matchDateTable3">'
+					html += '<tr class = "matchDate">'
+					html += '<td>'index.winnerteamName'</td>'
+					html += '</tr></table></td>'
+					html += '</tr></tbody></table></td></tr>'
+					
+					$("#matchTable").append(html); */
+					
+					/*
+					SELECT 	
+	A.match_no AS matchNo,
+	A.hometeam_name AS hometeamName, 
+	A.awayteam_name  AS awayteamName, 
+	A.active AS Active,
+	A.match_date AS matchDate, 
+	A.match_time AS matchTime,  
+	R.winnerteam_name AS winnerteamName, 
+	R.hometeam_goals AS hometeamGoals, 
+	R.awayteam_goals AS awayteam_Goals
+FROM
+(SELECT
+	match_no,
+	hometeam_name,
+	awayteam_name,
+	match_date,
+	match_time,
+	active
+FROM match_schedule
+ORDER BY match_date DESC) AS A
+INNER JOIN
+(SELECT
+	match_no,
+	hometeam_name,
+	awayteam_name,
+	winnerteam_name,
+	hometeam_goals,
+	awayteam_goals
+FROM match_result) AS R
+ON A.match_no = R.match_no AND A.hometeam_name = R.hometeam_name AND A.awayteam_name = R.awayteam_name
+WHERE A.active = 'T'
+
+					*/
 			}
 		}
 	})

@@ -1,9 +1,9 @@
 package com.epl.service.interfaces;
 
 import java.util.List;
-import java.util.Map;
 
 import com.epl.vo.MemberBoard;
+import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardForm;
 import com.epl.vo.Page;
 
@@ -19,4 +19,14 @@ public interface MemberBoardService {
 	int removeBoard(MemberBoard memberBoard);
 	
 	int MemberBoardCount(Page page);
+	
+	// 댓글 입력 인터페이스
+	int addMemberBoardComment(MemberBoardComment memberBoardComment);
+	
+	// 댓글 리스트 출력
+	List<MemberBoardComment> getCommentList(int boardNo);
+	
+	// 댓글 삭제
+	int removeComment(MemberBoardComment memberBoardComment);
+	
 }

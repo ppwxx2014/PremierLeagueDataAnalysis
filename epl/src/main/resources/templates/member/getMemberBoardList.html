@@ -61,11 +61,12 @@
 		// json으로 넘어온 리턴값을 JQuery로 바꿔줌
 		success : function(json) {
 			console.log("리스트 성공!");
+			console.log(json);
 			$(json).each(function(index, item) {
 				temp = "<tr>";
 				temp += "<td>" + item.boardNo + "</td>";
-				temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
-				temp += "<td>" + item.boardUser + "</td>";
+				temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'>" + item.boardTitle + "</a></td>";
+				temp += "<td>" + item.memberNickName + "</td>";
 				temp += "<td>" + item.boardDate + "</td>";
 				temp += "</tr>";
 				$("#list").append(temp);

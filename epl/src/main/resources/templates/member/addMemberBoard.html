@@ -5,6 +5,16 @@
 <!-- Title -->
 <title>PremierLeagueDataAnalysis - User index &amp; Template</title>
 <th:block th:include="/member/template/layout/headLayout"></th:block>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+	<link href="/summernote/summernote-bs4.css" rel="stylesheet">
+	<script src="/summernote/summernote-bs4.js"></script>
+
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 
 <body>
@@ -45,10 +55,11 @@
 
 			<div>
 				<input class="btn btn-default" id="addButton" type="button"
-					value="글입력" /> <a class="btn btn-default" href="#">글목록</a>
+					value="글입력" /> <a class="btn btn-default" href="/getMemberBoardList">글목록</a>
 			</div>
 		</form>
 	</div>
+	
 	<!-- ##### Footer Area Start ##### -->
 	<th:block th:include="/member/template/layout/footer"></th:block>
 	<!-- ##### Footer Area End ##### -->
@@ -70,15 +81,14 @@
 				$("#fileList").append("<div> 파일 이름: " + fileList[i].name + "<button type = 'button' id = 'deleteFile' value = '"+i+"'>파일 삭제<button></div>");
 				file = fileList[i];
 				formData.append("boardfile", file);  //파일을 더해준다.
-				
 			}
-			
+		});
 			$(document).on("click", "#deleteFile", function(index) {
 				let newFileList = new Object();
 				for(let i = 0; i < fileList.length; i++) {
 					console.log( !($(this).val()==i) );
 					if( !($(this).val()==i) ){
-						newFileList[i]=fileList[i];
+						newFileList[i] = fileList[i];
 					}
 				} 
 				console.log(newFileList);
@@ -91,8 +101,7 @@
 					} //파일을 더해준다.
 				$(this).parent().empty();
 			});
-			
-		});
+
 		
 		
 		
@@ -102,6 +111,9 @@
 			formData.append("boardContent", $("#boardContent").val());
 			formData.append("boardUser", $("#boardUser").val());
 			console.log(formData.get("boardfile")); // 담았던 파일 전송
+			console.log(formData.get("boardTitle"));
+			console.log(formData.get("boardContent"));
+			console.log(formData.get("boardUser"));
 			
 			newJquery.ajax({
 				url : "/addMemberBoard",

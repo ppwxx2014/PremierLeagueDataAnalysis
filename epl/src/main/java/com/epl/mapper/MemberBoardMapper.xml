@@ -3,99 +3,143 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.epl.mapper.MemberBoardMapper">
-	
+
 	<!-- 글 수정 -->
-	<update id = "updateMemberBoard"
-			parameterType = "com.epl.vo.MemberBoard">
+	<update id="updateMemberBoard"
+		parameterType="com.epl.vo.MemberBoard">
 		UPDATE member_board
 		SET board_title = #{boardTitle},
-			board_content = #{boardContent}
+		board_content = #{boardContent}
 		WHERE board_no = #{boardNo}
-		AND board_user = #{memberId}
+		AND
+		board_user = #{memberId}
 	</update>
-		
+	
 	<!-- 글 삭제 -->
-	<delete id = "deleteMemberBoard" 
-			parameterType = "com.epl.vo.MemberBoard">
+	<delete id="deleteMemberBoard"
+		parameterType="com.epl.vo.MemberBoard">
 		DELETE FROM member_board
 		WHERE board_no = #{boardNo}
-		AND board_user = #{memberId}
+		AND
+		board_user = #{memberId}
 	</delete>
-	
+
 	<!-- 게시판 리스트(페이징) -->
-	<select id="selectMemberBoardList" 
-			parameterType="com.epl.vo.Page" 
-			resultType="com.epl.vo.MemberBoard">
-		SELECT 
-			board_no as boardNo, 
-			board_title as boardTitle,
-			board_user as boardUser,
-			board_date as boardDate 
-		FROM member_board 
+	<select id="selectMemberBoardList"
+		parameterType="com.epl.vo.Page" resultType="com.epl.vo.MemberBoard">
+		SELECT
+		mb.board_no as boardNo,
+		mb.board_title as boardTitle,
+		mb.board_user as boardUser,
+		mb.board_date as boardDate,
+		m.member_nick_name as memberNickName
+		FROM member_board mb
+		INNER JOIN member m
+		ON mb.board_user = m.member_email
 		<where> <!-- where절 -->
-			<if test = "searchWord != null">
+			<if test="searchWord != null">
 				board_title like CONCAT('%', #{searchWord}, '%')
 			</if>
 		</where>
-		ORDER BY board_date 
+		ORDER BY board_date
 		DESC LIMIT #{beginRow}, #{rowPerPage}
 	</select>
-	
+
 	<!-- 게시판 글 상세정보 -->
-	<select id = "selectMemberBoardOne"
-			parameterType = "int"
-			resultType = "com.epl.vo.MemberBoard">
-		SELECT 
-			board_no as boardNo, 
-			board_title as boardTitle,
-			board_content as boardContent,
-			board_user as boardUser, 
-			board_date as boardDate 
-		FROM member_board 
+	<select id="selectMemberBoardOne" parameterType="int"
+		resultType="com.epl.vo.MemberBoard">
+		SELECT
+		mb.board_no as boardNo,
+		mb.board_title as boardTitle,
+		mb.board_content as boardContent,
+		mb.board_user as boardUser,
+		mb.board_date as boardDate,
+		m.member_nick_name as memberNickName
+		FROM member_board mb
+		INNER JOIN member m
+		ON mb.board_user = m.member_email
 		WHERE board_no = #{boardNo}
 	</select>
-	
+
 	<!-- 게시판 입력 -->
-	<insert id = "insertMemberBoard"
-			parameterType = "com.epl.vo.MemberBoard">
-		<selectKey resultType = "int" keyProperty = "boardNo" order = "AFTER"> <!-- insert작업이 끝난 후 int boardNo값을 활용해 채워줌 -->
+	<insert id="insertMemberBoard"
+		parameterType="com.epl.vo.MemberBoard">
+		<selectKey resultType="int" keyProperty="boardNo"
+			order="AFTER"> <!-- insert작업이 끝난 후 int boardNo값을 활용해 채워줌 -->
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO member_board(
-			board_title, 
-			board_content, 
-			board_user, 
-			board_date
+		board_title,
+		board_content,
+		board_user,
+		board_date
 		) values(
-			#{boardTitle},
-			#{boardContent},
-			#{boardUser},
-			now()
-		)		
+		#{boardTitle},
+		#{boardContent},
+		#{boardUser},
+		now()
+		)
 	</insert>
-	
+
 	<!-- 게시판 글 목록의 총 갯수 -->
-	<select id = "selectMemberBoardCount"
-			resultType = "int">
-			SELECT COUNT(*) FROM member_board
-			<where>
-			<if test = "searchWord != null">
+	<select id="selectMemberBoardCount" resultType="int">
+		SELECT COUNT(*) FROM member_board
+		<where>
+			<if test="searchWord != null">
 				board_title like CONCAT('%', #{searchWord}, '%')
 			</if>
 		</where>
 	</select>
-	
+
 	<!-- 글 검사 -->
-	<select id="check" 
-			parameterType="com.epl.vo.MemberBoard"
-			resultType="int">
-      SELECT COUNT(*)
-      FROM member_board
-      WHERE board_no = #{boardNo}
-      AND board_user = #{memberId}
-   </select>
+	<select id="check" parameterType="com.epl.vo.MemberBoard"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM member_board
+		WHERE board_no = #{boardNo}
+		AND board_user = #{memberId}
+	</select>
+
+	<!-- 게시판 댓글 관리 -->
+	
+	<!-- 댓글 입력 -->
+	<insert id = "insertComment"
+			parameterType = "com.epl.vo.MemberBoardComment">
+		INSERT INTO member_board_comment(
+            board_no,
+            comment_user, 
+            comment_content
+        ) values(
+            #{boardNo},
+            #{commentUser},
+            #{commentContent}
+        )
+	</insert>
+ 	
+ 	<!-- 댓글 리스트 -->
+ 	<select id = "selectCommentList"
+            resultType = "com.epl.vo.MemberBoardComment"
+            parameterType = "int">
+        SELECT
+            mbc.comment_no as commentNo,
+            mbc.comment_content as commentContent,
+            mbc.comment_user as commentUser,
+            mbc.comment_date as commentDate,
+            m.member_nick_name as memberNickName
+        FROM member_board_comment mbc
+        INNER JOIN member m
+		ON m.member_email = mbc.comment_user
+        WHERE board_no = #{boardNo}        
+    </select>
+    
+    <!-- 댓글 삭제 -->
+    <delete id = "deleteComment"
+    		parameterType = "com.epl.vo.MemberBoardComment">
+    	DELETE FROM member_board_comment
+    	WHERE comment_no = #{commentNo} AND comment_user = #{commentUser}		
+    </delete>
 </mapper>
 
 

@@ -13,55 +13,166 @@
 	<script src="/summernote/summernote-bs4.js"></script>
 	
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
-	
+	<style>
+		p {
+			color: #000000;
+		}
+	</style>
 </head>
 <body>
     <!-- ##### TopBar Area Start ##### -->
    	<th:block th:include = "/member/template/layout/topBar"></th:block>
     <!-- ##### TopBar Area End ##### -->
-    <br><br><br><br><br><br>
-	<div class = "container">
+    <br><br>
+    <div class = "container">
+    	<h2>자유 게시판</h2><span></span>
+	    	
+    </div>
+	<div class = "container" style = "border: 1px solid; padding: 30px;">
 		<!-- content -->
 		<p id = "boardTitle" style = "font-weight: bold; color: black;"></p>
 		<hr>
 		<div style = "display: inline;" id = "boardInfo"></div>
 		<hr><br>
 		<div id = "boardContent"></div>
-		
+		<div id = "boardfile"></div>
 		<hr>
-		<p>댓글</p>
-  		<div id="summernote"><p></p></div>
+		
+		<!-- 댓글 리스트 -->
+		<div>
+			<b>전체 댓글</b>
+			<div id = "commentList">
+				
+			</div>
+		</div>
+		
+		<!-- 댓글 입력폼 -->
+  		<div id = "summernote"></div>
+  		<button type = "button" id = "addComment">댓글 입력</button>
 	</div>
     <!-- ##### Footer Area Start ##### -->
 	<th:block th:include = "/member/template/layout/footer"></th:block>
     <!-- ##### Footer Area End ##### -->
 
+
 </body>
 
 	<script>
+	
+	function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	
+	console.log("로그인 id : " + memberId);
+	
+	var boardNo = 0;
 	$.ajax({	
 		url:"/getMemberBoardListOne",
 		method:"post",
+		data: {"boardNo" : searchParam("boardNo")},
+		async:false,
 		success:function(json){
 			$("#listOne").empty();
 			$(json).each(function(index, item){
-			console.log("ListOne");
+			console.log("boardListOne");
 			console.log(json);
+			boardNo = json.boardNo;
+			console.log(boardNo);
 				$("#boardTitle").append("("+item.boardNo+") " + item.boardTitle);
-				$("#boardInfo").append(item.boardUser + " │ " + item.boardDate);
+				$("#boardInfo").append(item.memberNickName + " │ " + item.boardDate);
 				$("#boardContent").append(item.boardContent);
+				if(item.memberBoardfile != null) {
+					//console.log("파일내용 : " + item.memberBoardfile[index].filename);
+					console.log("파일의 총 갯수" + item.memberBoardfile.length );
+					for(let i = 0; i < item.memberBoardfile.length; i ++) {
+						let temp = "<a href = 'C:\\Temp\\files\\";
+						temp += item.memberBoardfile[i].filename + "." + item.memberBoardfile[i].extension + "'>"+item.memberBoardfile[i].originName+"</a>\n\n\n";
+						$("#boardfile").append(temp);
+					}
+				}
 			});		
+		}
+	});
+	
+	console.log("boardNo확인 : " + boardNo);
+	
+	$.ajax({
+		url: "/getCommentList",
+		method: "post",
+		data: {"boardNo" : boardNo},
+		success: function(json) {
+			console.log(json);
+			$("#commentList").empty();
+			$(json).each(function(index, item) {
+				console.log(json);
+				console.log(item.commentNo);
+				let temp = item.memberNickName + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ item.commentDate + item.commentContent;
+				temp += "<button type = 'button' id = 'deleteComment' value = '"+item.commentNo+"'>삭제</button>";
+				temp += "<hr>";
+				console.log(temp);
+				$("#commentList").append(temp);
+			});
 		}
 	});
 	
 	// 새로운 JQuery버전 사용
 	var newJquery = $.noConflict(true);
 	$(document).ready(function() {
-		$('#summernote').summernote({ 
+		$('#summernote').summernote({
+			toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['color', ['color']]
+			  ],
 			lang: 'ko-KR',
-			placeholder: '내용을 입력해주세요',
+			placeholder: '댓글을 입력해주세요',
 			tabsize: 4,
 			height: 150
+		});
+		$("#addComment").click(function() {
+			$("#summernote").append('<input type = "hidden" name = "contents", id = "commentContent">');
+			$("#commentContent").val($('#summernote').summernote('code'));
+			console.log($("#commentContent").val());
+			newJquery.ajax({
+				url: "/addMemberBoardComment",
+				method: "post",
+				data: {"boardNo" : boardNo,
+						"commentUser" : memberId,
+						"commentContent" : $("#commentContent").val()
+				},
+				success: function(json) {
+					console.log("댓글 입력 성공");
+					console.log(json);
+					// 입력 후 페이지 리로드
+					location.reload();
+				}
+			});
+		});
+		
+		// 댓글 삭제
+		$(document).on("click", "#deleteComment", function() {
+			console.log("commentNo : " + $(this).val());
+			let commentNo = $(this).val();
+			console.log("삭제할 commentNo : " + commentNo);
+			
+			newJquery.ajax({	
+				url: "/removeComment",
+				method: "post",
+				data: {"commentNo" : commentNo, "commentUser" : memberId}, 
+				success: function(json) {
+					console.log(json);
+					console.log("삭제 성공");
+					// 입력 후 페이지 리로드
+					if(json == 0) {
+						alert("본인 것만 삭제 할 수 있습니다!");
+					}
+					location.reload();
+				}
+			});
 		});
 	});
 	</script>

@@ -15,6 +15,7 @@ import com.epl.mapper.MemberBoardMapper;
 import com.epl.mapper.MemberBoardfileMapper;
 import com.epl.service.interfaces.MemberBoardService;
 import com.epl.vo.MemberBoard;
+import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardForm;
 import com.epl.vo.MemberBoardfile;
 import com.epl.vo.Page;
@@ -43,48 +44,52 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		System.out.println(memberBoardForm.getBoardfile());
 		
 		List<MultipartFile> mf = memberBoardForm.getBoardfile();
+		System.out.println("memberBoardService" + mf);
 		
 		List<MemberBoardfile> mbf = new ArrayList<MemberBoardfile>();
 		
 		int row = 0;
 		
-		for(MultipartFile m : mf) {
-			String contentType = m.getContentType();
-			String originName = m.getOriginalFilename();
-			long size = m.getSize();
-			String extension = originName.substring(originName.lastIndexOf(".") + 1); // 확장자 구하기
-			String filename = UUID.randomUUID().toString().replace("-", "")+"."; // URL
-			
-			System.out.println("contentType"+ contentType);
-			System.out.println("originName"+originName);
-			System.out.println("size" +size);
-			System.out.println("extension" +extension);
-			System.out.println("filename" + filename);
-			
-			MemberBoardfile memberBoardfile = new MemberBoardfile();
-			memberBoardfile.setBoardNo(memberBoard.getBoardNo());
-			memberBoardfile.setContentType(contentType);
-			memberBoardfile.setOriginName(originName);
-			memberBoardfile.setSize(size);
-			memberBoardfile.setExtension(extension);
-			memberBoardfile.setFilename(filename);
-			mbf.add(memberBoardfile);
-			
-			row = memberBoardfileMapper.insertMemberBoardfile(memberBoardfile);
-			
-			/*
-			File file = new File("D:\\OffTheBall_project\\maven.1575882707047\\epl\\src\\main\\webapp\\upload\\" + filename + extension);
-			// 파일로 저장
-			try {
-				m.transferTo( file );
-			}  catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("memberBoardNo : " + memberBoard.getBoardNo());
-				throw new RuntimeException(); // 최상위 예외 
+		// 파일이 있을 경우에만
+		if(mf != null) {
+			for(MultipartFile m : mf) {
+				String contentType = m.getContentType();
+				String originName = m.getOriginalFilename();
+				long size = m.getSize();
+				String extension = originName.substring(originName.lastIndexOf(".") + 1); // 확장자 구하기
+				String filename = UUID.randomUUID().toString().replace("-", ""); // URL
+				
+				System.out.println("contentType"+ contentType);
+				System.out.println("originName"+originName);
+				System.out.println("size" +size);
+				System.out.println("extension" +extension);
+				System.out.println("filename" + filename);
+				
+				MemberBoardfile memberBoardfile = new MemberBoardfile();
+				memberBoardfile.setBoardNo(memberBoard.getBoardNo());
+				memberBoardfile.setContentType(contentType);
+				memberBoardfile.setOriginName(originName);
+				memberBoardfile.setSize(size);
+				memberBoardfile.setExtension(extension);
+				memberBoardfile.setFilename(filename);
+				mbf.add(memberBoardfile);
+				
+				row = memberBoardfileMapper.insertMemberBoardfile(memberBoardfile);
+				
+				
+				File file = new File("C:\\Temp\\files\\" + filename +"."+ extension);
+				// 파일로 저장
+				try {
+					m.transferTo( file );
+				}  catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("memberBoardNo : " + memberBoard.getBoardNo());
+					throw new RuntimeException(); // 최상위 예외 
+				}
+				
+				
 			}
-			*/
-			
 		}
 
 		System.out.println("파일 업로드 : " + row);
@@ -97,6 +102,7 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		return row;
 	}
 	
+	// 게시판 페이징 리스트
 	@Override
 	public List<MemberBoard> getBoardList(int currentPage, int rowPerPage, String searchWord) {
 		Page page = new Page();
@@ -109,6 +115,7 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		return list;
 	}
 	
+	// 게시판 상세보기
 	@Override
 	public MemberBoard getBoardOne(int boardNo) {
 		MemberBoard memberBoard = memberBoardMapper.selectMemberBoardOne(boardNo);
@@ -139,6 +146,27 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		return row;
 	}
 	
+	// 댓글 입력
+	@Override
+	public int addMemberBoardComment(MemberBoardComment memberBoardComment) {
+		int row = memberBoardMapper.insertComment(memberBoardComment);
+		System.out.println("row : " + row);
+		return row;
+	}
+	
+	// 댓글 리스트
+	@Override
+	public List<MemberBoardComment> getCommentList(int boardNo) {
+		return memberBoardMapper.selectCommentList(boardNo);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public int removeComment(MemberBoardComment memberBoardComment) {
+		int row = memberBoardMapper.deleteComment(memberBoardComment);
+		System.out.println("row : " + row);
+		return row;
+	}
 }
 
 

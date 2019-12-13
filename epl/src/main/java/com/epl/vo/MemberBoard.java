@@ -11,5 +11,6 @@ public class MemberBoard {
 	private String boardContent;
 	private String boardUser;
 	private String boardDate;
+	private String memberNickName;
 	private List<MemberBoardfile> memberBoardfile;
 }

@@ -107,10 +107,14 @@
 				save,
 				save_on_pk,
 				save_on_fk,
+				yellow_card,
+				red_card,
 				start_time,
 				end_time)
 				VALUES(#{matchNo},
 				#{playerNo},
+				'0',
+				'0',
 				'0',
 				'0',
 				'0',
@@ -165,6 +169,8 @@
 				save			AS save,
 				save_on_pk		AS saveOnPk,
 				save_on_fk		AS saveOnFk,
+				yellow_card 	AS yellowCard,
+				red_card		AS redCard,
 				start_time		AS startTime,
 				end_time		AS endTime
 			FROM 
@@ -300,6 +306,8 @@
 			save		=	#{save},
 			save_on_PK	=	#{saveOnPk},
 			save_on_FK	=	#{saveOnFk},
+			yellow_card = 	#{yellowCard},
+			red_card 	=  	#{redCard},
 			start_time	=	#{startTime},
 			end_time	=	#{endTime},
 			active		=	'F'	 
@@ -317,6 +325,8 @@
 			save		=	#{save},
 			save_on_PK	=	#{saveOnPk},
 			save_on_FK	=	#{saveOnFk},
+			yellow_card = 	#{yellowCard},
+			red_card 	=  	#{redCard},
 			start_time	=	#{startTime},
 			end_time	=	#{endTime},
 			active		=	'T'	 
@@ -437,4 +447,34 @@ AND match_no =  #{matchNo}
 		AND 
 			match_no = #{matchNo}
 	</delete>
+	
+	<select	id = "selectMatchKeeperT"
+			parameterType="com.epl.vo.MatchNoTeamName"
+			resultType="com.epl.vo.InGamePosition">
+		SELECT player_no AS player_no, 
+		   (SELECT player_name 
+		   FROM player 
+		   WHERE player_no=match_goalkeeper.player_no) AS 'playerName',
+		   (SELECT player_position 
+		   FROM player 
+		   WHERE player_no=match_goalkeeper.player_no) AS 'playerPosition',
+		   (SELECT uniform_back_number 
+		   FROM player_contract 
+		   WHERE player_no=match_goalkeeper.player_no 
+		   AND contract_end >= CURDATE()) 'uniformBackNumber',
+		   case when start_time=
+		      (SELECT match_time 
+		      FROM match_schedule 
+		      WHERE match_no = #{matchNo}) then '키퍼' 
+		   END as inGamePosition
+		FROM match_goalkeeper
+		WHERE player_no 
+		IN (
+		   SELECT player_no
+		   FROM player_contract
+		   WHERE contract_end >= CURDATE()
+		   AND team_name = #{teamName})
+		AND match_no = #{matchNo}
+		AND active = 'T'
+	</select>
 </mapper>

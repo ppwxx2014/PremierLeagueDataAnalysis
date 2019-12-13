@@ -301,10 +301,11 @@
    	
      
   // 홈팀 메인 ,서브, 키퍼  어웨이팀 메인 ,서브 ,키퍼 select 박스에 있는 선수들의 밸류값(playerNo)를 뺴와 리스트에 넣는다
-  	var mainPlayerNo = [];
-  	var KeeperNo = [];
-  	var subPlayerNo = [];
+  	
    	$("#insertMatchPlayer").click(function() {
+   		var mainPlayerNo = [];
+   	  	var KeeperNo = [];
+   	  	var subPlayerNo = [];
    	// Hm
    		var homeTeamMainNo = [];
     	$('#hMainPlayer > option').each(function(){
@@ -357,6 +358,7 @@
     	console.log(mainPlayerNo);
     	console.log(KeeperNo);
     	console.log(subPlayerNo);
+    	console.log("matchNo");
     	console.log($("#matchList").val());
    
     	//받은 20+14+2 의 리스트(playerNo)를 넘겨 DB에 각각 insert한다

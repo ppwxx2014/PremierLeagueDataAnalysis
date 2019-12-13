@@ -61,6 +61,7 @@ public interface MatchService {
 	
 	public List<InGamePosition> getMainAndKeeper(MatchNoTeamName matchNoTeamName);
 	public List<InGamePosition> getCommutablePlayer(MatchNoTeamName matchNoTeamName);
+	public InGamePosition getMatchKeeperT(MatchNoTeamName matchNoTeamName);
 	
 	public int removeMatchPlayer(MatchPlayer matchPlayer);
 }

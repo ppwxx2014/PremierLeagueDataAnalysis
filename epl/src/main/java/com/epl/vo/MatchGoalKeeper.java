@@ -9,6 +9,8 @@ public class MatchGoalKeeper {
 	private int save;
 	private int saveOnPk;
 	private int saveOnFk;
+	private int yellowCard;
+	private int redCard;
 	private String startTime;
 	private String endTime;
 }

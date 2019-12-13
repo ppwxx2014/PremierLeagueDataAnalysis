@@ -195,4 +195,12 @@ public class MatchListServiceImpl implements MatchService {
 		int check = matchMapper.deleteMatchPlayer(matchPlayer);
 		return check;
 	}
+	
+	@Override
+	public InGamePosition getMatchKeeperT(MatchNoTeamName matchNoTeamName)
+	{
+		InGamePosition list = matchMapper.selectMatchKeeperT(matchNoTeamName);
+		System.out.println("service - getInGamePosition : "+list);
+		return list;
+	}
 }

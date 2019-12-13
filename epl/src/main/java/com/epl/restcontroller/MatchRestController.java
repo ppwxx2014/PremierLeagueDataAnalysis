@@ -190,6 +190,7 @@ public class MatchRestController
 		return check;
 	}
 	
+	// 매치선수를 기록하는매서드
 	@PostMapping("/modifyMatchPlayer")
 	public int modifyMatchPlayer(MatchPlayer matchPlayer)
 	{
@@ -208,6 +209,7 @@ public class MatchRestController
 		return check; 
 	}
 	
+	//교체된 키퍼의 시작시간을 현재시간으로 업데이트하는 매서드
 	@PostMapping("/modifyMatchPlayerT")
 	public int modifyMatchPlayerT(MatchPlayer matchPlayer)
 	{
@@ -226,6 +228,7 @@ public class MatchRestController
 		return check; 
 	}
 	
+	//골을 넣을시 골테이블에 기록하는매서드
 	@PostMapping("/addMatchGoals")
 	public int addMatchGoals(MatchGoals matchGoals)
 	{
@@ -237,6 +240,7 @@ public class MatchRestController
 		return check; 
 	}
 	
+	//자살골을 자살골테이블에 기록하는 매서드
 	@PostMapping("/addMatchOwnGoals")
 	public int addMatchOwnGoals(MatchOwnGoals matchOwnGoals)
 	{
@@ -248,6 +252,7 @@ public class MatchRestController
 		return check; 
 	}
 	
+	//골을 넣은후 결과테이블에 점수를 추가하는 매서드
 	@PostMapping("/modifyMatchResultByGoal")
 	public int modifyMatchResultByGoal(MatchGoals matchGoals)
 	{
@@ -259,6 +264,7 @@ public class MatchRestController
 		return check;
 	}
 	
+	//자살골을 넣은후 결과 테이블에 점수를 추가하는 매서드
 	@PostMapping("/modifyMatchResultByOwnGoal")
 	public int modifyMatchResultByOwnGoal(MatchOwnGoals matchOwnGoals)
 	{
@@ -270,21 +276,39 @@ public class MatchRestController
 		return check;
 	}
 	
+	//골키퍼의 기록을 입력하는 매서드
 	@PostMapping("/modifyMatchKeeper")
 	public int modifyMatchKeeper(MatchGoalKeeper matchGoalKeeper)
 	{
 		System.out.println("-----modifyMatchKeeper restController 진입-----");
 		System.out.println("입력할 키퍼의 기록 : "+ matchGoalKeeper);
+		if(matchGoalKeeper.getStartTime().equals(""))
+		{
+			matchGoalKeeper.setStartTime(null);
+		}
+		if(matchGoalKeeper.getEndTime().equals(""))
+		{
+			matchGoalKeeper.setEndTime(null);
+		}
 		int check = matchService.modifyMatchKeeper(matchGoalKeeper);
 		System.out.println("키퍼 기록 업데이트 성공? : "+ check);
 		return check;
 	}
 	
+	//교체된 골키퍼의 시작시간을 현재시간으로 업데이트하는 매서드
 	@PostMapping("/modifyMatchKeeperT")
 	public int modifyMatchKeeperT(MatchGoalKeeper matchGoalKeeper)
 	{
 		System.out.println("-----modifyMatchKeeper restController 진입-----");
 		System.out.println("입력할 키퍼의 기록 : "+ matchGoalKeeper);
+		if(matchGoalKeeper.getStartTime().equals(""))
+		{
+			matchGoalKeeper.setStartTime(null);
+		}
+		if(matchGoalKeeper.getEndTime().equals(""))
+		{
+			matchGoalKeeper.setEndTime(null);
+		}
 		int check = matchService.modifyMatchKeeperT(matchGoalKeeper);
 		System.out.println("키퍼 기록 업데이트 성공? : "+ check);
 		return check;
@@ -312,6 +336,7 @@ public class MatchRestController
 			return list;
 		}
 	
+	// 해당하는 팀의 모든선수들을 출력하는매서드
 	@PostMapping("/getPlayerListByTeamName")
 	public List<PlayerInfo> selectPlayerByTeam(@RequestParam("teamName") String teamName)
 	{
@@ -321,6 +346,7 @@ public class MatchRestController
 		return list;
 	}
 	
+	//후보선수가 골키퍼로 투입될때 플레이어테이블에서 지우는 매서드
 	@PostMapping("/removeMatchPlayer")
 	public int removeMatchPlayer(MatchPlayer matchPlayer)
 	{
@@ -330,12 +356,32 @@ public class MatchRestController
 		return check;
 	}
 	
+	//후보선수가 골키퍼로 교체될때 키퍼테이블에 후보선수를 입력하는 매서드
 	@PostMapping("/addMatchKeeper")
 	public int addMatchKeeper(MatchPlayerNo matchPlayerNo)
 	{
-		System.out.println("-----removeMatchPlayer restController 진입-----");
+		System.out.println("-----addMatchKeeper restController 진입-----");
 		System.out.println("입력할 교대 골키퍼 MatchNo.playerNo,startTime : " + matchPlayerNo);
 		int check = matchService.addKeeper(matchPlayerNo);
 		return 0;
+	}
+	
+	//진행중인 게임의 우리팀 키퍼가 퇴장당했는지 검색하는 매서드
+	@PostMapping("/checkMatchKeeperT")
+	public int checkMatchKeeperT(MatchNoTeamName matchNoTeamName)
+	{
+		System.out.println("-----checkMatchKeeperT restController 진입-----");
+		System.out.println("이경기 이팀에 우리 골키퍼가 ative인지 검색 : " + matchNoTeamName);
+		int check = 10;
+		if(matchService.getMatchKeeperT(matchNoTeamName)==null)
+		{
+			check = 0;
+		}
+		else
+		{
+			check = 1;
+		}
+		System.out.println("??? :" + check);
+		return check;
 	}
 }

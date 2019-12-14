@@ -98,4 +98,7 @@ public interface MatchMapper {
 	
 	//후보선수가 골키퍼와 교체될때 matchPlayer테이블의 행을 지운다
 	public int deleteMatchPlayer(MatchPlayer matchPlayer);
+	
+	//이경기 우리팀의 최근 퇴장당한 골키퍼퍼의 퇴장 시간을 가져온다
+	public InGamePosition selectLatelyEndTimeOfKeeper(MatchNoTeamName matchNoTeamName);
 }

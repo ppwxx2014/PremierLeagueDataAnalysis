@@ -25,7 +25,7 @@ import com.epl.vo.Team;
 
 @Service
 @Transactional
-public class MatchListServiceImpl implements MatchService {
+public class MatchServiceImpl implements MatchService {
 	@Autowired
 	private MatchMapper matchMapper;
 	
@@ -202,5 +202,12 @@ public class MatchListServiceImpl implements MatchService {
 		InGamePosition list = matchMapper.selectMatchKeeperT(matchNoTeamName);
 		System.out.println("service - getInGamePosition : "+list);
 		return list;
+	}
+	
+	@Override
+	public InGamePosition getLatelyEndTimeOfKeeper(MatchNoTeamName matchNoTeamName)
+	{
+		InGamePosition check = matchMapper.selectLatelyEndTimeOfKeeper(matchNoTeamName);
+		return check;
 	}
 }

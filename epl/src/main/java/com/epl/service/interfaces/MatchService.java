@@ -64,4 +64,6 @@ public interface MatchService {
 	public InGamePosition getMatchKeeperT(MatchNoTeamName matchNoTeamName);
 	
 	public int removeMatchPlayer(MatchPlayer matchPlayer);
+	
+	public InGamePosition getLatelyEndTimeOfKeeper(MatchNoTeamName matchNoTeamName);
 }

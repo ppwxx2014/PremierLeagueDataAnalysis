@@ -10,4 +10,5 @@ public class InGamePosition
 	private String playerPosition;
 	private int uniformBackNumber;
 	private String inGamePosition;
+	private String endTime;
 }

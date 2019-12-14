@@ -116,7 +116,7 @@
 				'0',
 				'0',
 				'0',
-				'0',
+				#{yellowCard},
 				'0',
 				#{matchTime},
 				null
@@ -476,5 +476,32 @@ AND match_no =  #{matchNo}
 		   AND team_name = #{teamName})
 		AND match_no = #{matchNo}
 		AND active = 'T'
+	</select>
+	
+	<select id = "selectLatelyEndTimeOfKeeper"
+			parameterType = "com.epl.vo.MatchNoTeamName"
+			resultType = "com.epl.vo.InGamePosition">
+		SELECT player_no AS player_no,end_time AS endTime, 
+		   (SELECT player_name 
+		   FROM player 
+		   WHERE player_no=match_goalkeeper.player_no) AS 'playerName',
+		   (SELECT player_position 
+		   FROM player 
+		   WHERE player_no=match_goalkeeper.player_no) AS 'playerPosition',
+		   (SELECT uniform_back_number 
+		   FROM player_contract 
+		   WHERE player_no=match_goalkeeper.player_no 
+		   AND contract_end >= CURDATE()) 'uniformBackNumber'
+		FROM match_goalkeeper
+		WHERE player_no 
+		IN (
+		   SELECT player_no
+		   FROM player_contract
+		   WHERE contract_end >= CURDATE()
+		   AND team_name = #{teamName})
+		AND match_no = #{matchNo}
+		AND active = 'F'
+		ORDER BY end_time DESC
+		LIMIT 1
 	</select>
 </mapper>

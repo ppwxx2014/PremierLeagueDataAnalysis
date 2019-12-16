@@ -21,7 +21,6 @@ public class TeamController {
 
 	@GetMapping("/addTeam")
 	public String addTeam(HttpSession session, Team team, Model model) {
-
 		team = (Team) session.getAttribute("team");
 		model.addAttribute("team", team);
 		return "club/addTeam";

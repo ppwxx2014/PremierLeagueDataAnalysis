@@ -1,0 +1,212 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        <!-- 경로 표시 -->
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>
+									<font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">전체 게시판 목록</font></font>
+								</h1>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- /#경로 표시 -->
+        <!-- Content -->
+		<div class="content">
+			<div class="row">
+				<div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                        	<div class="row">
+								<div class="col-lg-9">
+                            		<strong class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">전체 게시판</font></font></strong>
+                        		</div>
+                        		<div align="right" class="col-lg-3">
+                        			<a href="adminBoardList">more▶</a>
+                        		</div>
+                        	</div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-sm" id="totalBoardList" style="font-size: 0.8em;">
+                            	
+	                        </table>
+                    	</div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                        	<div class="row">
+								<div class="col-lg-9">
+                            		<strong class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">자유 게시판</font></font></strong>
+                        		</div>
+                        		<div align="right" class="col-lg-3">
+                        			<a href="adminBoardList?category=자유 게시판">more▶</a>
+                        		</div>
+                        	</div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-sm" id="generalBoardList" style="font-size: 0.8em;">
+                                
+	                        </table>
+                    	</div>
+                    </div>
+                </div><div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+							<div class="row">
+								<div class="col-lg-9">
+	                            		<strong class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">팀 게시판</font></font></strong>
+                        		</div>
+                        		<div align="right" class="col-lg-3">
+                        			<a href="adminBoardList?category=team">more▶</a>
+                        		</div>
+                        	</div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-sm" id="teamBoardList" style="font-size: 0.8em;">
+                            	
+	                        </table>
+                    	</div>
+                    </div>
+                </div><div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+								<div class="col-lg-9">
+                            		<strong class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">토론 게시판</font></font></strong>
+                        		</div>
+                        		<div align="right" class="col-lg-3">
+                        			<a href="#">more▶</a>
+                        		</div>
+                        	</div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-sm"  style="font-size: 0.8em;">
+                                <tr class="d-flex">
+                                    <td class="col-2">1132222</td>
+                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
+                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
+                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-2">1132222</td>
+                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
+                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
+                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-2">1132222</td>
+                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
+                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
+                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-2">1132222</td>
+                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
+                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
+                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-2">1132222</td>
+                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
+                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
+                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
+                                </tr>
+	                        </table>
+                    	</div>
+                    </div>
+                </div>
+			</div>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+	$.ajax({
+		url:"/getBoardList",
+		method:"POST",
+		success:function(json){
+			console.log(json);
+			$("#totalBoardList").empty();
+			$(json).each(function(index,item){
+				temp="<tr class='d-flex' onclick=\"location.href='adminBoardOne?boardNo="+item.boardNo+"'\"><td class='col-2'>"+item.boardNo+"</td>"+
+				"<td class='col-8'><font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+
+                "<font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>"+item.boardTitle+"</font></font></td>"+
+                "<td class='col-2'><font color='#19BE14' style='font-weight: bold;'>"+item.boardUser+"</font></td></tr>";
+				$("#totalBoardList").append(temp);
+			});
+		}
+	});
+	$.ajax({
+		url:"/getBoardList",
+		method:"POST",
+		data:{category:"자유 게시판"},
+		success:function(json){
+			console.log(json);
+			$("#generalBoardList").empty();
+			$(json).each(function(index,item){
+				temp="<tr class='d-flex' onclick=\"location.href='adminBoardOne?boardNo="+item.boardNo+"'\"><td class='col-2'>"+item.boardNo+"</td>"+
+				"<td class='col-8'><font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+
+                "<font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>"+item.boardTitle+"</font></font></td>"+
+                "<td class='col-2'><font color='#19BE14' style='font-weight: bold;'>"+item.boardUser+"</font></td></tr>";
+				$("#generalBoardList").append(temp);
+			});
+		}
+	});
+	$.ajax({
+		url:"/getBoardList",
+		method:"POST",
+		data:{category:"team"},
+		success:function(json){
+			console.log(json);
+			$("#teamBoardList").empty();
+			$(json).each(function(index,item){
+				temp="<tr class='d-flex' onclick=\"location.href='adminBoardOne?boardNo="+item.boardNo+"'\"><td class='col-2'>"+item.boardNo+"</td>"+
+				"<td class='col-8'><font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+
+                "<font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>"+item.boardTitle+"</font></font></td>"+
+                "<td class='col-2'><font color='#19BE14' style='font-weight: bold;'>"+item.boardUser+"</font></td></tr>";
+				$("#teamBoardList").append(temp);
+			});
+		}
+	});
+    </script>
+</body>
+</html>

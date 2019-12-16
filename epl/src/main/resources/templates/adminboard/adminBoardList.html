@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        <!-- 경로 표시 -->
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>
+									<span id="breadTitle">전체 게시판</span> 목록
+								</h1>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- /#경로 표시 -->
+        <!-- Content -->
+		<div class="content">
+			<div class="card">
+                            <div class="card-header">
+                                <strong class="card-title" id="cardTitle">전체 게시판</strong>
+                            </div>
+                            <div class="card-body">
+					<div id="bootstrap-data-table_wrapper"
+						class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+						<div class="row">
+							<div class="col-sm-12 col-md-6">
+								<div id="bootstrap-data-table_filter" class="dataTables_filter">
+									<label><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">수색:</font></font><input
+										type="search" class="form-control form-control-sm"
+										placeholder="" aria-controls="bootstrap-data-table"></label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<table id="table"
+									class="table "
+									role="grid" aria-describedby="bootstrap-data-table_info">
+									<thead  >
+										<tr class="row">
+											<th class="col-2">.no</th>
+											<th class="col-6">제목</th>
+											<th class="col-2">작성자</th>
+											<th class="col-2">날짜</th>
+										</tr>
+									</thead>
+									<tbody id="boardList">
+										<tr class="row">
+											<td class="col-2">1233</td>
+											<td class="col-6">존나 하기싫다</td>
+											<td class="col-2">ㄹㅇㄹㅇ</td>
+											<td class="col-2">1202.21.21.212121</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-md-5">
+							</div>
+							<div class="col-sm-12 col-md-7">
+								<div class="dataTables_paginate paging_simple_numbers"
+									id="bootstrap-data-table_paginate">
+									<ul class="pagination">
+										<li class="paginate_button page-item previous disabled"
+											id="bootstrap-data-table_previous"><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="0"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">이전</font></font></a></li>
+										<li class="paginate_button page-item active"><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="1"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">1</font></font></a></li>
+										<li class="paginate_button page-item "><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="2"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">2</font></font></a></li>
+										<li class="paginate_button page-item "><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="3"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">삼</font></font></a></li>
+										<li class="paginate_button page-item "><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="4"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">4</font></font></a></li>
+										<li class="paginate_button page-item "><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="5"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">5</font></font></a></li>
+										<li class="paginate_button page-item "><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="6"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">6</font></font></a></li>
+										<li class="paginate_button page-item next"
+											id="bootstrap-data-table_next"><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="7"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;">다음</font></font></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                        </div>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	console.log(searchParam("category"));
+	$.ajax({
+		url:"/getBoardList",
+		method:"POST",
+		data:{category:searchParam("category")},
+		success:function(json){
+			console.log(json);
+			$("#boardList").empty();
+			
+			$(json).each(function(index,item){
+				temp="<tr class='row'><td class='col-2'>"+item.boardNo+"</td>"+
+				"<td class='col-6'>"+item.boardTitle+"</td>"+
+				"<td class='col-2'>"+item.boardUser+"</td>"+
+				"<td class='col-2'>"+item.boardDate+"</td></tr>";
+				$("#boardList").append(temp);
+			});
+		}
+	});
+	if(searchParam("category")==="자유 게시판"){
+		$("#breadTitle").html("자유 게시판");
+		$("#cardTitle").html("자유 게시판");
+	}else if(!(searchParam("category")==null)){
+		$("#breadTitle").html("팀 게시판");
+		$("#cardTitle").html("팀 게시판");
+	}
+    </script>
+</body>
+</html>

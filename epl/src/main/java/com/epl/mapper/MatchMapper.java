@@ -15,11 +15,7 @@ import com.epl.vo.MatchPlayerNo;
 import com.epl.vo.MatchRefree;
 import com.epl.vo.MatchResult;
 import com.epl.vo.MatchSchedule;
-import com.epl.vo.Player;
 import com.epl.vo.PlayerInfo;
-import com.epl.vo.Refree;
-import com.epl.vo.Team;
-import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 
 @Mapper
 public interface MatchMapper {
@@ -101,4 +97,19 @@ public interface MatchMapper {
 	
 	//이경기 우리팀의 최근 퇴장당한 골키퍼퍼의 퇴장 시간을 가져온다
 	public InGamePosition selectLatelyEndTimeOfKeeper(MatchNoTeamName matchNoTeamName);
+	
+	// 경기 점수를 보여줌
+	public MatchResult selectMatchScore(int matchNo);
+	
+	// 
+	public int updateMatchF(int matchNo);
+	public int updatePlayerF(int matchNo);
+	public int updateKeeperF(int matchNo);
+	
+	//
+	public int updateMatchResult(MatchResult matchResult);
+	
+	
+	
+	
 }

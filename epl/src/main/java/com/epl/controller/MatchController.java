@@ -23,4 +23,9 @@ public class MatchController {
 		System.out.println("----------addPlayerRecord----------");
 		return "/match/addPlayerRecord";
 	}
+	@GetMapping("/finishMatch")
+	public String finishMatch() {
+		System.out.println("----------finishMatch----------");
+		return "/match/finishMatch";
+	}
 }

@@ -322,6 +322,12 @@ public class MatchRestController
 		System.out.println("가져올 선수리스트의 경기NO와 팀이름 : "+ matchNoTeamName);
 		List<InGamePosition> list = matchService.getMainAndKeeper(matchNoTeamName);
 		System.out.println(list);
+		for (InGamePosition a: list) {
+			if(a.getInGamePosition()==null)
+			{
+				a.setInGamePosition("교체 투입된 키퍼");
+			}
+		}
 		return list;
 	}
 	
@@ -402,4 +408,75 @@ public class MatchRestController
 		int check = matchService.addKeeper(matchPlayerNo);
 		return check;
 	}
+	
+	@PostMapping("/finishMatch")
+	public int finishMatch(@RequestParam(value = "matchNo") int matchNo) {
+		System.out.println("-----finishMatch restController 진입-----");
+		System.out.println("matchNo : " + matchNo);
+		int check1 = matchService.modifyMatchScheduleF(matchNo);
+		int check2 = matchService.modifyPlayerF(matchNo);
+		int check3 = matchService.modifyKeeperF(matchNo);
+		
+		System.out.println(check1 + check2 + check3);
+		MatchResult matchResult = matchService.getMatchScore(matchNo);
+		System.out.println(matchResult);
+		
+		int hometeamGoals = matchResult.getHometeamGoals();
+		int awayteamGoals = matchResult.getAwayteamGoals();
+		
+		String hometeamName = matchResult.getHometeamName();
+		String awayteamName = matchResult.getAwayteamName();
+		
+		
+		
+		if(hometeamGoals > awayteamGoals) {
+			matchResult.setWinnerteamName(hometeamName);
+		} else if(awayteamGoals > hometeamGoals) {
+			matchResult.setWinnerteamName(awayteamName);
+		} else if(hometeamGoals == awayteamGoals) {
+			matchResult.setWinnerteamName("draw");
+		}
+		
+		int check4 = matchService.modifyMatchResult(matchResult);
+		
+		System.out.println("4가 나오면 성공: " + check1+check2+check3+check4);
+		
+		int row = check1+check2+check3+check4;
+		
+		return row;
+	}
+	
+	@PostMapping("/getMatchScore")
+	public MatchResult getMatchScore(@RequestParam(value = "matchNo") int matchNo) {
+		System.out.println("-----getMatchScore restController 진입-----");
+		System.out.println("matchNo : " + matchNo);
+		
+		MatchResult matchResult = matchService.getMatchScore(matchNo);
+		System.out.println(matchResult);
+		
+		return matchResult;
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Template</title>
+<th:block th:include="template/part/headLayout"></th:block>
+<link rel="stylesheet" type="text/css" href="/datepicker.css">
+<body>
+
+<div class="content">
+	
+	 <select id = "unFinishedmatch"></select>
+
+	 <table class = "table">
+	 	<tr>
+	 		<td id = "hometeamName">HomeTeam</td>
+	 		<td>VS</td>
+	 		<td	id = "awayteamName">AwayTeam</td>
+	 	</tr>
+	 	<tr>
+	 		<td></td>
+	 		<td id = "stadium">경기장 : </td>
+	 		<td></td>
+	 	</tr>
+	 	<tr>
+	 		<td	id = "hometeamGoals">0</td>
+	 		<td id = "matchDate">날짜  : </td>
+	 		<td	id = "awayteamGoals">0</td>
+	 	</tr>
+	 	<tr>
+	 		<td></td>
+	 		<td id = "matchTime">시간  :</td>
+	 		<td></td>
+	 	</tr>
+	 </table>
+	 
+	 <button id = "activeF">경기 종료</button>
+
+</div>
+	
+<script>
+	//match schedule 에서 active가 T인 경기들의 리스트를 가져와 select에 추가한다
+	$.ajax({
+        url:"/getMatchList",
+        method:"POST",
+        success:function(json){
+           console.log(json);
+           $("#unFinishedmatch").empty();
+           $("#unFinishedmatch").append("<option value='none'>--선택--</option>")
+           $(json).each(function(index,item){
+              temp="<option value='";
+              temp+=item.matchNo;
+              temp+="'>";
+              temp+=item.matchDate+"  "+item.hometeamName+"  vs  "+item.awayteamName;
+              temp+="</option>";
+              $("#unFinishedmatch").append(temp);
+           });
+        }
+     });
+	
+	$("#unFinishedmatch").change(function() {
+		$.ajax({
+            url:"/getMatchOne",
+            method:"POST",
+            data:{"matchNo":$("#unFinishedmatch").val()},
+            success:function(json){
+            	console.log(json);
+            	$("#homeTeamName").empty();
+            	$("#awayTeamName").empty();
+            	
+            	$("#hometeamName").append(json.hometeamName);
+            	$("#awayteamName").append(json.awayteamName);
+            	$("#stadium").append(json.stadiumName);
+            	$("#matchDate").append(json.matchDate);
+            	$("#matchTime").append(json.matchTime);
+            	//결기 결과 테이블 select
+            	$.ajax({
+            		url:"/getMatchScore",
+            		method: "post",
+            		data:{"matchNo":$("#unFinishedmatch").val()},
+            		success:function(json) {
+            			console.log(json);
+                    	$("#hometeamGoals").text(json.hometeamGoals);
+                    	$("#awayteamGoals").text(json.awayteamGoals);
+            		}
+            	});
+			}
+		})
+	})
+	
+	$("#activeF").click(function() {
+		$.ajax({
+            url:"/finishMatch",
+            method:"POST",
+            data:{"matchNo":$("#unFinishedmatch").val()},
+            success:function(json) {
+            	console.log("")
+            	console.log(json);
+			}
+		})
+	})
+
+</script>
+
+</body>
+</html>

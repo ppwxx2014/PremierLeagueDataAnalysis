@@ -8,6 +8,6 @@ public class MatchResult {
 	private String hometeamName;
 	private String awayteamName;
 	private String winnerteamName;
-	private int hometeamgoals;
-	private int awayteamgoals;
+	private int hometeamGoals;
+	private int awayteamGoals;
 }

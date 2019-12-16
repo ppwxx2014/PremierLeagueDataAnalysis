@@ -369,6 +369,7 @@ AND start_time=
       (SELECT match_time 
       FROM match_schedule 
       WHERE match_no = #{matchNo})
+AND active = 'T'
 UNION
 SELECT player_no AS player_no, 
    (SELECT player_name 
@@ -394,6 +395,7 @@ IN (
    WHERE contract_end >= CURDATE()
    AND team_name = #{teamName})
 AND match_no =  #{matchNo}
+AND active = 'T'
 	</select>
 	
 	<select id = "selectCommutablePlayer"
@@ -504,4 +506,59 @@ AND match_no =  #{matchNo}
 		ORDER BY end_time DESC
 		LIMIT 1
 	</select>
+	
+	<update id = "updateMatchF"
+			parameterType="int">
+	UPDATE
+	match_schedule 
+	SET
+		active = 'F'
+	WHERE
+	match_no = #{matchNo}
+	</update>
+	
+	<update id = "updatePlayerF"
+			parameterType="int">
+	UPDATE
+	match_player
+	SET
+		active = 'F'
+	WHERE
+	match_no = #{matchNo}			
+	</update>
+	
+	<update id = "updateKeeperF"
+			parameterType="int">
+	UPDATE
+	match_goalkeeper
+	SET
+		active = 'F'
+	WHERE
+	match_no = #{matchNo}
+	</update>
+	
+	<select id = "selectMatchScore"
+			parameterType = "int"
+			resultType="com.epl.vo.MatchResult">
+		SELECT 
+		hometeam_name AS hometeamName,
+		awayteam_name as awayteamName,
+		hometeam_goals AS hometeamGoals, 
+		awayteam_goals as awayteamGoals,
+		match_no as matchNo
+		FROM match_result
+		where match_no = #{matchNo}
+	</select>
+	
+	<update id = "updateMatchResult"
+			parameterType = "com.epl.vo.MatchResult">
+		UPDATE match_result 
+		SET
+		winnerteam_name = #{winnerteamName}
+		WHERE
+		match_no = #{matchNo}
+	</update>
 </mapper>
+
+
+

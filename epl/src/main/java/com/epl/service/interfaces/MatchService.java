@@ -66,4 +66,25 @@ public interface MatchService {
 	public int removeMatchPlayer(MatchPlayer matchPlayer);
 	
 	public InGamePosition getLatelyEndTimeOfKeeper(MatchNoTeamName matchNoTeamName);
+	
+	public MatchResult getMatchScore(int matchNo);
+	
+	//////
+	public int modifyMatchScheduleF(int matchNo);
+	public int modifyPlayerF(int matchNo);
+	public int modifyKeeperF(int matchNo);	
+	
+	//
+	public int modifyMatchResult(MatchResult matchResult);
 }
+
+
+
+
+
+
+
+
+
+
+

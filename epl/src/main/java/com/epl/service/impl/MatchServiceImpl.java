@@ -26,8 +26,7 @@ import com.epl.vo.Team;
 @Service
 @Transactional
 public class MatchServiceImpl implements MatchService {
-	@Autowired
-	private MatchMapper matchMapper;
+	@Autowired private MatchMapper matchMapper;
 	
 	@Override
 	public String getStadiumByTeamName(String teamName) {
@@ -210,4 +209,55 @@ public class MatchServiceImpl implements MatchService {
 		InGamePosition check = matchMapper.selectLatelyEndTimeOfKeeper(matchNoTeamName);
 		return check;
 	}
+	
+	@Override
+	public MatchResult getMatchScore(int matchNo) {
+		System.out.println(matchNo);
+		MatchResult matchResult = matchMapper.selectMatchScore(matchNo);
+		System.out.println(matchResult);
+		return matchResult;
+	}
+	
+	@Override
+	public int modifyKeeperF(int matchNo) {
+		System.out.println(matchNo);
+		int row = matchMapper.updateKeeperF(matchNo);
+		System.out.println(row);
+		return row;
+	}
+	
+	@Override
+	public int modifyMatchScheduleF(int matchNo) {
+		System.out.println(matchNo);
+		int row = matchMapper.updateMatchF(matchNo);
+		System.out.println(row);
+		return row;
+	}
+	
+	@Override
+	public int modifyPlayerF(int matchNo) {
+		System.out.println(matchNo);
+		int row = matchMapper.updatePlayerF(matchNo);
+		System.out.println(row);
+		return row;
+	}
+	
+	@Override
+	public int modifyMatchResult(MatchResult matchResult) {
+		System.out.println(matchResult);
+		int row = matchMapper.updateMatchResult(matchResult);
+		System.out.println(row);
+		return row;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -10,6 +10,7 @@ import com.epl.mapper.MemberPlayerMapper;
 import com.epl.service.interfaces.MemberplayerService;
 import com.epl.vo.Page;
 import com.epl.vo.Player;
+import com.epl.vo.PlayerAppearance;
 import com.epl.vo.PlayerContract;
 
 @Service
@@ -40,5 +41,11 @@ public class MemberPlayerServiceImpl implements MemberplayerService {
 		System.out.println(playerNo);
 		System.out.println("playercontract:"+playercontract);
 		return playercontract;
+	}
+	@Override
+	public PlayerAppearance getMemberPlayerAppearances(int playerNo) {
+		PlayerAppearance playerAppearance = memberPlayerMapper.selectMemberPlayerAppearances(playerNo);
+		System.out.println("playerAppearance:"+playerAppearance);
+		return playerAppearance;
 	}
 }

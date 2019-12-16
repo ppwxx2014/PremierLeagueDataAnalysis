@@ -47,4 +47,10 @@
 		WHERE
 		player_no = #{playerNo}
 	</select>
+	<select id ="selectMemberPlayerAppearances" resultType="com.epl.vo.PlayerAppearance" parameterType="int">
+		SELECT
+			COUNT(player_no) as appearances
+		FROM match_player
+		WHERE player_no = #{playerNo}
+	</select>
 </mapper>

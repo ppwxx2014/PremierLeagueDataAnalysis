@@ -2,7 +2,9 @@ package com.epl.service.interfaces;
 
 import java.util.List;
 
+
 import com.epl.vo.Player;
+import com.epl.vo.PlayerAppearance;
 import com.epl.vo.PlayerContract;
 
 public interface MemberplayerService {
@@ -11,4 +13,6 @@ public interface MemberplayerService {
 	public Player getMemberPlayerOne(int playerNo);
 	
 	public PlayerContract getMemberPlayerInfo(int playerNo);
+	
+	public PlayerAppearance getMemberPlayerAppearances(int playerNo);
 }

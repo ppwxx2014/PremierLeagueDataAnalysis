@@ -12,6 +12,7 @@
 		stadium_name as stadiumName
 		FROM team
 	</select>
+	
 	<select id="selectMatchSchedule"
 		resultType="com.epl.vo.MatchSchedule">
 		SELECT
@@ -22,5 +23,26 @@
 		match_time as matchTime,
 		stadium_name as stadiumName
 		FROM match_schedule
+	</select>
+	
+	<select id = "selectLiveMatchList"
+			resultType = "com.epl.vo.MatchResult">
+		SELECT 
+		   match_no AS matchNo,
+		   hometeam_name AS hometeamName,
+		   awayteam_name AS awayteamName,
+		   hometeam_goals AS hometeamGoals,
+		   awayteam_goals AS awayteamGoals
+		FROM match_result
+		WHERE match_no 
+		IN(
+			SELECT 
+			   match_no AS matchNo
+			FROM 
+			   match_schedule
+			WHERE match_date = CURDATE()
+			AND active = 'T'
+			AND <![CDATA[match_time < CURRENT_TIME()]]>
+			)
 	</select>
 </mapper>

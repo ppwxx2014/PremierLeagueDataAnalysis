@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.MemberIndexMapper;
 import com.epl.service.interfaces.MemberIndexService;
+import com.epl.vo.MatchResult;
 import com.epl.vo.MatchSchedule;
 import com.epl.vo.Team;
 @Service
@@ -28,5 +29,11 @@ public class MemberIndexServiceImpl  implements MemberIndexService {
 		List<MatchSchedule> list = memberIndexMapper.selectMatchSchedule();
 		return list;
 		
+	}
+	
+	@Override
+	public List<MatchResult> getLiveMatchList(){
+		List<MatchResult> list = memberIndexMapper.selectLiveMatchList();
+		return list;
 	}
 }

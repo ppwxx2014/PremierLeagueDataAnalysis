@@ -27,6 +27,10 @@ background-color: #ffffff;
 	                <div class="col-12 col-md-6 col-lg-8">
 						<img class="float-left" alt="index" src="/images/indexhead.jpg">
 	                </div>
+	                <div id = "liveMatch">
+	                
+	                </div>
+	                
 					<div class="div-color">
 		                <div class="col-12 col-md-6 col-lg-4" align="center">
 		                    <span style="color:blue; font-weight:bold">MatchWeek</span>
@@ -459,45 +463,35 @@ background-color: #ffffff;
     <!-- ##### Footer Area Start ##### -->
     <div th:include ="/member/template/layout/footer::footer"></div>
     <!-- ##### Footer Area End ##### -->
+    
 </body>
-<script type="text/javascript">
-	$(document).ready(function(){
+<!-- autocomplete from jQuery Ui -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
 		$.ajax({	
-			url:"/user/getTeamRank",
+			url:"/member/getLiveMatchList",
 			method:"POST",
 			success:function(json){
-				$("#teamRank").empty();
-				let rank = 1;
+				$("#liveMatch").empty();
 				$(json).each(function(index, item){
 					console.log(json);
 					
-					temp = "<tr><td>"+rank+"</td>";
-					temp += "<td> <img width='15' height='15' src='/images/teamlogo/"+item.teamName+".png'> "+item.teamName+"</td>";
-					temp += "<td>"+16+"</td>";
-					temp += "<td>"+16+"</td>";
-					temp += "<td>"+16+"</td></tr>";
-					$("#teamRank").append(temp);
-					rank+=1;
+						temp = "<table class = 'table'><tr><td>";
+						temp += item.hometeamName;
+						temp += "</td><td>VS</td><td>"
+						temp +=	item.awayteamName;
+						temp +=	"</td></tr>";
+						temp += "<tr><td>";
+						temp +=	item.hometeamGoals;
+						temp +=	"</td><td></td><td>"
+						temp += item.awayteamGoals;
+						temp +="</td></tr></table>";
+						$("#liveMatch").append(temp);	
 				});
 			}
 		});
-		$.ajax({	
-			url:"/user/getMatchSchedule",
-			method:"POST",
-			success:function(json){
-				$("#matchSchedule").empty();
-				$(json).each(function(index, item){
-					console.log(json);
-					
-					temp = "<a href='#'>";
-					temp += "<span>"+item.hometeamName+"<img width='15' height='15' src='/images/teamlogo/"+item.hometeamName+".png'></span>";
-					temp += "<span>"+item.hometeamgoals+"<span>-</span>"+item.awayteamgoals+"</span><span>";
-					temp += "<span><img width='15' height='15' src='/images/teamlogo/"+item.awayteamName+".png'>"+item.awayteamName+"</span></a>";
-					$("#matchSchedule").append(temp);
-				});
-			}
-		});
-	
-	});
+
 </script>
 </html>

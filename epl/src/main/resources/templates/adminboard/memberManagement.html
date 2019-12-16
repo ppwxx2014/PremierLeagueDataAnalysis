@@ -1,0 +1,124 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        <!-- 경로 표시 -->
+		<div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">유저 리스트</font></font></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="index"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">홈</font></font></a></li>
+                                    <li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">유저</font></font></a></li>
+                                    <li class="active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">유저 리스트</font></font></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#경로 표시 -->
+        <!-- Content -->
+		<div class="content">
+			<div class="animated fadeIn">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">유저 리스트 </strong>
+							</div>
+							<div class="card-body">
+							
+									<div id="bootstrap-data-table_filter" class="dataTables_filter">
+										<label>검색(닉네임) : </label><label>
+										<input type="search" class="form-control form-control-sm"  id ="searchWord"
+											placeholder="" aria-controls="bootstrap-data-table"></label>
+											
+										<button class="btn btn-sm btn-primary" type="submit" id="search">검색</button>
+									</div>
+								<table id="bootstrap-data-table"
+									class="table table-striped">
+									<thead>
+										<tr>
+											<td>닉네임</td>
+											<td>이메일</td>
+											<td>나이</td>
+											<td>성별</td>
+											<td>작성 글 수</td>
+											<td>작성 댓글 수</td>
+										</tr>
+									</thead>
+									<tbody  id="userList">
+
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+									<li class="page-item"><a class="page-link" id="preBtn">이전</a></li>
+									<li class="page-item"><a class="page-link" id="nextBtn">다음</a></li>
+								</ul>
+						</div>
+					</div>
+				</div>
+			</div><!-- .animated -->
+		</div></div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    $.ajax({
+		url:"/getMemberList",	
+		method:"Post",
+		success:function(json){
+			$("#userList").empty();
+			$(json).each(function(index, item){
+				console.log(item);
+				temp = "<tr><td>"+item.memberNickName+"</td>"+
+				"<td>"+item.memberEmail+"</td>"+
+				"<td>"+item.memberAge+"</td>"+
+				"<td>"+item.memberGender+"</td>"+
+				"<td>"+item.boardCount+"</td>"+
+				"<td>"+item.commentCount+"</td></tr>";
+				$("#userList").append(temp);
+			});
+		}
+	});
+    </script>
+</body>
+</html>

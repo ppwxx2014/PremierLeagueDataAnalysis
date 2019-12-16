@@ -19,10 +19,13 @@
 			<when test = 'category=="자유 게시판"'>
 	      		WHERE board_category='자유 게시판'
 			</when>
+			<when test = 'category=="토론 게시판"'>
+	      		WHERE board_category='토론 게시판'
+			</when>
 			<when test = 'category==null or category==""'>
 			</when>
 			<otherwise>
-	      		WHERE NOT board_category = '자유 게시판'
+				WHERE board_category NOT IN ('자유 게시판','토론 게시판')
 			</otherwise>
 		</choose>
 		ORDER BY mb.board_date DESC 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.epl.mapper.AdminMemberManagementMapper">
+	<select id="selectAdminMemberList" resultType="com.epl.vo.MemberInfo">
+		SELECT member_email AS memberEmail,
+			member_nick_name AS memberNickName,
+			member_age AS memberAge,
+			member_gender AS memberGender,
+			(SELECT COUNT(*) FROM member_board WHERE board_user = member.member_email) AS boardCount,
+			(SELECT COUNT(*) FROM member_board_comment WHERE comment_user = member.member_email) AS commentCount
+		FROM member
+	</select>
+</mapper>
+
+
+

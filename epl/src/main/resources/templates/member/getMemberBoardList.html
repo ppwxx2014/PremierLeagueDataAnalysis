@@ -5,16 +5,33 @@
     <!-- Title -->
     <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
     <th:block th:include = "/member/template/layout/headLayout"></th:block>
-
+<style type="text/css">
+	.bg_color{
+	background-color: #ff0000;
+	}
+</style>
 </head>
 
 <body>
     <!-- ##### TopBar Area Start ##### -->
    	<th:block th:include = "/member/template/layout/topBar"></th:block>
     <!-- ##### TopBar Area End ##### -->
-    <br><br><br><br><br><br>
+    <div class="bg_color">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9">
+					<br><br><br>
+						<h1 class="text-white">커뮤니티 게시판</h1>
+					<br>
+				</div>
+				<div class="col-sm-3">
+					<img alt="boaradimg" src="images/boardimg.png" width=400px height=auto> 
+				</div>
+			</div>
+		</div>
+	</div>
+    <br>
 	<div class = "container">
-		<h1>게시글 목록</h1>
 		<div id="bootstrap-data-table_filter" class="dataTables_filter">
 			<label>검색(제목) : </label>
 			<label> 

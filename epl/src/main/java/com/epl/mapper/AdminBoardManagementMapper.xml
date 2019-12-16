@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.epl.mapper.AdminBoardManagementMapper">
+	<select id="selectAdminBoardList" parameterType="String"
+		resultType="com.epl.vo.MemberBoard">
+		SELECT
+			mb.board_no as boardNo,
+			mb.board_title as boardTitle,
+			m.member_nick_name as boardUser,
+			mb.board_date as boardDate,
+			mb.board_category as boardCategory
+		FROM member_board mb
+		INNER JOIN member m
+		ON mb.board_user=m.member_email
+      	<choose>
+			<when test = 'category=="자유 게시판"'>
+	      		WHERE board_category='자유 게시판'
+			</when>
+			<when test = 'category==null or category==""'>
+			</when>
+			<otherwise>
+	      		WHERE NOT board_category = '자유 게시판'
+			</otherwise>
+		</choose>
+		ORDER BY mb.board_date DESC 
+		LIMIT 10
+
+	</select>
+	<select id="selectAdminBoardOne" 
+		resultType="com.epl.vo.MemberBoard">
+		SELECT
+			mb.board_no as boardNo,
+			mb.board_title as boardTitle,
+			mb.board_content as boardContent,
+			mb.board_date as boardDate,
+			m.member_nick_name as boardUser,
+			mb.board_category as boardCategory
+		FROM member_board mb
+		INNER JOIN member m
+		ON mb.board_user=m.member_email
+		WHERE board_no = #{boardNo}
+
+	</select>
+	<select id="selectAdminBoardComment" 
+		resultType="com.epl.vo.MemberBoardComment">
+		SELECT
+			comment_content as commentContent,
+			comment_user as commentUser,
+			comment_date as commentDate,
+			comment_no as commentNo
+		FROM member_board_comment
+		WHERE board_no = #{boardNo}
+
+	</select>
+	<delete id="deleteAdminBoardComment" parameterType="int">
+		DELETE FROM member_board_comment
+		WHERE comment_no=#{commentNo}
+	</delete>
+	<delete id="deleteAdminBoard" parameterType="int">
+		DELETE FROM member_board
+		WHERE board_no=#{boardNo}
+	</delete>
+	<delete id="deleteAdminBoardCommentAll" parameterType="int">
+		DELETE FROM member_board_comment
+		WHERE board_no=#{boardNo}
+	</delete>
+	<delete id="deleteAdminBoardFile" parameterType="int">
+		DELETE FROM member_boardfile
+		WHERE board_no=#{boardNo}
+	</delete>
+</mapper>
+
+
+

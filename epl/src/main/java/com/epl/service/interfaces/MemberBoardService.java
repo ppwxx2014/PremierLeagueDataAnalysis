@@ -20,6 +20,7 @@ public interface MemberBoardService {
 	
 	int MemberBoardCount(Page page);
 	
+	
 	// 댓글 입력 인터페이스
 	int addMemberBoardComment(MemberBoardComment memberBoardComment);
 	

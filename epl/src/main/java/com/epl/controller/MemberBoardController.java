@@ -30,9 +30,15 @@ public class MemberBoardController {
 	// 게시글 상세보기
 	@GetMapping("/getMemberBoardListOne")
 	public String getMemberBoardListOne(@RequestParam(value = "boardNo", required = true) int boardNo, HttpSession session){
-		session.setAttribute("boardNo", boardNo);
-		System.out.println("MemberBoardC request boardNo : " + boardNo);
+		System.out.println("boardNo");
 		return "member/getMemberBoardListOne";	
+	}
+	
+	// 게시글 상세보기
+	@GetMapping("/modifyMemberBoard")
+	public String modifyBoard(@RequestParam(value = "boardNo", required = true) int boardNo, HttpSession session){
+		System.out.println("boardNo");
+		return "member/modifyMemberBoard";	
 	}
 }
 

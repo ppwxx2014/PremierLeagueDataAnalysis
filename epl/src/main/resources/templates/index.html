@@ -65,7 +65,7 @@
 							<div class="card-body">
 								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 회원 관리(미구현)　　</button>
 								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 공지사함 관리(미구현)</button>
-								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 게시판 관리(미구현)　</button>
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'adminBoardAllCategory'"><i class="fa fa-user"></i> 게시판 관리　</button>
 								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-user"></i> 기타 등등(미구현)　</button>
 							</div>
 						</div>
@@ -91,7 +91,7 @@
 					<div class="col-lg-6">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="mb-3">Line Chart</h4>
+								<h4 class="mb-3">페이지 방문자 수</h4>
 								<div class="flot-container">
 									<div id="chart1" style="width: 100%; height: 275px;"></div>
 								</div>
@@ -110,7 +110,7 @@
 							style="vertical-align: inherit;"><font
 								style="vertical-align: inherit;">관리자</font></font></strong>
 					</div>
-					<div class="table-stats order-table ov-h">
+					<div class=" order-table ov-h">
 						<table class="table ">
 							<thead>
 								<tr>
@@ -243,22 +243,6 @@
 					label : " EPL 1",
 					data : 15,
 					color : "#324336"
-				}, {
-					label : " EPL 2",
-					data : 15,
-					color : "#474336"
-				}, {
-					label : " EPL 3",
-					data : 15,
-					color : "#584336"
-				}, {
-					label : " EPL 4",
-					data : 15,
-					color : "#694336"
-				}, {
-					label : " EPL 5",
-					data : 15,
-					color : "#740336"
 				} ];
 
 				var plotObj = $.plot($("#flot-pie"), data, {

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epl.service.interfaces.PlayerRecodeService;
@@ -19,29 +20,27 @@ public class PlayerRecodeRestController {
 	@Autowired PlayerRecodeService playerRecodeService;
 	
 	@PostMapping("/getMemberPlayerRecode")
-	public MatchPlayer getMemberPlayerRecode(HttpSession session) {
-		int playerNo = (int)session.getAttribute("playerNo");
+	public MatchPlayer getMemberPlayerRecode(@RequestParam(value = "playerNo")int playerNo) {
+
 		MatchPlayer matchPlayer = playerRecodeService.getMemberPlayerRecode(playerNo);
 		System.out.println("conmatchPlayer:"+matchPlayer);
 		return matchPlayer;
 	}
 	@PostMapping("/getMemberPlayerGoals")
-	public MatchGoals getMemberPlayerGoals(HttpSession session) {
-		int playerNo = (int)session.getAttribute("playerNo");
+	public MatchGoals getMemberPlayerGoals(@RequestParam(value = "playerNo")int playerNo) {
+
 		MatchGoals matchGoals = playerRecodeService.getMemberPlayerGoals(playerNo);
 		System.out.println("conmatchGoals:"+matchGoals);
 		return matchGoals;
 	}
 	@PostMapping("/getMemberPlayerOwnGoals")
-	public MatchOwnGoals getMemberPlayerOwnGoals(HttpSession session) {
-		int playerNo = (int)session.getAttribute("playerNo");
+	public MatchOwnGoals getMemberPlayerOwnGoals(@RequestParam(value = "playerNo")int playerNo) {
 		MatchOwnGoals matchOwnGoals = playerRecodeService.getMemberPlayerOwnGoals(playerNo);
 		System.out.println("matchOwnGoals:"+matchOwnGoals);
 		return matchOwnGoals;
 	}
 	@PostMapping("/getMemberGoalKeeperRecode")
-	public MatchGoalKeeper getMemberGoalKeeperRecode(HttpSession session) {
-		int playerNo = (int)session.getAttribute("playerNo");
+	public MatchGoalKeeper getMemberGoalKeeperRecode(@RequestParam(value = "playerNo")int playerNo) {
 		MatchGoalKeeper matchGoalKeeper = playerRecodeService.getMemberGoalKeeperRecode(playerNo);
 		System.out.println("conmatchGoalKeeper:"+matchGoalKeeper);
 		return matchGoalKeeper;

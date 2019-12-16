@@ -384,4 +384,22 @@ public class MatchRestController
 		System.out.println("??? :" + check);
 		return check;
 	}
+	
+	@PostMapping("/getLatelyEndTimeOfKeeper")
+	public InGamePosition getLatelyEndTimeOfKeeper(MatchNoTeamName matchNoTeamName)
+	{
+		System.out.println("-----getLatelyEndTimeOfKeeper restController 진입-----");
+		System.out.println("최근에 퇴장당한 키퍼의 퇴장시간을 검색(팀이름 경기No) : " + matchNoTeamName);
+		InGamePosition check = matchService.getLatelyEndTimeOfKeeper(matchNoTeamName);
+		return check;
+	}
+	
+	@PostMapping("/insertPlayerToKeeper")
+	public int addPlayerToKeeper(MatchPlayerNo matchPlayerNo)
+	{
+		System.out.println("-----addPlayerToKeeper restController 진입-----");
+		System.out.println("선수가 키퍼로투입됨 : " + matchPlayerNo);
+		int check = matchService.addKeeper(matchPlayerNo);
+		return check;
+	}
 }

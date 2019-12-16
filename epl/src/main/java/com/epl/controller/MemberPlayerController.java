@@ -21,11 +21,11 @@ public class MemberPlayerController {
 	@GetMapping("/getMemberPlayerList")
 	public String getUserPlayerList(){
 		
-		return "/getMemberPlayerList"; 
+		return "member/getMemberPlayerList"; 
 	}
 	@GetMapping("/getMemberPlayerOne")
 	public String getUserPlayerOne(@RequestParam(value = "playerNo", required = true)int playerNo, HttpSession session) {
 		session.setAttribute("playerNo", playerNo);
-		return "/getMemberPlayerOne";
+		return "member/getMemberPlayerOne";
 	}
 }

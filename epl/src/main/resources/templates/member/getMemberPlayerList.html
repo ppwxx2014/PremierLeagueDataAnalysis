@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+	
+    <!-- Title -->
+    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+    <th:block th:include = "/member/template/layout/headLayout"></th:block>
+</head>
+
+
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/member/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+    <section class="newspaper-team mb-30">
+		<br><br><br><br>
+		<div class = "container">
+			
+					<div class="animated fadeIn">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">선수 </strong>
+							</div>
+							<div class="card-body">
+							
+									<div id="bootstrap-data-table_filter" class="dataTables_filter">
+										<label>검색(선수 이름) : </label><label>
+										<input type="search" class="form-control form-control-sm"  id ="searchWord"
+											placeholder="" aria-controls="bootstrap-data-table"></label>
+											
+										<button class="btn btn-sm btn-primary" type="submit" id="search">검색</button>
+									</div>
+								<table id="bootstrap-data-table"
+									class="table table-striped">
+									<thead>
+										<tr>
+											<td>선수 번호</td>
+											<td>선수 이름</td>
+											<td>선수 생일</td>
+											<td>출신 국가</td>
+											<!-- <td>선수 포지션</td> -->
+										</tr>
+									</thead>
+									<tbody  id="list">
+
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+									<li class="page-item"><a class="page-link" id="preBtn">이전</a></li>
+									<li class="page-item"><a class="page-link" id="nextBtn">다음</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+    <!-- ##### Footer Area Start ##### -->
+    <th:block th:include = "/member/template/layout/footer"></th:block>
+    <!-- ##### Footer Area End ##### -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+let currentPage = 1;
+$.ajax({
+	url : "/getMemberPlayerList",
+	method : "post",
+	// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+	success : function(json) {
+		//console.log("getPlayerList json 값 확인 :" + json);
+		$(json).each(function(index, item) {
+			temp = "<tr><td>";
+			temp += item.playerNo;
+			temp += "</td><td><a href = '/getMemberPlayerOne?playerNo="+item.playerNo+"'>";
+			temp +=	item.playerName + "</a></td>";
+			temp += "</a></td><td>";
+			temp += item.birthDate;
+			temp += "</td><td>" 
+			temp +=	item.country ;
+			temp += "</td></tr>";
+			$("#list").append(temp);
+		});
+	}
+});
+// 검색 단어 저장
+let searchWord = null;
+
+// 검색
+$("#search").click(function(){
+	
+	searchWord = $("#searchWord").val();
+	
+	console.log("searchWord 검색 실행! searchWord :"+searchWord);
+	
+	$("#list").empty(); // 요청 중복을 막기 위해 청소
+	$.ajax({
+		url : "/getMemberPlayerList" ,
+		method :"post",
+		async : false,
+		data : {"currentPage" : currentPage, "searchWord" : searchWord},
+		success : function(json){
+			console.log("getPlayerList json 값 확인 :" + json);
+			$(json).each(function(index, item) {
+				temp = "<tr><td>";
+				temp += item.playerNo;
+				temp += "</td><td><a href = '/getMemberPlayerOne?playerNo="+item.playerNo+"'>";
+				temp +=	item.playerName + "</a></td>";
+				temp += "</a></td><td>";
+				temp += item.birthDate;
+				temp += "</td><td>" 
+				temp +=	item.country ;
+				temp += "</td></tr>";
+				$("#list").append(temp);
+				
+				
+				
+			});
+		}
+	});
+});
+
+// 이전버튼
+$("#preBtn").click(function() {
+	console.log("이전 버튼 클릭! 현제 currentPage : " + currentPage);
+	console.log("searchWord 값 검색 searchWord :"+searchWord);
+	if (currentPage === 1) {
+		alert("현재 1페이지입니다.");
+		return;
+	}
+
+	currentPage--;
+	console.log("바뀐  currentPage :" + currentPage);
+
+	$("#list").empty(); // 요청 중복을 막기 위해 청소
+
+	$.ajax({
+		url : "/getMemberPlayerList",
+		method : "post",
+		async : false,
+		data : {"currentPage" : currentPage, "searchWord" : searchWord},
+		// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+		success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+			console.log("getPlayerList json 값 확인 :" + json);
+			$(json).each(function(index, item) {
+				temp = "<tr><td>";
+				temp += item.playerNo;
+				temp += "</td><td><a href = '/getMemberPlayerOne?playerNo="+item.playerNo+"'>";
+				temp +=	item.playerName + "</a></td>";
+				temp += "</a></td><td>";
+				temp += item.birthDate;
+				temp += "</td><td>" 
+				temp +=	item.country ;
+				temp += "</td></tr>";
+				$("#list").append(temp);
+			});
+		}
+	});
+});
+
+// 다음버튼
+$("#nextBtn").click(
+		function() {
+			console.log("다음 버튼 클릭! 현제 currentPage : " + currentPage);
+			// db에서 전체 데이터 사이즈를 가지고 온다.
+			let count = 0;
+			$.ajax({
+				url : "/getPlayerListCount",
+				method : "post",
+				// 비동기 요청 : false
+				async : false,
+				success : function(json) {
+					console.log("선수의 수"+json);
+					count = Number(json);
+					console.log("count :"+count);
+				}
+			});
+			
+			// 마지막페이지
+			let lastPage = Math.ceil(count/10); // rowPerPage = 10
+			if(currentPage == lastPage) {
+				alert("마지막 페이지입니다~");
+				return;
+			}
+			
+			currentPage++;
+			
+			
+			console.log("바뀐  currentPage :" + currentPage);
+			console.log("lastPage :"+lastPage);
+			
+			$("#list").empty(); // 요청 중복을 막기 위해 청소
+			$.ajax({
+				url : "/getMemberPlayerList",
+				method : "post",
+				data : {"currentPage" : currentPage, "searchWord" : $("#searchWord").val()},
+				// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+				success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
+					console.log("getPlayerList json 값 확인 :" + json);
+					$(json).each(function(index, item) {
+						temp = "<tr><td>";
+						temp += item.playerNo;
+						temp += "</td><td><a href = '/getMemberPlayerOne?playerNo="+item.playerNo+"'>";
+						temp +=	item.playerName + "</a></td>";
+						temp += "</a></td><td>";
+						temp += item.birthDate;
+						temp += "</td><td>" 
+						temp +=	item.country ;
+						temp += "</td></tr>";
+						$("#list").append(temp);
+					});
+				}
+			});
+
+		});
+		
+
+
+</script>
+</body>
+</html>

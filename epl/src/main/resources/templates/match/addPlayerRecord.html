@@ -1136,6 +1136,56 @@
 						{
 							alert("이선수를 퇴장당한 골키퍼 대신투입");
 							//startTime을 최근퇴장당한키퍼의 endTime으로가져와야함
+							$.ajax({
+								url : "/getLatelyEndTimeOfKeeper",
+								method : "POST",
+								data : {"teamName" : $("#teamList").val(),
+										"matchNo" : $("#matchList").val()},
+								success : function(json) {
+									console.log("최근 퇴장당한 키퍼의 퇴장시간 : " + json.endTime);
+									var lateleyKeeperEndTime = json.endTime;
+									//기록중이던 기록을 저장한다
+									$.ajax({
+										url : "/modifyMatchPlayer",
+										method : "POST",
+										data : {
+											"playerNo" : $("#playerList").val(),
+											"matchNo" : $("#matchList").val(),
+											"shooting" : $("#shooting").text(),
+											"shootOnTarget" : $("#shootOnTarget").text(),
+											"pass" : $("#pass").text(),
+											"assist" : $("#assist").text(),
+											"poul" : $("#poul").text(),
+											"tackle" : $("#tackle").text(),
+											"offSide" : $("#offSide").text(),
+											"goalOnFk" : $("#goalOnFk").text(),
+											"goalOnPk" : $("#goalOnPk").text(),
+											"yellowCard" : $("#yellowCard").text(),
+											"redCard" : $("#redCard").text(),
+											"startTime" : $("#startTime").val(),
+											"endTime" : lateleyKeeperEndTime,
+										},
+										success : function(json) {
+											console.log("키퍼로 교체할선수의 선수기록 입력완료 : " + json);
+										}
+									})
+									//선수No와 경기No와 endTime을넘겨 새로운 골키퍼 행을만든다
+									$.ajax({
+										url : "/insertPlayerToKeeper",
+										method : "POST",
+										data : {
+											"playerNo" : $("#playerList").val(),
+											"matchNo" : $("#matchList").val(),
+											"yellowCard" : $("#yellowCard").text(),
+											"matchTime" : lateleyKeeperEndTime
+										},
+										success : function(json) {
+											console.log("선수가 키퍼로입력됨 : " + json);
+										}
+									})
+									//골키퍼페이지로이동
+									}
+								})
 						}
 					}
 		})

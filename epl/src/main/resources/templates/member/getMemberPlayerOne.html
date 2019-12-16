@@ -43,15 +43,13 @@
 						<h1 id = "backNumber"></h1>
 						<h2 id = "name"></h2>
 					<div>
-						<table border ="1" id ="playerName" style="vertical-align:middle; text-align: center;" class="table table-striped" height = "500">
+						<table id ="playerName" style="vertical-align:middle; text-align: center;" class="table table-bordered" height = "500">
 							
 						</table>
-					</div>
-					
-					
+					</div>	
 				</div>
 				<div>
-						<table border = "1" style="text-align: center;" class="table table-striped">
+						<table style="text-align: center;" class="table table-bordered">
 							<thead id = "state">
 								
 							</thead>
@@ -59,7 +57,7 @@
 					</div>
 				</div>
 				<div class = "container form-inline">
-					<table border = "1" style="text-align: center;" class = "table table-striped">
+					<table style="text-align: center;" class = "table table-bordered">
 						<thead id = "recode">
 						
 						</thead>
@@ -134,7 +132,7 @@ $.ajax({
 					console.log("save:"+save);
 					console.log("saveOnPk:"+saveOnPk);
 					console.log("saveOnFk:"+saveOnFk);
-					//골키퍼의 개인 기록을 테이블로 출력
+					//골키퍼의 개인 기록중 선방, 프리킥 방어, 패널티킥방어,패스를 테이블로 출력
 					$.ajax({
 				  		url:"/getMemberPlayerRecode",
 				  		method:"POST",
@@ -163,6 +161,7 @@ $.ajax({
 				  			 });
 				  		 }
 				  	  });
+					//골키퍼의 개인 기록중 옐로카드, 레드카드, 어시스트, 출전횟수를 테이블로 출력
 					$.ajax({
 						 url:"/getMemberPlayerRecode",
 						 method:"POST",
@@ -204,13 +203,25 @@ $.ajax({
 
 								Chart.defaults.global.defaultFontFamily = "Lato";
 								Chart.defaults.global.defaultFontSize = 18;
-
+								//데이터값 퍼센트화/ 소수둘째자리까지 출력
+								var total = save+saveOnPk+saveOnFk+item.pass+item.assist;
+								console.log("total:"+total);
+								var saveData = (save/total*100).toFixed(2);
+								var saveOnPkData = (saveOnPk/total*100).toFixed(2);
+								var saveOnFkData = (saveOnFk/total*100).toFixed(2);
+								var passData = (item.pass/total*100).toFixed(2);
+								var assistData = (item.assist/total*100).toFixed(2);
+								console.log("saveData:"+saveData);
+								console.log("saveOnPkData:"+saveOnPkData);
+								console.log("saveOnFkData:"+saveOnFkData);
+								console.log("passData:"+passData);
+								console.log("assistData:"+assistData);
 								var marksData = {
-								  labels: ["save", "saveOnPk", "saveOnFk","pass","assist"],
+								  labels: ["Save", "SaveOnPk", "SaveOnFk","Pass","Assist"],
 								  datasets: [{
 								    label:playerName,
-								    backgroundColor: "transparent",
-								    borderColor: "rgba(200,0,0,0.6)",
+								    backgroundColor: "#F78181",
+								    borderColor: "rgba(200,0,0,100.6)",
 								    fill: false,
 								    radius: 6,
 								    pointRadius: 6,
@@ -218,7 +229,7 @@ $.ajax({
 								    pointBackgroundColor: "red",
 								    pointBorderColor: "rgba(200,0,0,0.6)",
 								    pointHoverRadius: 10,
-								    data: [save,saveOnPk,saveOnFk,item.pass,item.assist]
+								    data: [saveData,saveOnPkData,saveOnFkData,passData,assistData]
 								  }]
 								};
 
@@ -227,7 +238,7 @@ $.ajax({
 									scale: {
 								    gridLines: {
 								      color: "black",
-								      lineWidth: 3
+								      lineWidth: 1
 								    },
 								    angleLines: {
 								      display: false
@@ -235,8 +246,8 @@ $.ajax({
 								    ticks: {
 								      beginAtZero: true,
 								      min: 0,
-								      max: 50,
-								      stepSize: 10
+								      max: 100,
+								      stepSize: 20
 								    },
 								    pointLabels: {
 								      fontSize: 13,
@@ -267,10 +278,26 @@ $.ajax({
 
 								Chart.defaults.global.defaultFontFamily = "Lato";
 								Chart.defaults.global.defaultFontSize = 18;
-
+								//데이터값 퍼센트화/ 소수둘째자리까지 출력
+								var total = save+saveOnPk+saveOnFk+item.pass+item.assist+item.yellowCard+item.redCard;
+								console.log("total:"+total);
+								var saveData = (save/total*100).toFixed(2);
+								var saveOnPkData = (saveOnPk/total*100).toFixed(2);
+								var saveOnFkData = (saveOnFk/total*100).toFixed(2);
+								var passData = (item.pass/total*100).toFixed(2);
+								var assistData = (item.assist/total*100).toFixed(2);
+								var yellowCardData = (item.yellowCard/total*100).toFixed(2);
+								var redCardData = (item.redCard/total*100).toFixed(2);
+								console.log("saveData:"+saveData);
+								console.log("saveOnPkData:"+saveOnPkData);
+								console.log("saveOnFkData:"+saveOnFkData);
+								console.log("passData:"+passData);
+								console.log("assistData:"+assistData);
+								console.log("yellowCardData:"+yellowCardData);
+								console.log("redCardData:"+redCardData);
 								var goalKeeperData = {
 								  label: playerName,
-								  data: [save,saveOnPk,saveOnFk,item.pass,item.assist,item.yellowCard,item.redCard],
+								  data: [saveData,saveOnPkData,saveOnFkData,passData,assistData,yellowCardData,redCardData],
 								  backgroundColor: [
 								    'rgba(0, 99, 132, 0.6)',
 								    'rgba(60, 99, 132, 0.6)',
@@ -308,8 +335,8 @@ $.ajax({
 								      },
 								      ticks: {
 								        min: 0,
-								        max: 40,
-								        stepSize: 5
+								        max: 100,
+								        stepSize:10
 								      },
 								      scaleLabel: {
 								        display: true,
@@ -319,7 +346,8 @@ $.ajax({
 								  },
 								  elements: {
 								    rectangle: {
-								      borderSkipped: 'left',
+								      borderSkipped: "left"
+								      
 								    }
 								  }
 								};
@@ -327,7 +355,7 @@ $.ajax({
 								var barChart = new Chart(densityCanvas, {
 								  type: 'horizontalBar',
 								  data: {
-								    labels: ["Save", "SaveOnPk", "SaveOnFk","Pass","Assist","yellowCard",""],
+								    labels: ["Save", "SaveOnPk", "SaveOnFk","Pass","Assist","YellowCard","RedCard"],
 								    datasets: [goalKeeperData],
 								  },
 								  options: chartOptions
@@ -370,7 +398,7 @@ $.ajax({
 			});
 				console.log("owngoal:"+ownGoal);
 				console.log("cgoal:"+goal);
-				//선수의 기록중 골,유효슈팅,패스,어시스트, 자살골횟수를 테이블로 출력
+				//선수의 기록중 골,유효슈팅,패스,어시스트, 출전횟수를 테이블로 출력
 			  	 $.ajax({
 			  		url:"/getMemberPlayerRecode",
 			  		method:"POST",
@@ -421,7 +449,7 @@ $.ajax({
 		 				temp +="태클";
 		 				temp +="</td><td bgcolor = '#F6CEF5'>";
 		 				temp +="파울";
-		 				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>"
+		 				temp +="</td></tr><tr><td bgcolor = '#F2F2F2'>";
 		 				temp +=item.yellowCard;
 		 				temp +="</td><td bgcolor = '#F2F2F2'>";
 		 				temp +=item.redCard;
@@ -436,7 +464,7 @@ $.ajax({
 					 });
 				 }
 			  });
-			  		
+			  
 			//선수의 기록을 방사형 차트로 출력
 			$.ajax({
 				url:"/getMemberPlayerRecode",
@@ -448,13 +476,27 @@ $.ajax({
 		
 						Chart.defaults.global.defaultFontFamily = "Lato";
 						Chart.defaults.global.defaultFontSize = 18;
-		
+						//데이터값 퍼센트화/ 소수둘째자리까지 출력
+						var total = goal+item.pass+item.shootOnTarget+item.tackle+item.assist+item.offside;
+						console.log("total:"+total);
+						var goalData = (goal/total*100).toFixed(2);
+						var passData = (item.pass/total*100).toFixed(2);
+						var shootData = (item.shootOnTarget/total*100).toFixed(2);
+						var tackleData = (item.tackle/total*100).toFixed(2);
+						var assistData = (item.assist/total*100).toFixed(2);
+						var offsideData = (item.offside/total*100).toFixed(2);
+						console.log("goalData:"+goalData);
+						console.log("passData:"+passData);
+						console.log("shootData:"+shootData);
+						console.log("tackleData:"+tackleData);
+						console.log("assistData:"+assistData);
+						console.log("offsideData:"+offsideData);
 						var marksData = {
-						  labels: ["Goal", "Pass", "Shoot", "Takle", "Assist", "offside"],
+						  labels: ["Goal", "Pass", "Shoot", "Tackle", "Assist", "Offside"],
 						  datasets: [{
 						    label: playerName,
-						    backgroundColor: "transparent",
-						    borderColor: "rgba(200,0,0,0.6)",
+						    backgroundColor: "#F78181",
+						    borderColor: "rgba(200,0,0,100.6)",
 						    fill: false,
 						    radius: 6,
 						    pointRadius: 6,
@@ -462,7 +504,7 @@ $.ajax({
 						    pointBackgroundColor: "red",
 						    pointBorderColor: "rgba(200,0,0,0.6)",
 						    pointHoverRadius: 10,
-						    data: [goal,item.pass,item.shootOnTarget,item.tackle,item.assist,item.offside]
+						    data: [goalData,passData,shootData,tackleData,assistData,offsideData]
 						  }]
 						};
 
@@ -470,7 +512,7 @@ $.ajax({
 						  scale: {
 						    gridLines: {
 						      color: "black",
-						      lineWidth: 3
+						      lineWidth: 1
 						    },
 						    angleLines: {
 						      display: false
@@ -478,8 +520,8 @@ $.ajax({
 						    ticks: {
 						      beginAtZero: true,
 						      min: 0,
-						      max: 30,
-						      stepSize: 5
+						      max: 100,
+						      stepSize: 20
 						    },
 						    pointLabels: {
 						      fontSize: 18,
@@ -511,10 +553,32 @@ $.ajax({
 
 						Chart.defaults.global.defaultFontFamily = "Lato";
 						Chart.defaults.global.defaultFontSize = 18;
-
+						//데이터값 퍼센트화/ 소수둘째자리까지 출력
+						var total = goal+item.shootOnTarget+item.pass+item.assist+item.foul+item.tackle+item.offside+item.yellowCard+item.redCard+ownGoal;
+						console.log("total:"+total);
+						var goalData = (goal/total*100).toFixed(2);
+						var shootData = (item.shootOnTarget/total*100).toFixed(2);
+						var passData = (item.pass/total*100).toFixed(2);
+						var assistData = (item.assist/total*100).toFixed(2);
+						var foulData = (item.foul/total*100).toFixed(2);
+						var tackleData = (item.tackle/total*100).toFixed(2);
+						var offsideData = (item.offside/total*100).toFixed(2);
+						var yellowCardData = (item.yellowCard/total*100).toFixed(2);
+						var redCardData = (item.redCard/total*100).toFixed(2);
+						var ownGoalData = (ownGoal/total*100).toFixed(2);
+						console.log("goalData:"+goalData);
+						console.log("shootData:"+shootData);
+						console.log("passData:"+passData);
+						console.log("assistData:"+assistData);
+						console.log("foulData:"+foulData);
+						console.log("tackleData:"+tackleData);
+						console.log("offsideData:"+offsideData);
+						console.log("yellowCardData:"+yellowCardData);
+						console.log("redCardData:"+redCardData);
+						console.log("ownGoalData:"+ownGoalData);
 						var playerData = {
 						  label: playerName,
-						  data: [goal,item.shootOnTarget,item.pass,item.assist,item.foul,item.tackle,item.offside,item.yellowCard,item.redCard,ownGoal],
+						  data: [goalData,shootData,passData,assistData,foulData,tackleData,offsideData,yellowCardData,redCardData,ownGoalData],
 						  backgroundColor: [
 							    'rgba(0, 99, 132, 0.6)',
 							    'rgba(30, 99, 132, 0.6)',
@@ -558,8 +622,8 @@ $.ajax({
 						      },
 						      ticks: {
 						        min: 0,
-						        max: 40,
-						        stepSize: 5
+						        max: 100,
+						        stepSize: 10
 						      },
 						      scaleLabel: {
 						        display: true,
@@ -577,7 +641,7 @@ $.ajax({
 						var barChart = new Chart(densityCanvas, {
 						  type: 'horizontalBar',
 						  data: {
-						    labels: ["Goal","shoot","pass","assist","foul","tackle","offside","yellowCard","redCard","ownGoal"],
+						    labels: ["Goal","Shoot","Pass","Assist","Foul","Tackle","Offside","YellowCard","RedCard","OwnGoal"],
 						    datasets: [playerData],
 						  },
 						  options: chartOptions

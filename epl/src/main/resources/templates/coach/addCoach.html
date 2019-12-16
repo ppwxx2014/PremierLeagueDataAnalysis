@@ -150,6 +150,7 @@
 		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
 	
 	});
+    	//나라 리스트 출력
 		$.ajax({
 			url:"/getCountry",
 			method:"POST",
@@ -165,11 +166,14 @@
 				});
 			}
 		});	
-	
+	//입력한 정보를 db에 저장
 	$("#add").click(function(){
 		console.log("name:"+$("#coachName").val());
 		console.log("birthDate:"+$("#birthDate").val());
 		console.log("Country:"+$("#country").val());
+		if($("#coachName").val()==""||$("#birthDate").val()==""||$("#country").val()=="none"){
+			alert("정보를 모두 입력해주세요");
+		}else{
 		$.ajax({
 			url:"/addCoach",
 			method:"POST",
@@ -182,6 +186,7 @@
 				location.href="/index"
 			}
 		});
+		}
 	});
     </script>
 </body>

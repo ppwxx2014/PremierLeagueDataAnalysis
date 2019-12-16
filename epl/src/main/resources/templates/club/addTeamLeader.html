@@ -196,7 +196,7 @@
 		
 	});
 	
-	
+		//팀 리스트 출력
 		$.ajax({
 			url:"/getTeamList",
 			method:"POST",
@@ -213,7 +213,7 @@
 			}
 		});
 
-	
+	//선택한 팀의 선수를 출력
 	$("#teamName").change(function(){
 		console.log("teamName:"+$("#teamName").val());
 		// console.log("list:"+$("#playerNo").val());
@@ -235,12 +235,16 @@
 			}
 		});
 	});
+	//입력한 정보를 db에 저장
 	$("#add").click(function(){
 		console.log("palyerName:"+$("#playerName").val());
 		console.log("playerNo:"+$("#playerNo").val());
 		console.log("teamName:"+$("#teamName").val());
 		console.log("startDate:"+$("#startDate").val());
 		console.log("endDate:"+$("#endDate").val());
+		if($("#playerName").val()==""||$("#startDate").val()==""||$("endDate").val==""){
+			alert("정보를 모두 입력해주세요");
+		}else{
 		$.ajax({
 			url:"/addTeamLeader",
 			method:"POST",
@@ -251,9 +255,10 @@
 			},
 			success:function(json){
 				alert("add teamLeader");
-				
+				location.href="/index"
 			}
 		});
+		}
 	});
     </script>
 </body>

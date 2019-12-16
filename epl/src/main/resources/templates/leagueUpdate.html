@@ -88,6 +88,7 @@
 	
     <!--Local Stuff-->
     <script>
+    //active값이 t인 팀리스트 출력
     $.ajax({
 		url:"/getTeamList",
 		method:"POST",
@@ -104,6 +105,7 @@
 			});
 		}
 	});
+    //하위리그. active값이 f인 팀리스트 출력
 	$.ajax({
 		url:"getDownTeamList",
 		method:"POST",
@@ -119,7 +121,9 @@
 			});
 		}
 	});
+    //순서대로 텍스트박스에 입력하기 위해 변수 선언
 	let count = 0;
+	//클릭시 상위리그 텍스트박스에 순서대로 정보가 입력
 	$("#add").click(function() {
 		count ++;
 		var Ateam = $("#teamList option:checked").text();
@@ -128,6 +132,7 @@
 			console.log(count);
 			$("#18th").val(Ateam);
 		}else if(count ==2){
+			//중복입력시
 			if($("#18th").val()==Ateam){
 				count =1;
 				alert("중복입력 불가! 다시 입력해주세요.");
@@ -145,7 +150,9 @@
 			$("#20th").val(Ateam);
 		}
 	});
+	//순서대로 텍스트박스에 입력하기 위해 변수 선언
 	let countT = 0;
+	//클릭시 하위리그 텍스트박스에 순서대로 정보가 입력
 	$("#addT").click(function(){
 		countT ++;
 		var Bteam = $("#bTeamList option:checked").text();
@@ -154,6 +161,7 @@
 			console.log(countT);
 			$("#1st").val(Bteam);
 		}else if(countT == 2){
+			//중복입력시
 			if($("#1st").val()==Bteam){
 				countT =1;
 				alert("중복입력 불가! 다시 입력해주세요.");
@@ -171,6 +179,7 @@
 			$("#3rd").val(Bteam);
 		}
 	});
+	//클릭시 전체 텍스트박스 초기화
 	$("#allDelete").click(function(){
 		$("#18th").val('');
 		$("#19th").val('');
@@ -181,6 +190,7 @@
 		count = 0;
 		countT = 0;
 	});
+	//클릭시 상위리그팀의 active값을 f로 하위리그 active값을 t로 변경
 	$("#drop").click(function(){
 		if(count<3 || countT<3){
 			alert("팀 정보를 입력하지 않으시거나 중복입력 하셨습니다. 팀 정보를 모두 입력해주세요.");

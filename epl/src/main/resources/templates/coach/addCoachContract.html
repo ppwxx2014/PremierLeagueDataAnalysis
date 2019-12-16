@@ -214,7 +214,7 @@
         }                
 		
 	});
-	
+	//감독의 리스트를 출력
 		$.ajax({
 			url:"/getCoachList",
 			method:"POST",
@@ -230,7 +230,7 @@
 				});
 			}
 		});
-	
+		//팀리스트 출력
 		$.ajax({
 			url:"/getTeamList",
 			method:"POST",
@@ -246,12 +246,16 @@
 				});
 			}
 		});
+	//입력한 정보를 db에 저장
 	$("#add").click(function(){
 		console.log("coachNo:"+$("#coachNo").val());
 		console.log("teamName:"+$("#teamName").val());
 		console.log("salary:"+$("#salary").val());
 		console.log("contractStart:"+$("#contractStart").val());
 		console.log("contractEnd:"+$("#contractEnd").val());
+		if($("#salary").val()==""||$("#contractStart").val()==""||$("#contractEnd").val()==""){
+			alert("정보를 모두 입력해주세요");
+		}else{
 		$.ajax({
 			url:"/addCoachContract",
 			method:"POST",
@@ -266,6 +270,7 @@
 				location.href="/index"
 			}
 		});
+		}
 	});
     </script>
 </body>

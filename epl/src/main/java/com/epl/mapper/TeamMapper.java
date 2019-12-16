@@ -10,7 +10,7 @@ import com.epl.vo.UpdateTeam;
 
 @Mapper
 public interface TeamMapper {
-	int insertTeam(Team team);
+	public int insertTeam(Team team);
 
 	public List<Stadium> selectStadiumList();
 

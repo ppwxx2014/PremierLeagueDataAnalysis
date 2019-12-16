@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.epl.service.interfaces.MemberplayerService;
 import com.epl.vo.Player;
+import com.epl.vo.PlayerAppearance;
 import com.epl.vo.PlayerContract;
 
 @RestController
@@ -31,20 +32,23 @@ public class MemberPlayerRestController {
 		return list;
 	}
 	@PostMapping("/getMemberPlayerOne")
-	public Player getMemberPlayerOne(HttpSession session) {
-		int playerNo = (int)session.getAttribute("playerNo");
+	public Player getMemberPlayerOne(@RequestParam(value = "playerNo")int playerNo) {
 		Player player = memberplayerService.getMemberPlayerOne(playerNo);
 		System.out.println("player:"+player);
-		
 		return player;
 	}
 	@PostMapping("/getMemberPlayerInfo")
-	public PlayerContract getMemberPlayerInfo(HttpSession session) {
-		int playerNo = (int)session.getAttribute("playerNo");
+	public PlayerContract getMemberPlayerInfo(@RequestParam(value = "playerNo")int playerNo) {
 		PlayerContract playercontract = memberplayerService.getMemberPlayerInfo(playerNo);
 		System.out.println("Conplayercontract:"+playercontract);
-		
 		System.out.println("con:"+playerNo);
 		return playercontract;
+	}
+	@PostMapping("/getMemberPlayerAppearances")
+	public PlayerAppearance getMemberPlayerAppearances(@RequestParam(value = "playerNo")int playerNo) {
+		System.out.println("playerNoplayerAppearance:"+playerNo);
+		PlayerAppearance playerAppearance = memberplayerService.getMemberPlayerAppearances(playerNo);
+		System.out.println("Appearance:"+playerAppearance);
+		return playerAppearance;
 	}
 }

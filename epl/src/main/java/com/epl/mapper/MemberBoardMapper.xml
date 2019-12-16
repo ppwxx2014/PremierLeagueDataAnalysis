@@ -6,24 +6,13 @@
 
 <mapper namespace="com.epl.mapper.MemberBoardMapper">
 
-	<!-- 글 수정 -->
-	<update id="updateMemberBoard"
-		parameterType="com.epl.vo.MemberBoard">
-		UPDATE member_board
-		SET board_title = #{boardTitle},
-		board_content = #{boardContent}
-		WHERE board_no = #{boardNo}
-		AND
-		board_user = #{memberId}
-	</update>
-	
 	<!-- 글 삭제 -->
 	<delete id="deleteMemberBoard"
 		parameterType="com.epl.vo.MemberBoard">
 		DELETE FROM member_board
 		WHERE board_no = #{boardNo}
 		AND
-		board_user = #{memberId}
+		board_user = #{boardUser}
 	</delete>
 
 	<!-- 게시판 리스트(페이징) -->
@@ -82,7 +71,18 @@
 		now()
 		)
 	</insert>
-
+	
+	<update id = "updateMemberBoard"
+			parameterType = "com.epl.vo.MemberBoard">
+		UPDATE member_board
+		SET board_title = #{boardTitle},
+			board_content = #{boardContent},
+			board_date = now()
+		WHERE board_no = #{boardNo}
+		AND
+		board_user = #{boardUser}		
+	</update>
+	
 	<!-- 게시판 글 목록의 총 갯수 -->
 	<select id="selectMemberBoardCount" resultType="int">
 		SELECT COUNT(*) FROM member_board
@@ -99,7 +99,7 @@
 		SELECT COUNT(*)
 		FROM member_board
 		WHERE board_no = #{boardNo}
-		AND board_user = #{memberId}
+		AND board_user = #{boardUser}
 	</select>
 
 	<!-- 게시판 댓글 관리 -->
@@ -140,8 +140,13 @@
     	DELETE FROM member_board_comment
     	WHERE comment_no = #{commentNo} AND comment_user = #{commentUser}		
     </delete>
+    
+    <delete id = "deleteCommentAll"
+    		parameterType = "int">
+    	DELETE FROM member_board_comment
+		WHERE board_no = #{boardNo}		
+    </delete>
 </mapper>
-
 
 
 

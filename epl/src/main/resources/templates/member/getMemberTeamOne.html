@@ -20,7 +20,11 @@
 	<script src="/summernote/summernote-bs4.js"></script>
 	
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
-	
+	<style type="text/css">
+.bg-color{
+background-color: #ff0000;
+}
+</style>
 </head>
 
 
@@ -28,35 +32,32 @@
     <!-- ##### TopBar Area Start ##### -->
    	<th:block th:include = "/member/template/layout/topBar"></th:block>
     <!-- ##### TopBar Area End ##### -->
-	<body class="bg-danger text-white">	
-	<div class="bg-danger text-white">
+	<body>	
+	<div class="bg-color">
 		<div class="container">
 			<div id="teamOne" class="row">
 			
 			</div>
 		</div>
 	</div>
-	<div class="bg-light text-dark">.</div>
-	<br>
+	
 	<div class="container">
-		<div class="bg-light text-dark">
-			<table class="table table-hover" >
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>PlayerName</th>
-						<th>Country</th>
-						<th>BirthDate</th>
-						<th>Height</th>
-						<th>Weight</th>
-						<th>PlayerPosition</th>
-					</tr>
-				</thead>
-				<tbody id = "playerList">
-				
-				</tbody>
-			</table>
-		</div>
+		<table class="table table-hover" >
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>PlayerName</th>
+					<th>Country</a></th>
+					<th>BirthDate</th>
+					<th>Height</th>
+					<th>Weight</th>
+					<th>PlayerPosition</th>
+				</tr>
+			</thead>
+			<tbody id = "playerList">
+			
+			</tbody>
+		</table>
 	</div>
     <section class="newspaper-team mb-30">
 		<br><br><br><br>
@@ -86,17 +87,17 @@ $(document).ready(function(){
 			$(json).each(function(index, item){
 			console.log("getMemberTeamOne 요청 성공");
 			console.log("team :"+json);
-				temp = "<div class='col-sm-3'><br><img src='/images/teamlogo/"+item.teamName+".png'></div>";
-				temp += "<div class='col-sm-5'><br>";
-				temp += "<div><h1>"+item.teamName+"</h1></div>";
-				temp += "<div><h3>"+item.nickName+"</h2></div>";
-				temp += "<div><h5>"+"Foundation : "+item.foundation+"</h5></div>";
-				temp += "<div><h5>"+"Stadium : "+item.stadiumName+"</h5></div>";
-				temp += "<div><h5>"+"HomePlace : "+item.homePlace+"</h5></div>";
-				temp += "<div><h5>"+"Rival : "+item.rival+"</h5></div>";
-				temp += "<div><h5>"+"Owner : "+item.owner+"</h5></div>";
+				temp = "<div class='col-sm-2'><br><img width=150px src='/images/teamlogo/"+item.teamName+".png'></div>";
+				temp += "<div class='col-sm-6 text-white'><br>";
+				temp += "<div><h2>"+item.teamName+"</h2></div>";
+				temp += "<div><h4>"+item.nickName+"</h4></div>";
+				temp += "<div>"+"Foundation : "+item.foundation+"</div>";
+				temp += "<div>"+"Stadium : "+item.stadiumName+"</div>";
+				temp += "<div>"+"HomePlace : "+item.homePlace+"</div>";
+				temp += "<div>"+"Rival : "+item.rival+"</div>";
+				temp += "<div>"+"Owner : "+item.owner+"</div>";
 				temp += "</div>";
-				temp += "<div class='col-sm-4'><img src='/images/stadium.png'></div>"
+				temp += "<div class='col-sm-4'><img width=370px src='/images/stadium.png'></div>"
 				$("#teamOne").append(temp); 
 			});		
 		}
@@ -112,7 +113,7 @@ $(document).ready(function(){
 			$(json).each(function(index, item){
 				console.log("getMemberPlayerList 요청 성공");
 				temp = "<tr><td>"+item.playerNo+"</td>";
-				temp += "<td>"+item.playerName+"</td>";
+				temp += "<td><a href='/getMemberPlayerOne?playerNo="+item.playerNo+"'>"+item.playerName+"</td>";
 				temp +=	"<td>"+item.country+"</td>";
 				temp +=	"<td>"+item.birthDate+"</td>";
 				temp += "<td>"+item.height+"</td>";

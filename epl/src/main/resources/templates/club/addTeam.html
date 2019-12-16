@@ -83,7 +83,7 @@
 							</label>
 						</div>
 						<div class="col-12 col-md-9">
-							<input type="text" id="teamName" name="text-input"
+							<input type="text" id="nickName" name="text-input"
 								placeholder="애칭 입력" class="form-control">
 						</div>
 					</div>
@@ -91,13 +91,14 @@
 						<div class="col col-md-3">
 							<label for="text-input" class=" form-control-label"> <font
 								style="vertical-align: inherit;"> <font
-									style="vertical-align: inherit;">창단일 : </font>
+									style="vertical-align: inherit;">창단 년도 : </font>
 							</font>
 							</label>
 						</div>
 						<div class="col-12 col-md-9">
-							<input type="date" id="foundation" name="text-input"
-								class="form-control">
+							<select name="select" id="foundation" class="form-control">
+   								<option value="none">창단 년도</option>
+							</select>
 						</div>
 					</div>
 					<div class="row form-group">
@@ -216,17 +217,11 @@
 
     <!--Local Stuff-->
     <script>
-    $("#foundation").datepicker({
-		dateFormat: 'yy-mm-dd',
-		changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
-
-		changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
-		minDate: '-100y', //현재 년부터 100년 전까지
-		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
-
-	});
-
-
+    //창단년도 출력
+    for(i=1900;i<2100;i++){
+    	$("#foundation").append("<option>"+i+"</option>");    }
+	
+		//경기장의 리스트를 출력
 		$.ajax({
 			url:"/getStadiumList",
 			method:"POST",
@@ -242,25 +237,35 @@
 				});
 			}
 		});
-
-
+	
+	//버튼 클릭시 db에 데이터 추가
 	$("#add").click(function(){
-		$.ajax({
-			url:"/addTeam",
-			method:"POST",
-			data:{"teamName" : $("#teamName").val(),
-				"nickName" : $("#nickName").val(),
-				"foundation" : $("#foundation").val(),
-				"stadiumName" : $("#stadiumName").val(),
-				"homePlace" : $("#homePlace").val(),
-				"rival" : $("#rival").val(),
-				"owner" : $("#owner").val()
-				},
-			success:function(json){
-				alert("add team");
-				location.href="/index"
-			}
-		});
+		if($("#teamName").val()=="" || $("#nickName").val()=="" || 
+				$("#homePlace").val()=="" || $("#rival").val()=="" || 
+				$("#owner").val()==""){
+			alert("모두 입력해주세요");
+			console.log($("#stadiumName").val());
+			console.log($("#teamName").val());
+			console.log($("#nickName").val());
+			console.log($("#rival").val());
+		}else{
+			$.ajax({
+				url:"/addTeam",
+				method:"POST",
+				data:{"teamName" : $("#teamName").val(),
+					"nickName" : $("#nickName").val(),
+					"foundation" : $("#foundation").val(),
+					"stadiumName" : $("#stadiumName").val(),
+					"homePlace" : $("#homePlace").val(),
+					"rival" : $("#rival").val(),
+					"owner" : $("#owner").val()
+					},
+				success:function(json){
+					alert("add team");
+					location.href="/index"
+				}
+			});
+		}
 	});
     </script>
 </body>

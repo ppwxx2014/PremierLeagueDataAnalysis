@@ -1,0 +1,68 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+			<div class="card">
+				<div class="card-body">
+					정말로 이 댓글을 삭제 하시겠습니까?
+					<button id="removeComment" class="btn btn-danger btn-sm">삭제</button>
+					<button id="goBack" class="btn btn-secondary btn-sm">뒤로</button>   
+			    </div>
+			</div>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	$("#removeComment").click(function(){
+   		$.ajax({
+   			url:"/removeBoardComment",
+   			method:"POST",
+   			data:{commentNo:searchParam("commentNo")},
+   			success:function(json){
+   				console.log(json);
+   				history.back();
+   			}
+   		});
+   		
+   	});
+	$("#goBack").click(function(){
+		history.back();
+   		
+   	});
+    </script>
+</body>
+</html>

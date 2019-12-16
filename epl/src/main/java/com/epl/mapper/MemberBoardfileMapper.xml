@@ -38,7 +38,7 @@
 	
 	<delete id = "deleteMemberBoardfile"
 			parameterType = "int">
-		DELETE FROM boardfile
+		DELETE FROM member_boardfile
 		WHERE board_no = #{boardNo}
 	</delete>
 </mapper>

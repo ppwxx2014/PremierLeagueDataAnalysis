@@ -7,10 +7,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>	
-	
+<style type="text/css">
+.bg-color{
+background-color: #ff0000;
+}
+</style>	
     <!-- Title -->
     <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
     <th:block th:include = "/member/template/layout/headLayout"></th:block>
+
 </head>
 
 
@@ -18,36 +23,27 @@
     <!-- ##### TopBar Area Start ##### -->
    	<th:block th:include = "/member/template/layout/topBar"></th:block>
     <!-- ##### TopBar Area End ##### -->
-	<div col class="bg-danger text-white">
-		<div class="col-12">
-			<br>
-				<div class="container">
-					<br>
-						<div><h1  class="text-white">Clubs</h1></div>
-						<div>
+  
+	<div class="bg-color">
+		<div class="container">
+				<div class="row">
+						<div class="col-sm-7">
+						<br><br><br><br>
+							<h1 class="text-white">Clubs</h1>
+							<div>
 							<div id="bootstrap-data-table_filter" class="dataTables_filter">
 								<label>
 									<input type="search" class="form-control form-control-sm"  id ="searchWord"
 										placeholder="search" aria-controls="bootstrap-data-table">
 								</label>
 									<button class="btn btn-sm btn-primary box" type="submit" id="search">검색</button>
-									
-								<table>
-									<thead>
-										<tr>
-											<td>Team</td>
-											<td>Stadium</td>
-										</tr>
-									</thead>
-									<tbody id="list">
-										
-									</tbody>
-								</table>
 							</div>
 						</div>
-					<br>
+						</div>
+						<div class="col-sm-5">
+							<img alt="boaradimg" src="images/clubimg.png" width="500px" height="auto"> 
+						</div>
 				</div>
-			<br>
 		</div>
 	</div>
     <section class="newspaper-team mb-30">

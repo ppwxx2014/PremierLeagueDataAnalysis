@@ -129,14 +129,136 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 
 	@Override
 	public void modifyBoard(MemberBoardForm memberBoardForm) {
-		// TODO Auto-generated method stub
 		
+		// 1. 기존 정보 수정
+		MemberBoard beforeMemberBoard = new MemberBoard();
+		beforeMemberBoard.setBoardNo(memberBoardForm.getBoardNo());
+		beforeMemberBoard.setBoardContent(memberBoardForm.getBoardContent());
+		beforeMemberBoard.setBoardTitle(memberBoardForm.getBoardTitle());
+		beforeMemberBoard.setBoardUser(memberBoardForm.getBoardUser());
+		memberBoardMapper.updateMemberBoard(beforeMemberBoard);
+		
+		int boardNo = beforeMemberBoard.getBoardNo();
+		
+		System.out.println("modifyBoardNo: " +  boardNo);
+		List<MemberBoardfile> beforeBoardfile = memberBoardfileMapper.selectMemberBoardfileOne(boardNo);
+		System.out.println("modifyBeforeBoardFile" + beforeBoardfile);
+		
+		String beforeFilename = null;
+        String beforeExtension = null;
+        
+        for(MemberBoardfile file : beforeBoardfile) {
+    		if(beforeBoardfile != null) {
+        		file.setFilename(beforeFilename);
+        		file.setExtension(beforeExtension);
+    		}
+        }
+        
+        File beforeFile = new File("C:\\Temp\\files\\" + beforeFilename +"."+ beforeExtension);
+        beforeFile.delete(); // 경로에있는 파일 삭제
+        memberBoardfileMapper.deleteMemberBoardfile(boardNo); // 디비 파일 삭제
+        
+        // 파일저장
+        System.out.println(memberBoardForm.getBoardfile());
+		
+		List<MultipartFile> mf = memberBoardForm.getBoardfile();
+		System.out.println("memberBoardService" + mf);
+		
+		List<MemberBoardfile> mbf = new ArrayList<MemberBoardfile>();
+		
+		int row = 0;
+		
+		// 파일이 있을 경우에만
+		if(mf != null) {
+			for(MultipartFile m : mf) {
+				String contentType = m.getContentType();
+				String originName = m.getOriginalFilename();
+				long size = m.getSize();
+				String extension = originName.substring(originName.lastIndexOf(".") + 1); // 확장자 구하기
+				String filename = UUID.randomUUID().toString().replace("-", ""); // URL
+				
+				System.out.println("contentType"+ contentType);
+				System.out.println("originName"+originName);
+				System.out.println("size" +size);
+				System.out.println("extension" +extension);
+				System.out.println("filename" + filename);
+				
+				MemberBoardfile memberBoardfile = new MemberBoardfile();
+				memberBoardfile.setBoardNo(memberBoardForm.getBoardNo());
+				memberBoardfile.setContentType(contentType);
+				memberBoardfile.setOriginName(originName);
+				memberBoardfile.setSize(size);
+				memberBoardfile.setExtension(extension);
+				memberBoardfile.setFilename(filename);
+				mbf.add(memberBoardfile);
+				
+				row = memberBoardfileMapper.insertMemberBoardfile(memberBoardfile);
+				
+				
+				File file = new File("C:\\Temp\\files\\" + filename +"."+ extension);
+				// 파일로 저장
+				try {
+					m.transferTo( file );
+				}  catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("memberBoardNo : " + memberBoardForm.getBoardNo());
+					throw new RuntimeException(); // 최상위 예외 
+				}
+			}
+		}
+		System.out.println("파일 업로드 : " + row);
 	}
 
 	@Override
 	public int removeBoard(MemberBoard memberBoard) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int boardNo = memberBoard.getBoardNo();
+		System.out.println(boardNo);
+		
+		int check = memberBoardMapper.check(memberBoard);
+		System.out.println(check);
+		
+		String filename = null;
+        String extension = null;
+        
+        List<MemberBoardfile> memberBoardfile = memberBoardfileMapper.selectMemberBoardfileOne(boardNo);
+        
+        System.out.println(memberBoardfile);
+        
+    	for(MemberBoardfile file : memberBoardfile) {
+    		if(memberBoardfile != null) {
+        		file.setFilename(filename);
+        		file.setExtension(extension);
+    		}
+        }
+        
+        File file = new File("C:\\Temp\\files\\" + filename +"."+ extension);
+        
+        int boardRow = 0;
+        
+        if (check == 1) {
+			try {
+				// 1. 댓글 삭제
+				int commentRow = memberBoardMapper.deleteCommentAll(boardNo);
+				System.out.println("commentRow :" + commentRow);
+
+				// 2. 파일 삭제
+				int boardfileRow = memberBoardfileMapper.deleteMemberBoardfile(boardNo);
+				System.out.println("boardfileRow :" + boardfileRow);
+				
+				file.delete(); // 파일삭제
+				
+				// 3. 글 삭제
+				boardRow = memberBoardMapper.deleteMemberBoard(memberBoard);
+				System.out.println("boardRow :" + boardRow);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException();
+			}
+		}
+        System.out.println("MemberBoardS ::: " + boardRow);
+		return boardRow;
 	}
 	
 	@Override

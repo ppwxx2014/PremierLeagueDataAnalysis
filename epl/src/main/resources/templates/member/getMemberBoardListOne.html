@@ -36,7 +36,7 @@
 		<hr><br>
 		<div id = "boardContent"></div>
 		<div id = "boardfile"></div>
-		<hr>
+		<hr color = "blue" size = "3">
 		
 		<!-- 댓글 리스트 -->
 		<div>
@@ -47,8 +47,18 @@
 		</div>
 		
 		<!-- 댓글 입력폼 -->
+		<br><br><br><br>
+		
+		<hr color = "blue" size = "3">
   		<div id = "summernote"></div>
-  		<button type = "button" id = "addComment">댓글 입력</button>
+  		
+  		<div id = "boardCategory">
+	  		<!-- <button type = "button" id = "addComment">댓글 입력</button>
+	  		<span style = "float: right;">
+	  		<button type = "button" id = "removeBoard">글 삭제</button>
+	  		<a href = "/modifyBoard?boardNo=" + boardNo><button type = "button">글 수정</button></a>
+	  		</span> -->
+  		</div>
 	</div>
     <!-- ##### Footer Area Start ##### -->
 	<th:block th:include = "/member/template/layout/footer"></th:block>
@@ -59,6 +69,7 @@
 
 	<script>
 	
+	// 검색한 매개변수의 첫번쨰 값을 반환함
 	function searchParam(key) {
    		return new URLSearchParams(location.search).get(key);
    	};
@@ -72,7 +83,16 @@
 		data: {"boardNo" : searchParam("boardNo")},
 		async:false,
 		success:function(json){
+			boardNo = searchParam("boardNo");
+			console.log("boardNo: " + boardNo);
 			$("#listOne").empty();
+			let temp = '<button type = "button" id = "addComment">댓글 입력</button>';
+			temp += '<span style = "float: right;"> <button type = "button" id = "removeBoard">글 삭제</button>';
+			temp += "<a href = /modifyMemberBoard?boardNo="+boardNo;
+			temp += '><button type = "button">글 수정</button></a></span>';
+			
+			$("#boardCategory").append(temp);
+			$("#boardCategory").append();
 			$(json).each(function(index, item){
 			console.log("boardListOne");
 			console.log(json);
@@ -117,6 +137,22 @@
 	
 	// 새로운 JQuery버전 사용
 	var newJquery = $.noConflict(true);
+	
+	// 글 삭제
+	$("#removeBoard").click(function (){
+		newJquery.ajax({
+			url: "/removeMemberBoard",
+			method: "post",
+			data: {"boardUser" : memberId,
+					"boardNo" : boardNo},
+			success: function(json) {
+				console.log(json);
+				location.href = "/getMemberBoardList";
+			}
+			
+		});
+	});
+	
 	$(document).ready(function() {
 		$('#summernote').summernote({
 			toolbar: [
@@ -145,10 +181,16 @@
 						"commentContent" : $("#commentContent").val()
 				},
 				success: function(json) {
-					console.log("댓글 입력 성공");
 					console.log(json);
-					// 입력 후 페이지 리로드
-					location.reload();
+					if(json === 0) {
+						alert("로그인 후 이용해주세요!");
+					} else {
+						console.log("댓글 입력 성공");
+						console.log(json);
+						// 입력 후 페이지 리로드
+						location.reload();
+					}
+					
 				}
 			});
 		});
@@ -167,7 +209,7 @@
 					console.log(json);
 					console.log("삭제 성공");
 					// 입력 후 페이지 리로드
-					if(json == 0) {
+					if(json = 0) {
 						alert("본인 것만 삭제 할 수 있습니다!");
 					}
 					location.reload();

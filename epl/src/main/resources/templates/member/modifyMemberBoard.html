@@ -31,6 +31,10 @@
 		<h2>게시글 입력</h2>
 		<form enctype="multipart/form-data">
 			<div class="form-group">
+				<label for="boardNo">boardNo :</label>
+				<input class="form-control" id="boardNo" type="text" readonly = "readonly"/>
+			</div>
+			<div class="form-group">
 				<label for="boardFile">boardFile :</label> 
 				<input class="form-control" id="boardfile" type="file" multiple="multiple"/>
 				
@@ -39,8 +43,8 @@
 			</div>
 
 			<div class="form-group">
-				<label for="boardPw">boardTitle :</label> <input
-					class="form-control" id="boardTitle" type="text" />
+				<label for="boardPw">boardTitle :</label> 
+				<input class="form-control" id="boardTitle" type="text" />
 			</div>
 
 			<div class="form-group">
@@ -54,8 +58,8 @@
 			</div>
 
 			<div>
-				<input class="btn btn-default" id="addBoard" type="button"
-					value="글입력" /> <a class="btn btn-default" href="/getMemberBoardList">글목록</a>
+				<input class="btn btn-default" id="modifyBoard" type="button" value="글 수정" /> 
+				<a class="btn btn-default" href="/getMemberBoardList">글목록</a>
 			</div>
 		</form>
 	</div>
@@ -64,11 +68,21 @@
 	<th:block th:include="/member/template/layout/footer"></th:block>
 	<!-- ##### Footer Area End ##### -->
 	<script>
+	// 검색한 매개변수의 첫번쨰 값을 반환함
+	function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   		boardNo = searchParam("boardNo");
+   		console.log("boardNo: " + boardNo);
+   		$("#boardNo").val(boardNo);
+   	
 	$(document).ready(function(){
 		var newJquery = $.noConflict(true); // 스크립트 버전 충돌 방지
 		
 		$("#boardUser").val(memberId);
 		console.log(memberId);
+		
+		
 		
 		var formData = new FormData(); // formData 인터페이스
 		
@@ -83,30 +97,28 @@
 				formData.append("boardfile", file);  //파일을 더해준다.
 			}
 		});
-			$(document).on("click", "#deleteFile", function(index) {
-				let newFileList = new Object();
+		$(document).on("click", "#deleteFile", function(index) {
+			let newFileList = new Object();
+			for(let i = 0; i < fileList.length; i++) {
+				console.log( !($(this).val()==i) );
+				if( !($(this).val()==i) ){
+					newFileList[i] = fileList[i];
+				}
+			} 
+			console.log(newFileList);
+			
+			formData = new FormData(); // 파일 변경이 일어난 후 파일객체를 담을 formData 객체 생성
 				for(let i = 0; i < fileList.length; i++) {
-					console.log( !($(this).val()==i) );
-					if( !($(this).val()==i) ){
-						newFileList[i] = fileList[i];
-					}
-				} 
-				console.log(newFileList);
-				
-				formData = new FormData(); // 파일 변경이 일어난 후 파일객체를 담을 formData 객체 생성
-					for(let i = 0; i < fileList.length; i++) {
-						file = newFileList[i];
-						formData.append("boardfile", file); 
-						console.log(file);
-					} //파일을 더해준다.
-				$(this).parent().empty();
-			});
-
+					file = newFileList[i];
+					formData.append("boardfile", file); 
+					console.log(file);
+				} //파일을 더해준다.
+			$(this).parent().empty();
+		});
 		
-		
-		
-		$("#addBoard").click(function() {
+		$("#modifyBoard").click(function() {
 			// formData 인터페이스 사용해서 파일 및 컨텐츠 전송
+			formData.append("boardNo", boardNo);
 			formData.append("boardTitle", $("#boardTitle").val());
 			formData.append("boardContent", $("#boardContent").val());
 			formData.append("boardUser", $("#boardUser").val());
@@ -116,26 +128,26 @@
 			console.log(formData.get("boardUser"));
 			
 			newJquery.ajax({
-				url : "/addMemberBoard",
-				method : "post",
+				url: "/modifyMemberBoard",
+				method: "post",
 				data : formData,
-				// ajax로 데이터를 보낼 시 contentType, processData를 false로 명시해줘야함
 				contentType : false,
 				processData : false,
 				success : function(json) {
 					console.log(json + "행 입력 성공!");
-					location.href = "/getMemberBoardList";
+					location.href = "/getMemberBoardListOne?boardNo="+boardNo;
 				}
 			});
 		});
-	  $('.summernote').summernote({ 
-		lang: 'ko-KR',
-		placeholder: '내용을 입력해주세요',
-		tabsize: 4,
-		height: 150
+		
+		$('.summernote').summernote({ 
+			lang: 'ko-KR',
+			placeholder: '내용을 입력해주세요',
+			tabsize: 4,
+			height: 150
+			});
 		});
-	});
-</script>
+	</script>
 </body>
 
 

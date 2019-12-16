@@ -29,10 +29,53 @@ public class MemberBoardRestController {
 		return row;
 	}
 	
+	// 게시글 삭제
+	@PostMapping("/removeMemberBoard")
+	public int removeMemberBoard(MemberBoard memberBoard) {
+		
+		String memberId = memberBoard.getBoardUser();
+		int boardNo = memberBoard.getBoardNo();
+		
+		int row = 0;
+		System.out.println(memberId);
+		System.out.println(boardNo);
+		// 글 쓰기전 세션 검사
+		if(memberId != null) {
+			row = memberBoardService.removeBoard(memberBoard);
+		}
+		
+		return row;
+	}
+	
+	// 게시글 수정
+	@PostMapping("/modifyMemberBoard")
+	public int modifyMemberBoard(MemberBoardForm memberBoardForm) {
+		
+		String memberId = memberBoardForm.getBoardUser();
+		System.out.println(memberBoardForm);
+		int row = 0;
+		// 글 쓰기전 세션 검사
+		if(memberId == null) {
+			return 0;
+		} else {
+			memberBoardService.modifyBoard(memberBoardForm);
+			row = 1;
+		}
+		return row;
+	}
+	
+	// 댓글 추가
 	@PostMapping("/addMemberBoardComment")
-	public int addMemberBoardComment(MemberBoardComment memberBoardComment) {
+	public int addMemberBoardComment(HttpSession session, MemberBoardComment memberBoardComment) {
+		String memberId = (String)session.getAttribute("memberId");
+		System.out.println(memberId);
+		int row = 0;
 		System.out.println("addMemberBoardCommentC::::::" + memberBoardComment);
-		int row = memberBoardService.addMemberBoardComment(memberBoardComment);
+		
+		// 글 쓰기전 세션 검사
+		if(memberId != null) {
+			row = memberBoardService.addMemberBoardComment(memberBoardComment);
+		}
 		System.out.println(row);
 		return row;
 	}

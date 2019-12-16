@@ -37,8 +37,9 @@ public class TeamRestController {
 		return list; 
 	}
 	@PostMapping("/addTeam")
-	public void addTeam(Team team, HttpSession session) {
-		teamService.addTeam(team);
+	public int addTeam(Team team, HttpSession session) {
+		int row = teamService.addTeam(team);
+		return row;
 	}
 	
 	@PostMapping("/leagueDown")

@@ -25,6 +25,7 @@ public interface MemberBoardMapper {
 	
 	int selectMemberBoardCount(Page page);
 	
+	
 	// 게시판 댓글에 관한 맵퍼
 	int insertComment(MemberBoardComment memberBoardComment);
 	

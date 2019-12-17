@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
 import com.epl.vo.Page;
+import com.epl.vo.PageByCategory;
 
 @Mapper
 public interface MemberBoardMapper {
@@ -21,9 +22,9 @@ public interface MemberBoardMapper {
 	
 	int insertMemberBoard(MemberBoard memberBoard);
 
-	ArrayList<MemberBoard> selectMemberBoardList(Page page);
+	ArrayList<MemberBoard> selectMemberBoardList(PageByCategory pageByCategory);
 	
-	int selectMemberBoardCount(Page page);
+	int selectMemberBoardCount(PageByCategory pageByCategory);
 	
 	
 	// 게시판 댓글에 관한 맵퍼
@@ -37,4 +38,6 @@ public interface MemberBoardMapper {
 	// 게시판 댓글 맵퍼 끝
 	
 	int check(MemberBoard memberBoard);
+	
+	List<String> selectBoardCategory();
 }

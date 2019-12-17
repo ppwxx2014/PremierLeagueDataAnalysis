@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class MemberBoardForm {
 	private int boardNo;
+	private String boardCategory;
 	private String boardTitle;
 	private String boardContent;
 	private String boardUser;

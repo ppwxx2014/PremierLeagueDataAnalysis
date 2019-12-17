@@ -30,7 +30,7 @@
 	<div class="container">
 		<h2>게시글 입력</h2>
 		<form enctype="multipart/form-data">
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="boardNo">boardNo :</label>
 				<input class="form-control" id="boardNo" type="text" readonly = "readonly"/>
 			</div>
@@ -38,7 +38,7 @@
 				<label for="boardFile">boardFile :</label> 
 				<input class="form-control" id="boardfile" type="file" multiple="multiple"/>
 				
-				<!-- 들어간 파일 리스트 -->
+				들어간 파일 리스트
 				<div id = "fileList"></div>
 			</div>
 
@@ -60,6 +60,42 @@
 			<div>
 				<input class="btn btn-default" id="modifyBoard" type="button" value="글 수정" /> 
 				<a class="btn btn-default" href="/getMemberBoardList">글목록</a>
+			</div> -->
+			<div class="row">
+				<div class="col-2"> 
+					<label for="category">카테고리:</label> 
+				</div>
+				<div class="col-3"> 
+					<select class="form-control" id="boardCategory">
+					</select>
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col-2"> 
+				<label for="boardPw">제목 :</label>
+				</div>
+				<div class="col-10"> 
+					<input class="form-control" id="boardTitle" type="text" />
+				</div>
+			</div><br>
+			<div class="form-group">
+				<textarea class="summernote" id="boardContent" rows="15"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="boardFile">파일 업로드 :</label> 
+				<input class="form-control" id="boardfile" type="file" multiple="multiple"/>
+				
+				<!-- 들어간 파일 리스트 -->
+				<div id = "fileList"></div>
+			</div>
+			<div class="form-group">
+				<label for="boardName">E-Mail :</label> <input
+					class="form-control" id="boardUser" type="text" readonly="readonly" />
+			</div>
+
+			<div>
+				<input class="btn btn-default" id="addBoard" type="button"
+					value="글입력" /> <a class="btn btn-default" href="/getMemberBoardList">글목록</a>
 			</div>
 		</form>
 	</div>
@@ -72,17 +108,41 @@
 	function searchParam(key) {
    		return new URLSearchParams(location.search).get(key);
    	};
-   		boardNo = searchParam("boardNo");
-   		console.log("boardNo: " + boardNo);
-   		$("#boardNo").val(boardNo);
-   	
+	boardNo = searchParam("boardNo");
+	console.log("boardNo: " + boardNo);
+	$.ajax({
+		url : "/getBoardCategory",
+		method : "post",
+		async: false,
+		// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+		success : function(json) {
+			console.log("리스트 성공!");
+			console.log(json);
+			$(json).each(function(index, item) {
+				temp = "<option value=\""+item+"\">"+item+"</option>";
+				$("#boardCategory").append(temp);
+			});
+		}
+	});
+	$("#boardNo").val(boardNo);
+	
 	$(document).ready(function(){
+		$.ajax({	
+			url:"/getMemberBoardListOne",
+			method:"post",
+			async: false,
+			data: {"boardNo" : boardNo},
+			success:function(json){
+				console.log(json);
+				$("#boardTitle").val(json.boardTitle);
+				$("#boardCategory").val(json.boardCategory).prop("selected", true);
+				$("textarea[id=boardContent]").val(json.boardContent);
+			}
+		});
 		var newJquery = $.noConflict(true); // 스크립트 버전 충돌 방지
 		
 		$("#boardUser").val(memberId);
 		console.log(memberId);
-		
-		
 		
 		var formData = new FormData(); // formData 인터페이스
 		
@@ -126,7 +186,7 @@
 			console.log(formData.get("boardTitle"));
 			console.log(formData.get("boardContent"));
 			console.log(formData.get("boardUser"));
-			
+			$(this).prop("disabled", true);
 			newJquery.ajax({
 				url: "/modifyMemberBoard",
 				method: "post",

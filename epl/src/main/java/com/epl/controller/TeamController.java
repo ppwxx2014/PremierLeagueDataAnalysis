@@ -29,20 +29,24 @@ public class TeamController {
 	
 
 	@GetMapping("/getTeamList")
-	public List<Team> getTeamList(Model model) {
+	public String getTeamList(Model model) {
 		List<Team> list = teamService.getTeamList();
 		model.addAttribute("list", list);
 		System.out.println("list:" + list);
-		return list;
+		return "club/getTeamList";
 	}
 
 	@GetMapping("/leagueUpdate")
 	public String leagueUpdate() {
 		
-		return "/leagueUpdate";
+		return "club/leagueUpdate";
 	}
 	
-	
+	@GetMapping("/modifyTeam")
+	public String modifyTeam() {
+		
+		return"club/modifyTeam";
+	}
 	
 	/*
 	 * @GetMapping("/removeTeam") public String removeTeam(String teamName) {

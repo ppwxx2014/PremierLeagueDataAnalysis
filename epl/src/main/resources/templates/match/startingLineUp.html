@@ -12,22 +12,26 @@
 }
    .playerList {
    height: 680px;
-   width: 450px;
+   width: 360px;
+   font-size:13px;
 }
 
 .main {
    height: 300px;
-   width: 450px;
+   width: 360px;
+   font-size:13px;
 }
 
 .sub {
    height: 200px;
-   width: 450px;
+   width: 360px;
+   font-size:13px;
 }
 
 .keeper {
    height: 100px;
-   width: 450px;
+   width: 360px;
+   font-size:13px;
 }
 </style>
 <body>
@@ -65,7 +69,7 @@
       <tr>
          <td class="table-primary">
             <!-- 홈팀 선수 리스트 -->
-         <select id ="homeTeamPlayer" multiple="multiple" class = "playerList" width = "600"></select>
+         <select id ="homeTeamPlayer" multiple="multiple" class = "playerList" ></select>
       </td>
          <td class="table-success">
          
@@ -374,6 +378,7 @@
             		"matchNo":$("#matchList").val()},
             success:function(json){
                console.log(json);
+          	   location.href = "/index";
             }
          });
     

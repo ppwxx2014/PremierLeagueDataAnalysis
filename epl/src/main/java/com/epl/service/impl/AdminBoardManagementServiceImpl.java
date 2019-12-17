@@ -48,19 +48,7 @@ public class AdminBoardManagementServiceImpl implements AdminBoardManagementServ
 		System.out.println(boardNo);
 		
 		
-		/*
-		 * String filename = null; String extension = null;
-		 * 
-		 * List<MemberBoardfile> memberBoardfile =
-		 * memberBoardfileMapper.selectMemberBoardfileOne(boardNo);
-		 * 
-		 * System.out.println(memberBoardfile);
-		 * 
-		 * for(MemberBoardfile file : memberBoardfile) { if(memberBoardfile != null) {
-		 * file.setFilename(filename); file.setExtension(extension); } }
-		 */
-        
-        //File file = new File("C:\\Temp\\files\\" + filename +"."+ extension);
+		
         
         int boardRow = 0;
         

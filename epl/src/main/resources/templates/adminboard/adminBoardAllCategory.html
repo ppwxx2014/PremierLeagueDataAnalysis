@@ -102,42 +102,13 @@
                             		<strong class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">토론 게시판</font></font></strong>
                         		</div>
                         		<div align="right" class="col-lg-3">
-                        			<a href="#">more▶</a>
+                        			<a href="adminBoardList?category=토론 게시판">more▶</a>
                         		</div>
                         	</div>
                         </div>
                         <div class="card-body">
-                            <table class="table table-hover table-sm"  style="font-size: 0.8em;">
-                                <tr class="d-flex">
-                                    <td class="col-2">1132222</td>
-                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
-                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
-                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td class="col-2">1132222</td>
-                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
-                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
-                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td class="col-2">1132222</td>
-                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
-                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
-                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td class="col-2">1132222</td>
-                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
-                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
-                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td class="col-2">1132222</td>
-                                    <td class="col-8"><font style="vertical-align: inherit;"><font color="#FA3A3A" style="font-weight: bold;">[Livarpool]</font></font>
-                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></td>
-                                    <td class="col-2"><font color="#19BE14" style="font-weight: bold;">정훈13</font></td>
-                                </tr>
+                            <table class="table table-hover table-sm" id="debateBoardList" style="font-size: 0.8em;">
+                            	
 	                        </table>
                     	</div>
                     </div>
@@ -204,6 +175,22 @@
                 "<font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>"+item.boardTitle+"</font></font></td>"+
                 "<td class='col-2'><font color='#19BE14' style='font-weight: bold;'>"+item.boardUser+"</font></td></tr>";
 				$("#teamBoardList").append(temp);
+			});
+		}
+	});
+	$.ajax({
+		url:"/getBoardList",
+		method:"POST",
+		data:{category:"토론 게시판"},
+		success:function(json){
+			console.log(json);
+			$("#debateBoardList").empty();
+			$(json).each(function(index,item){
+				temp="<tr class='d-flex' onclick=\"location.href='adminBoardOne?boardNo="+item.boardNo+"'\"><td class='col-2'>"+item.boardNo+"</td>"+
+				"<td class='col-8'><font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+
+                "<font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>"+item.boardTitle+"</font></font></td>"+
+                "<td class='col-2'><font color='#19BE14' style='font-weight: bold;'>"+item.boardUser+"</font></td></tr>";
+				$("#debateBoardList").append(temp);
 			});
 		}
 	});

@@ -1,0 +1,275 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+	 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        <!-- 경로 표시 -->
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>
+									<font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">공지사항 추가</font></font>
+								</h1>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- /#경로 표시 -->
+        <!-- Content -->
+		<div class="content">
+			<div class="card">
+				<div class="card-body">
+					공지사항 추가하시겠습니까?
+					<button class="btn btn-warning btn-sm" id = "addBtn">추가하기</button>
+					<br><br>
+					<div class="form-group" id = "inputNotice">
+					<select class = "form-control-sm form-control" id = "selectCategory">
+						<option value = "total">전체 공지</option>
+						<option value = "team">팀 게시판</option>
+						<option value = "general">자유 게시판</option>
+						<option value = "debate">토론 게시판</option>
+					</select>
+					<br>	
+					<input type="text" id = "noticeTitle" class="form-control" placeholder="추가하실 공지사항 제목을 입력해주세요.">
+					<br>
+					<textarea class="form-control" id = "notice" cols="10" rows="10" placeholder="공지 내용을 적어주세요."></textarea>
+					<br>
+					<button type="button"
+						class="btn btn-primary btn-flat m-b-30 m-t-30" id = "insertNotice">공지사항 추가하기</button>
+					</div>
+					
+					
+			    </div>
+			    
+				<div class = "card-body"> 
+					<table class="table table-striped table-bordered">
+						 <thead>
+						 	<tr>
+						 		<td>공지사항 번호</td>
+						 		<td>공지 분류</td>
+						 		<td>공지사항 제목</td>
+						 		<td>작성 날짜</td>
+						 	</tr>
+						 </thead>
+						 <tbody id = "noticeList">
+						 
+						 </tbody>
+   					</table>
+   					
+   					<div>
+   					<ul class="pagination pagination-sm" id = "page">
+						<li class="page-item"><a class="page-link" id="preBtn">이전</a></li>
+						<li class="page-item"><a class="page-link" id="nextBtn">다음</a></li>
+					</ul>
+					</div>
+				</div>
+		</div>
+        <!-- /.content -->		
+        
+        
+    </div>
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    document.cookie = "loginState=admin;expires=Fri, 31 Desc 9999 23:59:59 GMT; path=/;SameSite=lax";
+    $(document).ready(function() {
+    	var currentPage = 1;
+    	
+    	let count = 0;
+		$.ajax({
+			url : "/getNoticeCount",
+			method : "post",
+			// 비동기 요청 : false
+			async : false,
+			success : function(json) {
+				console.log(json);
+				count = json;
+				console.log("count :" + count);
+			}
+		});
+		
+		// 마지막페이지
+		let lastPage = Math.ceil(count/10); // rowPerPage = 10
+		console.log(lastPage);
+    	
+    	$.ajax({
+    		url : "/getNoticeList",
+    		method : "post",
+    		success : function(json) {
+    			console.log("리스트 성공!");
+    			console.log(json);
+    			$(json).each(function(index, item) {
+    				temp = "<tr>";
+    				temp += "<td>" + item.noticeNo + "</td>";
+    				temp += "<td>" + item.noticeCategory + "</td>";
+    				temp += "<td>";
+    				temp += "<a href = /adminNoticeOne?noticeNo=";
+    				temp += item.noticeNo;
+    				temp += ">";
+    				temp += item.noticeTitle + "</a></td>";
+    				temp += "<td>" + item.noticeDate + "</td>";
+    				temp += "</tr>";
+    				$("#noticeList").append(temp);
+    			});
+    		}
+    	});
+    	
+    	// 이전 버튼
+    	$("#preBtn").click(function() {
+			console.log("이전 버튼 클릭! 현재 currentPage : " + currentPage);
+			if (currentPage === 1) {
+				alert("현재 1페이지입니다.");
+				return;
+			}
+			currentPage--;
+    		
+			console.log("currentPage :" + currentPage);
+			
+			$("#noticeList").empty();
+			$.ajax({
+	    		url : "/getNoticeList",
+	    		method : "post",
+	    		async : false,
+				data : {"currentPage" : currentPage},
+	    		success : function(json) {
+	    			console.log("리스트 성공!");
+	    			console.log(json);
+	    			$(json).each(function(index, item) {
+	    				temp = "<tr>";
+	    				temp += "<td>" + item.noticeNo + "</td>";
+	    				temp += "<td>" + item.noticeCategory + "</td>";
+	    				temp += "<td>";
+	    				temp += "<a href = /adminNoticeOne?noticeNo=";
+	    				temp += item.noticeNo;
+	    				temp += ">";
+	    				temp += item.noticeTitle + "</a></td>";
+	    				temp += "<td>" + item.noticeDate + "</td>";
+	    				temp += "</tr>";
+	    				$("#noticeList").append(temp);
+	    			});
+	    		}
+	    	});
+		});
+    	
+    	// 다음버튼
+    	$("#nextBtn").click(function() {
+			console.log("다음 버튼 클릭! 현재 currentPage : " + currentPage);
+			
+			$.ajax({
+				url : "/getNoticeCount",
+				method : "post",
+				// 비동기 요청 : false
+				async : false,
+				success : function(json) {
+					console.log(json);
+					count = json;
+					console.log("count :" + count);
+				}
+			});
+			
+			if(currentPage == lastPage) {
+				alert("마지막 페이지입니다!");
+				return;
+			}
+			
+			currentPage++;
+			
+			console.log("currentPage :" + currentPage);
+			console.log("lastPage : " + lastPage);
+		
+			$("#noticeList").empty(); 
+			$.ajax({
+	    		url : "/getNoticeList",
+	    		method : "post",
+	    		async : false,
+				data : {"currentPage" : currentPage},
+	    		success : function(json) {
+	    			console.log("리스트 성공!");
+	    			console.log(json);
+	    			$(json).each(function(index, item) {
+	    				temp = "<tr>";
+	    				temp += "<td>" + item.noticeNo + "</td>";
+	    				temp += "<td>" + item.noticeCategory + "</td>";
+	    				temp += "<td>";
+	    				temp += "<a href = /adminNoticeOne?noticeNo=";
+	    				temp += item.noticeNo;
+	    				temp += ">";
+	    				temp += item.noticeTitle + "</a></td>";
+	    				temp += "<td>" + item.noticeDate + "</td>";
+	    				temp += "</tr>";
+	    				$("#noticeList").append(temp);
+	    			});
+	    		}
+	    	});
+		});
+    	
+    	var selectCate = "total";
+    	console.log(selectCate);
+    	$("#inputNotice").hide();
+		$("#addBtn").click(function() {
+			$("#inputNotice").slideToggle();
+		});
+		$("#selectCategory").change(function() {
+			console.log($(this).val());
+			selectCate = $(this).val();
+			console.log("selectCate: " + selectCate);
+		});
+		
+		$("#insertNotice").click(function() {
+			alert("공지사항 등록");
+			$.ajax({
+				url: "/addNotice",
+				method: "post",
+				data: {"noticeCategory" : selectCate,
+						"noticeTitle" : $("#noticeTitle").val(),
+						"notice" : $("#notice").val()},
+				success: function(json) {
+					console.log(json);
+					location.reload();
+				}
+			});
+		});
+    });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

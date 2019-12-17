@@ -12,6 +12,8 @@ import com.epl.service.interfaces.AdminBoardManagementService;
 import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardfile;
+import com.epl.vo.Notice;
+import com.epl.vo.Page;
 
 @Service
 @Transactional
@@ -82,6 +84,52 @@ public class AdminBoardManagementServiceImpl implements AdminBoardManagementServ
 		}
         System.out.println("MemberBoardS ::: " + boardRow);
 		return boardRow;
+	}
+	
+	@Override
+	public int addNotice(Notice notice) {
+		int noticeRow = adminBoardManagementMapper.insertNotice(notice);
+		System.out.println("noticeRow :" + noticeRow);
+		return noticeRow;
+	}
+	
+	@Override
+	public List<Notice> getNoticeList(int currentPage, int rowPerPage) {
+		Page page = new Page();
+		page.setRowPerPage(rowPerPage);
+		page.setBeginRow((currentPage - 1) * rowPerPage);
+		
+		List<Notice> list = adminBoardManagementMapper.selectNoticeList(page);
+		System.out.println("noticeList : " + list);
+		return list;
+	}
+	
+	@Override
+	public Notice getNoticeOne(int noticeNo) {
+		Notice notice = adminBoardManagementMapper.selectNoticeOne(noticeNo);
+		System.out.println("noticeOne : " + notice);
+		return notice;
+	}
+	
+	@Override
+	public int modifyNotice(Notice notice) {
+		int row = adminBoardManagementMapper.updateNotice(notice);
+		System.out.println("noticeRow : " + row);
+		return row;
+	}
+	
+	@Override
+	public int noticeCount(Page page) {
+		int row = adminBoardManagementMapper.selectNoticeCount(page);
+		System.out.println("noticeRow : " + row);
+		return row;
+	}
+	
+	@Override
+	public int removeNotice(Notice notice) {
+		int row = adminBoardManagementMapper.deleteNotice(notice);
+		System.out.println("noticeRow : " + row);
+		return row;
 	}
 }
 

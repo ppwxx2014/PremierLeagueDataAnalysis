@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+	 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        <!-- 경로 표시 -->
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>
+									<font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">공지 정보</font></font>
+								</h1>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- /#경로 표시 -->
+        <!-- Content -->
+		<div class="content">
+			<div class="card">
+			    
+				<div class = "card-body"> 
+					<div class = "card-body">
+						<h3 id = "noticeTitle"></h3>
+						<p id = "notice"></p>
+					</div>
+					
+					<div style = "float: right">
+						<a class = "btn btn-outline-primary" href = "/adminNotice" role = "button">뒤로가기</a>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    document.cookie = "loginState=admin;expires=Fri, 31 Desc 9999 23:59:59 GMT; path=/;SameSite=lax";
+    function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+    var noticeNo = 0;
+    $.ajax({
+    	url: "/adminNoticeOne",
+    	method: "post",
+    	data: {"noticeNo" : searchParam("noticeNo")},
+    	async:false,
+    	success: function(json) {
+    		console.log(json);
+    		noticeNo = searchParam("noticeNo");
+    		console.log("noticeNo: " + noticeNo);
+    		let temp = "공지 제목 : " + json.noticeTitle + "<span id = 'NoticeCategory' style = 'float: right;'>";
+    		temp += "분류 : " + json.noticeCategory;
+    		$("#noticeTitle").append(temp);
+    		$("#notice").append("<br>공지 내용 <br><br>" + "<div>" + json.notice + "</div>");
+    	}
+    })
+    
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

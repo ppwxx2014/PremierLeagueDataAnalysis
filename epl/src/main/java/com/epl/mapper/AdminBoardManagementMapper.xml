@@ -71,7 +71,70 @@
 		DELETE FROM member_boardfile
 		WHERE board_no=#{boardNo}
 	</delete>
+	
+	<insert id = "insertNotice" parameterType = "com.epl.vo.Notice">
+		INSERT INTO notice(
+		notice,
+		notice_title,
+		notice_category
+		) VALUES (
+		#{notice},
+		#{noticeTitle},
+		#{noticeCategory}
+		)
+	</insert>
+	
+	<select id = "selectNoticeList" 
+			parameterType="com.epl.vo.Page"
+			resultType = "com.epl.vo.Notice">
+		SELECT 
+			notice_no as noticeNo,
+			notice_category as noticeCategory,
+			notice_title as noticeTitle,
+			notice_date as noticeDate
+		FROM notice
+		ORDER BY notice_date
+		DESC LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id = "selectNoticeOne" parameterType="int"
+			resultType="com.epl.vo.Notice">
+		SELECT 
+			notice_no as noticeNo,
+			notice_title as noticeTitle,
+			notice as notice,
+			notice_category as noticeCategory,
+			notice_date as noticeDate
+		FROM notice
+		WHERE notice_no = #{noticeNo}
+	</select>
+	
+	<select id = "selectNoticeCount" resultType="int">
+		SELECT COUNT(*) FROM notice
+	</select>
+	
+	<delete id = "deleteNotice"
+			parameterType = "com.epl.vo.Notice">
+		DELETE FROM notice
+		WHERE notice_no = #{notice}
+	</delete>
+	
+	<update id = "updateNotice"
+			parameterType="com.epl.vo.Notice">
+		UPDATE notice
+		SET notice_title = #{noticeTitle},
+			notice = #{notice},
+			notice_category = #{noticeCategory}
+		WHERE notice_no = #{noticeNo}		
+	</update>
 </mapper>
+
+
+
+
+
+
+
 
 
 

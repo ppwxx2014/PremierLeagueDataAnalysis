@@ -11,6 +11,25 @@ import com.epl.vo.Admin;
 @Controller
 public class AdminBoardManagementController {
 	
+	@GetMapping("/adminNotice")
+	public String adminAddNotice(HttpSession session) {
+		/*
+		 * if (session.getAttribute("loginState") == null) { return "login"; }
+		 */
+		System.out.println("adminAddNotice page move");
+		return "adminboard/adminNotice";
+	}
+	
+	// 게시글 상세보기
+	@GetMapping("/adminNoticeOne")
+	public String getMemberBoardListOne(@RequestParam(value = "noticeNo", required = true) int noticeNo, HttpSession session) {
+		/*
+		 * if (session.getAttribute("loginState") == null) { return "login"; }
+		 */
+		System.out.println("boardNo");
+		return "adminboard/adminNoticeOne";	
+	}
+	
 	@GetMapping("/adminBoardAllCategory")
 	public String adminBoardAllCategody(HttpSession session) {
 		if (session.getAttribute("loginState") == null) {

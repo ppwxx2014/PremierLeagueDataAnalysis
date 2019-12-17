@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epl.mapper.TeamMapper;
 import com.epl.service.interfaces.TeamService;
+import com.epl.vo.ModifyTeam;
 import com.epl.vo.Stadium;
 import com.epl.vo.Team;
 import com.epl.vo.UpdateTeam;
@@ -63,6 +64,12 @@ public class TeamServiceImpl implements TeamService {
 	public int leagueUp(UpdateTeam updateTeam) {
 		int row = teamMapper.leagueUp(updateTeam);
 		System.out.println("serRow:"+row);
+		return row;
+	}
+	@Override
+	public int modifyTeam(ModifyTeam modifyTeam) {
+		int row = teamMapper.updateTeam(modifyTeam);
+		System.out.println("modify:"+row);
 		return row;
 	}
 }

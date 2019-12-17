@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epl.service.interfaces.TeamService;
+import com.epl.vo.ModifyTeam;
 import com.epl.vo.Stadium;
 import com.epl.vo.Team;
 import com.epl.vo.UpdateTeam;
@@ -52,6 +53,12 @@ public class TeamRestController {
 	@PostMapping("/leagueUp")
 	public int leagueUp(UpdateTeam updateTeam) {
 		int row = teamService.leagueUp(updateTeam);
+		System.out.println("conRow:"+row);
+		return row;
+	}
+	@PostMapping("/modifyTeam")
+	public int modifyTeam(ModifyTeam modifyTeam) {
+		int row = teamService.modifyTeam(modifyTeam);
 		System.out.println("conRow:"+row);
 		return row;
 	}

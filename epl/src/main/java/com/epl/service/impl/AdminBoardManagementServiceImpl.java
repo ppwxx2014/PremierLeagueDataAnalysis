@@ -119,6 +119,25 @@ public class AdminBoardManagementServiceImpl implements AdminBoardManagementServ
 		System.out.println("noticeRow : " + row);
 		return row;
 	}
+	
+	@Override
+	public List<MemberBoard> getAdminBoardListByPage(int currentPage, int rowPerPage, String searchWord) {
+		Page page = new Page();
+		page.setRowPerPage(rowPerPage);
+		page.setBeginRow((currentPage -1)*rowPerPage);
+		page.setSearchWord(searchWord);
+		
+		List<MemberBoard> list = adminBoardManagementMapper.selectAdminBoardListByPage(page);
+		
+		return list;
+	}
+	
+	@Override
+	public int getAdminBoardCount(Page page) {
+		int row = adminBoardManagementMapper.selectAdminBoardCount(page);
+		System.out.println("countRow:"+row);
+		return row;
+	}
 }
 
 

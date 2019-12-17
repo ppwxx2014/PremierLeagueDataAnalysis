@@ -97,8 +97,9 @@
       	 </td>
       </tr>
    </table>
-   	
-   <button id = "insertMatchPlayer">선발 명단 입력</button>
+   <center>
+   <button id = "insertMatchPlayer" class = "btn btn-success">선발 명단 입력</button>
+   </center>
 </div>
 		</div>
         <!-- /.content -->		
@@ -378,7 +379,8 @@
             		"matchNo":$("#matchList").val()},
             success:function(json){
                console.log(json);
-          	   location.href = "/index";
+               alert("출전 명단 입력 완료");
+               location.href = "/index";
             }
          });
     

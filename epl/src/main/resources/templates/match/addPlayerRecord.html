@@ -19,13 +19,25 @@
 	 margin: 0 auto;
 	 width: 700px;
 }
+.jb-th-1 {
+    width: 400px;
+ }
+ .jb-th-2 {
+    width: 200px;
+ }
+ .jb-th-3 {
+    width: 200px;
+ }
+ .jb-th-4 {
+    width: 200px;
+ }
 </style>
 </head>
 
 <body>
 	<div class = "ct">
 	<h2>경기 내용 입력</h2>
-
+	<br>
 	<select id="matchList" class="form-control form-control-lg select"></select>
 	<br>
 	<br>
@@ -35,187 +47,200 @@
 	<select id="playerList" class="form-control form-control-lg select"></select>
 	<br>
 	<br>
+	<div class = "row">
+	<div class = "col-sm-8 container ">
+		<table id="playerChart" class = "table table-hover">
+			<tr>
+				<td class = "jb-th-1"><mark>shooting</mark></td>
+				<td class = "jb-th-2"><button id="shootingMin" class="btn btn-outline-danger">-</button></td>
+				<td id="shooting" class = "jb-th-3">0</td>
+				<td class = "jb-th-4"><button id="shootingPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>shootOnTarget</mark></td>
+				<td><button id="shootOnTargetMin" class="btn btn-outline-danger">-</button></td>
+				<td id="shootOnTarget">0</td>
+				<td><button id="shootOnTargetPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>goal</mark></td>
+				<td><button id="goalMin" class="btn btn-outline-danger">-</button></td>
+				<td id="goal">0</td>
+				<td><button id="goalPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>ownGoal</mark></td>
+				<td><button id="ownGoalMin" class="btn btn-outline-danger">-</button></td>
+				<td id="ownGoal">0</td>
+				<td><button id="ownGoalPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>pass</mark></td>
+				<td><button id="passMin" class="btn btn-outline-danger">-</button></td>
+				<td id="pass">0</td>
+				<td><button id="passPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>assist</mark></td>
+				<td><button id="assistMin" class="btn btn-outline-danger">-</button></td>
+				<td id="assist">0</td>
+				<td><button id="assistPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>poul</mark></mark></td>
+				<td><button id="poulMin" class="btn btn-outline-danger">-</button></td>
+				<td id="poul">0</td>
+				<td><button id="poulPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>tackle</mark></td>
+				<td><button id="tackleMin" class="btn btn-outline-danger">-</button></td>
+				<td id="tackle">0</td>
+				<td><button id="tacklePlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>offSide</mark></td>
+				<td><button id="offSideMin" class="btn btn-outline-danger">-</button></td>
+				<td id="offSide">0</td>
+				<td><button id="offSidePlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>goalOnFk</mark></td>
+				<td><button id="goalOnFkMin" class="btn btn-outline-danger">-</button></td>
+				<td id="goalOnFk">0</td>
+				<td><button id="goalOnFkPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>goalOnPk</mark></td>
+				<td><button id="goalOnPkMin" class="btn btn-outline-danger">-</button></td>
+				<td id="goalOnPk">0</td>
+				<td><button id="goalOnPkPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>yellowCard</mark></td>
+				<td><button id="yellowCardMin" class="btn btn-outline-danger">-</button></td>
+				<td id="yellowCard">0</td>
+				<td><button id="yellowCardPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>redCard</mark></td>
+				<td><button id="redCardMin" class="btn btn-outline-danger">-</button></td>
+				<td id="redCard">0</td>
+				<td><button id="redCardPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>뛰기 시작한 시간</mark></td>
+				<td><input type="time" id="startTime" readonly="readonly" class = "form-control form-control"></td>
+				<td>startTime</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><mark>끝난/교체한 시간</mark></td>
+				<td><input type="time" id="endTime" readonly="readonly" class = "form-control form-control"></td>
+				<td>endTime</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	</div>
+	<br>
+	<div class = "row">
+	<div class = "col-sm-8 container ">
+		<table id="playerChart2" class = "table table-hover">
+			<tr>
+				<td><mark>퇴장당한 골키퍼 대신 투입</mark></td>
+				<td><button id="playerChangeKeeper" class="btn btn-outline-warning">키퍼로 대신투입하기</button></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><mark>선수 교체(3번)</mark></td>
+				<td><button id="searchSubPlayer" class="btn btn-outline-warning">교체가능한 선수 검색</button></td>
+				<td><select id="subPlayerList"></select></td>
+				<td><button id="changePlayer" class="btn btn-outline-warning">선수 교체</button></td>
+			</tr>
+		</table>
+	</div>
+	</div>
+
+	<div class = "row">
+	<div class = "col-sm-8 container ">
+		<table id="keeperChart" class = "table table-hover">
+			<tr>
+				<td class = "jb-th-1"><mark>save</mark></td>
+				<td class = "jb-th-2"><button id="saveMin" class="btn btn-outline-danger">-</button></td>
+				<td class = "jb-th-2" id="save">0</td>
+				<td class = "jb-th-4"><button id="savePlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>saveOnPk</mark></td>
+				<td><button id="saveOnPkMin" class="btn btn-outline-danger">-</button></td>
+				<td id="saveOnPk">0</td>
+				<td><button id="saveOnPkPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>saveOnFk</mark></td>
+				<td><button id="saveOnFkMin" class="btn btn-outline-danger">-</button></td>
+				<td id="saveOnFk">0</td>
+				<td><button id="saveOnFkPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>goal</mark></td>
+				<td><button id="goalKeeperMin" class="btn btn-outline-danger">-</button></td>
+				<td id="goalKeeper">0</td>
+				<td><button id="goalKeeperPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>own-goal</mark></td>
+				<td><button id="ownGoalKeeperMin" class="btn btn-outline-danger">-</button></td>
+				<td id="ownGoalKeeper">0</td>
+				<td><button id="ownGoalKeeperPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>yellowCard</mark></td>
+				<td><button id="yellowCardKeeperMin" class="btn btn-outline-danger">-</button></td>
+				<td id="yellowCardKeeper">0</td>
+				<td><button id="yellowCardKeeperPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>redCard</mark></td>
+				<td><button id="redCardKeeperMin" class="btn btn-outline-danger">-</button></td>
+				<td id="redCardKeeper">0</td>
+				<td><button id="redCardKeeperPlus" class="btn btn-outline-primary">+</button></td>
+			</tr>
+			<tr>
+				<td><mark>뛰기 시작한 시간</mark></td>
+				<td><input type="time" id="startTimeKeeper" readonly="readonly" class = "form-control form-control"></td>
+				<td>startTime</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><mark>끝난/교체한 시간</mark></td>
+				<td><input type="time" id="endTimeKeeper" readonly="readonly" class = "form-control form-control"></td>
+				<td>endTime</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	</div>
+
+	<br>
 	
-	<table id="playerChart" class = "table table-hover">
-		<tr>
-			<td>shooting</td>
-			<td><button id="shootingMin">-</button></td>
-			<td id="shooting">0</td>
-			<td><button id="shootingPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>shootOnTarget</td>
-			<td><button id="shootOnTargetMin">-</button></td>
-			<td id="shootOnTarget">0</td>
-			<td><button id="shootOnTargetPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>goal</td>
-			<td><button id="goalMin">-</button></td>
-			<td id="goal">0</td>
-			<td><button id="goalPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>ownGoal</td>
-			<td><button id="ownGoalMin">-</button></td>
-			<td id="ownGoal">0</td>
-			<td><button id="ownGoalPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>pass</td>
-			<td><button id="passMin">-</button></td>
-			<td id="pass">0</td>
-			<td><button id="passPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>assist</td>
-			<td><button id="assistMin">-</button></td>
-			<td id="assist">0</td>
-			<td><button id="assistPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>poul</td>
-			<td><button id="poulMin">-</button></td>
-			<td id="poul">0</td>
-			<td><button id="poulPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>tackle</td>
-			<td><button id="tackleMin">-</button></td>
-			<td id="tackle">0</td>
-			<td><button id="tacklePlus">+</button></td>
-		</tr>
-		<tr>
-			<td>offSide</td>
-			<td><button id="offSideMin">-</button></td>
-			<td id="offSide">0</td>
-			<td><button id="offSidePlus">+</button></td>
-		</tr>
-		<tr>
-			<td>goalOnFk</td>
-			<td><button id="goalOnFkMin">-</button></td>
-			<td id="goalOnFk">0</td>
-			<td><button id="goalOnFkPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>goalOnPk</td>
-			<td><button id="goalOnPkMin">-</button></td>
-			<td id="goalOnPk">0</td>
-			<td><button id="goalOnPkPlus">+</button></td>
-		</tr>
-		<tr class="table-warning">
-			<td>yellowCard</td>
-			<td><button id="yellowCardMin">-</button></td>
-			<td id="yellowCard">0</td>
-			<td><button id="yellowCardPlus">+</button></td>
-		</tr>
-		<tr class="table-danger">
-			<td>redCard</td>
-			<td><button id="redCardMin">-</button></td>
-			<td id="redCard">0</td>
-			<td><button id="redCardPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>뛰기 시작한 시간</td>
-			<td><input type="time" id="startTime" readonly="readonly"></td>
-			<td>startTime</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>끝난/교체한 시간</td>
-			<td><input type="time" id="endTime" readonly="readonly"></td>
-			<td>endTime</td>
-			<td></td>
-		</tr>
-	</table>
+	<div class = "row">
+	<div class = "col-sm-8 container ">
+		<table id="keeperChart2" class = "table table-hover">
+			<tr>
+				<td><mark>선수 교체(3번)</mark></td>
+				<td><button id=searchSubPlayerKeeper class="btn btn-outline-warning">교체가능한 선수 검색</button></td>
+				<td><select id="subPlayerListKeeper" class = "form-control form-control"></select></td>
+				<td><button id="changePlayerKeeper" class="btn btn-outline-warning">선수 교체</button></td>
+			</tr>
+		</table>
+	</div>
+	</div>
 
-	<br>
-
-	<table id="playerChart2" class = "table table-hover">
-		<tr>
-			<td>퇴장당한 골키퍼 대신 투입</td>
-			<td>*************************</td>
-			<td><button id="playerChangeKeeper">키퍼로 대신투입하기</button></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>선수 교체(3번)</td>
-			<td><button id=searchSubPlayer>교체가능한 선수 검색</button></td>
-			<td><select id="subPlayerList"></select></td>
-			<td><button id="changePlayer">선수 교체</button></td>
-		</tr>
-	</table>
-
-	<table id="keeperChart" class = "table table-hover">
-		<tr>
-			<td>save</td>
-			<td><button id="saveMin">-</button></td>
-			<td id="save">0</td>
-			<td><button id="savePlus">+</button></td>
-		</tr>
-		<tr>
-			<td>saveOnPk</td>
-			<td><button id="saveOnPkMin">-</button></td>
-			<td id="saveOnPk">0</td>
-			<td><button id="saveOnPkPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>saveOnFk</td>
-			<td><button id="saveOnFkMin">-</button></td>
-			<td id="saveOnFk">0</td>
-			<td><button id="saveOnFkPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>goal</td>
-			<td><button id="goalKeeperMin">-</button></td>
-			<td id="goalKeeper">0</td>
-			<td><button id="goalKeeperPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>own-goal</td>
-			<td><button id="ownGoalKeeperMin">-</button></td>
-			<td id="ownGoalKeeper">0</td>
-			<td><button id="ownGoalKeeperPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>yellowCard</td>
-			<td><button id="yellowCardKeeperMin">-</button></td>
-			<td id="yellowCardKeeper">0</td>
-			<td><button id="yellowCardKeeperPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>redCard</td>
-			<td><button id="redCardKeeperMin">-</button></td>
-			<td id="redCardKeeper">0</td>
-			<td><button id="redCardKeeperPlus">+</button></td>
-		</tr>
-		<tr>
-			<td>뛰기 시작한 시간</td>
-			<td><input type="time" id="startTimeKeeper" readonly="readonly"></td>
-			<td>startTime</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>끝난/교체한 시간</td>
-			<td><input type="time" id="endTimeKeeper" readonly="readonly"></td>
-			<td>endTime</td>
-			<td></td>
-		</tr>
-	</table>
-
-	<br>
-
-	<table id="keeperChart2" class = "table table-hover">
-		<tr>
-			<td>선수 교체(3번)</td>
-			<td><button id=searchSubPlayerKeeper>교체가능한 선수 검색</button></td>
-			<td><select id="subPlayerListKeeper"></select></td>
-			<td><button id="changePlayerKeeper">선수 교체</button></td>
-		</tr>
-	</table>
-
-	<button id="playerInsertBtn">Player Insert</button>
-	<button id="keeperInsertBtn">KeeperInsert</button>
+	<button id="playerInsertBtn" class="btn btn-info">Player Insert</button>
+	<button id="keeperInsertBtn" class="btn btn-info">KeeperInsert</button>
 	</div>
 </body>
 <script>

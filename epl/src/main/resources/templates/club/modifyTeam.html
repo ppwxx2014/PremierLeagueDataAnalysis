@@ -57,7 +57,8 @@
 					<strong><font style="vertical-align: inherit;"><font
 							style="vertical-align: inherit;">팀 </font></font></strong><font
 						style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"> 입력 </font></font>
+						style="vertical-align: inherit;"> 수정 </font></font>
+						<h3 id = "name"></h3>
 				</div>
 				<div class="card-body card-block">
 
@@ -154,52 +155,12 @@
 						</div>
 					</div>
 						
-					<button type="button" class="btn btn-lg btn-info btn-block" id="add"><font
+					<button type="button" class="btn btn-lg btn-info btn-block" id="modify"><font
 							style="vertical-align: inherit;"><font
-							style="vertical-align: inherit;"> 입력</font></font>
+							style="vertical-align: inherit;"> 수정</font></font>
 					</button>
 				</div>
 			</div>
-			<!-- <h1 class="container" style='width:400px;'>AddTeam</h1>
-			<div class="container" style='width:400px;'>
-				TeamName
-				<input type = "text" name = "teamName" id = "teamName" class ="form-control">
-			</div>
-			<div class="container" style='width:400px;'>
-				NickName
-				<input type = "text" name = "nickName" id = "nickName" class ="form-control">
-			</div>
-			<div class="container" style='width:400px;'>
-				Foundation
-				<input type="text" id="foundation" name = "foundation" class ="form-control">
-				
-			</div>
-			<div class="container" style='width:400px;'>
-				StadiumName
-						<div>
-							<select id = "stadiumName" class ="form-control form-control-sm">
-								
-							</select>
-						</div>
-			</div>
-			<div class="container" style='width:400px;'>
-				HomePlace
-				<input type = "text" name = "homePlace" id = "homePlace" class ="form-control">
-			</div>
-			<div class="container" style='width:400px;'>
-				Rival
-				<input type = "text" name = "rival" id = "rival" class ="form-control">
-			</div>
-			<div class="container" style='width:400px;'>
-				Owner
-				<input type = "text" name = "owner" id = "owner" class ="form-control">
-			</div>
-			<div>
-				<br>
-			</div>
-			<div class="container" style='width:400px;'>
-				<button type = "submit" id = "add" class="btn btn-success">Add Team</button>
-			</div> -->
 		</div>
         <!-- /.content -->		
         
@@ -217,13 +178,22 @@
 
     <!--Local Stuff-->
     <script>
-    //현재 년도 설정
-	var current = new Date().getFullYear();
+    //url에서 팀이름을 받아옴
+    function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	//상단에 현재 팀 이름 출력
+   	var name = searchParam("teamName");
+   	console.log("name:"+name);
+   	$("#name").append(name);
+   	//현재 년도 설정
+   	var current = new Date().getFullYear();
    	console.log("current:"+current);
     //창단년도 출력
     for(i=1800;i<current+1;i++){
-    	$("#foundation").append("<option>"+i+"</option>");    }
-	
+    	$("#foundation").append("<option>"+i+"</option>");
+    }
+	console.log("teamName:"+searchParam("teamName"));
 		//경기장의 리스트를 출력
 		$.ajax({
 			url:"/getStadiumList",
@@ -240,36 +210,28 @@
 				});
 			}
 		});
-	
-	//버튼 클릭시 db에 데이터 추가
-	$("#add").click(function(){	
-		if($("#teamName").val()=="" || $("#nickName").val()=="" || 
-				$("#homePlace").val()=="" || $("#rival").val()=="" || 
-				$("#owner").val()==""){
-			alert("모두 입력해주세요");
-			console.log($("#stadiumName").val());
-			console.log($("#teamName").val());
-			console.log($("#nickName").val());
-			console.log($("#rival").val());
-		}else{
-			$.ajax({
-				url:"/addTeam",
-				method:"POST",
-				data:{"teamName" : $("#teamName").val(),
-					"nickName" : $("#nickName").val(),
-					"foundation" : $("#foundation").val(),
-					"stadiumName" : $("#stadiumName").val(),
-					"homePlace" : $("#homePlace").val(),
-					"rival" : $("#rival").val(),
-					"owner" : $("#owner").val()
-					},
-				success:function(json){
-					alert("add team");
-					location.href="/index"
-				}
-			});
-		}
+	//수정한 정보를 db에 저장
+	$("#modify").click(function(){
+		$.ajax({
+			url:"/modifyTeam",
+			method:"POST",
+			data:{"teamName": searchParam("teamName"),
+				"modifyName": $("#teamName").val(),
+				"nickName" : $("#nickName").val(),
+				"foundation" : $("#foundation").val(),
+				"stadiumName" : $("#stadiumName").val(),
+				"homePlace" : $("#homePlace").val(),
+				"rival" : $("#rival").val(),
+				"owner" : $("#owner").val()
+			},
+			success:function(json){
+				alert("수정 완료");
+				location.href="/getTeamList"
+			}
+		});
 	});
+	
+	
     </script>
 </body>
 </html>

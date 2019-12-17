@@ -2,6 +2,7 @@ package com.epl.service.interfaces;
 
 import java.util.List;
 
+import com.epl.vo.ModifyTeam;
 import com.epl.vo.Stadium;
 import com.epl.vo.Team;
 import com.epl.vo.UpdateTeam;
@@ -23,5 +24,8 @@ public interface TeamService {
 	public int leagueDown(UpdateTeam updateTeam);
 	
 	public int leagueUp(UpdateTeam updateTeam);
+	
+	public int modifyTeam(ModifyTeam modifyTeam);
+	
 
 }

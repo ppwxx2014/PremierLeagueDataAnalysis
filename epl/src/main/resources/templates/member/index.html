@@ -24,12 +24,12 @@ background-color: #ffffff;
    	  <div class="bg-color">
       	  <div class="container">
 	            <div class="row">
+	            
+	            
 	                <div class="col-12 col-md-6 col-lg-8">
 						<img class="float-left" alt="index" src="/images/indexhead.jpg">
 	                </div>
-	                <div id = "liveMatch">
-	                
-	                </div>
+	               
 	                
 					<div class="div-color">
 		                <div class="col-12 col-md-6 col-lg-4" align="center">
@@ -67,6 +67,11 @@ background-color: #ffffff;
 		                    	</a>
 		                    </div>
 		                </div>
+		                
+	                </div>
+	                
+	                 <div id = "liveMatch" class="div-color" style="overflow:scroll; width:600px; height:200px;">
+	                
 	                </div>
 	            </div>
 	        </div>
@@ -478,8 +483,11 @@ background-color: #ffffff;
 				$(json).each(function(index, item){
 					console.log(json);
 					
-						temp = "<table class = 'table'><tr><td>";
+						temp = "<table class = 'table' border = '1'><tr><td>";
 						temp += item.hometeamName;
+						
+						if(item.hometeamName)
+						
 						temp += "</td><td>VS</td><td>"
 						temp +=	item.awayteamName;
 						temp +=	"</td></tr>";

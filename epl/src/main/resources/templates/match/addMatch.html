@@ -5,6 +5,16 @@
 	<title>Template</title>
 	<th:block th:include = "template/part/headLayout"></th:block>
 	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+
+<style>
+table {
+    width: 50%;
+    height: 300px;
+  }
+ SELECT,OPTION,SELECT, INPUT , BODY, TABLE, TD {
+ 	font-size:20px;
+ }
+</style>
 </head>	
 
 <body>
@@ -23,43 +33,45 @@
 			<p>경기 입력 페이지</p>
 
 	<table class = "table">
-		<thead>
+		<thead class="thead-dark">
 			<tr>
-				<td><b>Home Team</b></td>
-				<td><b>경기 시간</b></td>
-				<td><b>Away Team</b></td>
+				<th><b>Home Team</b></th>
+				<th><b>경기 시간</b></th>
+				<th><b>Away Team</b></th>
 			</tr>
 		</thead>
-		<tbody>
+		
+		<tr>
+			<td>
+				<select id = "hometeamList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-lg">
+				
+				</select>
+			</td>
+			<td>
+				<input type ="time" id = "matchTime" placeholder="time input" class = "form-control form-control-lg">
+			</td>
+			<td>
+				<select id ="awayteamList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-lg">
+				</select>
+			</td>
+		</tr>
+		<thead class="thead-dark">
 			<tr>
-				<td>
-					<select id = "hometeamList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
-					
-					</select>
-				</td>
-				<td>
-					<input type ="time" id = "matchTime" class="form-control" placeholder="time input">
-				</td>
-				<td>
-					<select id ="awayteamList" name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
-					</select>
-				</td>
+				<th><b>심판</b></th>
+				<th><b>날짜</b></th>
+				<th><b>경기장</b></th>
 			</tr>
-			<tr>
-				<td><b>심판</b></td>
-				<td><b>날짜</b></td>
-				<td><b>경기장</b></td>
-			</tr>
-			<tr>
-				<td><select id =refreeList name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
-					</select>
-				</td>
-				<td>
-					<input type ="text" id = "matchDate" placeholder = "날짜를 선택해 주세요!" style = "opacity: 0.5">
-				</td>
-				<td id ="stadium"></td>
-			<tr>	
-		</tbody>
+		</thead>
+		<tr>
+			<td><select id =refreeList name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-lg">
+				</select>
+			</td>
+			<td>
+				<input type ="text" id = "matchDate" placeholder = "날짜를 선택해 주세요!" style = "opacity: 0.5">
+			</td>
+			<td id ="stadium"></td>
+		<tr>	
+		
 	</table>
 	<button id="insert" class="btn btn-outline-info">경기 입력</button>
 		</div>
@@ -180,7 +192,8 @@
 				  },
 			success:function(json){
 				console.log(json);
-				location.href = "/getPlayerList";
+				alert("경기 입력 완료");
+				location.href = "/index";
 				}	
 			});
 		});

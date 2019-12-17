@@ -1,46 +1,95 @@
 <!doctype html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
 <head>
-<meta charset="UTF-8">
-<title>Template</title>
-<th:block th:include="template/part/headLayout"></th:block>
-<link rel="stylesheet" type="text/css" href="/datepicker.css">
-<body>
-
-<div class="content">
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
 	
-	 <select id = "unFinishedmatch"></select>
+	<style>
+.table {
+  text-align: center;
+}
 
-	 <table class = "table">
-	 	<tr>
-	 		<td id = "hometeamName">HomeTeam</td>
-	 		<td>VS</td>
-	 		<td	id = "awayteamName">AwayTeam</td>
-	 	</tr>
-	 	<tr>
-	 		<td></td>
-	 		<td id = "stadium">경기장 : </td>
-	 		<td></td>
-	 	</tr>
-	 	<tr>
-	 		<td	id = "hometeamGoals">0</td>
-	 		<td id = "matchDate">날짜  : </td>
-	 		<td	id = "awayteamGoals">0</td>
-	 	</tr>
-	 	<tr>
-	 		<td></td>
-	 		<td id = "matchTime">시간  :</td>
-	 		<td></td>
-	 	</tr>
+.matchlist ,.option{
+	text-align: center;
+	 width: 360px;
+}
+
+</style>
+	
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+			
+		<div class="content">
+	
+	 <center><select id = "unFinishedmatch" class="form-control form-control-lg matchlist"></select></center>
+
+	 <table class = "table" >
+	 	<thead class="thead-dark">
+		 	<tr>
+		 		<th id = "hometeamName">HomeTeam</th>
+		 		<th>VS</th>
+		 		<th	id = "awayteamName">AwayTeam</th>
+		 	</tr>
+		 </thead>
+		 <thead class="thead-light">
+		 	<tr>
+		 		<th></th>
+		 		<th id = "stadium">경기장 : </th>
+		 		<th></th>
+		 	</tr>
+		 </thead>
+		 <thead class="thead-light">
+		 	<tr>
+		 		<th	id = "hometeamGoals">0</th>
+		 		<th id = "matchDate">날짜  : </th>
+		 		<th	id = "awayteamGoals">0</th>
+		 	</tr>
+		 </thead>
+		 <thead class="thead-light">
+		 	<tr>
+		 		<th></th>
+		 		<th id = "matchTime">시간  :</th>
+		 		<th></th>
+		 	</tr>
+		 </thead>
 	 </table>
 	 
 	 <button id = "activeF">경기 종료</button>
 
-</div>
-	
-<script>
-	//match schedule 에서 active가 T인 경기들의 리스트를 가져와 select에 추가한다
-	$.ajax({
+</div>	
+			
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<th:block th:include = "/member/template/layout/footer"></th:block>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    $.ajax({
         url:"/getMatchList",
         method:"POST",
         success:function(json){
@@ -65,8 +114,11 @@
             data:{"matchNo":$("#unFinishedmatch").val()},
             success:function(json){
             	console.log(json);
-            	$("#homeTeamName").empty();
-            	$("#awayTeamName").empty();
+            	$("#hometeamName").empty();
+            	$("#awayteamName").empty();
+            	$("#stadium").empty();
+            	$("#matchDate").empty();
+            	$("#matchTime").empty();
             	
             	$("#hometeamName").append(json.hometeamName);
             	$("#awayteamName").append(json.awayteamName);
@@ -96,11 +148,11 @@
             success:function(json) {
             	console.log("")
             	console.log(json);
+            	alert("경기 종료됨");
+            	location.href = "/index";
 			}
 		})
 	})
-
-</script>
-
+    </script>
 </body>
 </html>

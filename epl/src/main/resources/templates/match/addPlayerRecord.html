@@ -5,9 +5,21 @@
 <title>Template</title>
 <th:block th:include="template/part/headLayout"></th:block>
 <link rel="stylesheet" type="text/css" href="/datepicker.css">
+
+<style>
+.ct {
+  margin: 0 auto;
+  text-align: center;
+}
+.table{
+	  margin: 0 auto;
+  text-align: center;
+}
+</style>
 </head>
 
 <body>
+	<div class = "ct">
 	<h2>경기 내용 입력</h2>
 
 	<select id="matchList"></select>
@@ -20,7 +32,7 @@
 	<br>
 	<br>
 	
-	<table id="playerChart">
+	<table id="playerChart" class = "table table-hover">
 		<tr>
 			<td>shooting</td>
 			<td><button id="shootingMin">-</button></td>
@@ -87,13 +99,13 @@
 			<td id="goalOnPk">0</td>
 			<td><button id="goalOnPkPlus">+</button></td>
 		</tr>
-		<tr>
+		<tr class="table-warning">
 			<td>yellowCard</td>
 			<td><button id="yellowCardMin">-</button></td>
 			<td id="yellowCard">0</td>
 			<td><button id="yellowCardPlus">+</button></td>
 		</tr>
-		<tr>
+		<tr class="table-danger">
 			<td>redCard</td>
 			<td><button id="redCardMin">-</button></td>
 			<td id="redCard">0</td>
@@ -115,7 +127,7 @@
 
 	<br>
 
-	<table id="playerChart2">
+	<table id="playerChart2" class = "table table-hover">
 		<tr>
 			<td>퇴장당한 골키퍼 대신 투입</td>
 			<td>*************************</td>
@@ -130,7 +142,7 @@
 		</tr>
 	</table>
 
-	<table id="keeperChart">
+	<table id="keeperChart" class = "table table-hover">
 		<tr>
 			<td>save</td>
 			<td><button id="saveMin">-</button></td>
@@ -189,7 +201,7 @@
 
 	<br>
 
-	<table id="keeperChart2">
+	<table id="keeperChart2" class = "table table-hover">
 		<tr>
 			<td>선수 교체(3번)</td>
 			<td><button id=searchSubPlayerKeeper>교체가능한 선수 검색</button></td>
@@ -200,7 +212,7 @@
 
 	<button id="playerInsertBtn">Player Insert</button>
 	<button id="keeperInsertBtn">KeeperInsert</button>
-
+	</div>
 </body>
 <script>
 	//페이지가 켜질떄 첫번째 select에 매치리스트를 추가한다
@@ -1174,6 +1186,7 @@
 								success : function(json) {
 									console.log("선수가 키퍼로입력됨 : "+ json);
 									location.reload();
+									location.href = "/index";
 								}
 							})
 									//골키퍼페이지로이동

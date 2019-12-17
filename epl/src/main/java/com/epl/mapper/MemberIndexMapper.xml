@@ -5,26 +5,6 @@
 
 <mapper namespace="com.epl.mapper.MemberIndexMapper">
 
-	<select id="selectMemberTeamRank" resultType="com.epl.vo.Team">
-		SELECT
-		team_name as
-		teamName,
-		stadium_name as stadiumName
-		FROM team
-	</select>
-	
-	<select id="selectMatchSchedule"
-		resultType="com.epl.vo.MatchSchedule">
-		SELECT
-		hometeam_name as hometeamName,
-		awayteam_name as
-		awayteamName,
-		match_date as matchDate,
-		match_time as matchTime,
-		stadium_name as stadiumName
-		FROM match_schedule
-	</select>
-	
 	<select id = "selectLiveMatchList"
 			resultType = "com.epl.vo.MatchResult">
 		SELECT 
@@ -45,4 +25,5 @@
 			AND <![CDATA[match_time < CURRENT_TIME()]]>
 			)
 	</select>
+	
 </mapper>

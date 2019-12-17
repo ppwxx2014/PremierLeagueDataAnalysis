@@ -21,7 +21,7 @@
 			<div class="row">
 				<div class="col-sm-9">
 					<br><br><br>
-						<h1 class="text-white">커뮤니티 게시판</h1>
+						<h1 class="text-white" id = "boardTitle">전체 게시판</h1>
 					<br>
 				</div>
 				<div class="col-sm-3">
@@ -71,10 +71,21 @@
 
 <script>
 	let currentPage = 1;
-
+	function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	let category = searchParam("category");
+   	if(category=="general"){
+   	   	$("#boardTitle").html("자유 게시판");   		
+   	}else if(category=="team"){
+   	   	$("#boardTitle").html("팀 게시판");   	
+   	}else if(category=="debate"){
+   	   	$("#boardTitle").html("토론 게시판");   	
+   	}
 	$.ajax({
 		url : "/getMemberBoardByPage",
 		method : "post",
+		data : {"category" : category},
 		// json으로 넘어온 리턴값을 JQuery로 바꿔줌
 		success : function(json) {
 			console.log("리스트 성공!");
@@ -82,7 +93,7 @@
 			$(json).each(function(index, item) {
 				temp = "<tr>";
 				temp += "<td>" + item.boardNo + "</td>";
-				temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'>" + item.boardTitle + "</a></td>";
+				temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'><font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+ item.boardTitle + "</a></td>";
 				temp += "<td>" + item.memberNickName + "</td>";
 				temp += "<td>" + item.boardDate + "</td>";
 				temp += "</tr>";
@@ -105,13 +116,13 @@
 			url : "/getMemberBoardByPage",
 			method :"post",
 			async : false,
-			data : {"currentPage" : currentPage, "searchWord" : searchWord},
+			data : {"currentPage" : currentPage, "searchWord" : searchWord, "category" : category},
 			success : function(json){
 				console.log("리스트 성공!");
 				$(json).each(function(index, item) {
 					temp = "<tr>";
 					temp += "<td>" + item.boardNo + "</td>";
-					temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+					temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'><font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+ item.boardTitle + "</a></td>";
 					temp += "<td>" + item.boardUser + "</td>";
 					temp += "<td>" + item.boardDate + "</td>";
 					temp += "</tr>";
@@ -141,14 +152,14 @@
 			url : "/getMemberBoardByPage",
 			method : "post",
 			async : false,
-			data : {"currentPage" : currentPage, "searchWord" : searchWord},
+			data : {"currentPage" : currentPage, "searchWord" : searchWord, "category" : category},
 			// json으로 넘어온 리턴값을 JQuery로 바꿔줌
 			success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
 				console.log("리스트 성공!");
 				$(json).each(function(index, item) {
 					temp = "<tr>";
 					temp += "<td>" + item.boardNo + "</td>";
-					temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+					temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'><font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+ item.boardTitle + "</a></td>";
 					temp += "<td>" + item.boardUser + "</td>";
 					temp += "<td>" + item.boardDate + "</td>";
 					temp += "</tr>";
@@ -166,6 +177,7 @@
 				let count = 0;
 				$.ajax({
 					url : "/getMemberBoardListCount",
+					data : {"category" : category},
 					method : "post",
 					// 비동기 요청 : false
 					async : false,
@@ -188,19 +200,18 @@
 				
 				console.log("currentPage++ :" + currentPage);
 				console.log("lastPage : " + lastPage);
-				
 				$("#list").empty(); // 요청 중복을 막기 위해 청소
 				$.ajax({
 					url : "/getMemberBoardByPage",
 					method : "post",
-					data : {"currentPage" : currentPage, "searchWord" : $("#searchWord").val()},
+					data : {"currentPage" : currentPage, "searchWord" : $("#searchWord").val(), "category" : category},
 					// json으로 넘어온 리턴값을 JQuery로 바꿔줌
 					success : function(json) { // 받아온 json파일을 function의 매개변수에 저장 -> 자바스크립트 파일의 객체로 변경
 						console.log("리스트 성공!");
 						$(json).each(function(index, item) {
 							temp = "<tr>";
 							temp += "<td>" + item.boardNo + "</td>";
-							temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'</a>" + item.boardTitle + "</td>";
+							temp += "<td>" + "<a href = '/getMemberBoardListOne?boardNo=" + item.boardNo + "'> <font color='#FA3A3A' style='font-weight: bold;'>["+item.boardCategory+"]</font>"+ item.boardTitle + "</a></td>";
 							temp += "<td>" + item.boardUser + "</td>";
 							temp += "<td>" + item.boardDate + "</td>";
 							temp += "</tr>";

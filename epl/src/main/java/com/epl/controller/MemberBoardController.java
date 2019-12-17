@@ -17,7 +17,11 @@ public class MemberBoardController {
 	
 	// 게시판 글 입력
 	@GetMapping("/addMemberBoard")
-	public String addMemberBoard() {
+	public String addMemberBoard(HttpSession session) {
+
+		if(session.getAttribute("memberId")==null) {
+			return "redirect:/memberLogin";
+		}
 		return "member/addMemberBoard";
 	}
 	

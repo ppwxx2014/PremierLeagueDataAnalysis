@@ -17,6 +17,6 @@ public class AdminMemberManagementController {
 			return "login";
 		}
 		System.out.println("adminMemberList page move");
-		return "adminboard/memberManagement";
+		return "adminmember/memberManagement";
 	}
 }

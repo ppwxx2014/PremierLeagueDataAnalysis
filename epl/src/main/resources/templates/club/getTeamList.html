@@ -60,6 +60,7 @@
 											placeholder="" aria-controls="bootstrap-data-table"></label>
 											
 										<button class="btn btn-sm btn-primary" type="submit" id="search">검색</button>
+										<a href = "/addTeam">팀 추가</a>
 									</div>
 								<table id="bootstrap-data-table"
 									class="table table-striped">
@@ -84,7 +85,7 @@
 									
 									
 								</ul>
-							</div><a href = "/addTeam">팀 추가</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -144,6 +145,8 @@
 				temp += item.rival;
 				temp += "</td><td>";
 				temp += item.owner;
+				temp += "</td><td>"
+				temp += "<a href = '/modifyTeam?teamName="+item.teamName+"'>팀 수정</a>"
 				temp += "</td></tr>";
 				$("#teamName").append(temp);
 			});

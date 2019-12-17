@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.epl.vo.ModifyTeam;
 import com.epl.vo.Stadium;
 import com.epl.vo.Team;
 import com.epl.vo.UpdateTeam;
@@ -26,4 +27,7 @@ public interface TeamMapper {
 	public int leagueDown(UpdateTeam updateTeam);
 	
 	public int leagueUp(UpdateTeam updateTeam);
+	
+	public int updateTeam(ModifyTeam modifyTeam);
+	
 }

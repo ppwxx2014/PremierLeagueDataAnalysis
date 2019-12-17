@@ -64,7 +64,18 @@
 		SET active = #{active}
 		WHERE team_name = #{teamName}
 	</update> -->
-	
+	<update id = "updateTeam" parameterType="com.epl.vo.ModifyTeam">
+		UPDATE team SET
+			team_name = #{modifyName},
+			nick_name = #{nickName},
+			foundation = #{foundation},
+			stadium_name = #{stadiumName},
+			home_place = #{homePlace},
+			rival = #{rival},
+			owner = #{owner}
+		WHERE
+			team_name = #{teamName}
+	</update>
 	<update id = "leagueDown" parameterType="com.epl.vo.Team">
 		UPDATE team SET
 		active = 'F'

@@ -17,20 +17,43 @@
 
 	<!-- 게시판 리스트(페이징) -->
 	<select id="selectMemberBoardList"
-		parameterType="com.epl.vo.Page" resultType="com.epl.vo.MemberBoard">
+		parameterType="com.epl.vo.PageByCategory" resultType="com.epl.vo.MemberBoard">
 		SELECT
 		mb.board_no as boardNo,
 		mb.board_title as boardTitle,
 		mb.board_user as boardUser,
 		mb.board_date as boardDate,
-		m.member_nick_name as memberNickName
+		m.member_nick_name as memberNickName,
+		mb.board_category as boardCategory
 		FROM member_board mb
 		INNER JOIN member m
 		ON mb.board_user = m.member_email
 		<where> <!-- where절 -->
-			<if test="searchWord != null">
-				board_title like CONCAT('%', #{searchWord}, '%')
-			</if>
+			<choose>
+				<when test = 'category=="general"'>
+		      		board_category='자유 게시판'
+		      		<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</when>
+				<when test = 'category=="debate"'>
+		      		board_category='토론 게시판'
+		      		<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</when>
+				<when test = 'category==null or category==""'>
+					<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</when>
+				<otherwise>
+					board_category NOT IN ('자유 게시판','토론 게시판')
+					<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</otherwise>
+			</choose>
 		</where>
 		ORDER BY board_date
 		DESC LIMIT #{beginRow}, #{rowPerPage}
@@ -43,6 +66,7 @@
 		mb.board_no as boardNo,
 		mb.board_title as boardTitle,
 		mb.board_content as boardContent,
+		mb.board_category as boardCategory,
 		mb.board_user as boardUser,
 		mb.board_date as boardDate,
 		m.member_nick_name as memberNickName
@@ -63,11 +87,13 @@
 		board_title,
 		board_content,
 		board_user,
+		board_category,
 		board_date
 		) values(
 		#{boardTitle},
 		#{boardContent},
 		#{boardUser},
+		#{boardCategory},
 		now()
 		)
 	</insert>
@@ -86,10 +112,32 @@
 	<!-- 게시판 글 목록의 총 갯수 -->
 	<select id="selectMemberBoardCount" resultType="int">
 		SELECT COUNT(*) FROM member_board
-		<where>
-			<if test="searchWord != null">
-				board_title like CONCAT('%', #{searchWord}, '%')
-			</if>
+		<where> <!-- where절 -->
+			<choose>
+				<when test = 'category=="general"'>
+		      		board_category='자유 게시판'
+		      		<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</when>
+				<when test = 'category=="debate"'>
+		      		board_category='토론 게시판'
+		      		<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</when>
+				<when test = 'category==null or category==""'>
+					<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</when>
+				<otherwise>
+					board_category NOT IN ('자유 게시판','토론 게시판')
+					<if test="searchWord != null">
+						and board_title like CONCAT('%', #{searchWord}, '%')
+					</if>
+				</otherwise>
+			</choose>
 		</where>
 	</select>
 
@@ -146,6 +194,14 @@
     	DELETE FROM member_board_comment
 		WHERE board_no = #{boardNo}		
     </delete>
+    
+    <!-- 카테고리 리스트 -->
+ 	<select id = "selectBoardCategory"
+            resultType = "String">
+        SELECT
+            category_name as categoryName
+        FROM category   
+    </select>
 </mapper>
 
 

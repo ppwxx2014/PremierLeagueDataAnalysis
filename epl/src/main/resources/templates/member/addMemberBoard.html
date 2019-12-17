@@ -28,28 +28,38 @@
 	<br>
 	<br>
 	<div class="container">
-		<h2>게시글 입력</h2>
+		<h2>게시글 입력</h2><br>
 		<form enctype="multipart/form-data">
+			
+			<div class="row">
+				<div class="col-2"> 
+					<label for="category">카테고리:</label> 
+				</div>
+				<div class="col-3"> 
+					<select class="form-control" id="boardCategory">
+					</select>
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col-2"> 
+				<label for="boardPw">제목 :</label>
+				</div>
+				<div class="col-10"> 
+					<input class="form-control" id="boardTitle" type="text" />
+				</div>
+			</div><br>
 			<div class="form-group">
-				<label for="boardFile">boardFile :</label> 
+				<textarea class="summernote" id="boardContent" rows="15"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="boardFile">파일 업로드 :</label> 
 				<input class="form-control" id="boardfile" type="file" multiple="multiple"/>
 				
 				<!-- 들어간 파일 리스트 -->
 				<div id = "fileList"></div>
 			</div>
-
 			<div class="form-group">
-				<label for="boardPw">boardTitle :</label> <input
-					class="form-control" id="boardTitle" type="text" />
-			</div>
-
-			<div class="form-group">
-				<label for="boardContent">boardContent :</label>
-				<textarea class="summernote" id="boardContent" rows="5" cols="50"></textarea>
-			</div>
-
-			<div class="form-group">
-				<label for="boardName">boardName :</label> <input
+				<label for="boardName">E-Mail :</label> <input
 					class="form-control" id="boardUser" type="text" readonly="readonly" />
 			</div>
 
@@ -64,6 +74,24 @@
 	<th:block th:include="/member/template/layout/footer"></th:block>
 	<!-- ##### Footer Area End ##### -->
 	<script>
+	function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	let category = searchParam("category");
+	//카테고리 리스트를 불러온다
+	$.ajax({
+		url : "/getBoardCategory",
+		method : "post",
+		// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+		success : function(json) {
+			console.log("리스트 성공!");
+			console.log(json);
+			$(json).each(function(index, item) {
+				temp = "<option value=\""+item+"\">"+item+"</option>";
+				$("#boardCategory").append(temp);
+			});
+		}
+	});
 	$(document).ready(function(){
 		var newJquery = $.noConflict(true); // 스크립트 버전 충돌 방지
 		
@@ -110,10 +138,12 @@
 			formData.append("boardTitle", $("#boardTitle").val());
 			formData.append("boardContent", $("#boardContent").val());
 			formData.append("boardUser", $("#boardUser").val());
+			formData.append("boardCategory", $("#boardCategory option:selected").val());
 			console.log(formData.get("boardfile")); // 담았던 파일 전송
 			console.log(formData.get("boardTitle"));
 			console.log(formData.get("boardContent"));
 			console.log(formData.get("boardUser"));
+			console.log(formData.get("boardCategory"));
 			
 			newJquery.ajax({
 				url : "/addMemberBoard",
@@ -132,7 +162,7 @@
 		lang: 'ko-KR',
 		placeholder: '내용을 입력해주세요',
 		tabsize: 4,
-		height: 150
+		height: 350
 		});
 	});
 </script>

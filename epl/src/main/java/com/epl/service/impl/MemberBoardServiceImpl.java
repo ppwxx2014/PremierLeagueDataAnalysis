@@ -18,7 +18,7 @@ import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardForm;
 import com.epl.vo.MemberBoardfile;
-import com.epl.vo.Page;
+import com.epl.vo.PageByCategory;
 
 @Service
 @Transactional
@@ -34,6 +34,7 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		memberBoard.setBoardTitle(memberBoardForm.getBoardTitle());
 		memberBoard.setBoardContent(memberBoardForm.getBoardContent());
 		memberBoard.setBoardUser(memberBoardForm.getBoardUser());
+		memberBoard.setBoardCategory(memberBoardForm.getBoardCategory());
 		
 		System.out.println("memberBoardNo : " + memberBoard.getBoardNo()); // 0
 		
@@ -104,13 +105,13 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 	
 	// 게시판 페이징 리스트
 	@Override
-	public List<MemberBoard> getBoardList(int currentPage, int rowPerPage, String searchWord) {
-		Page page = new Page();
-		page.setRowPerPage(rowPerPage);
-		page.setBeginRow((currentPage - 1) * rowPerPage);
-		page.setSearchWord(searchWord);
-		
-		List<MemberBoard> list = memberBoardMapper.selectMemberBoardList(page);
+	public List<MemberBoard> getBoardList(int currentPage, int rowPerPage, String searchWord, String category) {
+		PageByCategory pageByCategory = new PageByCategory();
+		pageByCategory.setRowPerPage(rowPerPage);
+		pageByCategory.setBeginRow((currentPage - 1) * rowPerPage);
+		pageByCategory.setSearchWord(searchWord);
+		pageByCategory.setCategory(category);
+		List<MemberBoard> list = memberBoardMapper.selectMemberBoardList(pageByCategory);
 		
 		return list;
 	}
@@ -262,8 +263,8 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 	}
 	
 	@Override
-	public int MemberBoardCount(Page page) {
-		int row = memberBoardMapper.selectMemberBoardCount(page);
+	public int MemberBoardCount(PageByCategory pageByCategory) {
+		int row = memberBoardMapper.selectMemberBoardCount(pageByCategory);
 		System.out.println("row : " + row);
 		return row;
 	}
@@ -288,6 +289,11 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		int row = memberBoardMapper.deleteComment(memberBoardComment);
 		System.out.println("row : " + row);
 		return row;
+	}
+	@Override
+	public List<String> getBoardCategory() {
+		List<String> list = memberBoardMapper.selectBoardCategory();
+		return list;
 	}
 }
 

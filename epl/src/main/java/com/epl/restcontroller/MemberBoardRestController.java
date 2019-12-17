@@ -13,7 +13,7 @@ import com.epl.service.interfaces.MemberBoardService;
 import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardForm;
-import com.epl.vo.Page;
+import com.epl.vo.PageByCategory;
 
 @RestController
 public class MemberBoardRestController {
@@ -101,24 +101,26 @@ public class MemberBoardRestController {
 	// 게시판 리스트(페이징)
 	@PostMapping("/getMemberBoardByPage")
 	public List<MemberBoard> getMemberBoardByPage(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value = "searchWord", required = false) String searchWord) {
+			@RequestParam(value = "searchWord", required = false) String searchWord, @RequestParam(required = false) String category) {
 		System.out.println("getMemberBoardByPage C");
 		System.out.println("currentPage: " + currentPage); // 현 페이지수
 		System.out.println("SearchWord: " + searchWord);
+		System.out.println("category: " + category);
 
 		int rowPerPage = 10; // 페이지당 보여줄 갯수
 
-		List<MemberBoard> list = memberBoardService.getBoardList(currentPage, rowPerPage, searchWord);
+		List<MemberBoard> list = memberBoardService.getBoardList(currentPage, rowPerPage, searchWord, category);
 		System.out.println("list : " + list);
 		return list;
 	}
 	
 	// 카운트 출력
 	@PostMapping("/getMemberBoardListCount")
-	public int getPlayerListCount(@RequestParam(value = "searchWord", required = false) String searchWord) {
-		Page page = new Page();
-		page.setSearchWord(searchWord);
-		int row = memberBoardService.MemberBoardCount(page);
+	public int getPlayerListCount(@RequestParam(value = "searchWord", required = false) String searchWord, @RequestParam(required = false) String category) {
+		PageByCategory pageByCategory = new PageByCategory();
+		pageByCategory.setSearchWord(searchWord);
+		pageByCategory.setCategory(category);
+		int row = memberBoardService.MemberBoardCount(pageByCategory);
 		System.out.println(row);
 		return row;
 	}
@@ -133,6 +135,14 @@ public class MemberBoardRestController {
 		
 		System.out.println("memberBoard : " + memberBoard);
 		return memberBoard;
+	}
+	@PostMapping("/getBoardCategory")
+	public List<String> getBoardCategory(){
+		System.out.println("::::::::::getBoardCategory Controller::::::::::::::::");
+		List<String> list = memberBoardService.getBoardCategory();
+		
+		System.out.println("list : " + list);
+		return list;
 	}
 	
 }

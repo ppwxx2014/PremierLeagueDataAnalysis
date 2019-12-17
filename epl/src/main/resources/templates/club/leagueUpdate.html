@@ -1,0 +1,335 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        <!-- 경로 표시 -->
+        <div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>
+									<font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">팀 변동</font></font>
+								</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="page-header float-right">
+							<div class="page-title">
+								<ol class="breadcrumb text-right">
+									<li><a href="index"><font
+											style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">홈</font></font></a></li>
+									<li><a href="#"><font style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">팀</font></font></a></li>
+									<li><a href="addTeam"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">팀 추가</font></font></a></li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+        
+        <!-- Content -->
+		<div class="content">
+			<div class="card">
+				<div class="card-header">
+					<strong><font style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;">리그 </font></font></strong><font
+						style="vertical-align: inherit;"><font
+						style="vertical-align: inherit;"> 업데아트</font></font>
+				</div>
+				<div class="card-body card-block">
+
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">상위팀 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9  form-inline">
+							<select name="select" id="teamList" class="form-control" style="width:1090px;" >
+   								<option value="none">상위팀</option>
+							</select>
+							<button id = "add" class="btn btn-info">add</button>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">18th: </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="text" id="18th" name="text-input"
+								placeholder="18th" readonly="readonly" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">19th : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="text" id="19th" name="text-input"
+								placeholder="19th" readonly="readonly" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="select" class=" form-control-label"><font
+								style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">20th : </font></font></label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="text" id="20th" name="text-input"
+								placeholder="20th" readonly="readonly" class="form-control">
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">하위팀 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9  form-inline">
+							<select name="select" id="bTeamList" class="form-control" style="width:1090px;">
+   								<option value="none">하위팀</option>
+							</select>
+							<button id = "addT" class="btn btn-info">add</button>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">1st: </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="text" id="1st" name="text-input"
+								placeholder="1st" readonly="readonly" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">2ed : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="text" id="2ed" name="text-input"
+								placeholder="2ed" readonly="readonly" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="select" class=" form-control-label"><font
+								style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">3rd : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="text" id="3rd" name="text-input"
+								placeholder="3rd" readonly="readonly" class="form-control">
+						</div>
+					</div>
+					
+					<button type="button" class="btn btn-lg btn-info btn-block" id="allDelete"><font
+							style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;"> 초기화</font></font>
+					</button>	
+					<button type="submit" class="btn btn-lg btn-info btn-block" id="drop"><font
+							style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;"> 리그변동</font></font>
+					</button>
+				</div>
+			</div>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+	
+    
+	
+    <!--Local Stuff-->
+    <script>
+    //active값이 t인 팀리스트 출력
+    $.ajax({
+		url:"/getTeamList",
+		method:"POST",
+		success:function(json){
+			$("#teamList").empty();
+			$(json).each(function(index, item){
+				temp = "<option value = '";
+				temp += item.teamName;
+				temp += "'>";
+				temp += item.teamName;
+				temp += "</option>";
+				$("#teamList").append(temp);
+				console.log(item.active);
+			});
+		}
+	});
+    //하위리그. active값이 f인 팀리스트 출력
+	$.ajax({
+		url:"getDownTeamList",
+		method:"POST",
+		success:function(json){
+			$("#bTeamList").empty();
+			$(json).each(function(index, item){
+				temp = "<option value ='";
+				temp += item.teamName;
+				temp += "'>";
+				temp += item.teamName;
+				temp += "</option>";
+				$("#bTeamList").append(temp);
+				console.log(item.active);
+			});
+		}
+	});
+    //순서대로 텍스트박스에 입력하기 위해 변수 선언
+	let count = 0;
+	//클릭시 상위리그 텍스트박스에 순서대로 정보가 입력
+	$("#add").click(function() {
+		count ++;
+		var Ateam = $("#teamList option:checked").text();
+		if(count ==1){
+			console.log(Ateam);
+			console.log(count);
+			$("#18th").val(Ateam);
+		}else if(count ==2){
+			//중복입력시
+			if($("#18th").val()==Ateam){
+				count =1;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
+			console.log(Ateam);
+			console.log(count);
+			$("#19th").val(Ateam);
+		}else{
+			if($("#19th").val()==Ateam || $("#18th").val()==Ateam){
+				count =2;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
+			console.log(Ateam);
+			console.log(count);
+			$("#20th").val(Ateam);
+		}
+	});
+	//순서대로 텍스트박스에 입력하기 위해 변수 선언
+	let countT = 0;
+	//클릭시 하위리그 텍스트박스에 순서대로 정보가 입력
+	$("#addT").click(function(){
+		countT ++;
+		var Bteam = $("#bTeamList option:checked").text();
+		if(countT ==1){
+			console.log(Bteam);
+			console.log(countT);
+			$("#1st").val(Bteam);
+		}else if(countT == 2){
+			//중복입력시
+			if($("#1st").val()==Bteam){
+				countT =1;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
+			console.log(Bteam);
+			console.log(countT);
+			$("#2ed").val(Bteam);
+		}else{
+			if($("#2ed").val()==Bteam || $("#1st").val()==Bteam){
+				countT =2;
+				alert("중복입력 불가! 다시 입력해주세요.");
+			}
+			console.log(Bteam);
+			console.log(countT);
+			$("#3rd").val(Bteam);
+		}
+	});
+	//클릭시 전체 텍스트박스 초기화
+	$("#allDelete").click(function(){
+		$("#18th").val('');
+		$("#19th").val('');
+		$("#20th").val('');
+		$("#1st").val('');
+		$("#2ed").val('');
+		$("#3rd").val('');
+		count = 0;
+		countT = 0;
+	});
+	//클릭시 상위리그팀의 active값을 f로 하위리그 active값을 t로 변경
+	$("#drop").click(function(){
+		if(count<3 || countT<3){
+			alert("팀 정보를 입력하지 않으시거나 중복입력 하셨습니다. 팀 정보를 모두 입력해주세요.");
+		}else{
+			$.ajax({
+				url:"/leagueDown",
+				method:"POST",
+				data:{"teamNameOne" : $("#18th").val(),
+					"teamNameTwo" : $("#19th").val(),
+					"teamNameThree" : $("#20th").val()
+				},
+				success:function(json){
+					
+				}
+			});
+			$.ajax({
+				url:"/leagueUp",
+				method:"POST",
+				data:{"teamNameFour" : $("#1st").val(),
+					"teamNameFive" : $("#2ed").val(),
+					"teamNameSix" : $("#3rd").val()
+				},
+				success:function(json){
+					alert("리그 변동");
+					location.href="/index"
+				}
+			});
+		}
+	});
+	
+    </script>
+</body>
+</html>

@@ -457,7 +457,20 @@ public class MatchRestController
 		return matchResult;
 	}
 	
+	@PostMapping("/getFinishedMatch")
+	public List<MatchResult> getFinishedMatch() {
+		System.out.println("-----getFinishedMatch restController 진입-----");
+		List<MatchResult> list = matchService.getFinishedMatch();
+		return list;
+	}
 	
+	@PostMapping("/getMatchScheduleT")
+	public List<MatchSchedule> getMatchScheduleT() {
+		System.out.println("-----getMatchScheduleT restController 진입-----");
+		List<MatchSchedule> list = matchService.getMatchScheduleT();
+		System.out.println("일정 리스트 : " + list);
+		return list;
+	}
 	
 }
 

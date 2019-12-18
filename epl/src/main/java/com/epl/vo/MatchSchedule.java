@@ -10,5 +10,6 @@ public class MatchSchedule {
 	private String matchDate;
 	private String matchTime;
 	private String stadiumName;
-	private String update;
+	private String active;
+	private String refreeName;
 }

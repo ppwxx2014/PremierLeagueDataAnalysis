@@ -110,6 +110,7 @@ public interface MatchMapper {
 	public int updateMatchResult(MatchResult matchResult);
 	
 	
+	public List<MatchResult> selectFinishedMatch();
 	
-	
+	public List<MatchSchedule> selectMatchScheduleT();
 }

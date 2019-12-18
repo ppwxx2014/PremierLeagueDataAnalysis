@@ -558,6 +558,44 @@ AND active = 'T'
 		WHERE
 		match_no = #{matchNo}
 	</update>
+	
+	<select id = "selectFinishedMatch"
+			resultType="com.epl.vo.MatchResult">
+		SELECT 
+		   match_no AS matchNo,
+		   hometeam_name AS hometeamName,
+		   awayteam_name AS awayteamName,
+		   hometeam_goals AS hometeamGoals,
+		   awayteam_goals AS awayteamGoals,
+		   winnerteam_name AS winnerteamName
+		FROM match_result
+		WHERE match_no 
+		IN(
+			SELECT 
+			   match_no AS matchNo
+			FROM 
+			   match_schedule
+			WHERE active = 'F'
+			)
+	</select>
+	
+	<select id = "selectMatchScheduleT"
+			resultType = "com.epl.vo.MatchSchedule">
+		SELECT 
+			ms.match_no AS matchNo,
+			ms.hometeam_name AS hometeamName,
+			ms.awayteam_name AS awayteamName,
+			ms.match_date AS matchDate,
+			ms.match_time AS matchTime,
+			ms.stadium_name AS stadiumName,
+			r.refree_name AS refreeName
+		FROM match_schedule ms
+		JOIN 	match_refree mr
+		ON ms.match_no = mr.match_no
+		JOIN  refree r 
+		ON mr.refree_no = r.refree_no
+		WHERE ms.active='T'
+	</select>
 </mapper>
 
 

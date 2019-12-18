@@ -25,8 +25,9 @@ public class TeamLeaderRestController {
 		return list;
 	}
 	@PostMapping("/addTeamLeader")
-	public void addTeamLeader(TeamLeader teamLeader) {
-		teamLeaderService.addTeamLeader(teamLeader);
-		
+	public int addTeamLeader(TeamLeader teamLeader) {
+		int row = teamLeaderService.addTeamLeader(teamLeader);
+		System.out.println("row:"+row);
+		return row;
 	}
 }

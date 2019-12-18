@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.epl.mapper.MatchScheduleResultMapper">
+	<select id ="selectMatchSchedulResult" parameterType="String" resultType="com.epl.vo.MatchScheduleResult">
+	SELECT 	
+		A.match_no AS matchNo,
+		A.hometeam_name AS hometeamName, 
+		A.awayteam_name  AS awayteamName,
+		A.active AS active,
+		A.match_date AS matchDate,
+		A.match_time AS matchTime,
+		R.winnerteam_name AS winnerteamName, 
+		R.hometeam_goals AS hometeamGoals,
+		R.awayteam_goals AS awayteamGoals
+	FROM
+	(SELECT
+		match_no,
+		hometeam_name,
+		awayteam_name,
+		match_date,
+		match_time,
+		active
+	FROM match_schedule
+	ORDER BY match_date DESC) AS A
+	INNER JOIN
+	(SELECT
+		match_no,
+		hometeam_name,
+		awayteam_name,
+		winnerteam_name,
+		hometeam_goals,
+		awayteam_goals
+	FROM match_result) AS R
+	ON A.match_no = R.match_no AND A.hometeam_name = R.hometeam_name AND A.awayteam_name = R.awayteam_name
+	WHERE A.active = 'T'
+	ORDER BY match_date ASC
+	LIMIT 4
+	</select>
+	<select id ="selectMatchFullSchedul" parameterType="String" resultType="com.epl.vo.MatchScheduleResult">
+	SELECT 	
+		A.match_no AS matchNo,
+		A.hometeam_name AS hometeamName, 
+		A.awayteam_name  AS awayteamName,
+		A.active AS active,
+		A.match_date AS matchDate,
+		A.match_time AS matchTime,
+		R.winnerteam_name AS winnerteamName, 
+		R.hometeam_goals AS hometeamGoals,
+		R.awayteam_goals AS awayteamGoals
+	FROM
+	(SELECT
+		match_no,
+		hometeam_name,
+		awayteam_name,
+		match_date,
+		match_time,
+		active
+	FROM match_schedule
+	ORDER BY match_date DESC) AS A
+	INNER JOIN
+	(SELECT
+		match_no,
+		hometeam_name,
+		awayteam_name,
+		winnerteam_name,
+		hometeam_goals,
+		awayteam_goals
+	FROM match_result) AS R
+	ON A.match_no = R.match_no AND A.hometeam_name = R.hometeam_name AND A.awayteam_name = R.awayteam_name
+	WHERE A.active = 'T'
+	ORDER BY match_date ASC
+	</select>
+	
+	<!--<select id ="selectMatchSchedulResultTwo" parameterType="String" resultType="com.epl.vo.MatchScheduleResult">
+	SELECT 	
+		A.match_no AS matchNo,
+		A.hometeam_name AS hometeamName, 
+		A.awayteam_name  AS awayteamName,
+		A.active AS active,
+		A.match_date AS matchDate,
+		A.match_time AS matchTime,
+		R.winnerteam_name AS winnerteamName, 
+		R.hometeam_goals AS hometeamGoals,
+		R.awayteam_goals AS awayteamGoals
+	FROM
+	(SELECT
+		match_no,
+		hometeam_name,
+		awayteam_name,
+		match_date,
+		match_time,
+		active
+	FROM match_schedule
+	ORDER BY match_date DESC) AS A
+	INNER JOIN
+	(SELECT
+		match_no,
+		hometeam_name,
+		awayteam_name,
+		winnerteam_name,
+		hometeam_goals,
+		awayteam_goals
+	FROM match_result) AS R
+	ON A.match_no = R.match_no AND A.hometeam_name = R.hometeam_name AND A.awayteam_name = R.awayteam_name
+	WHERE A.active = 'T'
+	AND match_time &gt; '19:00:00'
+	</select>-->
+
+</mapper>

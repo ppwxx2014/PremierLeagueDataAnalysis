@@ -1,6 +1,7 @@
 package com.epl.service.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,19 +53,20 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		int row = 0;
 		
 		// 파일이 있을 경우에만
+		boolean result = false;
 		if(mf != null) {
 			for(MultipartFile m : mf) {
 				String contentType = m.getContentType();
 				String originName = m.getOriginalFilename();
 				long size = m.getSize();
 				String extension = originName.substring(originName.lastIndexOf(".") + 1); // 확장자 구하기
-				String filename = UUID.randomUUID().toString().replace("-", ""); // URL
+				String filename = UUID.randomUUID().toString().replace("-", "")+"."+extension; // URL
 				
-				System.out.println("contentType"+ contentType);
-				System.out.println("originName"+originName);
-				System.out.println("size" +size);
-				System.out.println("extension" +extension);
-				System.out.println("filename" + filename);
+				System.out.println("contentType : "+ contentType);
+				System.out.println("originName : "+originName);
+				System.out.println("size : " +size);
+				System.out.println("extension : " +extension);
+				System.out.println("filename : " + filename);
 				
 				MemberBoardfile memberBoardfile = new MemberBoardfile();
 				memberBoardfile.setBoardNo(memberBoard.getBoardNo());
@@ -75,24 +77,45 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 				memberBoardfile.setFilename(filename);
 				mbf.add(memberBoardfile);
 				
-				row = memberBoardfileMapper.insertMemberBoardfile(memberBoardfile);
+				System.out.println(memberBoardfile.toString());
 				
-				
-				File file = new File("C:\\Temp\\files\\" + filename +"."+ extension);
-				// 파일로 저장
 				try {
-					m.transferTo( file );
-				}  catch (IOException e) {
-					// TODO Auto-generated catch block
+					row = memberBoardfileMapper.insertMemberBoardfile(memberBoardfile);
+					
+					// MultipartFile을 File로 변환
+					File convertFile = new File(filename);
+					convertFile.createNewFile();
+					FileOutputStream fos = new FileOutputStream(convertFile);
+					fos.write(mf.get(row).getBytes());
+					fos.close();
+					
+					// 업로드 디렉토리
+					String dir = "/www/board/";
+					// CDN에 업로드 시작
+					System.out.println("Upload Start");
+					FTPService ftpUploader = new FTPService();
+					// FTP 연결
+					ftpUploader.connectFTP(dir);
+					// 파일 업로드
+					result = ftpUploader.uploadFile(convertFile, filename);
+					// FTP 연결 해제
+					ftpUploader.disconnect();
+					System.out.println("Done");
+				} catch(Exception e) {
 					e.printStackTrace();
-					System.out.println("memberBoardNo : " + memberBoard.getBoardNo());
-					throw new RuntimeException(); // 최상위 예외 
+					// 파일을 저장할때 예외가 나면 rollback 시키기 위해서 강제로 런타임 예외 발생시킴.
+					throw new RuntimeException();
 				}
 				
-				
+			}
+			if(result) {
+				System.out.println("업로드 성공");
+			} else {
+				System.out.println("업로드 실패");
 			}
 		}
-
+		
+		
 		System.out.println("파일 업로드 : " + row);
 		// 파일명 그대로 originName
 		// 랜덤문자열: UUID.randomUUID().toString()
@@ -145,10 +168,10 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 		List<MemberBoardfile> beforeBoardfile = memberBoardfileMapper.selectMemberBoardfileOne(boardNo);
 		System.out.println("modifyBeforeBoardFile" + beforeBoardfile);
 		
-		String beforeFilename = null;
+		String beforeFilename = null; // 삭제할 파일 이름
         String beforeExtension = null;
         
-        for(MemberBoardfile file : beforeBoardfile) {
+        for(MemberBoardfile file : beforeBoardfile) { // 파일 있으면 파일 저장
     		if(beforeBoardfile != null) {
         		file.setFilename(beforeFilename);
         		file.setExtension(beforeExtension);
@@ -196,16 +219,12 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 				row = memberBoardfileMapper.insertMemberBoardfile(memberBoardfile);
 				
 				
-				File file = new File("C:\\Temp\\files\\" + filename +"."+ extension);
-				// 파일로 저장
-				try {
-					m.transferTo( file );
-				}  catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.out.println("memberBoardNo : " + memberBoardForm.getBoardNo());
-					throw new RuntimeException(); // 최상위 예외 
-				}
+				/*
+				 * // 파일로 저장 try { m.transferTo( file ); } catch (IOException e) { // TODO
+				 * Auto-generated catch block e.printStackTrace();
+				 * System.out.println("memberBoardNo : " + memberBoardForm.getBoardNo()); throw
+				 * new RuntimeException(); // 최상위 예외 }
+				 */
 			}
 		}
 		System.out.println("파일 업로드 : " + row);
@@ -213,7 +232,7 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 
 	@Override
 	public int removeBoard(MemberBoard memberBoard) {
-		
+		System.out.println("sdafkldsfjksadl;fjsdklfjsdklfjsdklfjsdlkfjdskfjsdklfdsj");
 		int boardNo = memberBoard.getBoardNo();
 		System.out.println(boardNo);
 		
@@ -227,14 +246,8 @@ public class MemberBoardServiceImpl implements MemberBoardService{
         
         System.out.println(memberBoardfile);
         
-    	for(MemberBoardfile file : memberBoardfile) {
-    		if(memberBoardfile != null) {
-        		file.setFilename(filename);
-        		file.setExtension(extension);
-    		}
-        }
+		
         
-        File file = new File("C:\\Temp\\files\\" + filename +"."+ extension);
         
         int boardRow = 0;
         
@@ -244,11 +257,17 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 				int commentRow = memberBoardMapper.deleteCommentAll(boardNo);
 				System.out.println("commentRow :" + commentRow);
 
-				// 2. 파일 삭제
+				// 2. db에 저장된 파일 정보 삭제
 				int boardfileRow = memberBoardfileMapper.deleteMemberBoardfile(boardNo);
 				System.out.println("boardfileRow :" + boardfileRow);
 				
-				file.delete(); // 파일삭제
+				// 2-1 카페24 파일 삭제
+				if (memberBoardfile != null) { 
+					for (MemberBoardfile file : memberBoardfile) {
+						file.setFilename(filename);
+						file.setExtension(extension);
+					}
+				}
 				
 				// 3. 글 삭제
 				boardRow = memberBoardMapper.deleteMemberBoard(memberBoard);

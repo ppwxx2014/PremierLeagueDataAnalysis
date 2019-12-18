@@ -19,6 +19,19 @@ public class MemberIndexServiceImpl  implements MemberIndexService {
 	private MemberIndexMapper memberIndexMapper;
 
 	@Override
+	public List<Team> getMemberTeamRank(){
+		List<Team> list = memberIndexMapper.selectMemberTeamRank();
+		return list;
+	}
+
+	@Override
+	public List<MatchSchedule> getMemberMatchSchedule(){
+		List<MatchSchedule> list = memberIndexMapper.selectMatchSchedule();
+		return list;
+
+	}
+	
+	@Override
 	public List<MatchResult> getLiveMatchList(){
 		List<MatchResult> list = memberIndexMapper.selectLiveMatchList();
 		return list;

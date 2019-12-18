@@ -23,4 +23,16 @@ public class MemberIndexRestController {
 		System.out.println("LiveMatchList : " + list);
 		return list;
 	}
+	@PostMapping("/member/getTeamRank")
+	public List<Team> getTeamRank() {
+		List<Team> list = memberIndexService.getMemberTeamRank();
+		System.out.println("list:" + list);
+		return list;
+	}
+	@PostMapping("/member/getMatchSchedule")
+	public List<MatchSchedule> getMatchSchedule() {
+		List<MatchSchedule> list = memberIndexService.getMemberMatchSchedule();
+		System.out.println("list:" + list);
+		return list;
+	}
 }

@@ -13,4 +13,8 @@ public interface MemberIndexMapper {
 	
 	//실시간으로 진행중인 경기의 리스트를 가져온다
 	public List<MatchResult> selectLiveMatchList();
+	
+	public List<Team> selectMemberTeamRank();
+
+	public List<MatchSchedule> selectMatchSchedule();
 }

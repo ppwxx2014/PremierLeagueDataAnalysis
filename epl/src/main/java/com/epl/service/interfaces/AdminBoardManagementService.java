@@ -25,4 +25,9 @@ public interface AdminBoardManagementService {
 	public List<Notice> getNoticeList(int currentPage, int rowPerPage);
 	int noticeCount(Page page);
 	Notice getNoticeOne(int noticeNo);
+	
+
+	public List<MemberBoard> getAdminBoardListByPage(int currentPage, int rowPerPage, String searchWord);
+
+	public int getAdminBoardCount(Page page);
 }

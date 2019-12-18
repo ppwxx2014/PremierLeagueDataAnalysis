@@ -22,9 +22,10 @@ public class CoachRestController {
 		return list;
 	}
 	@PostMapping("/addCoach")
-	public String addCoach(Coach coach) {
-		coachService.addCoach(coach);
-		return "addCoach";
+	public int addCoach(Coach coach) {
+		int row = coachService.addCoach(coach);
+		System.out.println("row:"+row);
+		return row;
 	}
 
 	@PostMapping("/getCoachList")

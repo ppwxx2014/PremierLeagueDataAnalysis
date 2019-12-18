@@ -32,6 +32,49 @@
 		LIMIT 10
 
 	</select>
+	<select id="selectAdminBoardListByPage" parameterType="com.epl.vo.Page"
+		resultType="com.epl.vo.MemberBoard">
+		SELECT
+			mb.board_no as boardNo,
+			mb.board_title as boardTitle,
+			m.member_nick_name as boardUser,
+			mb.board_date as boardDate,
+			mb.board_category as boardCategory
+		FROM member_board mb
+		INNER JOIN member m
+		ON mb.board_user=m.member_email
+      	<choose>
+			<when test = 'category=="자유 게시판"'>
+	      		WHERE board_category='자유 게시판'
+			</when>
+			<when test = 'category=="토론 게시판"'>
+	      		WHERE board_category='토론 게시판'
+			</when>
+			<when test = 'category==null or category==""'>
+			</when>
+			<otherwise>
+				WHERE board_category NOT IN ('자유 게시판','토론 게시판')
+			</otherwise>
+		</choose>
+		<where> 
+			<if test="searchWord != null">
+				board_title like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY mb.board_date DESC 
+		LIMIT #{beginRow}, #{rowPerPage}
+
+	</select>
+	<select id = "selectAdminBoardCount" resultType="int" parameterType="com.epl.vo.Page">
+		SELECT COUNT(*) 
+		FROM member_board
+		<where>
+			<if test="searchWord !=null">
+				board_title like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		
+	</select>
 	<select id="selectAdminBoardOne" 
 		resultType="com.epl.vo.MemberBoard">
 		SELECT

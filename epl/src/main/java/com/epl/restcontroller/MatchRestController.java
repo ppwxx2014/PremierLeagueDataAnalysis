@@ -92,7 +92,7 @@ public class MatchRestController
 	
 	//startingLineUp 페이지에서 입력한 값들은 각자에 맞는 양식으로 match_player, match_keeper에 insert하는 매서드
 	@PostMapping("/addMatchPlayerKeeper")
-	public String addMatchPlayerKeeper(@RequestParam("mainPlayerNo[]") List<String> mainPlayerNo,
+	public int addMatchPlayerKeeper(@RequestParam("mainPlayerNo[]") List<String> mainPlayerNo,
 									   @RequestParam("KeeperNo[]") List<String> KeeperNo,
 									   @RequestParam("subPlayerNo[]") List<String> subPlayerNo,
 									   @RequestParam("matchNo") int matchNo,
@@ -139,7 +139,7 @@ public class MatchRestController
 			keeperCheck = keeperCheck+check;
 		}
 		System.out.println("2면 키퍼 입력 성공 : " + keeperCheck);
-		return null;
+		return 1;
 	}
 	
 	//이경기에 이선수가 골키퍼로 뛰고있는지 아닌지 검사하는 매서드
@@ -457,7 +457,20 @@ public class MatchRestController
 		return matchResult;
 	}
 	
+	@PostMapping("/getFinishedMatch")
+	public List<MatchResult> getFinishedMatch() {
+		System.out.println("-----getFinishedMatch restController 진입-----");
+		List<MatchResult> list = matchService.getFinishedMatch();
+		return list;
+	}
 	
+	@PostMapping("/getMatchScheduleT")
+	public List<MatchSchedule> getMatchScheduleT() {
+		System.out.println("-----getMatchScheduleT restController 진입-----");
+		List<MatchSchedule> list = matchService.getMatchScheduleT();
+		System.out.println("일정 리스트 : " + list);
+		return list;
+	}
 	
 }
 

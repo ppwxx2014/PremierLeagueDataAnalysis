@@ -28,4 +28,14 @@ public class MatchController {
 		System.out.println("----------finishMatch----------");
 		return "/match/finishMatch";
 	}
+	@GetMapping("/matchResult")
+	public String matchResult() {
+		System.out.println("----------matchResult----------");
+		return "/match/matchResult";
+	}
+	@GetMapping("/matchSchedule")
+	public String matchSchedule() {
+		System.out.println("----------matchSchedule----------");
+		return "/match/matchSchedule";
+	}
 }

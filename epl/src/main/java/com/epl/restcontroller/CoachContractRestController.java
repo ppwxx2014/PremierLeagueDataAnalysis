@@ -14,9 +14,10 @@ public class CoachContractRestController {
 	@Autowired CoachContractService coachContractService;
 	
 	@PostMapping("/addCoachContract")
-	public void addCoachContract(CoachContract coachContract) {
+	public int addCoachContract(CoachContract coachContract) {
 		int row = coachContractService.addCoachContract(coachContract);
 		System.out.println(row);
+		return row;
 		
 	}
 }

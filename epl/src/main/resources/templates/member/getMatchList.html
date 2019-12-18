@@ -108,168 +108,16 @@ h5 {
 				<div class ="tt">
 					<h5 style ="color: #ffffff; text-shadow: 8px 2px 4px black;">England PremierLegue Match Calendar</h5>
 				
-					<p id="matchDay">한국 표준시 기준</p>
+					<p id="matchDay"></p>
 				</div>
 			</div>
 		<!-- 1라운드씩 나와야됨 -->
 			<table class = "match">
-				<tbody class = "matchTable">
-					<tr>
-						<!-- 경기 -->
-						<td>
-							<table class="match1 container">
-								<tbody>
-									<tr>
-										<td>
-											<table class = "matchDateTable">
-												<tr  class = "hometeam">
-													<td>셰펄드 유나이티드</td>
-												</tr>
-												<tr  class = "awayteam">
-													<td>awayteam</td>
-												</tr>
-											</table>
-										</td>
-										<td>
-											<table class = "matchDateTable2">
-												<tr class = "hometeam">
-													<td>0</td>
-												</tr>
-												<tr class = "awayteam">
-													<td>0</td>
-												</tr>
-											</table>
-										</td>
-										
-										<td>
-											<table class = "matchDateTable3">
-												<tr class = "matchDate">
-													<td>MatchDate</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-						
-						<!-- 경기 -->
-						<td>
-							<table class="match2 container">
-								<tbody>
-									<tr>
-										<td>
-											<table class = "matchDateTable">
-												<tr  class = "hometeam">
-													<td>hometeam</td>
-												</tr>
-												<tr  class = "awayteam">
-													<td>awayteam</td>
-												</tr>
-											</table>
-										</td>
-										<td>
-											<table class = "matchDateTable2">
-												<tr class = "hometeam">
-													<td>0</td>
-												</tr>
-												<tr class = "awayteam">
-													<td>0</td>
-												</tr>
-											</table>
-										</td>
-										
-										<td>
-											<table class = "matchDateTable3">
-												<tr class = "matchDate">
-													<td>MatchDate</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<!-- 경기 -->
-						<td>
-							<table class="match1 container">
-								<tbody>
-									<tr>
-										<td>
-											<table class = "matchDateTable">
-												<tr  class = "hometeam">
-													<td>셰펄드 유나이티드</td>
-												</tr>
-												<tr  class = "awayteam">
-													<td>awayteam</td>
-												</tr>
-											</table>
-										</td>
-										<td>
-											<table class = "matchDateTable2">
-												<tr class = "hometeam">
-													<td>0</td>
-												</tr>
-												<tr class = "awayteam">
-													<td>0</td>
-												</tr>
-											</table>
-										</td>
-										
-										<td>
-											<table class = "matchDateTable3">
-												<tr class = "matchDate">
-													<td>MatchDate</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-						
-						<!-- 경기 -->
-						<td>
-							<table class="match2 container">
-								<tbody>
-									<tr>
-										<td>
-											<table class = "matchDateTable">
-												<tr  class = "hometeam">
-													<td>hometeam</td>
-												</tr>
-												<tr  class = "awayteam">
-													<td>awayteam</td>
-												</tr>
-											</table>
-										</td>
-										<td>
-											<table class = "matchDateTable2">
-												<tr class = "hometeam">
-													<td>0</td>
-												</tr>
-												<tr class = "awayteam">
-													<td>0</td>
-												</tr>
-											</table>
-										</td>
-										
-										<td>
-											<table class = "matchDateTable3">
-												<tr class = "matchDate">
-													<td>MatchDate</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-					</tr>
+				<tbody class = "matchTable" id = "matchTable">
+					
 				</tbody>
 			</table>
+			<button id = "plus">더 보기</button>
 			</div>
 		</div>
 	</div>
@@ -280,83 +128,163 @@ h5 {
     <!-- ##### Footer Area End ##### -->
 </body>
 <script type="text/javascript">
-	
+//현재 시간 설정
+var Now = new Date();
+console.log(Now);
+var NowTime = Now.getFullYear();
+NowTime += '-' + (Now.getMonth()+1);
+NowTime += '-' + Now.getDate();
+NowTime += ' ' + Now.getHours();
+NowTime += ':' + Now.getMinutes();
+console.log(NowTime);
+$("#matchDay").append(NowTime);
+var matchList = new Array();
 	$.ajax({
-		url : "",
+		url : "/getMatchScheduleResult",
 		method : "post",
 		success : function(json){
-			$(json).each(function(index , item)){ // 하나의 테이블 행을 추가 (이전경기 보기)
+			console.log("json:"+json);
+			matchList = json;
+			$(json).each(function(index , item){ // 하나의 테이블 행을 추가 (이전경기 보기)
+				console.log("index:"+index);
+				console.log("name:"+item.hometeamName);
+			});
+			//limit 4
+			//더보기 누르면 리미트 없음
+			for(var i=0; i<matchList.length; i++){
+					console.log("1:"+matchList[i].hometeamName);
+					
 					// 왼쪽 경기
-				/* let html = '<tr><td><table class="match1 container">'
-					html += '<tobody><tr><td>'
+				let html = '<tr><td><table class="match1 container">'
+					html += '<tbody><tr><td>'
 					html +=	'<table class="matchDateTable"><tr  class = "hometeam">'
-					html += '<td>'index.hometeamName'</td>'
-					html += '<td>'index.awayteamName'</td>'
+					html += '<td>'+matchList[i].hometeamName+'</td>'
+					html += '<td>'+matchList[i].awayteamName+'</td>'
 					html += '</tr></table></td><td>'
 					html +=	'<table class="matchDateTable2"><tr  class = "hometeam">'
-					html += '<td>'index.hometeamGoals'</td>'
-					html += '<td>'index.awayteamGoals'</td>'
+					html += '<td>'+matchList[i].hometeamGoals+'</td>'
+					html += '<td>'+matchList[i].awayteamGoals+'</td>'
 					html += '</tr></table></td><td>'
 					html += '<table class = "matchDateTable3">'
 					html += '<tr class = "matchDate">'
-					html += '<td>'index.winnerteamName'</td>'
+					html += '<td>'+matchList[i].matchDate+'</td>'
 					html += '</tr></table></td>'
-					html += '</tr></tbody></table></td></tr>'
+					html += '</tr></tbody></table></td>'
+					
 					// 오른쪽 경기
-					html += '<tr><td><table class="match2 container">'
-					html += '<tobody><tr><td>'
+					html += '<td><table class="match2 container">'
+					html += '<tbody><tr><td>'
 					html +=	'<table class="matchDateTable"><tr  class = "hometeam">'
-					html += '<td>'index.hometeam'</td>'
-					html += '<td>'index.awayteam'</td>'
+					html += '<td>'+matchList[i+1].hometeamName+'</td>'
+					html += '<td>'+matchList[i+1].awayteamName+'</td>'
 					html += '</tr></table></td><td>'
 					html +=	'<table class="matchDateTable2"><tr  class = "hometeam">'
-					html += '<td>'index.hometeamGoals'</td>'
-					html += '<td>'index.awayteamGoals'</td>'
+					html += '<td>'+matchList[i+1].hometeamGoals+'</td>'
+					html += '<td>'+matchList[i+1].awayteamGoals+'</td>'
 					html += '</tr></table></td><td>'
 					html += '<table class = "matchDateTable3">'
 					html += '<tr class = "matchDate">'
-					html += '<td>'index.winnerteamName'</td>'
+					html += '<td>'+matchList[i+1].matchDate+'</td>'
 					html += '</tr></table></td>'
 					html += '</tr></tbody></table></td></tr>'
 					
-					$("#matchTable").append(html); */
+					$("#matchTable").append(html);
+				i++;
+			}
+
+		}
+	});
+	//더보기 클릭시 전체 출력
+	$("#plus").click(function(){
+		$.ajax({
+			url:"/getMatchFullSchedule",
+			method:"post",
+			success:function(json){
+				console.log("json:"+json);
+				matchList = json;
+				$("#matchTable").empty();
+				$(json).each(function(index, item){
+					console.log("index:"+index);
+					console.log("name:"+item.hometeamName);
+				});
+				for(var i=0; i<matchList.length; i++){
+					console.log("1:"+matchList[i].hometeamName);
 					
-					/*
-					SELECT 	
-	A.match_no AS matchNo,
-	A.hometeam_name AS hometeamName, 
-	A.awayteam_name  AS awayteamName, 
-	A.active AS Active,
-	A.match_date AS matchDate, 
-	A.match_time AS matchTime,  
-	R.winnerteam_name AS winnerteamName, 
-	R.hometeam_goals AS hometeamGoals, 
-	R.awayteam_goals AS awayteam_Goals
+					// 왼쪽 경기
+				let html = '<tr><td><table class="match1 container">'
+					html += '<tbody><tr><td>'
+					html +=	'<table class="matchDateTable"><tr  class = "hometeam">'
+					html += '<td>'+matchList[i].hometeamName+'</td>'
+					html += '<td>'+matchList[i].awayteamName+'</td>'
+					html += '</tr></table></td><td>'
+					html +=	'<table class="matchDateTable2"><tr  class = "hometeam">'
+					html += '<td>'+matchList[i].hometeamGoals+'</td>'
+					html += '<td>'+matchList[i].awayteamGoals+'</td>'
+					html += '</tr></table></td><td>'
+					html += '<table class = "matchDateTable3">'
+					html += '<tr class = "matchDate">'
+					html += '<td>'+matchList[i].matchDate+'</td>'
+					html += '</tr></table></td>'
+					html += '</tr></tbody></table></td>'
+					
+					// 오른쪽 경기
+					html += '<td><table class="match2 container">'
+					html += '<tbody><tr><td>'
+					html +=	'<table class="matchDateTable"><tr  class = "hometeam">'
+					html += '<td>'+matchList[i+1].hometeamName+'</td>'
+					html += '<td>'+matchList[i+1].awayteamName+'</td>'
+					html += '</tr></table></td><td>'
+					html +=	'<table class="matchDateTable2"><tr  class = "hometeam">'
+					html += '<td>'+matchList[i+1].hometeamGoals+'</td>'
+					html += '<td>'+matchList[i+1].awayteamGoals+'</td>'
+					html += '</tr></table></td><td>'
+					html += '<table class = "matchDateTable3">'
+					html += '<tr class = "matchDate">'
+					html += '<td>'+matchList[i+1].matchDate+'</td>'
+					html += '</tr></table></td>'
+					html += '</tr></tbody></table></td></tr>'
+					
+					$("#matchTable").append(html);
+				i++;
+			}
+			}
+		});
+	});
+	
+	
+	/*	쿼리
+	SELECT 	
+A.match_no AS matchNo,
+A.hometeam_name AS hometeamName, 
+A.awayteam_name  AS awayteamName, 
+A.active AS Active,
+A.match_date AS matchDate, 
+A.match_time AS matchTime,  
+R.winnerteam_name AS winnerteamName, 
+R.hometeam_goals AS hometeamGoals, 
+R.awayteam_goals AS awayteam_Goals
 FROM
 (SELECT
-	match_no,
-	hometeam_name,
-	awayteam_name,
-	match_date,
-	match_time,
-	active
+match_no,
+hometeam_name,
+awayteam_name,
+match_date,
+match_time,
+active
 FROM match_schedule
 ORDER BY match_date DESC) AS A
 INNER JOIN
 (SELECT
-	match_no,
-	hometeam_name,
-	awayteam_name,
-	winnerteam_name,
-	hometeam_goals,
-	awayteam_goals
+match_no,
+hometeam_name,
+awayteam_name,
+winnerteam_name,
+hometeam_goals,
+awayteam_goals
 FROM match_result) AS R
 ON A.match_no = R.match_no AND A.hometeam_name = R.hometeam_name AND A.awayteam_name = R.awayteam_name
 WHERE A.active = 'T'
 
-					*/
-			}
-		}
-	})
+	*/
 </script>
 </html>

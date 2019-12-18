@@ -1,0 +1,90 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	
+	<style>
+SELECT,OPTION,SELECT, INPUT , BODY, TABLE, TD {
+ 	font-size:20px;
+ }
+td {
+    width: 500px;
+  }
+ .ct {
+  margin: 0 auto;
+  text-align: center;
+}
+	</style>
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        
+        <!-- Content -->
+		<div class="content">
+		<div class = "ct">
+			<h2>Match Schedule</h2>
+			<div id = "matchSchedule">
+			</div>
+		</div>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<th:block th:include = "/member/template/layout/footer"></th:block>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+		$.ajax({	
+			url:"/getMatchScheduleT",
+			method:"POST",
+			success:function(json){
+				$("#matchSchedule").empty();
+				$(json).each(function(index, item){
+					console.log(json);
+						temp = "<table class = 'table' border = '1'><thead class='thead-dark'><tr><th>";
+						temp +="match.No</th><th>일시</th><th>경기장</th><th>심판</th><th>Home_Team</th><th>Away_Team</th></tr></thead>";
+						temp +="<tr><td>";
+						temp += item.matchNo
+						temp +="</td>";
+						temp +="<td>";
+						temp +=item.matchDate +"  "+item.matchTime;
+						temp +="</td>";
+						temp +="<td>";
+						temp +=item.stadiumName;
+						temp +="</td>";
+						temp +="<td>";
+						temp +=item.refreeName;
+						temp +="</td>";
+						temp +="<td>";
+						temp +=item.hometeamName;
+						temp +="</td>";
+						temp +="<td>";
+						temp +=item.awayteamName;
+						temp +="</td></tr></table>";
+						$("#matchSchedule").append(temp);	
+				});
+			}
+		});
+    </script>
+</body>
+</html>

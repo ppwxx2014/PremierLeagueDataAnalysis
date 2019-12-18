@@ -76,6 +76,10 @@ public interface MatchService {
 	
 	//
 	public int modifyMatchResult(MatchResult matchResult);
+	
+	public List<MatchResult> getFinishedMatch();
+	
+	public List<MatchSchedule> getMatchScheduleT();
 }
 
 

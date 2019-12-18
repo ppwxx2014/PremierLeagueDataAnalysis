@@ -249,6 +249,17 @@ public class MatchServiceImpl implements MatchService {
 		System.out.println(row);
 		return row;
 	}
+	
+	@Override
+	public List<MatchResult> getFinishedMatch(){
+		List<MatchResult> list = matchMapper.selectFinishedMatch();
+		return list;
+	}
+	
+	public List<MatchSchedule> getMatchScheduleT(){
+		List<MatchSchedule> list = matchMapper.selectMatchScheduleT();
+		return list;
+	}
 }
 
 

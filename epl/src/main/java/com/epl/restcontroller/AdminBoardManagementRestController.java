@@ -117,4 +117,24 @@ public class AdminBoardManagementRestController {
 		System.out.println("removeBoardComment is success : "+row);
 		return row;
 	}
+	
+	@PostMapping("/getBoardListByPage")
+	public List<MemberBoard> getBoardListByPage(@RequestParam(value = "currentPage",defaultValue = "1")int currentPage,
+			@RequestParam(value = "searchWord",required = false) String searchWord){
+		System.out.println("currentPage:"+currentPage);
+		System.out.println("searchWord:"+searchWord);
+		int rowPerPage = 10;
+		List<MemberBoard> list = adminBoardManagementService.getAdminBoardListByPage(currentPage, rowPerPage, searchWord);
+		System.out.println("getBoardListByPage list:"+list);
+		return list;
+	}
+	@PostMapping("/getAdminBoardCount")
+	public int getAdminBoardCount(@RequestParam(value = "searchWord",required = false) String searchWord) {
+		Page page = new Page();
+		page.setSearchWord(searchWord);
+		int row = adminBoardManagementService.getAdminBoardCount(page);
+		System.out.println("resRow:"+row);
+		return row;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.epl.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -25,4 +26,7 @@ public interface AdminBoardManagementMapper {
 	int deleteNotice(Notice notice);
 	int updateNotice(Notice notice);
 	int selectNoticeCount(Page page);
+	
+	ArrayList<MemberBoard> selectAdminBoardListByPage(Page page);
+	int selectAdminBoardCount(Page page);
 }

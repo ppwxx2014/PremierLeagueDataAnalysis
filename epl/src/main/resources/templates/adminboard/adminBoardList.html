@@ -49,8 +49,9 @@
 								<div id="bootstrap-data-table_filter" class="dataTables_filter">
 									<label><font style="vertical-align: inherit;"><font
 											style="vertical-align: inherit;">수색:</font></font><input
-										type="search" class="form-control form-control-sm"
+										type="search" id = "searchWord" class="form-control form-control-sm"
 										placeholder="" aria-controls="bootstrap-data-table"></label>
+										<button id ="search">검색</button>
 								</div>
 							</div>
 						</div>
@@ -69,68 +70,34 @@
 									</thead>
 									<tbody id="boardList">
 										<tr class="row">
-											<td class="col-2">1233</td>
-											<td class="col-6">존나 하기싫다</td>
-											<td class="col-2">ㄹㅇㄹㅇ</td>
-											<td class="col-2">1202.21.21.212121</td>
+										
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<div class="row">
+						
 							<div class="col-sm-12 col-md-5">
 							</div>
-							<div class="col-sm-12 col-md-7">
+							
 								<div class="dataTables_paginate paging_simple_numbers"
 									id="bootstrap-data-table_paginate">
 									<ul class="pagination">
-										<li class="paginate_button page-item previous disabled"
-											id="bootstrap-data-table_previous"><a href="#"
-											aria-controls="bootstrap-data-table" data-dt-idx="0"
-											tabindex="0" class="page-link"><font
-												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">이전</font></font></a></li>
-										<li class="paginate_button page-item active"><a href="#"
-											aria-controls="bootstrap-data-table" data-dt-idx="1"
-											tabindex="0" class="page-link"><font
-												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">1</font></font></a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="bootstrap-data-table" data-dt-idx="2"
-											tabindex="0" class="page-link"><font
-												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">2</font></font></a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="bootstrap-data-table" data-dt-idx="3"
-											tabindex="0" class="page-link"><font
-												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">삼</font></font></a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="bootstrap-data-table" data-dt-idx="4"
-											tabindex="0" class="page-link"><font
-												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">4</font></font></a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="bootstrap-data-table" data-dt-idx="5"
-											tabindex="0" class="page-link"><font
-												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">5</font></font></a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="bootstrap-data-table" data-dt-idx="6"
-											tabindex="0" class="page-link"><font
-												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">6</font></font></a></li>
 										<li class="paginate_button page-item next"
 											id="bootstrap-data-table_next"><a href="#"
 											aria-controls="bootstrap-data-table" data-dt-idx="7"
 											tabindex="0" class="page-link"><font
 												style="vertical-align: inherit;"><font
-													style="vertical-align: inherit;">다음</font></font></a></li>
+													style="vertical-align: inherit;"id="preBtn">이전</font></font></a></li>
+
+										<li class="paginate_button page-item next"
+											id="bootstrap-data-table_next"><a href="#"
+											aria-controls="bootstrap-data-table" data-dt-idx="7"
+											tabindex="0" class="page-link"><font
+												style="vertical-align: inherit;"><font
+													style="vertical-align: inherit;"id="nextBtn">다음</font></font></a></li>
 									</ul>
 								</div>
-							</div>
-						</div>
 					</div>
 				</div>
                         </div>
@@ -151,6 +118,115 @@
 
     <!--Local Stuff-->
     <script>
+    let currentPage = 1;
+    
+    //검색단어 저장
+    let searchWord = null;
+    
+    //게시글 검색
+    $("#search").click(function(){
+    	searchWord = $("#searchWord").val();
+    	console.log("searchWord:"+searchWord);
+    	$("#boardList").empty();
+    	$.ajax({
+    		url:"/getBoardListByPage",
+    		method:"POST",
+    		async: false,
+    		data: {"currentPage": currentPage, "searchWord" : searchWord},
+    		success : function(json){
+    			console.log("searchWord json:"+json);
+    			$(json).each(function(index, item){
+    				temp="<tr class='row'><td class='col-2'>"+item.boardNo+"</td>"+
+    				"<td class='col-6'>"+item.boardTitle+"</td>"+
+    				"<td class='col-2'>"+item.boardUser+"</td>"+
+    				"<td class='col-2'>"+item.boardDate+"</td></tr>";
+    				$("#boardList").append(temp);
+    			});
+    		}
+    	});
+    });
+    
+    //이전버튼
+    $("#preBtn").click(function(){
+    	
+    	console.log("이전버튼 클릭:"+currentPage);
+    	if(currentPage ===1){
+    		alert("현재 1페이지 입니다.")
+    		return;
+    	}
+    	currentPage --;
+    	    
+    	console.log("현재 페이지:"+currentPage);
+    	$("#boardList").empty();
+    	
+    	$.ajax({
+    		url:"/getBoardListByPage",
+    		method:"POST",
+    		async:false,
+    		data : {"currentPage" : currentPage, "searchWord" : searchWord},
+    		success:function(json){
+    			console.log("currentPage json:"+json);
+    			$(json).each(function(index, item){
+    				temp="<tr class='row'><td class='col-2'>"+item.boardNo+"</td>"+
+    				"<td class='col-6'>"+item.boardTitle+"</td>"+
+    				"<td class='col-2'>"+item.boardUser+"</td>"+
+    				"<td class='col-2'>"+item.boardDate+"</td></tr>";
+    				$("#boardList").append(temp);
+    			});
+    		}
+    	});
+    	
+    });
+    
+    //다음 버튼
+    $("#nextBtn").click(function(){
+    	
+    	console.log("다음버튼 클릭:"+currentPage);
+    	
+    	let count = 0;
+    	$.ajax({
+    		url:"/getAdminBoardCount",
+    		method:"POST",
+    		async: false,
+    		data :{"searchWord": searchWord},
+    		success: function(json){
+    			console.log("게시글수:"+json);
+    			count = Number(json);
+    			console.log("count:"+count);
+    			
+    		}
+    	});
+    	//마지막 페이지
+    	let lastPage = Math.ceil(count/10);
+    	if(currentPage == lastPage){
+    		alert("마지막페이지");
+    		return;
+    	}
+    	
+    	currentPage++;
+    	    
+    	
+    	console.log("현재 페이지:"+currentPage);
+    	$("#boardList").empty();
+    	$.ajax({
+    		url:"/getBoardListByPage",
+    		method: "POST",
+    		data : {"currentPage" : currentPage, "searchWord" : searchWord},
+    		success:function(json){
+    			console.log("currentPage json:"+json);
+    			$(json).each(function(index, item){
+    				temp="<tr class='row'><td class='col-2'>"+item.boardNo+"</td>"+
+    				"<td class='col-6'>"+item.boardTitle+"</td>"+
+    				"<td class='col-2'>"+item.boardUser+"</td>"+
+    				"<td class='col-2'>"+item.boardDate+"</td></tr>";
+    				$("#boardList").append(temp);
+    			});
+    		}
+    	});
+    });
+    
+    
+    
     function searchParam(key) {
    		return new URLSearchParams(location.search).get(key);
    	};
@@ -175,9 +251,6 @@
 	if(searchParam("category")==="자유 게시판"){
 		$("#breadTitle").html("자유 게시판");
 		$("#cardTitle").html("자유 게시판");
-	}else if(searchParam("category")==="토론 게시판"){
-		$("#breadTitle").html("토론 게시판");
-		$("#cardTitle").html("토론 게시판");
 	}else if(!(searchParam("category")==null)){
 		$("#breadTitle").html("팀 게시판");
 		$("#cardTitle").html("팀 게시판");

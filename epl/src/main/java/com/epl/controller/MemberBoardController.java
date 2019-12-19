@@ -15,6 +15,19 @@ public class MemberBoardController {
 		return "member/memberBoard";
 	}
 	
+	// 유저 게시판
+	@GetMapping("/getMemberNoticeList")
+	public String getMemberNoticeList() {
+		return "member/getMemberNoticeList";
+	}
+	
+	// 유저 게시판
+	@GetMapping("/getMemberNoticeOne")
+	public String getMemberNoticeOne(@RequestParam(value = "noticeNo", required = true) int noticeNo) {
+		System.out.println("noticeNo");
+		return "member/getMemberNoticeOne";
+	}
+	
 	// 게시판 글 입력
 	@GetMapping("/addMemberBoard")
 	public String addMemberBoard(HttpSession session) {

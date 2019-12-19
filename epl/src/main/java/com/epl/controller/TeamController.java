@@ -20,9 +20,8 @@ public class TeamController {
 	private TeamService teamService;
 
 	@GetMapping("/addTeam")
-	public String addTeam(HttpSession session, Team team, Model model) {
-		team = (Team) session.getAttribute("team");
-		model.addAttribute("team", team);
+	public String addTeam() {
+
 		return "club/addTeam";
 	}
 

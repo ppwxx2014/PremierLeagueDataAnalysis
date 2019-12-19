@@ -12,5 +12,9 @@ public interface CoachService {
 	public List<Country> getCountry();
 
 	public List<Coach> getCoachList();
+	
+	public int modifyCoach(Coach coach);
+	
+	public Coach getCoachOne(int coachNo);
 
 }

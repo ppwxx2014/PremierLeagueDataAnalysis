@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
+import com.epl.vo.Notice;
 import com.epl.vo.Page;
 import com.epl.vo.PageByCategory;
 
@@ -40,4 +41,10 @@ public interface MemberBoardMapper {
 	int check(MemberBoard memberBoard);
 	
 	List<String> selectBoardCategory();
+	
+	// 공지사항 보기
+	List<Notice> selectNoticeList(Notice notice);
+	
+	// 공지사항 상세 정보
+	Notice selectNoticeOne(int noticeNo);
 }

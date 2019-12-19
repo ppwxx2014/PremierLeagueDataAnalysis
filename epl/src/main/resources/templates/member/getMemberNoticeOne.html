@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Title -->
+    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+    <th:block th:include = "/member/template/layout/headLayout"></th:block>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	  
+	<link href="/summernote/summernote-bs4.css" rel="stylesheet">
+	<script src="/summernote/summernote-bs4.js"></script>
+	
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<style>
+		p {
+			color: #000000;
+		}
+	</style>
+</head>
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/member/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+    <br><br>
+    <div class = "container">
+    	<h2>공 지 사 항</h2><span></span>
+	    	
+    </div>
+	<div class = "container" style = "border: 1px solid; padding: 30px;">
+		<!-- content -->
+		<p id = "noticeTitle" style = "font-weight: bold; color: black;"></p>
+		<hr>
+		<div style = "display: inline;" id = "noticeInfo"></div>
+		<hr><br>
+		<div id = "notice"></div>
+		<hr color = "blue" size = "3">
+		<button type = "button" class = "btn btn-primary" onclick = "location.href = '/getMemberNoticeList'">목록으로</button>
+		
+  		
+	</div>
+    <!-- ##### Footer Area Start ##### -->
+	<th:block th:include = "/member/template/layout/footer"></th:block>
+    <!-- ##### Footer Area End ##### -->
+
+
+</body>
+
+	<script>
+	
+	// 검색한 매개변수의 첫번쨰 값을 반환함
+	function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	
+	console.log("로그인 id : " + memberId);
+	
+	var noticeNo = 0;
+	$.ajax({	
+		url:"/getMemberNoticeOne",
+		method:"post",
+		data: {"noticeNo" : searchParam("noticeNo")},
+		async:false,
+		success:function(json){
+			noticeNo = searchParam("noticeNo");
+			console.log("noticeNo: " + noticeNo);
+			$("#listOne").empty();
+			console.log(json);
+			noticeNo = json.noticeNo;
+			console.log(noticeNo);
+				$("#noticeTitle").append("("+json.noticeNo+") " + json.noticeTitle);
+				$("#noticeInfo").append("공지 분류 : " + json.noticeCategory + " │ " + json.noticeDate);
+				$("#notice").append(json.notice + "<br><br><br><br><br><br><br><br><br>");
+		}
+	});
+	
+	console.log("noticeNo확인 : " + noticeNo);
+	
+	</script>
+</html>
+
+

@@ -14,5 +14,9 @@ public interface CoachMapper {
 	public List<Country> selectCountry();
 
 	public List<Coach> selectCoachList();
+	
+	public int updateCoach(Coach coach);
+	
+	public Coach coachOne(int coachNo);
 
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Title -->
+    <title> PremierLeagueDataAnalysis - User index &amp; Template</title>
+    <th:block th:include = "/member/template/layout/headLayout"></th:block>
+<style type="text/css">
+	.bg_color{
+	background-color: #ff0000;
+	}
+</style>
+</head>
+
+<body>
+    <!-- ##### TopBar Area Start ##### -->
+   	<th:block th:include = "/member/template/layout/topBar"></th:block>
+    <!-- ##### TopBar Area End ##### -->
+    <div class="bg_color">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9">
+					<br><br><br>
+						<h1 class="text-white" id = "boardTitle">공지 사항</h1>
+					<br>
+				</div>
+				<div class="col-sm-3">
+					<img alt="boaradimg" src="images/boardimg.png" width=400px height=auto> 
+				</div>
+			</div>
+		</div>
+	</div>
+    <br>
+	<div class = "container">
+		<table id="bootstrap-data-table" class="table table-striped">
+			<thead>
+				<tr>
+					<td>글 번호</td>
+					<td>제목</td>
+					<td>작성 날짜</td>
+				</tr>
+			</thead>
+			<tbody id="list">
+
+			</tbody>
+		</table>
+	</div>
+    <!-- ##### Footer Area Start ##### -->
+    <th:block th:include = "/member/template/layout/footer"></th:block>
+    
+    <!-- ##### Footer Area End ##### -->
+</body>
+
+<script>
+	$.ajax({
+		url : "/getMemberNoticeList",
+		method : "post",
+		// json으로 넘어온 리턴값을 JQuery로 바꿔줌
+		success : function(json) {
+			console.log("리스트 성공!");
+			console.log(json);
+			$(json).each(function(index, item) {
+				temp = "<tr>";
+				temp += "<td>" + item.noticeNo + "</td>";
+				temp += "<td>" + "<a href = '/getMemberNoticeOne?noticeNo=" + item.noticeNo + "'>"+ item.noticeTitle + "</a></td>";
+				temp += "<td>" + item.noticeDate + "</td>";
+				temp += "</tr>";
+				$("#list").append(temp);
+			});
+		}
+	});
+</script>
+</html>
+
+
+
+

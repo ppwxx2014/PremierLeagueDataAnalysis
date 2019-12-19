@@ -1,0 +1,196 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Template</title>
+	<th:block th:include = "template/part/headLayout"></th:block>
+	<link rel ="stylesheet" type = "text/css" href = "/datepicker.css" >
+</head>	
+
+<body>
+    <!-- Left Panel -->
+    	<th:block th:include = "template/part/aside"></th:block>
+    <!-- /#left-panel -->
+    
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        	<div th:include ="template/part/topBar::topBar"></div>
+        <!-- /#header -->
+        <!-- 경로 표시 -->
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>
+									<font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">감독 수정</font></font>
+								</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="page-header float-right">
+							<div class="page-title">
+								<ol class="breadcrumb text-right">
+									<li><a href="index"><font
+											style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">홈</font></font></a></li>
+									<li><a href="#"><font style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">팀</font></font></a></li>
+									<li class="active"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">팀 추가</font></font></li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /#경로 표시 -->
+        <!-- Content -->
+		<div class="content">
+			<div class="card">
+				<div class="card-header">
+					<strong><font style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;">감독 </font></font></strong><font
+						style="vertical-align: inherit;"><font
+						style="vertical-align: inherit;"> 수정 </font></font>
+						<h3 id = "name"></h3>
+				</div>
+				<div class="card-body card-block">
+
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">감독 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="text" id="coachName" name="text-input"
+								placeholder="이름 입력" class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="text-input" class=" form-control-label"> <font
+								style="vertical-align: inherit;"> <font
+									style="vertical-align: inherit;">생일 : </font>
+							</font>
+							</label>
+						</div>
+						<div class="col-12 col-md-9">
+							<input type="date" id="birthDate" name="text-input"
+								class="form-control">
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col col-md-3">
+							<label for="select" class=" form-control-label"><font
+								style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">국적 : </font></font></label>
+						</div>
+						<div class="col-12 col-md-9">
+							<select name="select" id="country" class="form-control">
+   								<option value="none">::: 국적 선택 :::</option>
+							</select>
+						</div>
+					</div>
+
+						
+					<button type="button" class="btn btn-lg btn-info btn-block" id="modify"><font
+							style="vertical-align: inherit;"><font
+							style="vertical-align: inherit;"> 수정</font></font>
+					</button>
+				</div>
+			</div>
+		</div>
+        <!-- /.content -->		
+        
+        
+        <div class="clearfix"></div>
+        
+        <!-- Footer -->
+    	<div th:include ="template/part/footer::footer"></div>
+        <!-- /Footer -->
+        
+    </div>
+    <!-- /#right-panel -->
+
+    
+
+    <!--Local Stuff-->
+    <script>
+    //url에서 감독 번호를 받아옴
+    function searchParam(key) {
+   		return new URLSearchParams(location.search).get(key);
+   	};
+   	var coachNo = searchParam("coachNo");
+   	console.log("coachNo:"+coachNo);
+
+    $("#birthDate").datepicker({
+		dateFormat: 'yy-mm-dd',
+		changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+	
+		changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+		minDate: '-100y', //현재 년부터 100년 전까지
+		yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+
+	});
+   	//감독 이름을 상단에 출력
+   	$.ajax({
+   		url:"/getCoachOne",
+   		method:"POST",
+   		data:{"coachNo": coachNo,},
+   		success:function(json){
+   			$("#name").empty();
+   			$(json).each(function(index, item){
+   				console.log("coachName:"+item.coachName);
+   				temp = item.coachName;
+   				$("#name").append(temp);
+   			});
+   		}
+   	});
+   	
+   	
+		//나라를 출력
+		$.ajax({
+			url:"/getCountry",
+			method:"POST",
+			success:function(json){
+				/* $("#country").empty(); */
+				$(json).each(function(index, item){
+					temp = "<option value = '";
+					temp += item.countryName;
+					temp += "'>";
+					temp += item.countryName;
+					temp += "</option>";
+					$("#country").append(temp);
+				});
+			}
+		});	
+	//수정한 정보를 db에 저장
+	$("#modify").click(function(){
+		$.ajax({
+			url:"/modifyCoach",
+			method:"POST",
+			data:{"coachNo": coachNo,
+				"coachName": $("#coachName").val(),
+				"birthDate": $("#birthDate").val(),
+				"country" : $("#country").val(),
+			},
+			success:function(json){
+				alert("수정 완료");
+				location.href="/getCoachList"
+			}
+		});
+	});
+	
+	
+    </script>
+</body>
+</html>

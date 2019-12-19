@@ -14,6 +14,10 @@
 	text-align: center;
 	 width: 360px;
 }
+.ct {
+  margin: 0 auto;
+  text-align: center;
+}
 
 </style>
 	
@@ -34,43 +38,46 @@
 		<div class="content">
 			
 		<div class="content">
-	
-	 <center><select id = "unFinishedmatch" class="form-control form-control-lg matchlist"></select></center>
+		
+		<div class = "ct">
+			<center><select id = "unFinishedmatch" class="form-control form-control-lg matchlist"></select></center>
+			
+			<table class = "table" >
+				<thead class="thead-dark">
+					<tr>
+						<th id = "hometeamName">HomeTeam</th>
+				 		<th>VS</th>
+				 		<th	id = "awayteamName">AwayTeam</th>
+				 	</tr>
+				</thead>
+				<thead class="thead-light">
+				 	<tr>
+				 		<th></th>
+				 		<th id = "stadium">경기장 : </th>
+				 		<th></th>
+					</tr>
+				</thead>
+				<thead class="thead-light">
+				 	<tr>
+				 		<th	id = "hometeamGoals">0</th>
+				 		<th id = "matchDate">날짜  : </th>
+				 		<th	id = "awayteamGoals">0</th>
+					</tr>
+				</thead>
+				<thead class="thead-light">
+				 	<tr>
+				 		<th></th>
+				 		<th id = "matchTime">시간  :</th>
+				 		<th></th>
+					</tr>
+				</thead>
+			</table>
+			 
+			 <button id = "activeF">경기 종료</button>
+			 
+		</div>
 
-	 <table class = "table" >
-	 	<thead class="thead-dark">
-		 	<tr>
-		 		<th id = "hometeamName">HomeTeam</th>
-		 		<th>VS</th>
-		 		<th	id = "awayteamName">AwayTeam</th>
-		 	</tr>
-		 </thead>
-		 <thead class="thead-light">
-		 	<tr>
-		 		<th></th>
-		 		<th id = "stadium">경기장 : </th>
-		 		<th></th>
-		 	</tr>
-		 </thead>
-		 <thead class="thead-light">
-		 	<tr>
-		 		<th	id = "hometeamGoals">0</th>
-		 		<th id = "matchDate">날짜  : </th>
-		 		<th	id = "awayteamGoals">0</th>
-		 	</tr>
-		 </thead>
-		 <thead class="thead-light">
-		 	<tr>
-		 		<th></th>
-		 		<th id = "matchTime">시간  :</th>
-		 		<th></th>
-		 	</tr>
-		 </thead>
-	 </table>
-	 
-	 <button id = "activeF">경기 종료</button>
-
-</div>	
+		</div>	
 			
 		</div>
         <!-- /.content -->		
@@ -79,7 +86,7 @@
         <div class="clearfix"></div>
         
         <!-- Footer -->
-    	<th:block th:include = "/member/template/layout/footer"></th:block>
+    	<div th:include ="template/part/footer::footer"></div>
         <!-- /Footer -->
         
     </div>

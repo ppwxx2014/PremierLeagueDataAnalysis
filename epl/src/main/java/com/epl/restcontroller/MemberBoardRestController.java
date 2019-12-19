@@ -13,11 +13,13 @@ import com.epl.service.interfaces.MemberBoardService;
 import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardForm;
+import com.epl.vo.Notice;
 import com.epl.vo.PageByCategory;
 
 @RestController
 public class MemberBoardRestController {
 	@Autowired private MemberBoardService memberBoardService;
+	
 	
 	// 게시판 추가
 	@PostMapping("/addMemberBoard")
@@ -90,6 +92,15 @@ public class MemberBoardRestController {
 		return list;
 	}
 	
+	// 공지사항
+	@PostMapping("/getMemberNoticeList")
+	public List<Notice> getMemberNoticeList(Notice notice) {
+		List<Notice> list = memberBoardService.getNoticeList(notice);
+		System.out.println("list : " + list);
+		return list;
+	}
+		
+	
 	@PostMapping("/removeComment")
 	public int removeComment(MemberBoardComment memberBoardComment) {
 		System.out.println(memberBoardComment);
@@ -136,6 +147,18 @@ public class MemberBoardRestController {
 		System.out.println("memberBoard : " + memberBoard);
 		return memberBoard;
 	}
+	
+	// 공지사항
+	@PostMapping("/getMemberNoticeOne")
+	public Notice getMemberNoticeNoe(@RequestParam(value = "noticeNo", required = true) int noticeNo) {
+		
+		System.out.println("noticeNo : " + noticeNo);
+		Notice notice = memberBoardService.getNoticeOne(noticeNo);
+		System.out.println("notice : " + notice);
+		return notice;
+	}
+		
+		
 	@PostMapping("/getBoardCategory")
 	public List<String> getBoardCategory(){
 		System.out.println("::::::::::getBoardCategory Controller::::::::::::::::");

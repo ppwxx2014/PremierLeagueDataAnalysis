@@ -5,6 +5,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.epl.mapper.MemberBoardMapper">
+	
+	<select id = "selectNoticeList"
+			resultType = "com.epl.vo.Notice">
+		select
+			notice_no as noticeNo,
+			notice_title as noticeTitle,
+			notice as notice,
+			notice_category as noticeCategory,
+			notice_date as noticeDate
+		FROM
+		notice
+	</select>	
 
 	<!-- 글 삭제 -->
 	<delete id="deleteMemberBoard"
@@ -75,6 +87,20 @@
 		ON mb.board_user = m.member_email
 		WHERE board_no = #{boardNo}
 	</select>
+	
+	<select id = "selectNoticeOne"
+			parameterType = "int"
+			resultType = "com.epl.vo.Notice">
+		select
+			notice_no as noticeNo,
+			notice_title as noticeTitle,
+			notice as notice,
+			notice_category as noticeCategory,
+			notice_date as noticeDate
+		FROM
+		notice
+		WHERE notice_no = #{noticeNo}
+	</select>	
 
 	<!-- 게시판 입력 -->
 	<insert id="insertMemberBoard"

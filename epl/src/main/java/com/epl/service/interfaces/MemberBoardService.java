@@ -5,7 +5,7 @@ import java.util.List;
 import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardForm;
-import com.epl.vo.Page;
+import com.epl.vo.Notice;
 import com.epl.vo.PageByCategory;
 
 public interface MemberBoardService {
@@ -33,5 +33,10 @@ public interface MemberBoardService {
 	
 	//카테고리 리스트
 	List<String> getBoardCategory();
+	
+	//카테고리 리스트
+	List<Notice> getNoticeList(Notice notice);
+	
+	Notice getNoticeOne(int noticeNo);
 	
 }

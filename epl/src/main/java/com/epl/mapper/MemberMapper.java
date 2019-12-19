@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.epl.vo.Member;
+import com.epl.vo.Notice;
 
 @Mapper
 public interface MemberMapper {
@@ -20,4 +21,5 @@ public interface MemberMapper {
 	
 	// 유저 정보 업데이트
 	int updateMember(Member member);
+	
 }

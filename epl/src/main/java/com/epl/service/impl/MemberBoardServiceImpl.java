@@ -19,7 +19,9 @@ import com.epl.vo.MemberBoard;
 import com.epl.vo.MemberBoardComment;
 import com.epl.vo.MemberBoardForm;
 import com.epl.vo.MemberBoardfile;
+import com.epl.vo.Notice;
 import com.epl.vo.PageByCategory;
+import com.epl.vo.Team;
 
 @Service
 @Transactional
@@ -313,6 +315,20 @@ public class MemberBoardServiceImpl implements MemberBoardService{
 	public List<String> getBoardCategory() {
 		List<String> list = memberBoardMapper.selectBoardCategory();
 		return list;
+	}
+	
+	@Override
+	public List<Notice> getNoticeList(Notice notice) {
+		List<Notice> list = memberBoardMapper.selectNoticeList(notice);
+		System.out.println("list : " + list);
+		return list;
+	}
+	
+	@Override
+	public Notice getNoticeOne(int noticeNo) {
+		Notice notice = memberBoardMapper.selectNoticeOne(noticeNo);
+		System.out.println(notice);
+		return notice;
 	}
 }
 

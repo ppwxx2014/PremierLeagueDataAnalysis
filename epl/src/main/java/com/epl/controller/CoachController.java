@@ -20,10 +20,7 @@ import com.epl.vo.Coach;
 public class CoachController {
 	@Autowired private CoachService coachService;
 	@GetMapping("/addCoach")
-	public String addCoach(HttpSession session,Coach coach,Model model) {
-		
-		coach = (Coach)session.getAttribute("coach");
-		model.addAttribute("coach",coach);
+	public String addCoach() {
 		
 		return "coach/addCoach";
 	}
@@ -32,11 +29,15 @@ public class CoachController {
 	
 	
 	@GetMapping("/getCoachList")
-	public List<Coach> getCoachList(Model model){
+	public String getCoachList(Model model){
 		List<Coach> list = coachService.getCoachList();
 		model.addAttribute("list", list);
 		System.out.println("list:"+list);
-		return list;
+		return "coach/getCoachList";
 	}
-	
+	@GetMapping("/modifyCoach")
+	public String modifyCoach() {
+		
+		return "coach/modifyCoach";
+	}
 }

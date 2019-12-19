@@ -34,4 +34,17 @@ public class CoachRestController {
 		System.out.println("coachlist:" + list);
 		return list;
 	}
+	
+	@PostMapping("/modifyCoach")
+	public int modifyCoach(Coach coach) {
+		int row = coachService.modifyCoach(coach);
+		System.out.println("row:"+row);
+		return row;
+	}
+	@PostMapping("/getCoachOne")
+	public Coach getCoachOne(int coachNo) {
+		Coach coach = coachService.getCoachOne(coachNo);
+		System.out.println("coach:"+coach);
+		return coach;
+	}
 }

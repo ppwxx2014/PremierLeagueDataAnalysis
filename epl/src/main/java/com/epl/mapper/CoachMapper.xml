@@ -28,5 +28,22 @@
 		country as country
 		FROM coach
 	</select>
-
+	<update id = "updateCoach" parameterType="com.epl.vo.Coach">
+		UPDATE coach SET
+			coach_name = #{coachName},
+			birth_date = #{birthDate},
+			country = #{country}
+		WHERE
+			coach_no = #{coachNo}
+	</update>
+	<select id = "coachOne" resultType="com.epl.vo.Coach" parameterType="int">
+		SELECT
+		coach_no as coachNo,
+		coach_name as coachName,
+		birth_date as birthDate,
+		country as country
+		FROM coach
+		WHERE
+			coach_no = #{coachNo}
+	</select>
 </mapper>

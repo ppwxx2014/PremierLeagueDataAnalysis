@@ -34,5 +34,17 @@ public class CoachServiceImpl implements CoachService {
 
 		return coachMapper.selectCoachList();
 	}
+	@Override
+	public int modifyCoach(Coach coach) {
+		int row = coachMapper.updateCoach(coach);
+		System.out.println("row:"+row);
+		return row;
+	}
+	@Override
+	public Coach getCoachOne(int coachNo) {
+		Coach coach = coachMapper.coachOne(coachNo);
+		System.out.println("coach:"+coach);
+		return coach;
+	}
 
 }

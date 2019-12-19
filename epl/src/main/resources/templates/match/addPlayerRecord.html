@@ -238,7 +238,8 @@
 		</table>
 	</div>
 	</div>
-
+	
+	<a href = "/index"><button class="btn btn-primary">목록으로</button></a>
 	<button id="playerInsertBtn" class="btn btn-info">Player Insert</button>
 	<button id="keeperInsertBtn" class="btn btn-info">KeeperInsert</button>
 	</div>
@@ -850,7 +851,7 @@
 			},
 			success : function(json) {
 				console.log("성공시 1 출력 : " + json);
-				location.href = "/index";
+				location.reload();
 			}
 		})
 	});
@@ -873,7 +874,7 @@
 			},
 			success : function(json) {
 				console.log("성공시 1 출력 : " + json);
-				location.href = "/index";
+				location.reload();
 			}
 		})
 	});
@@ -1217,7 +1218,6 @@
 								success : function(json) {
 									console.log("선수가 키퍼로입력됨 : "+ json);
 									location.reload();
-									location.href = "/index";
 								}
 							})
 									//골키퍼페이지로이동

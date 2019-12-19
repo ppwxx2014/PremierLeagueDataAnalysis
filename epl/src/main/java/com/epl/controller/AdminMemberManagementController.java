@@ -13,9 +13,9 @@ public class AdminMemberManagementController {
 	
 	@GetMapping("/adminMemberList")
 	public String adminMemberList(HttpSession session) {
-		if (session.getAttribute("loginState") == null) {
-			return "login";
-		}
+		/*
+		 * if (session.getAttribute("loginState") == null) { return "login"; }
+		 */
 		System.out.println("adminMemberList page move");
 		return "adminmember/memberManagement";
 	}

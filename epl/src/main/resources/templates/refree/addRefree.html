@@ -160,6 +160,7 @@
 				data : {"refreeName" : $("#refreeName").val() , "birthDate" : $("#birthDate").val() , "country" : $("#countryList").val()} ,
 				success : function(json) {
 					console.log(json + "입력 성공");
+					location.reload();
 				}
 			});
 		}); 

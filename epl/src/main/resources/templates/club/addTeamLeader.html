@@ -254,8 +254,8 @@
 					"endDate" : $("#endDate").val()
 			},
 			success:function(json){
-				alert("add teamLeader");
-				location.href="/index"
+				console.log(json);
+				location.reload();
 			}
 		});
 		}

@@ -19,9 +19,9 @@ public class MemberBoardController {
 	@GetMapping("/addMemberBoard")
 	public String addMemberBoard(HttpSession session) {
 
-		if(session.getAttribute("memberId")==null) {
-			return "redirect:/memberLogin";
-		}
+		/*
+		 * if (session.getAttribute("loginState") == null) { return "login"; }
+		 */
 		return "member/addMemberBoard";
 	}
 	

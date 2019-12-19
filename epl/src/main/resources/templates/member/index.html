@@ -52,8 +52,11 @@ th {
 	width: 300px;
 	text-align: center;
 }
-td {
-	
+#matchSchedule td{
+	padding: 10px;
+}
+#matchSchedule tr{
+	padding-bottom: 0px;
 }
 </style>
 
@@ -172,6 +175,7 @@ td {
 							<strong class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">공지사항</font></font></strong>
 							</div>
 							<div align="right" class="col-lg-3">
+								<a href="/getMemberNoticeList">more▶</a>
 							</div>
 						</div>
 					</div>
@@ -191,8 +195,8 @@ td {
 						<span style="color: white;">18-19 시즌</span>
 					</div>
 				</div>
-				<div class = "card-body row">
-				<table class = "col-11"  id="matchSchedule" style="margin-left: auto; margin-right: auto;">
+				<div class = "card-body row" >
+				<table class = "col-11"  id="matchSchedule" >
 					
 				</table>
 			
@@ -210,12 +214,12 @@ td {
 				<div class = "card-body">
 					<table class="table table-borderless">
 						<thead align="center">
-							<tr>
-								<th>랭킹</th>
-								<th>팀</th>
-								<th>경기</th>
-								<th>골</th>
-								<th>승점</th>
+							<tr class='row'>
+								<th class='col-1'>랭킹</th>
+								<th class='col-6'>팀</th>
+								<th class='col-2'>경기</th>
+								<th class='col-1'>골</th>
+								<th class='col-2'>승점</th>
 							</tr>
 						</thead>
 						<tbody id="teamRank" align="center">
@@ -267,8 +271,8 @@ td {
 		method:"POST",
 		success:function(json){
 			$("#teamLogo").empty();
+			console.log(json);
 			$(json).each(function(index, item){
-				console.log(json);
 				temp = "<a href = '/getMemberTeamOne?teamName="+item.teamName+"'>";
 				temp += "<img class='teamLogo' src='/images/teamlogo/";
 				temp += item.teamName;
@@ -287,13 +291,12 @@ td {
 			$("#teamRank").empty();
 			let rank = 1;
 			console.log(json);
-			
 			$(json).each(function(index, item) {
-				temp = "<tr><td>"+rank+"</td>";
-				temp += "<td> <img width='15' height='15' src='/images/teamlogo/"+item.teamName+".png'> "+item.teamName+"</td>";
-				temp += "<td>"+16+"</td>";
-				temp += "<td>"+16+"</td>";
-				temp += "<td>"+16+"</td></tr>";
+				temp = "<tr class='row'><td class='col-1'>"+rank+"</td>";
+				temp += "<td class='col-6'> <img width='15' height='15' src='/images/teamlogo/"+item.teamName+".png'> "+item.teamName.replace("Football Club", "F.C")+"</td>";
+				temp += "<td class='col-2'>"+item.matchCount+"</td>";
+				temp += "<td class='col-1'>"+item.goalCount+"</td>";
+				temp += "<td class='col-2'>"+item.points+"</td></tr>";
 				$("#teamRank").append(temp);
 				rank+=1;
 			});
@@ -307,14 +310,14 @@ td {
 			console.log(json);
 			$("#matchSchedule").empty();
 			console.log(json);
-			temp ="<tr class='row' style='padding-bottom: 20px;'>";
+			temp ="<tr class='row'>";
 			$(json).each(function(index, item) {
 				console.log(item);
 				temp += "<td class='col-4' style='border-right:1px ridge;'>"+
 					"<table>"+
 						"<tr>"+
 							"<td class='col-4'>"+
-								"<span><img width='25' height='25' src='/images/teamlogo/"+item.awayteamName+".png'> "+item.awayteamName+" </span> "+
+								"<span><img width='25' height='25' src='/images/teamlogo/"+item.awayteamName+".png'> "+item.awayteamName.replace("Football Club", "F.C")+" </span> "+
 							"</td>"+
 							"<td class='col-4'>"+
 								"<span> </span>"+
@@ -322,7 +325,7 @@ td {
 						"</tr>"+
 						"<tr>"+
 							"<td class='col-4'>"+
-								"<span><img width='25' height='25' src='/images/teamlogo/"+item.hometeamName+".png'> "+item.hometeamName+" </span>"+
+								"<span><img width='25' height='25' src='/images/teamlogo/"+item.hometeamName+".png'> "+item.hometeamName.replace("Football Club", "F.C")+" </span>"+
 							"</td>"+
 							"<td class='col-4'>"+
 								"<span> </span>"+
@@ -331,7 +334,7 @@ td {
 					"</table>"+
 				"</td>"+
 				"<td class='col-2' >"+
-					item.matchDate+""+item.matchTime+
+					item.matchDate+"<br>"+item.matchTime+
 				"</td>";
 				
 			
@@ -404,7 +407,7 @@ td {
 				temp += "<td>" + item.noticeNo + "</td>";
 				temp += "<td></td>";
 				temp += "<td>";
-				temp += "<a href = /adminNoticeOne?noticeNo=";
+				temp += "<a href = /getMemberNoticeOne?noticeNo=";
 				temp += item.noticeNo;
 				temp += ">";
 				temp += item.noticeTitle + "</a></td>";

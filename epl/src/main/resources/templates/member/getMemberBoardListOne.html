@@ -86,10 +86,11 @@
 			boardNo = searchParam("boardNo");
 			console.log("boardNo: " + boardNo);
 			$("#listOne").empty();
-			let temp = '<button type = "button" id = "addComment">댓글 입력</button>';
-			temp += '<span style = "float: right;"> <button type = "button" id = "removeBoard">글 삭제</button>';
-			temp += "<a href = /modifyMemberBoard?boardNo="+boardNo;
-			temp += '><button type = "button">글 수정</button></a></span>';
+			
+			let temp = '<br><button type = "button" id = "addComment" class="btn btn-success">댓글 입력</button>';
+			temp += '<span style = "float: right;"> <button type = "button" id = "removeBoard" class="btn btn-danger btn-sm">글 삭제</button>';
+			
+			temp += '<button onclick="location.href = \'/modifyMemberBoard?boardNo='+boardNo+'\'" type = "button" class="btn btn-warning btn-sm">글 수정</button></span>';
 			
 			$("#boardCategory").append(temp);
 			$("#boardCategory").append();
@@ -127,7 +128,7 @@
 				console.log(json);
 				console.log(item.commentNo);
 				let temp = item.memberNickName + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ item.commentDate + item.commentContent;
-				temp += "<button type = 'button' id = 'deleteComment' value = '"+item.commentNo+"'>삭제</button>";
+				temp += "<button class='btn btn-danger btn-sm' type = 'button' id = 'deleteComment' value = '"+item.commentNo+"'>삭제</button>";
 				temp += "<hr>";
 				console.log(temp);
 				$("#commentList").append(temp);

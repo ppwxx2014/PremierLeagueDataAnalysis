@@ -14,9 +14,9 @@ public class MemberMatchSchedule {
 	@GetMapping("/getMatchList")
 	public String getMatchList(HttpSession session, Model model) {
 		Admin loginState = (Admin) session.getAttribute("loginState");
-		if (session.getAttribute("loginState") == null) {
-			return "login";
-		}
+		/*
+		 * if (session.getAttribute("loginState") == null) { return "login"; }
+		 */
 		model.addAttribute("loginState", loginState);
 		return "member/getMatchList";
 	}

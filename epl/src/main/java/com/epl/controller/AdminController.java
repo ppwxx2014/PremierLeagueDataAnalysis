@@ -39,18 +39,18 @@ public class AdminController {
 	@GetMapping("/index")
 	public String index(HttpSession session, Model model) {
 		Admin loginState = (Admin) session.getAttribute("loginState");
-		if (session.getAttribute("loginState") == null) {
-			return "login";
-		}
+		/*
+		 * if (session.getAttribute("loginState") == null) { return "login"; }
+		 */
 		model.addAttribute("loginState", loginState);
 		return "index";
 	}
 	@GetMapping("/scheduler")
 	public String scheduler(HttpSession session, Model model) {
 		Admin loginState = (Admin) session.getAttribute("loginState");
-		if (session.getAttribute("loginState") == null) {
-			return "login";
-		}
+		/*
+		 * if (session.getAttribute("loginState") == null) { return "login"; }
+		 */
 		model.addAttribute("loginState", loginState);
 		return "scheduler";
 	}

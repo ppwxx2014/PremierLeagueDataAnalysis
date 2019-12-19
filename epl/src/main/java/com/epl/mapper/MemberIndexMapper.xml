@@ -25,12 +25,26 @@
 			AND match_time &lt; CURRENT_TIME()
 			)
 	</select>
-	<select id="selectMemberTeamRank" resultType="com.epl.vo.Team">
-		SELECT
-		team_name as
-		teamName,
-		stadium_name as stadiumName
+	<select id="selectMemberTeamRank" resultType="com.epl.vo.TeamRank">
+		SELECT team_name AS teamName ,
+			(SELECT COUNT(*) 
+		   		FROM match_result 
+		   		WHERE hometeam_name=team.team_name 
+		   		OR awayteam_name=team.team_name) matchCount,
+			(NVL((SELECT SUM(hometeam_goals) 
+				FROM match_result 
+				WHERE hometeam_name=team.team_name), 0)+
+				NVL((SELECT SUM(awayteam_goals) 
+					FROM match_result 
+					WHERE awayteam_name=team.team_name), 0)) goalCount,
+			NVL((SELECT SUM(case when winnerteam_name=team.team_name then 3 
+		        	when winnerteam_name='draw' then 1 
+		        	ELSE 0 END) 
+		        FROM match_result 
+		WHERE hometeam_name=team.team_name OR awayteam_name=team.team_name), 0) points
 		FROM team
+		ORDER BY points DESC,
+			goalCount DESC
 	</select>
 	<select id="selectMatchSchedule"
 		resultType="com.epl.vo.MatchSchedule">

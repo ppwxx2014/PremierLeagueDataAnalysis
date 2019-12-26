@@ -19,15 +19,176 @@
         
         <!-- Content -->
 		<div class="content">
-			<h1>HOME</h1>
-			
-			<a th:href="@{/modifyAdmin(adminId=${loginState.adminId}) }">회원정보수정</a>
-			
-			<a href="/logout">로그아웃</a>
-			
-			<a th:href = "@{/modifyAdminPw}">forgotten Password?</a>
+
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 선수 리스트</button>
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getTeamList'"><i class="fa fa-th-list"></i> 팀 리스트　</button>
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getRefreeList'"><i class="fa fa-th-list"></i> 심판 리스트</button>
+								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 감독 리스트</button>
+									
+								
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+					<!-- /# column -->
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addPlayer'"><i class="fa fa-plus"></i> 선수 추가</button>
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addTeam'"><i class="fa fa-plus"></i> 팀 추가　</button>
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addRefree'"><i class="fa fa-plus"></i> 심판 추가</button>
+								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addCoach'"><i class="fa fa-plus"></i> 감독 추가</button>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'modifyPlayer'"><i class="fa fa-cogs"></i> 선수 수정</button>
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'leagueUpdate'"><i class="fa fa-cogs"></i> 팀 변경　</button>
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 심판 수정 </button>
+								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 감독 수정 </button>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'adminMemberList'"><i class="fa fa-user"></i> 회원 관리　</button>
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'adminNotice'"><i class="fa fa-user"></i> 공지사함 관리 </button>
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'adminBoardAllCategory'"><i class="fa fa-user"></i> 게시판 관리　</button>
+								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'scheduler'"><i class="fa fa-user"></i> 스케줄 관리　</button>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="mb-3">게시판별 접속자 수</h4>
+								<div class="flot-container">
+									<div id="flot-pie" class="flot-pie-container"></div>
+								</div>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+					<!-- /# column -->
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="mb-3">페이지 방문자 수</h4>
+								<div class="flot-container">
+									<div id="chart1" style="width: 100%; height: 275px;"></div>
+								</div>
+							</div>
+						</div>
+						<!-- /# card -->
+					</div>
+				</div>
+				<!-- /# row -->
+			</div>
+			<!-- .animated -->
+			<div class="card">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title"><font
+							style="vertical-align: inherit;"><font
+								style="vertical-align: inherit;">관리자</font></font></strong>
+					</div>
+					<div class=" order-table ov-h">
+						<table class="table ">
+							<thead>
+								<tr>
+									<th class="serial"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">#</font></font></th>
+									<th class="avatar"><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">ID</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">이름</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">E-Mail</font></font></th>
+									<th><font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">상태</font></font></th>
+								</tr>
+							</thead>
+							<tbody id="adminList">
+								
+							</tbody>
+						</table>
+					</div>
+					<!-- /.table-stats -->
+					<!-- <section class="card">
+						<div class="card-header user-header alt bg-dark">
+							<div class="media">
+								<a href="#"> <img
+									class="align-self-center rounded-circle mr-3"
+									style="width: 85px; height: 85px;" alt=""
+									src="images/admin.jpg">
+								</a>
+								<div class="media-body">
+									<h2 class="text-light display-6">
+										<font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">짐도</font></font>
+									</h2>
+									<p>
+										<font style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">프로젝트 매니저</font></font>
+									</p>
+								</div>
+							</div>
+						</div>
+
+
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item"><a href="#"> <i
+									class="fa fa-envelope-o"></i><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">메일받은 편지함 </font></font><span
+									class="badge badge-primary pull-right"><font
+										style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">10</font></font></span></a></li>
+							<li class="list-group-item"><a href="#"> <i
+									class="fa fa-tasks"></i><font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">최근 활동 </font></font><span
+									class="badge badge-danger pull-right"><font
+										style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">15</font></font></span></a></li>
+							<li class="list-group-item"><a href="#"> <i
+									class="fa fa-bell-o"></i><font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">알림 </font></font><span
+									class="badge badge-success pull-right"><font
+										style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">11</font></font></span></a></li>
+							<li class="list-group-item"><a href="#"> <i
+									class="fa fa-comments-o"></i><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">메시지 </font></font><span
+									class="badge badge-warning pull-right r-activity"><font
+										style="vertical-align: inherit;"><font
+											style="vertical-align: inherit;">03</font></font></span></a></li>
+						</ul>
+
+					</section>
+					/admin Profile -->
+				</div>
+			</div>
 		</div>
-        <!-- /.content -->		
+		<!-- /.content -->		
         
         
         <div class="clearfix"></div>
@@ -39,11 +200,145 @@
     </div>
     <!-- /#right-panel -->
 
-    
-
+    <script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/excanvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/jquery.flot.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.time.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.stack.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.resize.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.crosshair.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot.curvedlines@1.1.1/curvedLines.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot.tooltip@0.9.0/js/jquery.flot.tooltip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
     <!--Local Stuff-->
     <script>
+    document.cookie = "loginState=admin;expires=Fri, 31 Desc 9999 23:59:59 GMT; path=/;SameSite=none";
+		(function($) {
+			var pieFlot = function() {
 
-    </script>
+				var data = [ {
+					label : " 자유 게시판",
+					data : 2,
+					color : "#8fc9fb"
+				}, {
+					label : " 팀 게시판",
+					data : 4,
+					color : "#007BFF"
+				}, {
+					label : " 토론 게시판",
+					data : 7,
+					color : "#00c292"
+				}, {
+					label : " 무인도는처음이지?",
+					data : 15,
+					color : "#F54336"
+				}, {
+					label : " 자유 게시판",
+					data : 15,
+					color : "#164336"
+				}, {
+					label : " 공지사항",
+					data : 15,
+					color : "#214336"
+				}, {
+					label : " EPL 1",
+					data : 15,
+					color : "#324336"
+				} ];
+
+				var plotObj = $.plot($("#flot-pie"), data, {
+					series : {
+						pie : {
+							show : true,
+							radius : 1,
+							label : {
+								show : false,
+
+							}
+						}
+					},
+					grid : {
+						hoverable : true
+					},
+					tooltip : {
+						show : true,
+						content : "%p.0%, %s, user=%n", // show percentages, rounding to 2 decimal places
+						shifts : {
+							x : 20,
+							y : 0
+						},
+						defaultTheme : false
+					}
+				});
+			}
+			var lineFlot = function() {
+
+				// first chart
+				var chart1Options = {
+					series : {
+						lines : {
+							show : true
+						},
+						points : {
+							show : true
+						}
+					},
+					xaxis : {
+						mode : "time",
+						timeformat : "%m/%d",
+						minTickSize : [ 1, "day" ]
+					},
+					grid : {
+						hoverable : true
+					},
+					legend : {
+						show : false
+					},
+					grid : {
+						color : "#fff",
+						hoverable : true,
+						borderWidth : 0,
+						backgroundColor : 'transparent'
+					},
+					tooltip : {
+						show : true,
+						content : "접속자: %y"
+					}
+				};
+				var chart1Data = {
+					label : "chart1",
+					color : "#007BFF",
+					data : [ [ 1354521600000, 6322 ],
+							[ 1354840000000, 6340 ],
+							[ 1355223600000, 6368 ],
+							[ 1355306400000, 6374 ],
+							[ 1355487300000, 6388 ],
+							[ 1355571900000, 6400 ] ]
+				};
+
+				$.plot($("#chart1"), [ chart1Data ], chart1Options);
+			}
+			$(document).ready(function($) {
+
+				pieFlot();
+				lineFlot();
+				$.ajax({
+					url:"/getAdminList",
+					method:"post",
+					success: function(json){
+						console.log(json);
+						let count = 1;
+						$(json).each(function(index, item){
+							temp="<tr><td><font style='vertical-align: inherit;'><font style='vertical-align: inherit;'> # "+count+" </font></font></td>";
+							temp+="<td>"+item.adminId+"</td> <td>"+item.adminName+"</td> <td>"+item.adminEmail+"</td> <td><span class='badge badge-complete'>접속중</span></td></tr>";//<span class="badge badge-pending">
+							console.log(temp);
+							count++;
+							$("#adminList").append(temp);
+						})
+					}
+				})
+			});
+		})(jQuery);
+	</script>
 </body>
 </html>

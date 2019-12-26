@@ -1,344 +1,894 @@
-<!doctype html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+﻿<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<title>Template</title>
-	<th:block th:include = "template/part/headLayout"></th:block>
-</head>	
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="IAMX, One Page Responsive HTML Resume Template">
+<meta name="keywords"
+	content="onepage, resume, CV HTML template, personal Vcard, html resume, free resume template, free HTML template, free bootstrap template, personal portfolio, free html portfolio">
+<meta name="author" content="http://trendytheme.net/">
+
+<title>Yoo`s resume</title>
+
+<!-- Web Fonts -->
+<link
+	href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700'
+	rel='stylesheet' type='text/css'>
+<!-- Bootstrap core CSS -->
+<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<!-- Font Awesome CSS -->
+<link href="assets/css/font-awesome.min.css" rel="stylesheet"
+	media="screen">
+<!-- Animate css -->
+<link href="assets/css/animate.css" rel="stylesheet">
+<!-- Magnific css -->
+<link href="assets/css/magnific-popup.css" rel="stylesheet">
+<!-- Custom styles CSS -->
+<link href="assets/css/indexStyle.css" rel="stylesheet" media="screen">
+<!-- Responsive CSS -->
+<link href="assets/css/responsive.css" rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+</head>
 
 <body>
-    <!-- Left Panel -->
-    	<th:block th:include = "template/part/aside"></th:block>
-    <!-- /#left-panel -->
-    
-    <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
-        <!-- Header-->
-        	<div th:include ="template/part/topBar::topBar"></div>
-        <!-- /#header -->
-        
-        <!-- Content -->
-		<div class="content">
+	<!-- Preloader -->
+	<div id="tt-preloader">
+		<div id="pre-status">
+			<div class="preload-placeholder"></div>
+		</div>
+	</div>
 
-			<div class="animated fadeIn">
-				<div class="row">
-					<div class="col-lg-3">
-						<div class="card">
-							<div class="card-body">
-								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 선수 리스트</button>
-								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getTeamList'"><i class="fa fa-th-list"></i> 팀 리스트　</button>
-								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getRefreeList'"><i class="fa fa-th-list"></i> 심판 리스트</button>
-								<button class = "btn btn-outline-success btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-th-list"></i> 감독 리스트</button>
-									
-								
-							</div>
-						</div>
-						<!-- /# card -->
-					</div>
-					<!-- /# column -->
-					<div class="col-lg-3">
-						<div class="card">
-							<div class="card-body">
-								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addPlayer'"><i class="fa fa-plus"></i> 선수 추가</button>
-								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addTeam'"><i class="fa fa-plus"></i> 팀 추가　</button>
-								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addRefree'"><i class="fa fa-plus"></i> 심판 추가</button>
-								<button class = "btn btn-outline-primary btn-block" onclick = "location.href = 'addCoach'"><i class="fa fa-plus"></i> 감독 추가</button>
-							</div>
-						</div>
-						<!-- /# card -->
-					</div>
+	<!-- Home Section -->
+	<section id="home" class="tt-fullHeight"
+		data-stellar-vertical-offset="50" data-stellar-background-ratio="0.2">
+		<div class="intro">
+			<div class="intro-sub">I am X</div>
+			<h1>
+				신입 개발자 <span>유지훈입니다.</span>
+			</h1>
+			<p>
+				I am a fully professional freelance creative User Interface Designer
+				&amp; Developer<br> Involving with latest web designing and
+				technologies is a great <br> feel free to contact creative.
+			</p>
 
-					<div class="col-lg-3">
-						<div class="card">
-							<div class="card-body">
-								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'modifyPlayer'"><i class="fa fa-cogs"></i> 선수 수정</button>
-								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'leagueUpdate'"><i class="fa fa-cogs"></i> 팀 변경　</button>
-								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 심판 수정 </button>
-								<button class = "btn btn-outline-warning btn-block" onclick = "location.href = 'getPlayerList'"><i class="fa fa-cogs"></i> 감독 수정 </button>
-							</div>
-						</div>
-						<!-- /# card -->
-					</div>
-
-					<div class="col-lg-3">
-						<div class="card">
-							<div class="card-body">
-								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'adminMemberList'"><i class="fa fa-user"></i> 회원 관리　</button>
-								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'adminNotice'"><i class="fa fa-user"></i> 공지사함 관리 </button>
-								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'adminBoardAllCategory'"><i class="fa fa-user"></i> 게시판 관리　</button>
-								<button class = "btn btn-outline-secondary btn-block" onclick = "location.href = 'scheduler'"><i class="fa fa-user"></i> 스케줄 관리　</button>
-							</div>
-						</div>
-						<!-- /# card -->
-					</div>
-				</div>
-
-
-
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="card">
-							<div class="card-body">
-								<h4 class="mb-3">게시판별 접속자 수</h4>
-								<div class="flot-container">
-									<div id="flot-pie" class="flot-pie-container"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /# card -->
-					</div>
-					<!-- /# column -->
-					<div class="col-lg-6">
-						<div class="card">
-							<div class="card-body">
-								<h4 class="mb-3">페이지 방문자 수</h4>
-								<div class="flot-container">
-									<div id="chart1" style="width: 100%; height: 275px;"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /# card -->
-					</div>
-				</div>
-				<!-- /# row -->
+			<div class="social-icons">
+				<ul class="list-inline">
+					<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+					<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+					<li><a href="#"><i class="fa fa-behance"></i></a></li>
+					<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+					<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+				</ul>
 			</div>
-			<!-- .animated -->
-			<div class="card">
-				<div class="card">
-					<div class="card-header">
-						<strong class="card-title"><font
-							style="vertical-align: inherit;"><font
-								style="vertical-align: inherit;">관리자</font></font></strong>
+			<!-- /.social-icons -->
+		</div>
+
+		<div class="mouse-icon">
+			<div class="wheel"></div>
+		</div>
+	</section>
+	<!-- End Home Section -->
+
+	<!-- Navigation -->
+	<header class="header">
+		<nav class="navbar navbar-custom" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#custom-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><img
+						src="assets/images/logo.png" alt=""></a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="custom-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#home">Home</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#resume">Resume</a></li>
+						<li><a href="#skills">Skills</a></li>
+						<li><a href="#works">Works</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- .container -->
+		</nav>
+	</header>
+	<!-- End Navigation -->
+
+
+	<!-- About Section -->
+	<section id="about" class="about-section section-padding">
+		<div class="container">
+			<h2 class="section-title wow fadeInUp">About Me</h2>
+
+			<div class="row">
+
+				<div class="col-md-4 col-md-push-8">
+					<div class="biography">
+						<div class="myphoto">
+							<img src="##" alt="">
+						</div>
+						<ul>
+							<li><strong>Name:</strong> 유지훈</li>
+							<li><strong>Date of Birth:</strong> 05 20 1996</li>
+							<li><strong>Adress:</strong> 경기도 수원시</li>
+							<li><strong>Phone:</strong> 010-7110-0105</li>
+							<li><strong>Email:</strong> ppwxx2014@naver.com</li>
+							<li><strong>github:</strong> <a href = "https://github.com/ppwxx2014">click!</a></li>
+						</ul>
 					</div>
-					<div class=" order-table ov-h">
-						<table class="table ">
-							<thead>
-								<tr>
-									<th class="serial"><font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">#</font></font></th>
-									<th class="avatar"><font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">ID</font></font></th>
-									<th><font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">이름</font></font></th>
-									<th><font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">E-Mail</font></font></th>
-									<th><font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">상태</font></font></th>
-								</tr>
-							</thead>
-							<tbody id="adminList">
-								
-							</tbody>
-						</table>
+				</div>
+				<!-- col-md-4 -->
+
+				<div class="col-md-8 col-md-pull-4">
+					<div class="short-info wow fadeInUp">
+						<h3>Objective</h3>
+						<p>An opportunity to work and upgrade oneself, as well as
+							being involved in an organization that believes in gaining a
+							competitive edge and giving back to the community. I'm presently
+							expanding my solid experience in UI / UX design. I focus on using
+							my interpersonal skills to build good user experience and create
+							a strong interest in my employers. I hope to develop skills in
+							motion design and my knowledge of the Web, and become an honest
+							asset to the business. As an individual, I'm self-confident
+							you’ll find me creative, funny and naturally passionate. I’m a
+							forward thinker, which others may find inspiring when working as
+							a team.</p>
 					</div>
-					<!-- /.table-stats -->
-					<!-- <section class="card">
-						<div class="card-header user-header alt bg-dark">
-							<div class="media">
-								<a href="#"> <img
-									class="align-self-center rounded-circle mr-3"
-									style="width: 85px; height: 85px;" alt=""
-									src="images/admin.jpg">
-								</a>
-								<div class="media-body">
-									<h2 class="text-light display-6">
-										<font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">짐도</font></font>
-									</h2>
-									<p>
-										<font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">프로젝트 매니저</font></font>
-									</p>
+
+					<div class="short-info wow fadeInUp">
+						<h3>What I Do ?</h3>
+						<p>I have been working as a web interface designer since. I
+							have a love of clean, elegant styling, and I have lots of
+							experience in the production of CSS3 and HTML5 for modern
+							websites. I loving creating awesome as per my clients’ need. I
+							think user experience when I try to craft something for my
+							clients. Making a design awesome.</p>
+
+						<ul class="list-check">
+							<li>User Experience Design</li>
+							<li>Interface Design</li>
+							<li>Product Design</li>
+							<li>Branding Design</li>
+							<li>Digital Painting</li>
+							<li>Video Editing</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- End About Section -->
+
+
+
+	<!-- Resume Section -->
+	<section id="resume" class="resume-section section-padding">
+		<div class="container">
+			<h2 class="section-title wow fadeInUp">Resume</h2>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="resume-title">
+						<h3>Education</h3>
+					</div>
+					<div class="resume">
+						<ul class="timeline">
+							<li>
+								<div class="posted-date">
+									<span class="month">2007-2011</span>
 								</div>
+								<!-- /posted-date -->
+
+								<div class="timeline-panel wow fadeInUp">
+									<div class="timeline-content">
+										<div class="timeline-heading">
+											<h3>Bachelor degree certificate</h3>
+											<span>BA(Hons) in UI Engineering, Arts University,
+												Pabna, USA</span>
+										</div>
+										<!-- /timeline-heading -->
+
+										<div class="timeline-body">
+											<p>I have completed UI Engineering degree from ABC
+												University, Boston, USA at feel the charm of existence in
+												this spot, which was creat.</p>
+										</div>
+										<!-- /timeline-body -->
+									</div>
+									<!-- /timeline-content -->
+								</div>
+								<!-- /timeline-panel -->
+							</li>
+
+							<li class="timeline-inverted">
+								<div class="posted-date">
+									<span class="month">2004-2006</span>
+								</div>
+								<!-- /posted-date -->
+
+								<div class="timeline-panel wow fadeInUp">
+									<div class="timeline-content">
+										<div class="timeline-heading">
+											<h3>Higher Secondary certificate</h3>
+											<span>Typography Arts, FA College, New York, USA</span>
+										</div>
+										<!-- /timeline-heading -->
+
+										<div class="timeline-body">
+											<p>From this college of existence in this spot, which was
+												created for the bliss of souls like mine. I am so happy, my
+												dear friend.</p>
+										</div>
+										<!-- /timeline-body -->
+									</div>
+									<!-- /timeline-content -->
+								</div> <!-- /timeline-panel -->
+							</li>
+
+							<li>
+								<div class="posted-date">
+									<span class="month">2000-2003</span>
+								</div>
+								<!-- /posted-date -->
+
+								<div class="timeline-panel wow fadeInUp">
+									<div class="timeline-content">
+										<div class="timeline-heading">
+											<h3>Secondary school certificate</h3>
+											<span>Creative Arts, Julius Jr. school, USA</span>
+										</div>
+										<!-- /timeline-heading -->
+
+										<div class="timeline-body">
+											<p>I was awesome at arts, and feel the charm of existence
+												in this spot, which was created for the bliss of souls like
+												mine. I am so happy.</p>
+										</div>
+										<!-- /timeline-body -->
+									</div>
+									<!-- /timeline-content -->
+								</div>
+								<!-- /timeline-panel -->
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="resume-title">
+						<h3>Experience</h3>
+					</div>
+					<div class="resume">
+						<ul class="timeline">
+							<li class="timeline-inverted">
+								<div class="posted-date">
+									<span class="month">2011-2013</span>
+								</div>
+								<!-- /posted-date -->
+
+								<div class="timeline-panel wow fadeInUp">
+									<div class="timeline-content">
+										<div class="timeline-heading">
+											<h3>Junior ui designer</h3>
+											<span>XYZ Design Home, One Street, Boston</span>
+										</div>
+										<!-- /timeline-heading -->
+
+										<div class="timeline-body">
+											<p>I am alone, and feel the charm of existence in this
+												spot, which was created for the bliss of souls like mine. I
+												am so happy, my dear friend.</p>
+										</div>
+										<!-- /timeline-body -->
+									</div>
+									<!-- /timeline-content -->
+								</div> <!-- /timeline-panel -->
+							</li>
+
+							<li>
+								<div class="posted-date">
+									<span class="month">2013-2015</span>
+								</div>
+								<!-- /posted-date -->
+
+								<div class="timeline-panel wow fadeInUp">
+									<div class="timeline-content">
+										<div class="timeline-heading">
+											<h3>Lead UX Consultant</h3>
+											<span>Lucky8 Designing Firm, California</span>
+										</div>
+										<!-- /timeline-heading -->
+
+										<div class="timeline-body">
+											<p>Completely provide access to seamless manufactured
+												products before functionalized synergy. Progressively
+												redefine competitive.</p>
+										</div>
+										<!-- /timeline-body -->
+									</div>
+									<!-- /timeline-content -->
+								</div>
+								<!-- /timeline-panel -->
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- End Resume Section -->
+
+
+	<!-- Skills Section -->
+	<section id="skills" class="skills-section section-padding">
+		<div class="container">
+			<h2 class="section-title wow fadeInUp">Skills</h2>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="skill-progress">
+						<div class="skill-title">
+							<h3>UX Design</h3>
+						</div>
+						<div class="progress">
+							<div class="progress-bar six-sec-ease-in-out" role="progressbar"
+								aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+								<span>95%</span>
 							</div>
 						</div>
+						<!-- /.progress -->
+					</div>
+					<!-- /.skill-progress -->
+
+					<div class="skill-progress">
+						<div class="skill-title">
+							<h3>Visual Design</h3>
+						</div>
+						<div class="progress">
+							<div class="progress-bar six-sec-ease-in-out" role="progressbar"
+								aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+								<span>80%</span>
+							</div>
+						</div>
+						<!-- /.progress -->
+					</div>
+					<!-- /.skill-progress -->
+					<div class="skill-progress">
+						<div class="skill-title">
+							<h3>Business Design</h3>
+						</div>
+						<div class="progress">
+							<div class="progress-bar six-sec-ease-in-out" role="progressbar"
+								aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+								<span>75%</span>
+							</div>
+						</div>
+						<!-- /.progress -->
+					</div>
+					<!-- /.skill-progress -->
+				</div>
+				<!-- /.col-md-6 -->
+
+				<div class="col-md-6">
+					<div class="skill-progress">
+						<div class="skill-title">
+							<h3>Branding Design</h3>
+						</div>
+						<div class="progress">
+							<div class="progress-bar six-sec-ease-in-out" role="progressbar"
+								aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+								<span>95%</span>
+							</div>
+						</div>
+						<!-- /.progress -->
+					</div>
+					<!-- /.skill-progress -->
+					<div class="skill-progress">
+						<div class="skill-title">
+							<h3>Motion Graphic</h3>
+						</div>
+						<div class="progress">
+							<div class="progress-bar six-sec-ease-in-out" role="progressbar"
+								aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+								<span>80%</span>
+							</div>
+						</div>
+						<!-- /.progress -->
+					</div>
+					<!-- /.skill-progress -->
+					<div class="skill-progress">
+						<div class="skill-title">
+							<h3>Flyers Designing</h3>
+						</div>
+						<div class="progress">
+							<div class="progress-bar six-sec-ease-in-out" role="progressbar"
+								aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+								<span>75%</span>
+							</div>
+						</div>
+						<!-- /.progress -->
+					</div>
+					<!-- /.skill-progress -->
+				</div>
+				<!-- /.col-md-6 -->
+			</div>
+			<!-- /.row -->
+
+			<div class="skill-chart text-center">
+				<h3>More skills</h3>
+			</div>
+
+			<div class="row more-skill text-center">
+				<div class="col-xs-12 col-sm-4 col-md-2">
+					<div class="chart" data-percent="91" data-color="e74c3c">
+						<span class="percent"></span>
+						<div class="chart-text">
+							<span>leadership</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+					<div class="chart" data-percent="23" data-color="2ecc71">
+						<span class="percent"></span>
+						<div class="chart-text">
+							<span>Creativity</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+					<div class="chart" data-percent="68" data-color="3498db">
+						<span class="percent"></span>
+						<div class="chart-text">
+							<span>Management</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+					<div class="chart" data-percent="68" data-color="3498db">
+						<span class="percent"></span>
+						<div class="chart-text">
+							<span>Branding</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+					<div class="chart" data-percent="68" data-color="3498db">
+						<span class="percent"></span>
+						<div class="chart-text">
+							<span>Marketing</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+					<div class="chart" data-percent="68" data-color="3498db">
+						<span class="percent"></span>
+						<div class="chart-text">
+							<span>Motivation</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- End Skills Section -->
 
 
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item"><a href="#"> <i
-									class="fa fa-envelope-o"></i><font
-									style="vertical-align: inherit;"><font
-										style="vertical-align: inherit;">메일받은 편지함 </font></font><span
-									class="badge badge-primary pull-right"><font
-										style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">10</font></font></span></a></li>
-							<li class="list-group-item"><a href="#"> <i
-									class="fa fa-tasks"></i><font style="vertical-align: inherit;"><font
-										style="vertical-align: inherit;">최근 활동 </font></font><span
-									class="badge badge-danger pull-right"><font
-										style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">15</font></font></span></a></li>
-							<li class="list-group-item"><a href="#"> <i
-									class="fa fa-bell-o"></i><font style="vertical-align: inherit;"><font
-										style="vertical-align: inherit;">알림 </font></font><span
-									class="badge badge-success pull-right"><font
-										style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">11</font></font></span></a></li>
-							<li class="list-group-item"><a href="#"> <i
-									class="fa fa-comments-o"></i><font
-									style="vertical-align: inherit;"><font
-										style="vertical-align: inherit;">메시지 </font></font><span
-									class="badge badge-warning pull-right r-activity"><font
-										style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">03</font></font></span></a></li>
-						</ul>
+	<!-- Works Section -->
+	<section id="works" class="works-section section-padding">
+		<div class="container">
+			<h2 class="section-title wow fadeInUp">Works</h2>
 
-					</section>
-					/admin Profile -->
+			<ul class="list-inline" id="filter">
+				<li><a class="active" data-group="all">All</a></li>
+				<li><a data-group="design">Design</a></li>
+				<li><a data-group="web">Web</a></li>
+				<li><a data-group="interface">Interface</a></li>
+				<li><a data-group="identety">Identity</a></li>
+			</ul>
+
+			<div class="row">
+				<div id="grid">
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "identety", "interface"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-1.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-1.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+
+
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "identety", "web"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-2.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-2.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "interface"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-3.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-3.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "identety", "design"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-4.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-4.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "identety", "design"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-5.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-5.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "identety", "design"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-6.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-6.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "identety", "web"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-7.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-7.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+					<div class="portfolio-item col-xs-12 col-sm-4 col-md-3"
+						data-groups='["all", "design"]'>
+						<div class="portfolio-bg">
+							<div class="portfolio">
+								<div class="tt-overlay"></div>
+								<div class="links">
+									<a class="image-link"
+										href="assets/images/works/portfolio-8.jpg"><i
+										class="fa fa-search-plus"></i></a> <a href="#"><i
+										class="fa fa-link"></i></a>
+								</div>
+								<!-- /.links -->
+								<img src="assets/images/works/portfolio-8.jpg" alt="image">
+								<div class="portfolio-info">
+									<h3>Portfolio Title</h3>
+								</div>
+								<!-- /.portfolio-info -->
+							</div>
+							<!-- /.portfolio -->
+						</div>
+						<!-- /.portfolio-bg -->
+					</div>
+					<!-- /.portfolio-item -->
+				</div>
+				<!-- /#grid -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- End Works Section -->
+
+
+	<!-- Facts Section -->
+	<section id="facts" class="facts-section text-center"
+		data-stellar-vertical-offset="50" data-stellar-background-ratio="0.2">
+		<div class="tt-overlay-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="count-wrap">
+							<div class="col-sm-3 col-xs-6">
+								<i class="fa fa-flask"></i>
+								<h3 class="timer">7</h3>
+								<p>Years of Experience</p>
+							</div>
+							<div class="col-sm-3 col-xs-6">
+								<i class="fa fa-thumbs-up"></i>
+								<h3 class="timer">651</h3>
+								<p>Projects Done</p>
+							</div>
+							<div class="col-sm-3 col-xs-6">
+								<i class="fa fa-users"></i>
+								<h3 class="timer">251</h3>
+								<p>Happy Clients</p>
+							</div>
+							<div class="col-sm-3 col-xs-6">
+								<i class="fa fa-trophy"></i>
+								<h3 class="timer">5</h3>
+								<p>Awards Won</p>
+							</div>
+						</div>
+						<!-- /count-wrap -->
+					</div>
+					<!-- /.col-md-12 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</div>
+	</section>
+	<!-- End Facts Section -->
+
+
+
+
+	<!-- Hire Section -->
+	<section class="hire-section text-center"
+		data-stellar-vertical-offset="50" data-stellar-background-ratio="0.2">
+		<div class="hire-section-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>I'm available for freelance project</h2>
+						<a href="#" class="btn btn-default">Get Hired</a>
+					</div>
+					<!-- /.col-md-12 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /.hire-section-bg -->
+	</section>
+	<!-- End Hire Section -->
+
+
+
+	<!-- Contact Section -->
+	<section id="contact" class="contact-section section-padding">
+		<div class="container">
+			<h2 class="section-title wow fadeInUp">Get in touch</h2>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="contact-form">
+						<strong>Send me a message</strong>
+						<form name="contact-form" id="contactForm" action="sendemail.php"
+							method="POST">
+
+							<div class="form-group">
+								<label for="name">Name</label> <input type="text" name="name"
+									class="form-control" id="name" required="">
+							</div>
+
+							<div class="form-group">
+								<label for="email">Email</label> <input type="email"
+									name="email" class="form-control" id="email" required="">
+							</div>
+
+							<div class="form-group">
+								<label for="subject">Subject</label> <input type="text"
+									name="subject" class="form-control" id="subject">
+							</div>
+
+							<div class="form-group">
+								<label for="message">Message</label>
+								<textarea name="message" class="form-control" id="message"
+									rows="5" required=""></textarea>
+							</div>
+
+							<button type="submit" name="submit" class="btn btn-primary">Send
+								Message</button>
+						</form>
+					</div>
+					<!-- /.contact-form -->
+				</div>
+				<!-- /.col-md-6 -->
+
+				<div class="col-md-6">
+					<div class="row center-xs">
+						<div class="col-sm-6">
+							<i class="fa fa-map-marker"></i>
+							<address>
+								<strong>Address/Street</strong> 239/2 Awesome Street,<br>
+								Boston, USA<br>
+							</address>
+						</div>
+
+						<div class="col-sm-6">
+							<i class="fa fa-mobile"></i>
+							<div class="contact-number">
+								<strong>Phone Number</strong> (001) 0123 111222<br> (001)
+								0123 333444
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="location-map">
+								<iframe
+									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.6190356031907!2d90.43443631441595!3d23.76096098458425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8098da100f3%3A0x353f8ffa29807e1a!2sTrendy%20Theme!5e0!3m2!1sen!2sbd!4v1566910443330!5m2!1sen!2sbd"
+									width="100%" height="350" frameborder="0" style="border: 0;"
+									allowfullscreen=""></iframe>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- End Contact Section -->
+
+
+	<!-- Footer Section -->
+	<footer class="footer-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copyright text-center">
+						<p>&copy; TrendyTheme 2019. All rights reserved.</p>
+					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /.content -->		
-        
-        
-        <div class="clearfix"></div>
-        
-        <!-- Footer -->
-    	<div th:include ="template/part/footer::footer"></div>
-        <!-- /Footer -->
-        
-    </div>
-    <!-- /#right-panel -->
+	</footer>
+	<!-- End Footer Section -->
 
-    <script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/excanvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/jquery.flot.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.pie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.time.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.stack.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.resize.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.crosshair.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot.curvedlines@1.1.1/curvedLines.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot.tooltip@0.9.0/js/jquery.flot.tooltip.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-    <!--Local Stuff-->
-    <script>
-    document.cookie = "loginState=admin;expires=Fri, 31 Desc 9999 23:59:59 GMT; path=/;SameSite=none";
-		(function($) {
-			var pieFlot = function() {
 
-				var data = [ {
-					label : " 자유 게시판",
-					data : 2,
-					color : "#8fc9fb"
-				}, {
-					label : " 팀 게시판",
-					data : 4,
-					color : "#007BFF"
-				}, {
-					label : " 토론 게시판",
-					data : 7,
-					color : "#00c292"
-				}, {
-					label : " 무인도는처음이지?",
-					data : 15,
-					color : "#F54336"
-				}, {
-					label : " 자유 게시판",
-					data : 15,
-					color : "#164336"
-				}, {
-					label : " 공지사항",
-					data : 15,
-					color : "#214336"
-				}, {
-					label : " EPL 1",
-					data : 15,
-					color : "#324336"
-				} ];
+	<!-- Scroll-up -->
+	<div class="scroll-up">
+		<a href="#home"><i class="fa fa-angle-up"></i></a>
+	</div>
 
-				var plotObj = $.plot($("#flot-pie"), data, {
-					series : {
-						pie : {
-							show : true,
-							radius : 1,
-							label : {
-								show : false,
-
-							}
-						}
-					},
-					grid : {
-						hoverable : true
-					},
-					tooltip : {
-						show : true,
-						content : "%p.0%, %s, user=%n", // show percentages, rounding to 2 decimal places
-						shifts : {
-							x : 20,
-							y : 0
-						},
-						defaultTheme : false
-					}
-				});
-			}
-			var lineFlot = function() {
-
-				// first chart
-				var chart1Options = {
-					series : {
-						lines : {
-							show : true
-						},
-						points : {
-							show : true
-						}
-					},
-					xaxis : {
-						mode : "time",
-						timeformat : "%m/%d",
-						minTickSize : [ 1, "day" ]
-					},
-					grid : {
-						hoverable : true
-					},
-					legend : {
-						show : false
-					},
-					grid : {
-						color : "#fff",
-						hoverable : true,
-						borderWidth : 0,
-						backgroundColor : 'transparent'
-					},
-					tooltip : {
-						show : true,
-						content : "접속자: %y"
-					}
-				};
-				var chart1Data = {
-					label : "chart1",
-					color : "#007BFF",
-					data : [ [ 1354521600000, 6322 ],
-							[ 1354840000000, 6340 ],
-							[ 1355223600000, 6368 ],
-							[ 1355306400000, 6374 ],
-							[ 1355487300000, 6388 ],
-							[ 1355571900000, 6400 ] ]
-				};
-
-				$.plot($("#chart1"), [ chart1Data ], chart1Options);
-			}
-			$(document).ready(function($) {
-
-				pieFlot();
-				lineFlot();
-				$.ajax({
-					url:"/getAdminList",
-					method:"post",
-					success: function(json){
-						console.log(json);
-						let count = 1;
-						$(json).each(function(index, item){
-							temp="<tr><td><font style='vertical-align: inherit;'><font style='vertical-align: inherit;'> # "+count+" </font></font></td>";
-							temp+="<td>"+item.adminId+"</td> <td>"+item.adminName+"</td> <td>"+item.adminEmail+"</td> <td><span class='badge badge-complete'>접속중</span></td></tr>";//<span class="badge badge-pending">
-							console.log(temp);
-							count++;
-							$("#adminList").append(temp);
-						})
-					}
-				})
-			});
-		})(jQuery);
-	</script>
+	<!-- Javascript files -->
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.stellar.min.js"></script>
+	<script src="assets/js/jquery.sticky.js"></script>
+	<script src="assets/js/smoothscroll.js"></script>
+	<script src="assets/js/wow.min.js"></script>
+	<script src="assets/js/jquery.countTo.js"></script>
+	<script src="assets/js/jquery.inview.min.js"></script>
+	<script src="assets/js/jquery.easypiechart.js"></script>
+	<script src="assets/js/jquery.shuffle.min.js"></script>
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+	<script src="assets/js/jquery.fitvids.js"></script>
+	<script src="assets/js/scripts.js?v=2"></script>
 </body>
 </html>

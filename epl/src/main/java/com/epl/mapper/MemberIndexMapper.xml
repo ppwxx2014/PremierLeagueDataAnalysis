@@ -31,13 +31,13 @@
 		   		FROM match_result 
 		   		WHERE hometeam_name=team.team_name 
 		   		OR awayteam_name=team.team_name) matchCount,
-			(NVL((SELECT SUM(hometeam_goals) 
+			(IFNULL((SELECT SUM(hometeam_goals) 
 				FROM match_result 
 				WHERE hometeam_name=team.team_name), 0)+
-				NVL((SELECT SUM(awayteam_goals) 
+				IFNULL((SELECT SUM(awayteam_goals) 
 					FROM match_result 
 					WHERE awayteam_name=team.team_name), 0)) goalCount,
-			NVL((SELECT SUM(case when winnerteam_name=team.team_name then 3 
+			IFNULL((SELECT SUM(case when winnerteam_name=team.team_name then 3 
 		        	when winnerteam_name='draw' then 1 
 		        	ELSE 0 END) 
 		        FROM match_result 

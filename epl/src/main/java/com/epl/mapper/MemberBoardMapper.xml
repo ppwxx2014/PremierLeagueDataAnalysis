@@ -226,7 +226,7 @@
             resultType = "String">
         SELECT
             category_name as categoryName
-        FROM category   
+        FROM epl_category   
     </select>
 </mapper>
 

@@ -18,7 +18,7 @@
 	<select id="selectCountry" resultType="com.epl.vo.Country">
 		SELECT
 		country_name as countryName
-		FROM country
+		FROM epl_country
 	</select>
 	<select id="selectCoachList" resultType="com.epl.vo.Coach">
 		SELECT

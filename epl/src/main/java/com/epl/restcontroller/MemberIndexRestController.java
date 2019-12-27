@@ -23,6 +23,7 @@ public class MemberIndexRestController {
 		System.out.println("LiveMatchList : " + list);
 		return list;
 	}
+	
 	@PostMapping("/member/getTeamRank")
 	public List<TeamRank> getTeamRank() {
 		List<TeamRank> list = memberIndexService.getMemberTeamRank();

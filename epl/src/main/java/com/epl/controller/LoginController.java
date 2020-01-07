@@ -36,7 +36,7 @@ public class LoginController {
 		}
 		session.setAttribute("loginState", admin);
 
-		return "redirect:/index";
+		return "redirect:/adminIndex";
 	}
 
 	@GetMapping("/logout")

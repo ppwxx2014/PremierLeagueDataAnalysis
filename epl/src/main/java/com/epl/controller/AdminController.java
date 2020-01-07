@@ -88,7 +88,7 @@ public class AdminController {
 			session.invalidate();// 로그아웃
 			return "redirect:/login";
 		}
-		return "redirect:/index";
+		return "redirect:/adminIndex";
 	}
 
 	@PostMapping("/modifyAdminPw")
@@ -107,11 +107,5 @@ public class AdminController {
 	@GetMapping("/modifyAdminPw")
 	public String addMember() {
 		return "modifyAdminPw";
-	}
-	
-	@GetMapping("/main/index")
-	public String main() {
-		return "main";
-		
 	}
 }
